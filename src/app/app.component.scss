@@ -32,9 +32,19 @@
   flex-direction: row;
 }
 .c3-1{
+  position: relative;
   width: 400px;
+  resize: both;
   height: 100%;
  background-color: var(--gray1);
+}
+.c3-1-1{
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 5px;
+  height: 100%;
+  cursor: col-resize;
 }
 .c3-2{
   width: 100%;

@@ -1,5 +1,5 @@
 <div class="container">
-  <div class="item" (click)="currentTapIndex = i" [ngClass]="currentTapIndex == i ? 'current' : 'noCurrent'" *ngFor="let tap of taps; let i = index">
+  <div class="item" (click)="onClick(i)" [ngClass]="currentTapIndex == i ? 'current' : 'noCurrent'" *ngFor="let tap of taps; let i = index">
     <div [ngClass]="tap.type" class="image">
 
     </div>
