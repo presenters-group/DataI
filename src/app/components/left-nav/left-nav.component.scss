@@ -1,0 +1,29 @@
+.container{
+  display: flex;
+  flex-direction: column;
+  background-color: var(--gray2);
+}
+.item{
+  padding: 10px;
+  width: 100%;
+  height: 64px;
+}
+.menu{
+  padding: 10px;
+  width: 100%;
+  height: 64px;
+}
+.item button{
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  border-radius: 50%;
+  transition: 0.5s border-radius;
+}
+img{
+  width: 100%;
+  height: 100%;
+}
+.item button:hover{
+  transition: 0.5s border-radius;
+}

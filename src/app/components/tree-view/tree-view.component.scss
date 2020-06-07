@@ -1,0 +1,34 @@
+.container {
+  display: flex;
+  flex-direction: column;
+}
+.tree {
+  padding: 10px;
+}
+.item {
+  max-height: auto;
+  margin: 5px;
+  margin-top: 8px;
+}
+.arrow {
+  margin-right: 3px;
+}
+.closed {
+  display: none;
+  overflow: hidden;
+}
+.opened {
+  transition: 0.5s all;
+  transform: rotate(90deg);
+}
+
+* {
+  transition: 0.5s all;
+}
+.content {
+  display: flex;
+  align-items: center;
+}
+.childrenContainerElement {
+  border-left: solid 0.5px var(--gray3);
+}

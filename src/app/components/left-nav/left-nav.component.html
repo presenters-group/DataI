@@ -1,0 +1,18 @@
+<div class="container">
+  <div class="menu">
+    <img src="/assets/icons/menu.svg" alt="" />
+  </div>
+  <div class="item" *ngFor="let icon of icons; let i = index">
+    <button
+      (mouseenter)="onIconEnter(i)"
+      (mouseleave)="onIconLeave(i)"
+      [ngStyle]="
+        icon.current || icon.hover
+          ? { 'background-color': icon.color, 'border-radius': '20%' }
+          : null
+      "
+    >
+      <img [src]="icon.src" />
+    </button>
+  </div>
+</div>

@@ -1,0 +1,55 @@
+.container{
+  background-color: var(--gray2);
+  display: flex;
+  justify-content: flex-start;
+}
+.item{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: auto 3px;
+}
+
+.item:hover .close-on-hover{
+  visibility: visible;
+}
+.image{
+  width: 30px;
+  height: 30px;
+  background-position: center;
+  background-size: contain;
+
+}
+.close{
+  width: 30px;
+  height: 30px;
+  background-position: center;
+  background-size: contain;
+  background-image: url('/assets/icons/close.svg');
+}
+.close-on-hover{
+  visibility: hidden;
+}
+
+.dashboard{
+  background-image: url('/assets/icons/dashboards-black.svg');
+}
+.filter{
+  background-image: url('/assets/icons/filters-black.svg');
+}
+.data-source{
+  background-image: url('/assets/icons/data-sources-black.svg');
+}
+.visualizer{
+  background-image: url('/assets/icons/visualizers-black.svg');
+}
+
+.current{
+  background-color: white;
+}
+.noCurrent{
+  background-color: var(--gray4);
+}
+.text{
+  margin: auto 10px;
+}

@@ -1,1 +1,43 @@
 /* You can add global styles to this file, and also import other style files */
+body {
+  width: 100vw;
+  height: 100vh;
+}
+html,
+body {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+* {
+  box-sizing: border-box;
+  font-size: 12px;
+}
+
+:root {
+  /**colors*/
+  --gray1: #f2f3f5;
+  --gray2: #e3e5e8;
+  --gray3: #cdcdcd;
+  --gray4: #BDBDBD;
+  --blue: #227BC0;
+  --purple: #5D4EA0;
+  --pink: #ED1978;
+  --sky-blue: #41C1C3;
+}
+
+.container{
+  width: 100%;
+  height: 100%;
+}
+
+button{
+  background-color: transparent;
+  border: none;
+}
+
+button:focus{
+  background-color: transparent;
+  border: none;
+  outline: 0;
+}
