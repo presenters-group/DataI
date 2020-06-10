@@ -1,0 +1,56 @@
+import { createFeatureSelector, createSelector, select } from "@ngrx/store";
+import { AppState } from "..";
+import { VisualizersState } from "./visualizers.reducers";
+import { selectFiltersEntities } from "../filters/filters.selectors";
+import { selectDataSourcesEntities } from "../data-sources/data-sources.selectors";
+
+export const selectVisualizersState = createFeatureSelector<
+  AppState,
+  VisualizersState
+>("visualizers");
+
+export const selectVisualizersEntities = createSelector(
+  selectVisualizersState,
+  (state) => state.entities
+);
+
+export const selectVisualizersTree = createSelector(
+  selectVisualizersEntities,
+  selectDataSourcesEntities,
+  selectFiltersEntities,
+  (entities, dataSourcesEntities, filtersEntities) => {
+    let tree: any = { name: "Visualizers", children: [] };
+    entities.forEach((entity, key) => {
+      let visualizers = {
+        name: entity.name,
+        content: { type: "visualizers", id: key },
+        children: [],
+      };
+      let columns = { name: "Columns", children: [] };
+      entity.usedColumns.forEach((value, key) => {
+        columns.children.push({
+          name: dataSourcesEntities[entity.data].columns[value].name,
+        });
+      });
+
+      let row = { name: "Row", children: [] };
+      row.children.push({
+        name: dataSourcesEntities[entity.data].columns[entity.usedRow].name,
+      });
+
+      let filters = { name: "Filters", children: [] };
+      entity.filters.forEach((value, key) => {
+        filters.children.push({
+          name: filtersEntities[value].name,
+        });
+      });
+
+      visualizers.children.push(columns);
+      visualizers.children.push(row);
+      visualizers.children.push(filters);
+
+      tree.children.push(visualizers);
+    });
+    return tree;
+  }
+);

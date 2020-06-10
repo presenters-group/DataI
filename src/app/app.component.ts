@@ -1,20 +1,33 @@
-import { Component, HostListener, OnInit } from "@angular/core";
+import { Component, HostListener, OnInit, AfterViewInit } from "@angular/core";
+import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/store';
+import { isTreeOpened } from 'src/store/core/selectors/core.selector';
 
 @Component({
   selector: "app-root",
   templateUrl: "./app.component.html",
   styleUrls: ["./app.component.scss"],
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, AfterViewInit {
+
   title = "DataI";
   width = 250;
   x = 100;
   oldX = 0;
   grabber = false;
-
-  ngOnInit(): void {
+  isTreeOpened : Observable<boolean>
+  eventHandlers : any[] = [];
+  constructor(private store : Store<AppState>){
+    this.isTreeOpened = this.store.select(isTreeOpened);
+  }
+  ngOnInit(): void {}
+  ngAfterViewInit(){
     let element = document.getElementById("grabber");
-    this.setGrabberEvents(element);
+    this.isTreeOpened.subscribe((value)=>{
+      if(value == true)
+        this.setGrabberEvents(element);
+      })
   }
   setGrabberEvents(element) {
     document.addEventListener("mousemove", (event) => {

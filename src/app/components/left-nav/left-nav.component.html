@@ -2,7 +2,7 @@
   <div class="menu">
     <img src="/assets/icons/menu.svg" alt="" />
   </div>
-  <div class="item" *ngFor="let icon of icons; let i = index">
+  <div class="item" *ngFor="let icon of icons; let i = index" (click)="onIconClick(i)">
     <button
       (mouseenter)="onIconEnter(i)"
       (mouseleave)="onIconLeave(i)"

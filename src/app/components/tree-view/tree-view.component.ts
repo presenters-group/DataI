@@ -6,9 +6,15 @@ import {
   ElementRef,
   Renderer2,
 } from "@angular/core";
-import { element } from "protractor";
-import { isLoweredSymbol } from "@angular/compiler";
-
+import { Store } from "@ngrx/store";
+import {
+  selectCurrentTree,
+  selectCurrentTap,
+} from "src/store/core/selectors/core.selector";
+import { AppState } from "src/store";
+import { selectFiltersEntities } from "src/store/filters/filters.selectors";
+import { first } from "rxjs/operators";
+import { TreeService } from "./tree.service";
 @Component({
   selector: "app-tree-view",
   templateUrl: "./tree-view.component.html",
@@ -78,11 +84,23 @@ export class TreeViewComponent implements OnInit, AfterViewInit {
       {},
     ],
   };
-  constructor(private renderer: Renderer2) {}
+  constructor(
+    private renderer: Renderer2,
+    private store: Store<AppState>,
+    private treeService: TreeService
+  ) {}
 
   ngOnInit(): void {}
 
   ngAfterViewInit(): void {
+    this.store.select(selectCurrentTree).subscribe((value : any) => {
+      this.treeService.fillOut(value).subscribe((tree)=>{
+        this.items = tree;
+      });
+      this.initialTree();
+    });
+  }
+  initialTree() {
     this.tree.nativeElement.innerHTML = "";
     this.createTree(this.tree.nativeElement, this.items, 0);
   }
@@ -145,7 +163,7 @@ export class TreeViewComponent implements OnInit, AfterViewInit {
     [...element.classList].includes("opened")
       ? renderer.removeClass(element, "opened")
       : renderer.addClass(element, "opened");
-      console.log(renderer.nextSibling(element).data);
+    console.log(renderer.nextSibling(element).data);
     let parent = renderer.parentNode(element);
     let uncle = renderer.nextSibling(parent);
     [...uncle.classList].includes("closed")
