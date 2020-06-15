@@ -20,10 +20,13 @@ export const selectVisualizersTree = createSelector(
   selectFiltersEntities,
   (entities, dataSourcesEntities, filtersEntities) => {
     let tree: any = { name: "Visualizers", children: [] };
-    entities.forEach((entity, key) => {
+      for(let key in entities)
+    // entities.forEach((entity, key) =>
+    {
+      let entity = entities[key]
       let visualizers = {
         name: entity.name,
-        content: { type: "visualizers", id: key },
+        content: { type: "visualizer", id: key, name: entity.name },
         children: [],
       };
       let columns = { name: "Columns", children: [] };
@@ -40,8 +43,10 @@ export const selectVisualizersTree = createSelector(
 
       let filters = { name: "Filters", children: [] };
       entity.filters.forEach((value, key) => {
+        let filter = filtersEntities[value];
         filters.children.push({
-          name: filtersEntities[value].name,
+          name: filter.name,
+          content: {id : value , type : 'filter' , name : filter.name}
         });
       });
 
@@ -50,7 +55,7 @@ export const selectVisualizersTree = createSelector(
       visualizers.children.push(filters);
 
       tree.children.push(visualizers);
-    });
+    };
     return tree;
   }
 );

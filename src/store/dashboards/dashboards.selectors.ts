@@ -21,24 +21,29 @@ export const selectDashboardsTree = createSelector(
   selectFiltersEntities,
   (entities, visualizersEntities, filtersEntities) => {
     let tree: any = { name: "Dashboards", children: [] };
-    entities.forEach((entity, key) => {
+    for(let key in entities)
+    // entities.forEach((entity, key) =>
+    {
+      let entity = entities[key]
       let dashboards = {
         name: entity.name,
-        content: { type: "dashboards", id: key },
+        content: { type: "dashboard", id: key ,name: entity.name},
         children: [],
       };
       let visualizers = [];
       entity.visualizers.forEach((value, key) => {
+        let visualizerEntity  = visualizersEntities[value.visualizationIndex]
         let visualizer = {
-          name: visualizersEntities[value.visualizationIndex].name,
-          content: { type: "visualizer", id: key },
+          name: visualizerEntity.name,
+          content: { type: "visualizer", id: value.visualizationIndex ,name: visualizerEntity.name},
           children: [],
         };
         let filters = [];
         value.displayedFilters.forEach((value, key) => {
+          let filterEntity = filtersEntities[value.filterIndex]
           filters.push({
-            name: filtersEntities[value.filterIndex].name,
-            content: { type: "filters", id: key },
+            name: filterEntity.name,
+            content: { type: "filters", id: key ,name: filterEntity.name},
           });
         });
         visualizer.children.push(...filters);
@@ -47,7 +52,7 @@ export const selectDashboardsTree = createSelector(
       dashboards.children.push(...visualizers);
       console.log(dashboards);
       tree.children.push(dashboards);
-    });
+    };
     return tree;
   }
 );

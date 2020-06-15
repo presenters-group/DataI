@@ -13,8 +13,8 @@
           </div>
       </div>
       <div class="c3-2 c4">
-        <div class="c4-1">
-          <app-taps></app-taps>
+        <div class="c4-1" *ngIf="(isThereAnOpenedTap | async)">
+          <app-taps ></app-taps>
         </div>
         <div class="c4-2">
           <router-outlet></router-outlet>

@@ -15,6 +15,7 @@ import { AppState } from "src/store";
 import { selectFiltersEntities } from "src/store/filters/filters.selectors";
 import { first } from "rxjs/operators";
 import { TreeService } from "./tree.service";
+import { addToTapes } from "src/store/core/actions/core.actions";
 @Component({
   selector: "app-tree-view",
   templateUrl: "./tree-view.component.html",
@@ -93,8 +94,8 @@ export class TreeViewComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {}
 
   ngAfterViewInit(): void {
-    this.store.select(selectCurrentTree).subscribe((value : any) => {
-      this.treeService.fillOut(value).subscribe((tree)=>{
+    this.store.select(selectCurrentTree).subscribe((value: any) => {
+      this.treeService.fillOut(value).subscribe((tree) => {
         this.items = tree;
       });
       this.initialTree();
@@ -109,6 +110,13 @@ export class TreeViewComponent implements OnInit, AfterViewInit {
     let itemElement = this.renderer.createElement("div");
     this.renderer.appendChild(element, itemElement);
     let content = this.renderer.createElement("div");
+    content.content = items.content;
+    if (content.content) {
+      content.addEventListener("dblclick", ($event) => {
+        this.onNameDoubleClick($event, this.renderer);
+      });
+      // content.addEventListener('click',this.onNameDoubleClick($event,this.renderer)) ;
+    }
     this.renderer.addClass(content, "content");
     this.renderer.appendChild(itemElement, content);
     if (items.children) {
@@ -158,13 +166,36 @@ export class TreeViewComponent implements OnInit, AfterViewInit {
     this.renderer.addClass(itemElement, "item");
   }
 
+  onNameDoubleClick($event, renderer) {
+    console.log("anything");
+    let element = $event.srcElement;
+    let parent = renderer.parentNode(element);
+    console.log(parent.content);
+    if (
+      parent.content &&
+      (parent.content.type == "filter" ||
+        parent.content.type == "visualizer" ||
+        parent.content.type == "dashboard" ||
+        parent.content.type == "data-source")
+    )
+      this.store.dispatch(
+        addToTapes({
+          tap: {
+            name: parent.content.name,
+            type: parent.content.type,
+            id: parent.content.id,
+          },
+        })
+      );
+  }
+
   onArrowClick($event, renderer) {
     let element = $event.srcElement;
     [...element.classList].includes("opened")
       ? renderer.removeClass(element, "opened")
       : renderer.addClass(element, "opened");
-    console.log(renderer.nextSibling(element).data);
     let parent = renderer.parentNode(element);
+    console.log(parent.content);
     let uncle = renderer.nextSibling(parent);
     [...uncle.classList].includes("closed")
       ? renderer.removeClass(uncle, "closed")

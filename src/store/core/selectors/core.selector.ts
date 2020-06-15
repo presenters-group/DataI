@@ -8,14 +8,40 @@ export const selectCoreState = createFeatureSelector<AppState, CoreState>(
 export const selectCurrentTap = createSelector(
   selectCoreState,
   (state) => state.currentTap
-)
+);
 
 export const selectCurrentTree = createSelector(
   selectCoreState,
   (state) => state.currentTree
-)
+);
 
 export const isTreeOpened = createSelector(
   selectCoreState,
   (state) => state.currentTree != null
-)
+);
+
+export const selectIsThereACurrentTap = createSelector(
+  selectCoreState,
+  (state) => state.currentTap != null
+);
+
+export const selectTaps = createSelector(
+  selectCoreState,
+  (state) => state.taps
+);
+
+export const selectCurrentTapObject = createSelector(
+  selectTaps,
+  selectCurrentTap,
+  (taps, id) => {
+    return id != null ? taps[id] : null;
+  }
+);
+
+export const selectCurrentTapLink = createSelector(
+  selectTaps,
+  selectCurrentTap,
+  (taps, id) => {
+    return id != null ? taps[id].type : "";
+  }
+);

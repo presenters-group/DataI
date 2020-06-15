@@ -1,13 +1,18 @@
 <div class="container">
-  <div class="item" (click)="onClick(i)" [ngClass]="currentTapIndex == i ? 'current' : 'noCurrent'" *ngFor="let tap of taps; let i = index">
-    <div [ngClass]="tap.type" class="image">
-
-    </div>
+  <div
+    class="item"
+    (click)="onClick(i)"
+    [ngClass]="(currentTapIndex | async) == i ? 'current' : 'noCurrent'"
+    *ngFor="let tap of taps | async; let i = index"
+  >
+    <div [ngClass]="tap.type" class="image"></div>
     <div class="text">
-      {{tap.name}}
+      {{ tap.name }}
     </div>
-    <div class="close" (click)="onClose(i)" [ngClass]="currentTapIndex == i ? 'close' : 'close-on-hover'">
-
-    </div>
+    <div
+      class="close"
+      (click)="onClose(i)"
+      [ngClass]="(currentTapIndex | async) == i ? 'close' : 'close-on-hover'"
+    ></div>
   </div>
 </div>

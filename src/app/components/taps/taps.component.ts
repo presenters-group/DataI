@@ -1,41 +1,38 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-
+import { Component, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
+import { AppState } from "src/store";
+import { closeTap } from "src/store/core/actions/core.actions";
+import { Store } from "@ngrx/store";
+import {
+  selectTaps,
+  selectCurrentTap,
+  selectCurrentTapLink,
+} from "src/store/core/selectors/core.selector";
+import { setCurrentTap } from "src/store/core/actions/core.actions";
 @Component({
-  selector: 'app-taps',
-  templateUrl: './taps.component.html',
-  styleUrls: ['./taps.component.scss']
+  selector: "app-taps",
+  templateUrl: "./taps.component.html",
+  styleUrls: ["./taps.component.scss"],
 })
 export class TapsComponent implements OnInit {
-  currentTapIndex = 0;
-  taps= [
-    {
-      name: "table 1",
-      type: "data-source"
-    },{
-      name: "filter 1",
-      type: "filter"
-    },{
-      name: "dashboard 1",
-      type: "dashboard"
-    }
-  ]
-  constructor(private router : Router) { }
+  currentTapIndex = this.store.select(selectCurrentTap);
+  taps = this.store.select(selectTaps);
+  constructor(private router: Router, private store: Store<AppState>) {}
 
   ngOnInit(): void {
+    this.store.select(selectCurrentTapLink).subscribe((value)=>{
+      this.router.navigate([value])
+    })
   }
-  onClick(i : number) : void{
-    this.router.navigate([this.taps[i].type])
-    this.currentTapIndex = i
+  onClick(i: number): void {
+    this.store.dispatch(setCurrentTap({ tapIndex: i }));
   }
-  onClose(i : number) : void{
-    this.taps = this.taps.filter((tap,index) => index != i)
-     this.currentTapIndex = i != 0 ? i - 1 : 0;
+  onClose(i: number): void {
+    this.store.dispatch(closeTap({ tapIndex: i }));
+    // this.taps = this.taps.filter((tap, index) => index != i);
+    // this.currentTapIndex = i != 0 ? i - 1 : 0;
   }
 }
-
-
-
 
 // const cos = Math.cos;
 // const sin = Math.sin;

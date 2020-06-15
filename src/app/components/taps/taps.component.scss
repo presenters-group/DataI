@@ -2,12 +2,15 @@
   background-color: var(--gray2);
   display: flex;
   justify-content: flex-start;
+  overflow-y: hidden;
+  overflow-x: auto;
 }
 .item{
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin: auto 3px;
+  min-width: fit-content;
 }
 
 .item:hover .close-on-hover{
@@ -52,4 +55,24 @@
 }
 .text{
   margin: auto 10px;
+}
+
+::-webkit-scrollbar {
+  width: 1px;
+  height: 3px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
