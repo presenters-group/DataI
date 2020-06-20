@@ -14,6 +14,15 @@ body {
   font-size: 12px;
 }
 
+@font-face {
+  font-family: "DroidSans";
+  src: url("assets/fonts/droid-sans/DroidSans.ttf"); /* IE9 Compat Modes */
+}
+
+* {
+  font-family: 'DroidSans', Fallback, sans-serif;
+}
+
 :root {
   /**colors*/
   --gray1: #f2f3f5;

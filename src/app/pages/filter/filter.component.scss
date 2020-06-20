@@ -1,0 +1,29 @@
+.container{
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+}
+.title{
+  font-size: x-large ;
+  margin: 5px;
+}
+.column{
+  margin-top: 30px;
+  display: flex;
+  flex-direction: row;
+  width: 30%;
+}
+.row{
+  width: 100%;
+}
+.property-type{
+  flex: 1;
+}
+.property-input{
+  flex:1;
+}
+.horizontal-line{
+  width: 50%;
+  height: 1px;
+  background-color: var(--gray3);
+}
