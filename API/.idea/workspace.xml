@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="64fee853-01dd-4b64-bc35-3e73b57c88d3" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../.editorconfig" beforeDir="false" afterPath="$PROJECT_DIR$/../.editorconfig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../angular.json" beforeDir="false" afterPath="$PROJECT_DIR$/../angular.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../browserslist" beforeDir="false" afterPath="$PROJECT_DIR$/../browserslist" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../e2e/protractor.conf.js" beforeDir="false" afterPath="$PROJECT_DIR$/../e2e/protractor.conf.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../e2e/src/app.e2e-spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../e2e/src/app.e2e-spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../e2e/src/app.po.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../e2e/src/app.po.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../e2e/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/../e2e/tsconfig.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../karma.conf.js" beforeDir="false" afterPath="$PROJECT_DIR$/../karma.conf.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/app-routing.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/app-routing.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/app.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/app.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/app.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/app.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/app.component.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/app.component.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/app.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/app.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/app.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/components/left-nav/left-nav.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/components/left-nav/left-nav.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/components/left-nav/left-nav.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/components/left-nav/left-nav.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/components/left-nav/left-nav.component.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/components/left-nav/left-nav.component.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/components/left-nav/left-nav.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/components/left-nav/left-nav.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/components/taps/taps.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/components/taps/taps.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/components/taps/taps.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/components/taps/taps.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/components/taps/taps.component.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/components/taps/taps.component.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/components/taps/taps.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/components/taps/taps.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/components/tree-view/tree-view.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/components/tree-view/tree-view.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/components/tree-view/tree-view.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/components/tree-view/tree-view.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/components/tree-view/tree-view.component.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/components/tree-view/tree-view.component.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/components/tree-view/tree-view.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/components/tree-view/tree-view.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/components/tree-view/tree.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/components/tree-view/tree.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/pages/dashboard/dashboard.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/pages/dashboard/dashboard.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/pages/dashboard/dashboard.component.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/pages/dashboard/dashboard.component.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/pages/dashboard/dashboard.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/pages/dashboard/dashboard.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/pages/data-source/data-source.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/pages/data-source/data-source.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/pages/data-source/data-source.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/pages/data-source/data-source.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/pages/data-source/data-source.component.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/pages/data-source/data-source.component.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/pages/data-source/data-source.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/pages/data-source/data-source.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/pages/filter/filter.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/pages/filter/filter.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/pages/filter/filter.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/pages/filter/filter.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/pages/filter/filter.component.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/pages/filter/filter.component.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/pages/filter/filter.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/pages/filter/filter.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/pages/home/home.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/pages/home/home.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/pages/home/home.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/pages/home/home.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/pages/home/home.component.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/pages/home/home.component.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/pages/home/home.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/pages/home/home.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/pages/visualizer/visualizer.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/pages/visualizer/visualizer.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/pages/visualizer/visualizer.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/pages/visualizer/visualizer.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/pages/visualizer/visualizer.component.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/pages/visualizer/visualizer.component.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/pages/visualizer/visualizer.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/pages/visualizer/visualizer.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/assets/fonts/droid-sans/Apache License.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../src/assets/fonts/droid-sans/Apache License.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/assets/icons/arrow.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../src/assets/icons/arrow.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/assets/icons/close.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../src/assets/icons/close.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/assets/icons/dashboards-black.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../src/assets/icons/dashboards-black.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/assets/icons/dashboards-white.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../src/assets/icons/dashboards-white.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/assets/icons/dashboards.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../src/assets/icons/dashboards.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/assets/icons/data-sources-black.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../src/assets/icons/data-sources-black.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/assets/icons/data-sources-white.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../src/assets/icons/data-sources-white.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/assets/icons/data-sources.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../src/assets/icons/data-sources.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/assets/icons/filters-black.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../src/assets/icons/filters-black.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/assets/icons/filters-white.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../src/assets/icons/filters-white.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/assets/icons/filters.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../src/assets/icons/filters.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/assets/icons/menu.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../src/assets/icons/menu.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/assets/icons/visualizers-black.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../src/assets/icons/visualizers-black.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/assets/icons/visualizers-white.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../src/assets/icons/visualizers-white.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/assets/icons/visualizers.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../src/assets/icons/visualizers.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/assets/images/logo.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../src/assets/images/logo.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/environments/environment.prod.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/environments/environment.prod.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/environments/environment.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/environments/environment.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/../src/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/main.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/polyfills.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/polyfills.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/store/core/actions/core.actions.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/store/core/actions/core.actions.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/store/core/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/store/core/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/store/core/models/mapinterface.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/store/core/models/mapinterface.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/store/core/reducers/core.reducers.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/store/core/reducers/core.reducers.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/store/core/reducers/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/store/core/reducers/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/store/core/selectors/core.selector.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/store/core/selectors/core.selector.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/store/dashboards/dashboards.actions.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/store/dashboards/dashboards.actions.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/store/dashboards/dashboards.effects.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/store/dashboards/dashboards.effects.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/store/dashboards/dashboards.models.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/store/dashboards/dashboards.models.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/store/dashboards/dashboards.reducers.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/store/dashboards/dashboards.reducers.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/store/dashboards/dashboards.selectors.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/store/dashboards/dashboards.selectors.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/store/dashboards/dashboards.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/store/dashboards/dashboards.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/store/dashboards/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/store/dashboards/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/store/data-sources/data-sources.actions.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/store/data-sources/data-sources.actions.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/store/data-sources/data-sources.effect.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/store/data-sources/data-sources.effect.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/store/data-sources/data-sources.models.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/store/data-sources/data-sources.models.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/store/data-sources/data-sources.reducers.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/store/data-sources/data-sources.reducers.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/store/data-sources/data-sources.selectors.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/store/data-sources/data-sources.selectors.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/store/data-sources/data-sources.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/store/data-sources/data-sources.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/store/data-sources/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/store/data-sources/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/store/filters/filters.actions.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/store/filters/filters.actions.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/store/filters/filters.effects.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/store/filters/filters.effects.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/store/filters/filters.models.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/store/filters/filters.models.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/store/filters/filters.reducers.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/store/filters/filters.reducers.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/store/filters/filters.selectors.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/store/filters/filters.selectors.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/store/filters/filters.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/store/filters/filters.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/store/filters/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/store/filters/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/store/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/store/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/store/visualizers/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/store/visualizers/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/store/visualizers/visualizers.actions.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/store/visualizers/visualizers.actions.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/store/visualizers/visualizers.models.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/store/visualizers/visualizers.models.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/store/visualizers/visualizers.reducers.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/store/visualizers/visualizers.reducers.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/store/visualizers/visualizers.selectors.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/store/visualizers/visualizers.selectors.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/store/visualizers/visualizers.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/store/visualizers/visualizers.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/store/visualizers/visulaizers.effects.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/store/visualizers/visulaizers.effects.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/styles.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../src/styles.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/test.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/test.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tsconfig.app.json" beforeDir="false" afterPath="$PROJECT_DIR$/../tsconfig.app.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/../tsconfig.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tsconfig.spec.json" beforeDir="false" afterPath="$PROJECT_DIR$/../tsconfig.spec.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tslint.json" beforeDir="false" afterPath="$PROJECT_DIR$/../tslint.json" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectId" id="1dfabTrTpx8RCHAVgf9P3TfWg6Z" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
+  </component>
+  <component name="RunManager" selected="Python.TestJSONGenerator">
+    <configuration name="TestJSONGenerator" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="DataIBackend" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/DataI" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/DataI/TestJSONGenerator.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="views" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="DataIBackend" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/DataI" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/DataI/views.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.TestJSONGenerator" />
+        <item itemvalue="Python.views" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="64fee853-01dd-4b64-bc35-3e73b57c88d3" name="Default Changelist" comment="" />
+      <created>1592818672809</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1592818672809</updated>
+      <workItem from="1592818675618" duration="103000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="361" y="71" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1592818693261">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="361" y="71" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.824@0.0.1536.824" timestamp="1592818693261" />
+    <state width="1897" height="279" key="GridCell.Tab.0.bottom" timestamp="1592838816964">
+      <screen x="0" y="30" width="1920" height="1050" />
+    </state>
+    <state width="1897" height="279" key="GridCell.Tab.0.bottom/0.30.1920.1050@0.30.1920.1050" timestamp="1592838816964" />
+    <state width="1897" height="279" key="GridCell.Tab.0.center" timestamp="1592838816963">
+      <screen x="0" y="30" width="1920" height="1050" />
+    </state>
+    <state width="1897" height="279" key="GridCell.Tab.0.center/0.30.1920.1050@0.30.1920.1050" timestamp="1592838816963" />
+    <state width="1897" height="279" key="GridCell.Tab.0.left" timestamp="1592838816962">
+      <screen x="0" y="30" width="1920" height="1050" />
+    </state>
+    <state width="1897" height="279" key="GridCell.Tab.0.left/0.30.1920.1050@0.30.1920.1050" timestamp="1592838816962" />
+    <state width="1897" height="279" key="GridCell.Tab.0.right" timestamp="1592838816963">
+      <screen x="0" y="30" width="1920" height="1050" />
+    </state>
+    <state width="1897" height="279" key="GridCell.Tab.0.right/0.30.1920.1050@0.30.1920.1050" timestamp="1592838816963" />
+    <state x="464" y="190" key="SettingsEditor" timestamp="1592833539566">
+      <screen x="0" y="30" width="1920" height="1050" />
+    </state>
+    <state x="464" y="190" key="SettingsEditor/0.30.1920.1050@0.30.1920.1050" timestamp="1592833539566" />
+    <state x="465" y="236" key="com.intellij.ide.util.TipDialog" timestamp="1592818677328">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="465" y="236" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1592818677328" />
+    <state x="623" y="261" width="672" height="678" key="search.everywhere.popup" timestamp="1592829530783">
+      <screen x="0" y="30" width="1920" height="1050" />
+    </state>
+    <state x="623" y="261" width="672" height="678" key="search.everywhere.popup/0.30.1920.1050@0.30.1920.1050" timestamp="1592829530783" />
+  </component>
+</project>

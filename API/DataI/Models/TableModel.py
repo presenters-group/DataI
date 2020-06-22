@@ -106,7 +106,6 @@ class TableModel(BasicInfo):
         properties = PropertiesModel.from_json(data['properties'])
         aggregator = AggregationModel.from_json(data['aggregator'])
         isDeleted = data['isDeleted']
-        print('here')
         return cls.CreateWithVisibilityParams(columns, name, id, properties, aggregator,
                                               columnsVisibility, rowsVisibility, isDeleted)
 

@@ -313,7 +313,11 @@
                 "sourceFileType": "DataI",
                 "zoomValue": 50
             },
-            "aggregator": null,
+            "aggregator": {
+                "aggregatedTable": [],
+                "aggregationColumn": 0,
+                "isActive": false
+            },
             "isDeleted": false
         }
     ],

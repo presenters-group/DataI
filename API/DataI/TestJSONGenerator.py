@@ -1,17 +1,13 @@
 import json
 
-from django.http import HttpResponse
 from DataI import enums
 from DataI.JSONSerializer import ObjectEncoder
 from DataI.Models.ColumnModel import CellModel, ColumnStyleModel, ColumnModel
 from DataI.Models.DashboardModel import Measurements, InDashboardFilterModel, InDashboardVisioModel, DashboardModel
 from DataI.Models.DataModel import DataModel
 from DataI.Models.FilterModel import FilterModel
-from DataI.Models.TableModel import AggregationModel, PropertiesModel, TableModel
+from DataI.Models.TableModel import PropertiesModel, TableModel, AggregationModel
 from DataI.Models.VisualizationModel import VisualizationModel
-
-
-
 
 cells1 = [CellModel('السعر', enums.CellType.string.value),
         CellModel(10, enums.CellType.numeric.value),
@@ -62,7 +58,9 @@ columns = [column1, column2, column3]
 
 properties = PropertiesModel(enums.FileType.DataI.value, 50)
 
-dataSource = TableModel(columns, 'Table1', 0, properties, None, False)
+aggregator = AggregationModel([], 0, False)
+
+dataSource = TableModel(columns, 'Table1', 0, properties, aggregator, False)
 
 #Adding a column:
 #=================================================================================================================
@@ -146,6 +144,26 @@ fileHandler.write(jsonString)
 #=================================================================================================================
 #=================================================================================================================
 
-deserializedData = DataModel.from_json(json.loads(jsonString))
 
-print(deserializedData)
+#=================================================================================================================
+#=================================================================================================================
+
+#deserializedData = DataModel.from_json(json.loads(jsonString))
+
+#print(deserializedData)
+
+#=================================================================================================================
+#=================================================================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
