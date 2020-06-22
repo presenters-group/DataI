@@ -24,7 +24,7 @@ cells1 = [CellModel('السعر', enums.CellType.string.value),
 
 style1 = ColumnStyleModel('#26C485', 1.0, 1.0, 'Calibri')
 
-column1 = ColumnModel(cells1, cells1[0].value, 10, style1, False)
+column1 = ColumnModel(cells1, str(cells1[0].value), 10, style1, False)
 
 col = list()
 col.append(column1)

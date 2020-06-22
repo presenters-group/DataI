@@ -1,10 +1,6 @@
 from typing import Dict, List
-
 from pandas import DataFrame
-
-from DataI.Models.ColumnModel import ColumnModel
 from DataI.Models.TableModel import TableModel
-
 
 
 class FileSaver():

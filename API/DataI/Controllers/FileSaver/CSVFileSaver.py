@@ -1,10 +1,9 @@
 import re
 
-import pandas
-
 from typing import List
 from DataI.Controllers.FileSaver.FileSaver import FileSaver
 from DataI.Models.TableModel import TableModel
+
 
 class CSVFileSaver(FileSaver):
     def saveFile(self, tables: List[TableModel]):

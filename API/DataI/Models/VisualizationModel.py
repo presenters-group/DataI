@@ -1,10 +1,10 @@
-from typing import List
+from typing import List, Dict
 from DataI.JSONSerializer import ObjectDeserializer
 from DataI.Models.BasicInfo import BasicInfo
 
 
 class VisualizationModel(ObjectDeserializer, BasicInfo):
-    def __init__(self, data: int, usedColumns: List[int], xColumn: int, name: str, id: int, chart: str, filters: List[int], isDeleted: bool):
+    def __init__(self, data: int, usedColumns: List[int], xColumn: int, name: str, id: int, chart: str, filters: List, isDeleted: bool):
         super(VisualizationModel, self).__init__(name, id)
         self.data = data
         self.usedColumns = usedColumns
