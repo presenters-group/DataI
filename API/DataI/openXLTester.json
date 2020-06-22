@@ -1,0 +1,590 @@
+[
+    {
+        "name": "First",
+        "id": 0,
+        "columns": [
+            {
+                "name": "السعر",
+                "id": 0,
+                "cells": [
+                    {
+                        "value": "السعر",
+                        "type": "string"
+                    },
+                    {
+                        "value": 0,
+                        "type": "string"
+                    },
+                    {
+                        "value": 15,
+                        "type": "string"
+                    },
+                    {
+                        "value": 0,
+                        "type": "string"
+                    },
+                    {
+                        "value": 33,
+                        "type": "string"
+                    },
+                    {
+                        "value": 2,
+                        "type": "string"
+                    },
+                    {
+                        "value": 111,
+                        "type": "string"
+                    },
+                    {
+                        "value": 22,
+                        "type": "string"
+                    }
+                ],
+                "style": {
+                    "color": "#eb57de",
+                    "lineWeight": 1.0,
+                    "pointWeight": 1.0,
+                    "font": "Calibri"
+                },
+                "columnType": "Measures",
+                "valueCategories": [
+                    {
+                        "value": "السعر",
+                        "type": "string"
+                    },
+                    {
+                        "value": 0,
+                        "type": "string"
+                    },
+                    {
+                        "value": 15,
+                        "type": "string"
+                    },
+                    {
+                        "value": 33,
+                        "type": "string"
+                    },
+                    {
+                        "value": 2,
+                        "type": "string"
+                    },
+                    {
+                        "value": 111,
+                        "type": "string"
+                    },
+                    {
+                        "value": 22,
+                        "type": "string"
+                    }
+                ],
+                "isDeleted": false
+            },
+            {
+                "name": "الحجم",
+                "id": 1,
+                "cells": [
+                    {
+                        "value": "الحجم",
+                        "type": "string"
+                    },
+                    {
+                        "value": 12,
+                        "type": "string"
+                    },
+                    {
+                        "value": 22,
+                        "type": "string"
+                    },
+                    {
+                        "value": 12,
+                        "type": "string"
+                    },
+                    {
+                        "value": 54,
+                        "type": "string"
+                    },
+                    {
+                        "value": 98,
+                        "type": "string"
+                    },
+                    {
+                        "value": 65,
+                        "type": "string"
+                    },
+                    {
+                        "value": 45,
+                        "type": "string"
+                    }
+                ],
+                "style": {
+                    "color": "#ebcee9",
+                    "lineWeight": 1.0,
+                    "pointWeight": 1.0,
+                    "font": "Calibri"
+                },
+                "columnType": "Measures",
+                "valueCategories": [
+                    {
+                        "value": "الحجم",
+                        "type": "string"
+                    },
+                    {
+                        "value": 12,
+                        "type": "string"
+                    },
+                    {
+                        "value": 22,
+                        "type": "string"
+                    },
+                    {
+                        "value": 54,
+                        "type": "string"
+                    },
+                    {
+                        "value": 98,
+                        "type": "string"
+                    },
+                    {
+                        "value": 65,
+                        "type": "string"
+                    },
+                    {
+                        "value": 45,
+                        "type": "string"
+                    }
+                ],
+                "isDeleted": false
+            },
+            {
+                "name": "الكمية",
+                "id": 2,
+                "cells": [
+                    {
+                        "value": "الكمية",
+                        "type": "string"
+                    },
+                    {
+                        "value": 44,
+                        "type": "string"
+                    },
+                    {
+                        "value": 51,
+                        "type": "string"
+                    },
+                    {
+                        "value": 54,
+                        "type": "string"
+                    },
+                    {
+                        "value": 32,
+                        "type": "string"
+                    },
+                    {
+                        "value": 98,
+                        "type": "string"
+                    },
+                    {
+                        "value": 65,
+                        "type": "string"
+                    },
+                    {
+                        "value": 0,
+                        "type": "string"
+                    }
+                ],
+                "style": {
+                    "color": "#450b4",
+                    "lineWeight": 1.0,
+                    "pointWeight": 1.0,
+                    "font": "Calibri"
+                },
+                "columnType": "Measures",
+                "valueCategories": [
+                    {
+                        "value": "الكمية",
+                        "type": "string"
+                    },
+                    {
+                        "value": 44,
+                        "type": "string"
+                    },
+                    {
+                        "value": 51,
+                        "type": "string"
+                    },
+                    {
+                        "value": 54,
+                        "type": "string"
+                    },
+                    {
+                        "value": 32,
+                        "type": "string"
+                    },
+                    {
+                        "value": 98,
+                        "type": "string"
+                    },
+                    {
+                        "value": 65,
+                        "type": "string"
+                    },
+                    {
+                        "value": 0,
+                        "type": "string"
+                    }
+                ],
+                "isDeleted": false
+            }
+        ],
+        "columnsVisibility": [
+            true,
+            true,
+            true
+        ],
+        "rowsVisibility": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+        ],
+        "properties": {
+            "sourceFileType": "Excel",
+            "zoomValue": 50
+        },
+        "aggregator": {
+            "aggregatedTable": [],
+            "aggregationColumn": 0,
+            "isActive": false
+        },
+        "isDeleted": false
+    },
+    {
+        "name": "Second",
+        "id": 1,
+        "columns": [
+            {
+                "name": "data col1",
+                "id": 0,
+                "cells": [
+                    {
+                        "value": "data col1",
+                        "type": "string"
+                    },
+                    {
+                        "value": 0,
+                        "type": "string"
+                    },
+                    {
+                        "value": 0,
+                        "type": "string"
+                    },
+                    {
+                        "value": 98,
+                        "type": "string"
+                    },
+                    {
+                        "value": "log",
+                        "type": "string"
+                    },
+                    {
+                        "value": 44,
+                        "type": "string"
+                    },
+                    {
+                        "value": 15,
+                        "type": "string"
+                    },
+                    {
+                        "value": 22,
+                        "type": "string"
+                    }
+                ],
+                "style": {
+                    "color": "#994b5c",
+                    "lineWeight": 1.0,
+                    "pointWeight": 1.0,
+                    "font": "Calibri"
+                },
+                "columnType": "Dimensions",
+                "valueCategories": [
+                    {
+                        "value": "data col1",
+                        "type": "string"
+                    },
+                    {
+                        "value": 0,
+                        "type": "string"
+                    },
+                    {
+                        "value": 98,
+                        "type": "string"
+                    },
+                    {
+                        "value": "log",
+                        "type": "string"
+                    },
+                    {
+                        "value": 44,
+                        "type": "string"
+                    },
+                    {
+                        "value": 15,
+                        "type": "string"
+                    },
+                    {
+                        "value": 22,
+                        "type": "string"
+                    }
+                ],
+                "isDeleted": false
+            },
+            {
+                "name": "data col 1",
+                "id": 1,
+                "cells": [
+                    {
+                        "value": "data col 1",
+                        "type": "string"
+                    },
+                    {
+                        "value": 98,
+                        "type": "string"
+                    },
+                    {
+                        "value": 66,
+                        "type": "string"
+                    },
+                    {
+                        "value": 35,
+                        "type": "string"
+                    },
+                    {
+                        "value": 78,
+                        "type": "string"
+                    },
+                    {
+                        "value": 55,
+                        "type": "string"
+                    },
+                    {
+                        "value": 96,
+                        "type": "string"
+                    },
+                    {
+                        "value": "ace",
+                        "type": "string"
+                    }
+                ],
+                "style": {
+                    "color": "#15cfec",
+                    "lineWeight": 1.0,
+                    "pointWeight": 1.0,
+                    "font": "Calibri"
+                },
+                "columnType": "Dimensions",
+                "valueCategories": [
+                    {
+                        "value": "data col 1",
+                        "type": "string"
+                    },
+                    {
+                        "value": 98,
+                        "type": "string"
+                    },
+                    {
+                        "value": 66,
+                        "type": "string"
+                    },
+                    {
+                        "value": 35,
+                        "type": "string"
+                    },
+                    {
+                        "value": 78,
+                        "type": "string"
+                    },
+                    {
+                        "value": 55,
+                        "type": "string"
+                    },
+                    {
+                        "value": 96,
+                        "type": "string"
+                    },
+                    {
+                        "value": "ace",
+                        "type": "string"
+                    }
+                ],
+                "isDeleted": false
+            }
+        ],
+        "columnsVisibility": [
+            true,
+            true
+        ],
+        "rowsVisibility": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+        ],
+        "properties": {
+            "sourceFileType": "Excel",
+            "zoomValue": 50
+        },
+        "aggregator": {
+            "aggregatedTable": [],
+            "aggregationColumn": 0,
+            "isActive": false
+        },
+        "isDeleted": false
+    },
+    {
+        "name": "Third",
+        "id": 2,
+        "columns": [
+            {
+                "name": "A",
+                "id": 0,
+                "cells": [
+                    {
+                        "value": "A",
+                        "type": "string"
+                    },
+                    {
+                        "value": "B",
+                        "type": "string"
+                    },
+                    {
+                        "value": "C",
+                        "type": "string"
+                    },
+                    {
+                        "value": "D",
+                        "type": "string"
+                    },
+                    {
+                        "value": "E",
+                        "type": "string"
+                    }
+                ],
+                "style": {
+                    "color": "#9fa3e8",
+                    "lineWeight": 1.0,
+                    "pointWeight": 1.0,
+                    "font": "Calibri"
+                },
+                "columnType": "Dimensions",
+                "valueCategories": [
+                    {
+                        "value": "A",
+                        "type": "string"
+                    },
+                    {
+                        "value": "B",
+                        "type": "string"
+                    },
+                    {
+                        "value": "C",
+                        "type": "string"
+                    },
+                    {
+                        "value": "D",
+                        "type": "string"
+                    },
+                    {
+                        "value": "E",
+                        "type": "string"
+                    }
+                ],
+                "isDeleted": false
+            },
+            {
+                "name": "F",
+                "id": 1,
+                "cells": [
+                    {
+                        "value": "F",
+                        "type": "string"
+                    },
+                    {
+                        "value": "G",
+                        "type": "string"
+                    },
+                    {
+                        "value": "H",
+                        "type": "string"
+                    },
+                    {
+                        "value": "I",
+                        "type": "string"
+                    },
+                    {
+                        "value": "s",
+                        "type": "string"
+                    }
+                ],
+                "style": {
+                    "color": "#f51cf8",
+                    "lineWeight": 1.0,
+                    "pointWeight": 1.0,
+                    "font": "Calibri"
+                },
+                "columnType": "Dimensions",
+                "valueCategories": [
+                    {
+                        "value": "F",
+                        "type": "string"
+                    },
+                    {
+                        "value": "G",
+                        "type": "string"
+                    },
+                    {
+                        "value": "H",
+                        "type": "string"
+                    },
+                    {
+                        "value": "I",
+                        "type": "string"
+                    },
+                    {
+                        "value": "s",
+                        "type": "string"
+                    }
+                ],
+                "isDeleted": false
+            }
+        ],
+        "columnsVisibility": [
+            true,
+            true
+        ],
+        "rowsVisibility": [
+            true,
+            true,
+            true,
+            true,
+            true
+        ],
+        "properties": {
+            "sourceFileType": "Excel",
+            "zoomValue": 50
+        },
+        "aggregator": {
+            "aggregatedTable": [],
+            "aggregationColumn": 0,
+            "isActive": false
+        },
+        "isDeleted": false
+    }
+]
