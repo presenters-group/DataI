@@ -14,7 +14,10 @@ export const fetchDashboardsFailed = createAction(
 );
 
 /**Creating */
-export const createDashboard = createAction("[TreeView] Create Dashboard");
+export const createDashboard = createAction(
+  "[TreeView] Create Dashboard",
+  props<{ data }>()
+);
 
 export const createDashboardSuccess = createAction(
   "[DashboardEffect] Create Dashboard Success",
@@ -27,7 +30,10 @@ export const createDashboardFailed = createAction(
 );
 
 /**Deleting */
-export const deleteDashboard = createAction("[TreeView] Delete Dashboard");
+export const deleteDashboard = createAction(
+  "[TreeView] Delete Dashboard",
+  props<{ id }>()
+);
 
 export const deleteDashboardSuccess = createAction(
   "[DashboardsEffect] Delete Dashboard Success",
@@ -40,7 +46,10 @@ export const deleteDashboardFailed = createAction(
 );
 
 /**Updating */
-export const updateDashboard= createAction("[TreeView] update Dashboard");
+export const updateDashboard = createAction(
+  "[TreeView] update Dashboard",
+  props<{ data }>()
+);
 
 export const updateDashboardSuccess = createAction(
   "[DashboardsEffect] update Dashboard Success",

@@ -10,7 +10,7 @@ import { fetchDataSourcesSuccess } from "src/store/data-sources";
 import { fetchVisualizersSuccess } from "src/store/visualizers";
 import { fetchDashboardsSuccess } from "src/store/dashboards";
 import { fetchFiltersSuccess } from "src/store/filters";
-import { Router } from '@angular/router';
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-root",
@@ -26,7 +26,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   isTreeOpened: Observable<boolean>;
   isThereAnOpenedTap: Observable<boolean>;
   eventHandlers: any[] = [];
-  constructor(private store: Store<AppState>,private router:Router) {
+  constructor(private store: Store<AppState>, private router: Router) {
     this.isThereAnOpenedTap = this.store.select(selectIsThereACurrentTap);
     this.isTreeOpened = this.store.select(isTreeOpened);
   }
@@ -42,10 +42,9 @@ export class AppComponent implements OnInit, AfterViewInit {
         }, 1000);
       }
     });
-    this.store.select(selectIsThereACurrentTap).subscribe((value)=>{
-      if(value == false)
-        this.router.navigate([""])
-    })
+    this.store.select(selectIsThereACurrentTap).subscribe((value) => {
+      if (value == false) this.router.navigate([""]);
+    });
   }
   setGrabberEvents(element) {
     document.addEventListener("mousemove", (event) => {
@@ -377,7 +376,7 @@ export class AppComponent implements OnInit, AfterViewInit {
             rightToLeft: true,
             aggregator: null,
             isDeleted: false,
-          }
+          },
         ],
       })
     );

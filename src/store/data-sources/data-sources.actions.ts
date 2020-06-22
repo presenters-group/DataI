@@ -14,7 +14,10 @@ export const fetchDataSourcesFailed = createAction(
 );
 
 /**Creating */
-export const createDataSource = createAction("[TreeView] Create Data Sources");
+export const createDataSource = createAction(
+  "[TreeView] Create Data Sources",
+  props<{ data }>()
+);
 
 export const createDataSourceSuccess = createAction(
   "[DataSourceEffect] Create Data Sources Success",
@@ -27,7 +30,10 @@ export const createDataSourceFailed = createAction(
 );
 
 /**Deleting */
-export const deleteDataSource = createAction("[TreeView] Delete Data Sources");
+export const deleteDataSource = createAction(
+  "[TreeView] Delete Data Sources",
+  props<{ id }>()
+);
 
 export const deleteDataSourceSuccess = createAction(
   "[DataSourceEffect] Delete Data Sources Success",
@@ -40,7 +46,10 @@ export const deleteDataSourceFailed = createAction(
 );
 
 /**Updating */
-export const updateDataSource = createAction("[TreeView] update Data Sources");
+export const updateDataSource = createAction(
+  "[TreeView] update Data Sources",
+  props<{ data }>()
+);
 
 export const updateDataSourceSuccess = createAction(
   "[DataSourceEffect] update Data Sources Success",

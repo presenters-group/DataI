@@ -14,7 +14,10 @@ export const fetchVisualizersFailed = createAction(
 );
 
 /**Creating */
-export const createVisualizer = createAction("[TreeView] Create Visualizer");
+export const createVisualizer = createAction(
+  "[TreeView] Create Visualizer",
+  props<{ data }>()
+);
 
 export const createVisualizerSuccess = createAction(
   "[VisualizersEffect] Create Visualizers Success",
@@ -27,7 +30,10 @@ export const createVisualizerFailed = createAction(
 );
 
 /**Deleting */
-export const deleteVisualizer = createAction("[TreeView] Delete Visualizer");
+export const deleteVisualizer = createAction(
+  "[TreeView] Delete Visualizer",
+  props<{ id }>()
+);
 
 export const deleteVisualizerSuccess = createAction(
   "[VisualizersEffect] Delete Visualizer Success",
@@ -40,7 +46,10 @@ export const deleteVisualizerFailed = createAction(
 );
 
 /**Updating */
-export const updateVisualizer= createAction("[TreeView] update Visualizer");
+export const updateVisualizer = createAction(
+  "[TreeView] update Visualizer",
+  props<{ data }>()
+);
 
 export const updateVisualizerSuccess = createAction(
   "[VisualizersEffect] update Visualizer Success",

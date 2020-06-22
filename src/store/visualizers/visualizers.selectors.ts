@@ -3,6 +3,7 @@ import { AppState } from "..";
 import { VisualizersState } from "./visualizers.reducers";
 import { selectFiltersEntities } from "../filters/filters.selectors";
 import { selectDataSourcesEntities } from "../data-sources/data-sources.selectors";
+import { selectCurrentTapObject } from '../core/selectors/core.selector';
 
 export const selectVisualizersState = createFeatureSelector<
   AppState,
@@ -57,5 +58,26 @@ export const selectVisualizersTree = createSelector(
       tree.children.push(visualizers);
     };
     return tree;
+  }
+);
+
+export const selectCurrentVisualizer = createSelector(
+  selectVisualizersState,
+  selectCurrentTapObject,
+  (state,current) => {
+    return state.entities[current.id]
+  }
+);
+
+
+export const selectCurrentVisualizerFilters = createSelector(
+  selectCurrentVisualizer,
+  selectFiltersEntities,
+  (visualizer,AllFilters) => {
+    let filters = [];
+
+    for (let filterId of visualizer.filters)
+      filters.push(AllFilters[filterId])
+    return filters;
   }
 );

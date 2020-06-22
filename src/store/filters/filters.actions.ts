@@ -14,7 +14,10 @@ export const fetchFiltersFailed = createAction(
 );
 
 /**Creating */
-export const createFilter = createAction("[TreeView] Create Filter");
+export const createFilter = createAction(
+  "[TreeView] Create Filter",
+  props<{ data }>()
+);
 
 export const createFilterSuccess = createAction(
   "[FiltersEffect] Create Filter Success",
@@ -27,7 +30,10 @@ export const createFilterFailed = createAction(
 );
 
 /**Deleting */
-export const deleteFilter = createAction("[TreeView] Delete Filter");
+export const deleteFilter = createAction(
+  "[TreeView] Delete Filter",
+  props<{ id }>()
+);
 
 export const deleteFilterSuccess = createAction(
   "[FiltersEffect] Delete Filter Success",
@@ -40,7 +46,10 @@ export const deleteFilterFailed = createAction(
 );
 
 /**Updating */
-export const updateFilter = createAction("[TreeView] update Filter");
+export const updateFilter = createAction(
+  "[TreeView] update Filter",
+  props<{ data }>()
+);
 
 export const updateFilterSuccess = createAction(
   "[FiltersEffect] update Filter Success",

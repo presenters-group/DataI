@@ -15,6 +15,7 @@ import { DashboardComponent } from "./pages/dashboard/dashboard.component";
 import { VisualizerComponent } from "./pages/visualizer/visualizer.component";
 import { FilterComponent } from "./pages/filter/filter.component";
 import { DataSourceComponent } from "./pages/data-source/data-source.component";
+import { HttpClientModule }    from '@angular/common/http';
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,6 +36,7 @@ import { DataSourceComponent } from "./pages/data-source/data-source.component";
       maxAge: 25,
       logOnly: environment.production,
     }),
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent],
