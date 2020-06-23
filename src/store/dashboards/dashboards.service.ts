@@ -1,13 +1,14 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { IDashboard } from './dashboards.models';
+import { BASE_URL } from 'src/utils/url.util';
 
 @Injectable({
   providedIn: "root",
 })
 export class DashboardsService {
 
-  URL : string = "/dashboards"
+  URL : string = BASE_URL + "dashboards"
 
   constructor(private httpClient: HttpClient) {}
 

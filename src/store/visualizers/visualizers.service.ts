@@ -1,13 +1,14 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { IVisualizer } from './visualizers.models';
+import { BASE_URL } from 'src/utils/url.util';
 
 @Injectable({
   providedIn: "root",
 })
 export class VisualizersService {
 
-  URL : string = "/visualizers"
+  URL : string = BASE_URL + "visualizers"
 
   constructor(private httpClient: HttpClient) {}
 

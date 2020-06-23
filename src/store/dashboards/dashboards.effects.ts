@@ -8,7 +8,7 @@ import { DashboardsService } from "./dashboards.service";
 
 import * as fromActions from "./dashboards.actions";
 @Injectable()
-export class VisualizersEffects {
+export class DashboardsEffects {
   constructor(
     private actions$: Actions,
     private visualizersService: DashboardsService

@@ -1,11 +1,12 @@
 import { Injectable } from "@angular/core";
 import { IDataSource } from "./data-sources.models";
 import { HttpClient } from "@angular/common/http";
+import { BASE_URL } from 'src/utils/url.util';
 @Injectable({
   providedIn: "root",
 })
 export class DataSourcesService {
-  URL: string = "/data-source";
+  URL: string = BASE_URL + "data-sources";
 
   constructor(private httpClient: HttpClient) {}
 
@@ -18,6 +19,7 @@ export class DataSourcesService {
   }
 
   fetch() {
+    this.httpClient.get(this.URL).subscribe((value)=> console.log(value))
     return this.httpClient.get(this.URL);
   }
 

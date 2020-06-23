@@ -8,7 +8,7 @@ import { FiltersService } from "./filters.service";
 
 import * as fromActions from "./filters.actions";
 @Injectable()
-export class VisualizersEffects {
+export class FiltersEffects {
   constructor(
     private actions$: Actions,
     private visualizersService: FiltersService

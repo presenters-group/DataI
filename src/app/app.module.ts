@@ -16,6 +16,7 @@ import { VisualizerComponent } from "./pages/visualizer/visualizer.component";
 import { FilterComponent } from "./pages/filter/filter.component";
 import { DataSourceComponent } from "./pages/data-source/data-source.component";
 import { HttpClientModule }    from '@angular/common/http';
+import { EffectsModule } from '@ngrx/effects';
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,6 +37,7 @@ import { HttpClientModule }    from '@angular/common/http';
       maxAge: 25,
       logOnly: environment.production,
     }),
+    EffectsModule.forRoot([ ...fromStore.effects ]),
     HttpClientModule
   ],
   providers: [],
