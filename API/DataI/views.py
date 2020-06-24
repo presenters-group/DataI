@@ -12,8 +12,14 @@ from DataI.Models.FilterModel import FilterModel
 from DataI.Models.TableModel import TableModel
 from DataI.Models.VisualizationModel import VisualizationModel
 
+import os
+
+
 dataController = DataController()
-dataController.loadTablesFromExcelFile('/home/allonios/Link to PycharmProjects/FullEnd/API/Test.xlsx', 0)
+dirname = os.path.dirname(__file__)
+filename = os.path.join(dirname, '../Test.xlsx')
+
+dataController.loadTablesFromExcelFile(filename, 0)
 
 #load static data:
 jsonVisio = '''

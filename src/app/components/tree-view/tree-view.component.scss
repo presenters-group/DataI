@@ -3,7 +3,7 @@
   flex-direction: column;
 }
 .tree {
-  padding: 10px;
+  // padding: 10px;
 }
 .item {
   max-height: auto;
@@ -31,4 +31,16 @@
 }
 .childrenContainerElement {
   border-left: solid 0.5px var(--gray3);
+}
+
+.tools-container{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  height: 30px;
+}
+.tool{
+  width: 40px;
+  height: 20px;
 }
