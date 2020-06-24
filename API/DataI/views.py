@@ -127,7 +127,6 @@ def fullDataHandler(request):
     return HttpResponse(json.dumps(dataController.data, indent= 4, cls= ObjectEncoder, ensure_ascii= False))
 
 
-
 @csrf_exempt
 def dataSourcesHandler(request):
   if request.method == 'GET':
@@ -169,11 +168,36 @@ def filtersHandler(request):
     return HttpResponse(json.dumps(filter, indent=4, cls=ObjectEncoder, ensure_ascii=False))
 
 
+@csrf_exempt
+def dataSourceModifier(request, id):
+  if request.method == 'PUT':
+    newTable = TableModel.from_json(json.loads(request.body.decode()))
+    newTable = dataController.updateTableById(newTable, int(id))
+    return HttpResponse(json.dumps(newTable, indent=4, cls=ObjectEncoder, ensure_ascii=False))
+
+@csrf_exempt
+def visualizerModifier(request, id):
+  if request.method == 'PUT':
+    newVisio = VisualizationModel.from_json(json.loads(request.body.decode()))
+    newVisio = dataController.updateVisualizerById(newVisio, id)
+    return HttpResponse(json.dumps(newVisio, indent=4, cls=ObjectEncoder, ensure_ascii=False))
 
 
 
+@csrf_exempt
+def dashboardModifier(request, id):
+  if request.method == 'PUT':
+    newDashboard = DashboardModel.from_json(json.loads(request.body.decode()))
+    newDashboard = dataController.updateDashboardById(newDashboard, id)
+    return HttpResponse(json.dumps(newDashboard, indent=4, cls=ObjectEncoder, ensure_ascii=False))
 
 
+@csrf_exempt
+def filterModifier(request, id):
+  if request.method == 'PUT':
+    newFilter = FilterModel.from_json(json.loads(request.body.decode()))
+    newFilter = dataController.updateFilterById(newFilter, id)
+    return HttpResponse(json.dumps(newFilter, indent=4, cls=ObjectEncoder, ensure_ascii=False))
 
 
 

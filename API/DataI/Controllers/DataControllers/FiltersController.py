@@ -9,3 +9,10 @@ class FiltersController():
     id = DataController.getMaxIdInList(data.filters)
     filter.id = id + 1
     data.filters.append(filter)
+
+
+  @classmethod
+  def updateFilterById(cls, data: DataModel, filter: FilterModel, id: int):
+    oldFilterIndex = DataController.getElementIndexById(data.filters, id)
+    data.filters[oldFilterIndex] = filter
+    return data.filters[oldFilterIndex]
