@@ -17,6 +17,12 @@ import { FilterComponent } from "./pages/filter/filter.component";
 import { DataSourceComponent } from "./pages/data-source/data-source.component";
 import { HttpClientModule }    from '@angular/common/http';
 import { EffectsModule } from '@ngrx/effects';
+import { AddVisualizerComponent } from './pages/visualizer/dialogs/add-visualizer/add-visualizer.component';
+import {MatDialogModule} from '@angular/material/dialog';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormsModule } from '@angular/forms';
+import {MatFormFieldModule} from '@angular/material/form-field';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,6 +34,7 @@ import { EffectsModule } from '@ngrx/effects';
     VisualizerComponent,
     FilterComponent,
     DataSourceComponent,
+    AddVisualizerComponent,
   ],
   imports: [
     BrowserModule,
@@ -38,9 +45,14 @@ import { EffectsModule } from '@ngrx/effects';
       logOnly: environment.production,
     }),
     EffectsModule.forRoot([ ...fromStore.effects ]),
-    HttpClientModule
+    HttpClientModule,
+    MatDialogModule,
+    BrowserAnimationsModule,
+    FormsModule,
+    MatFormFieldModule
   ],
   providers: [],
   bootstrap: [AppComponent],
+  entryComponents: [AddVisualizerComponent]
 })
 export class AppModule {}

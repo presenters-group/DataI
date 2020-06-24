@@ -12,8 +12,14 @@ from DataI.Models.FilterModel import FilterModel
 from DataI.Models.TableModel import TableModel
 from DataI.Models.VisualizationModel import VisualizationModel
 
+import os
+
+
 dataController = DataController()
-dataController.loadTablesFromExcelFile(r'C:\Users\Hamza\PycharmProjects\web\API\Test.xlsx', 0)
+dirname = os.path.dirname(__file__)
+filename = os.path.join(dirname, '../Test.xlsx')
+
+dataController.loadTablesFromExcelFile(filename, 0)
 
 #load static data:
 jsonVisio = '''
@@ -127,7 +133,6 @@ def fullDataHandler(request):
     return HttpResponse(json.dumps(dataController.data, indent= 4, cls= ObjectEncoder, ensure_ascii= False))
 
 
-
 @csrf_exempt
 def dataSourcesHandler(request):
   if request.method == 'GET':
@@ -190,8 +195,36 @@ def filtersModifire(request,id):
     filter = dataController.deleteFilter(id)
     return HttpResponse(json.dumps(filter, indent=4, cls=ObjectEncoder, ensure_ascii=False))
 
+@csrf_exempt
+def dataSourceModifier(request, id):
+  if request.method == 'PUT':
+    newTable = TableModel.from_json(json.loads(request.body.decode()))
+    newTable = dataController.updateTableById(newTable, int(id))
+    return HttpResponse(json.dumps(newTable, indent=4, cls=ObjectEncoder, ensure_ascii=False))
+
+@csrf_exempt
+def visualizerModifier(request, id):
+  if request.method == 'PUT':
+    newVisio = VisualizationModel.from_json(json.loads(request.body.decode()))
+    newVisio = dataController.updateVisualizerById(newVisio, id)
+    return HttpResponse(json.dumps(newVisio, indent=4, cls=ObjectEncoder, ensure_ascii=False))
 
 
+
+@csrf_exempt
+def dashboardModifier(request, id):
+  if request.method == 'PUT':
+    newDashboard = DashboardModel.from_json(json.loads(request.body.decode()))
+    newDashboard = dataController.updateDashboardById(newDashboard, id)
+    return HttpResponse(json.dumps(newDashboard, indent=4, cls=ObjectEncoder, ensure_ascii=False))
+
+
+@csrf_exempt
+def filterModifier(request, id):
+  if request.method == 'PUT':
+    newFilter = FilterModel.from_json(json.loads(request.body.decode()))
+    newFilter = dataController.updateFilterById(newFilter, id)
+    return HttpResponse(json.dumps(newFilter, indent=4, cls=ObjectEncoder, ensure_ascii=False))
 
 
 

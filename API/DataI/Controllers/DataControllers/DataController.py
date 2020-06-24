@@ -41,6 +41,18 @@ class DataController():
 
   def deleteTable(self,id):
     return DataSourcesController.deleteTable(self.data,id)
+  def updateTableById(self, table: TableModel, id: int):
+    return DataSourcesController.updateTableById(self.data, table, id)
+
+  def updateVisualizerById(self, visio: VisualizationModel, id: int):
+    return VisualizationsController.updateVisualizerById(self.data, visio, id)
+
+  def updateDashboardById(self, dashboard: DashboardModel, id: int):
+    return DashboardsController.updateDashboardById(self.data, dashboard, id)
+
+  def updateFilterById(self, filter: FilterModel, id: int):
+    return FiltersController.updateFilterById(self.data, filter, id)
+
 
   def deleteVisualizer(self,id):
     return VisualizationsController.deleteVisualizer(self.data,id)
@@ -64,3 +76,9 @@ def getElementById(elementList:List, id):
     if single.id == id:
       index = single.id
   return index
+def getElementIndexById(list: List, id: int):
+  indexCounter = 0
+  for element in list:
+    if element.id == id:
+      return indexCounter
+    indexCounter += 1

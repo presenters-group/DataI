@@ -17,3 +17,9 @@ class FiltersController():
         data.filters[filterIndex].isDeleted = True
         return data.filters[filterIndex]
       return None
+
+  @classmethod
+  def updateFilterById(cls, data: DataModel, filter: FilterModel, id: int):
+    oldFilterIndex = DataController.getElementIndexById(data.filters, id)
+    data.filters[oldFilterIndex] = filter
+    return data.filters[oldFilterIndex]

@@ -17,3 +17,10 @@ class DashboardsController():
       data.dashboards[dashBoardIndex].isDeleted = True
       return data.dashboards[dashBoardIndex]
     return None
+
+  @classmethod
+  def updateDashboardById(cls, data: DataModel, dashboard: DashboardModel, id: int):
+    oldDashboardIndex = DataController.getElementIndexById(data.dashboards, id)
+    data.dashboards[oldDashboardIndex] = dashboard
+    return data.dashboards[oldDashboardIndex]
+

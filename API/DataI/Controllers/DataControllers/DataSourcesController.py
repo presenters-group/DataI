@@ -17,3 +17,10 @@ class DataSourcesController():
       data.dataSources[elementIndex].isDeleted = True
       return data.dataSources[elementIndex]
     return None
+
+  @classmethod
+  def updateTableById(self, data: DataModel, table: TableModel, id: int):
+    oldTableIndex = DataController.getElementIndexById(data.dataSources, id)
+    data.dataSources[oldTableIndex] = table
+    return data.dataSources[oldTableIndex]
+

@@ -9,13 +9,14 @@ import {
 import { Store } from "@ngrx/store";
 import {
   selectCurrentTree,
-  selectCurrentTap,
 } from "src/store/core/selectors/core.selector";
 import { AppState } from "src/store";
-import { selectFiltersEntities } from "src/store/filters/filters.selectors";
-import { first } from "rxjs/operators";
 import { TreeService } from "./tree.service";
 import { addToTapes } from "src/store/core/actions/core.actions";
+import { ConditionalExpr } from '@angular/compiler';
+import { first } from 'rxjs/operators';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { AddVisualizerComponent } from 'src/app/pages/visualizer/dialogs/add-visualizer/add-visualizer.component';
 @Component({
   selector: "app-tree-view",
   templateUrl: "./tree-view.component.html",
@@ -23,72 +24,13 @@ import { addToTapes } from "src/store/core/actions/core.actions";
 })
 export class TreeViewComponent implements OnInit, AfterViewInit {
   @ViewChild("tree") tree: ElementRef;
-  //TODO : get from store
-  items = {
-    name: "data-sources",
-    closed: false,
-    children: [
-      {
-        closed: false,
-        name: "table1",
-        children: [
-          {
-            closed: true,
-            name: "dimensions",
-            children: [
-              {
-                name: "column1",
-              },
-              {
-                name: "column2",
-              },
-              {
-                name: "column3",
-              },
-            ],
-          },
-          {
-            name: "dimensions",
-            closed: false,
-            children: [
-              {
-                name: "column1",
-              },
-              {
-                name: "column2",
-              },
-              {
-                name: "column3",
-              },
-            ],
-          },
-          {
-            name: "measurers",
-            closed: true,
-            children: [
-              {
-                name: "column3",
-                closed: false,
-                children: [{ name: "plus" }],
-              },
-              {
-                name: "column4",
-              },
-              {
-                name: "column5",
-              },
-            ],
-          },
-        ],
-      },
-      {},
-      {},
-    ],
-  };
+
+  items
   constructor(
     private renderer: Renderer2,
     private store: Store<AppState>,
-    private treeService: TreeService
+    private treeService: TreeService,
+    public dialog: MatDialog
   ) {}
 
   ngOnInit(): void {}
@@ -201,4 +143,31 @@ export class TreeViewComponent implements OnInit, AfterViewInit {
       ? renderer.removeClass(uncle, "closed")
       : renderer.addClass(uncle, "closed");
   }
+
+  onAddClick(){
+    this.store.select(selectCurrentTree).pipe(first()).subscribe((value: any) => {
+      console.log(value)
+      switch(value){
+        case 'data-sources':
+          console.log(value)
+          break;
+        case 'visualizers':
+          const dialogConfig = new MatDialogConfig();
+        dialogConfig.disableClose = true;
+        dialogConfig.autoFocus = true;
+        dialogConfig.hasBackdrop= false;
+        dialogConfig.panelClass='dialog-container'
+          let dialogRef = this.dialog.open(AddVisualizerComponent, dialogConfig);
+      }
+    });
+  }
+
+  onDeleteClick(){
+
+  }
+
+  onRefreshClick(){
+
+  }
+
 }
