@@ -39,7 +39,17 @@ class DataController():
   def inserNewFilter(self, filter: FilterModel):
     FiltersController.inserNewFilter(self.data, filter)
 
+  def deleteTable(self,id):
+    return DataSourcesController.deleteTable(self.data,id)
 
+  def deleteVisualizer(self,id):
+    return VisualizationsController.deleteVisualizer(self.data,id)
+
+  def deleteDashBoard(self,id):
+    return DashboardsController.deleteDashBoard(self.data,id)
+
+  def deleteFilter(self,id):
+    return FiltersController.deleteFilter(self.data,id)
 
 def getMaxIdInList(idList: List):
   max = 0
@@ -47,3 +57,10 @@ def getMaxIdInList(idList: List):
     if item.id > max:
       max = item.id
   return max
+
+def getElementById(elementList:List, id):
+  index = -1
+  for single in elementList:
+    if single.id == id:
+      index = single.id
+  return index

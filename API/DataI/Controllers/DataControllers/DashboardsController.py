@@ -9,3 +9,11 @@ class DashboardsController():
     id = DataController.getMaxIdInList(data.dashboards)
     dashboard.id = id + 1
     data.dashboards.append(dashboard)
+
+  @classmethod
+  def deleteDashBoard(cls,data,id):
+    dashBoardIndex = DataController.getElementById(data.dashboards,id)
+    if dashBoardIndex != -1:
+      data.dashboards[dashBoardIndex].isDeleted = True
+      return data.dashboards[dashBoardIndex]
+    return None

@@ -1,3 +1,4 @@
+import json
 from DataI.Controllers.DataControllers import DataController
 from DataI.Models.DataModel import DataModel
 from DataI.Models.TableModel import TableModel
@@ -9,3 +10,10 @@ class DataSourcesController():
     id = DataController.getMaxIdInList(data.dataSources)
     table.id = id + 1
     data.dataSources.append(table)
+  @classmethod
+  def deleteTable(self,data:DataModel,id):
+    elementIndex = DataController.getElementById(data.dataSources, id)
+    if elementIndex != -1:
+      data.dataSources[elementIndex].isDeleted = True
+      return data.dataSources[elementIndex]
+    return None
