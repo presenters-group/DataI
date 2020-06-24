@@ -1,3 +1,7 @@
 .dialog-container{
   background-color: var(--white);
 }
+form{
+  display: flex;
+  flex-direction: column;
+}

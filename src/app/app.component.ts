@@ -11,6 +11,8 @@ import { fetchVisualizersSuccess, fetchVisualizers } from "src/store/visualizers
 import { fetchDashboardsSuccess, fetchDashboards } from "src/store/dashboards";
 import { fetchFiltersSuccess, fetchFilters } from "src/store/filters";
 import { Router } from "@angular/router";
+import { HttpClient } from '@angular/common/http';
+import { BASE_URL } from 'src/utils/url.util';
 
 @Component({
   selector: "app-root",
@@ -26,7 +28,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   isTreeOpened: Observable<boolean>;
   isThereAnOpenedTap: Observable<boolean>;
   eventHandlers: any[] = [];
-  constructor(private store: Store<AppState>, private router: Router) {
+  constructor(private store: Store<AppState>, private router: Router,private http : HttpClient) {
     this.isThereAnOpenedTap = this.store.select(selectIsThereACurrentTap);
     this.isTreeOpened = this.store.select(isTreeOpened);
   }
@@ -381,23 +383,23 @@ export class AppComponent implements OnInit, AfterViewInit {
     //     ],
     //   })
     // );
-    // this.store.dispatch(fetchVisualizers());
-    this.store.dispatch(
-      fetchVisualizersSuccess({
-        data: [
-          {
-            name: "visualization1",
-            id: 0,
-            data: 0,
-            usedColumns: [0, 1],
-            usedRow: 2,
-            chart: "BoundaryLineChart",
-            filters: [0, 1],
-            isDeleted: false,
-          },
-        ],
-      })
-    );
+    this.store.dispatch(fetchVisualizers());
+    // this.store.dispatch(
+    //   fetchVisualizersSuccess({
+    //     data: [
+    //       {
+    //         name: "visualization1",
+    //         id: 0,
+    //         data: 0,
+    //         usedColumns: [0, 1],
+    //         usedRow: 2,
+    //         chart: "BoundaryLineChart",
+    //         filters: [0, 1],
+    //         isDeleted: false,
+    //       },
+    //     ],
+    //   })
+    // );
     this.store.dispatch(fetchDashboards())
     // this.store.dispatch(
     //   fetchDashboardsSuccess({
@@ -475,5 +477,18 @@ export class AppComponent implements OnInit, AfterViewInit {
     //     ],
     //   })
     // );
+
+
   }
+  file;
+  sendFile(event){
+    this.file = event.target.files[0]
+    console.log(this.file)
+    let testData:FormData = new FormData();
+    testData.append('file_upload', this.file, this.file.name);
+    this.http.post(BASE_URL+'excel-upload/', testData).subscribe(response => {
+        console.log(response);
+    });
+  }
+
 }

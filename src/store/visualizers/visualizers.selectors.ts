@@ -32,18 +32,22 @@ export const selectVisualizersTree = createSelector(
       };
       let columns = { name: "Columns", children: [] };
       entity.usedColumns.forEach((value, key) => {
+
         columns.children.push({
           name: dataSourcesEntities[entity.data].columns[value].name,
         });
       });
 
       let row = { name: "Row", children: [] };
+      console.log(dataSourcesEntities[entity.data].columns[entity.xColumn]);
+      console.log(entity.data);
+      console.log(entity.xColumn);
       row.children.push({
-        name: dataSourcesEntities[entity.data].columns[entity.usedRow].name,
+        name: dataSourcesEntities[entity.data].columns[entity.xColumn].name,
       });
 
       let filters = { name: "Filters", children: [] };
-      entity.filters.forEach((value, key) => {
+      entity.filters.forEach(({id: value}, key) => {
         let filter = filtersEntities[value];
         filters.children.push({
           name: filter.name,
@@ -76,8 +80,8 @@ export const selectCurrentVisualizerFilters = createSelector(
   (visualizer,AllFilters) => {
     let filters = [];
 
-    for (let filterId of visualizer.filters)
-      filters.push(AllFilters[filterId])
+    for (let filter of visualizer.filters)
+      filters.push(AllFilters[filter.id])
     return filters;
   }
 );

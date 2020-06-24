@@ -146,6 +146,12 @@ def dataSourcesHandler(request):
     dataController.insertNewTable(table)
     return HttpResponse(json.dumps(table, indent=4, cls=ObjectEncoder, ensure_ascii=False))
 
+@csrf_exempt
+def dataSourcesModifire(request,id):
+  if request.method == 'DELETE':
+    table = dataController.deleteTable(id)
+    return HttpResponse(json.dumps(table, indent= 4, cls= ObjectEncoder, ensure_ascii= False))
+
 
 @csrf_exempt
 def visualizersHandler(request):
@@ -156,6 +162,13 @@ def visualizersHandler(request):
     dataController.insertNewVisualizer(visualizer)
     return HttpResponse(json.dumps(visualizer, indent=4, cls=ObjectEncoder, ensure_ascii=False))
 
+    return HttpResponse(json.dumps(visualizer, indent= 4, cls= ObjectEncoder, ensure_ascii= False))
+
+@csrf_exempt
+def visualizersModifire(request,id):
+  if request.method == 'DELETE':
+    visualizer = dataController.deleteVisualizer(id)
+    return HttpResponse(json.dumps(visualizer, indent= 4, cls= ObjectEncoder, ensure_ascii= False))
 
 @csrf_exempt
 def dashBoardsHandler(request):
@@ -165,6 +178,12 @@ def dashBoardsHandler(request):
     dashBoard = DashboardModel.from_json(json.loads(request.body.decode()))
     dataController.insertNewDashboard(dashBoard)
     return HttpResponse(json.dumps(dashBoard, indent=4, cls=ObjectEncoder, ensure_ascii=False))
+
+@csrf_exempt
+def dashBoardsModifire(request,id):
+  if request.method == 'DELETE':
+    dashBoard = dataController.deleteDashBoard(id)
+    return HttpResponse(json.dumps(dashBoard, indent=4, cls=ObjectEncoder,ensure_ascii=False))
 
 
 @csrf_exempt
@@ -176,6 +195,11 @@ def filtersHandler(request):
     dataController.inserNewFilter(filter)
     return HttpResponse(json.dumps(filter, indent=4, cls=ObjectEncoder, ensure_ascii=False))
 
+@csrf_exempt
+def filtersModifire(request,id):
+  if request.method == 'DELETE':
+    filter = dataController.deleteFilter(id)
+    return HttpResponse(json.dumps(filter, indent=4, cls=ObjectEncoder, ensure_ascii=False))
 
 @csrf_exempt
 def dataSourceModifier(request, id):

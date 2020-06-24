@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "concurrently --kill-others \"ng serve --poll=2000\" \"python3 API/manage.py runserver\"",
+    "start": "concurrently --kill-others \"ng serve --poll=2000 --host=0.0.0.0\" \"python3 API/manage.py runserver\"",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",

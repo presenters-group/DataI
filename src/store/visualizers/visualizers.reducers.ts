@@ -12,7 +12,7 @@ export const initialState: VisualizersState = {
       name: "visualization1",
       data: 0,
       usedColumns: [0, 2],
-      usedRow: 1,
+      xColumn: 1,
       chart: "BoundaryLineChart",
       filters: [0, 1],
       isDeleted: false,

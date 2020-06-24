@@ -12,6 +12,11 @@ urlpatterns = [
   path('filters/', views.filtersHandler),
   path('filters/<int:id>/', views.filterModifier),
   path('excel-upload/', views.excelUpload),
+  path('data-sources/<int:id>',views.dataSourcesModifire),
+  path('visualizers/<int:id>',views.visualizersModifire),
+  path('dashboards/<int:id>',views.dashBoardsModifire),
+  path('filters/<int:id>',views.filtersModifire),
+
   path('', views.fullDataHandler),
 
 ]
