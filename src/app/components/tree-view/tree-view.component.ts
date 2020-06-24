@@ -153,10 +153,6 @@ export class TreeViewComponent implements OnInit, AfterViewInit {
           break;
         case 'visualizers':
           const dialogConfig = new MatDialogConfig();
-        dialogConfig.disableClose = true;
-        dialogConfig.autoFocus = true;
-        dialogConfig.hasBackdrop= false;
-        dialogConfig.panelClass='dialog-container'
           let dialogRef = this.dialog.open(AddVisualizerComponent, dialogConfig);
       }
     });
