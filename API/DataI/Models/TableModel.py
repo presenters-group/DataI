@@ -4,13 +4,14 @@ from DataI.Models.BasicInfo import BasicInfo
 from DataI.Models.ColumnModel import ColumnModel
 
 
+
 class PropertiesModel(ObjectDeserializer):
     def __init__(self, sourceFileType: str, zoomValue: int):
         self.sourceFileType = sourceFileType
         self.zoomValue = zoomValue
 
     def __str__(self):
-        return 'source file type: {}, zoom value: {}, x column: {}'.format(self.sourceFileType, self.zoomValue, self.xColumn)
+        return 'source file type: {}, zoom value: {}'.format(self.sourceFileType, self.zoomValue)
 
 
 class AggregationModel():
@@ -56,31 +57,6 @@ class TableModel(BasicInfo):
         self.isDeleted = isDeleted
 
     @classmethod
-    def CreateWithVisibilityParams(self, columns: List[ColumnModel], name: str, id: int, properties: PropertiesModel,
-                                   aggregator: AggregationModel, columnsVisibility, rowsVisibility, isDeleted: bool):
-        self.columns = columns
-
-        bufferColumnsList = list()
-        for col in columns:
-            bufferColumnsList.append(True)
-        self.columnsVisibility = bufferColumnsList
-
-        buffeRowList = list()
-        for i in range(self.__getLongestColumnLength(columns)):
-            buffeRowList.append(True)
-
-        self.rowsVisibility = buffeRowList
-
-        self.name = name
-        self.id = id
-        self.properties = properties
-        self.aggregator = aggregator
-        self.columnsVisibility = columnsVisibility
-        self.rowsVisibility = rowsVisibility
-        self.isDeleted = isDeleted
-        return self
-
-    @classmethod
     def __getLongestColumnLength(self, columns: List[ColumnModel]) -> int:
         max = 0
         for column in columns:
@@ -106,20 +82,9 @@ class TableModel(BasicInfo):
         properties = PropertiesModel.from_json(data['properties'])
         aggregator = AggregationModel.from_json(data['aggregator'])
         isDeleted = data['isDeleted']
-        return cls.CreateWithVisibilityParams(columns, name, id, properties, aggregator,
-                                              columnsVisibility, rowsVisibility, isDeleted)
 
+        returnTable = cls(columns, name, id, properties, aggregator, isDeleted)
+        returnTable.columnsVisibility = columnsVisibility
+        returnTable.rowsVisibility = rowsVisibility
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+        return returnTable

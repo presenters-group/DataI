@@ -1,6 +1,7 @@
 import json
 
 from DataI import enums
+from DataI.Controllers.DataControllers.DataController import DataController
 from DataI.JSONSerializer import ObjectEncoder
 from DataI.Models.ColumnModel import CellModel, ColumnStyleModel, ColumnModel
 from DataI.Models.DashboardModel import Measurements, InDashboardFilterModel, InDashboardVisioModel, DashboardModel
@@ -47,9 +48,9 @@ style2 = ColumnStyleModel('#3066BE', 1.0, 1.0, 'Calibri')
 style3 = ColumnStyleModel('#DBD56E', 1.0, 1.0, 'Calibri')
 
 
-column1 = ColumnModel(cells1, cells1[0].value, 500, style1, False)
-column2 = ColumnModel(cells2, cells2[0].value, 40, style2, False)
-column3 = ColumnModel(cells3, cells3[0].value, 359, style3, False)
+column1 = ColumnModel(cells1, str(cells1[0].value), 0, style1, False)
+column2 = ColumnModel(cells2, str(cells2[0].value), 1, style2, False)
+column3 = ColumnModel(cells3, str(cells3[0].value), 2, style3, False)
 
 columns = [column1, column2, column3]
 
@@ -79,8 +80,8 @@ newCells = [CellModel('الوزن', enums.CellType.string.value),
 
 newStyle = ColumnStyleModel('#EBD4AE', 1.5, 0.0, 'Calibri')
 
-newColumnId = dataSource.getMaxIdInList(dataSource.columns) + 1
-newColumn = ColumnModel(newCells, newCells[0].value, newColumnId, newStyle, False)
+newColumnId = DataController.getMaxIdInList(dataSource.columns) + 1
+newColumn = ColumnModel(newCells, str(newCells[0].value), newColumnId, newStyle, False)
 dataSource.columns.append(newColumn)
 
 #=================================================================================================================
@@ -122,7 +123,7 @@ dashboard1 = DashboardModel([inDV1], 'dashboard1', 0)
 
 filterModel1 = FilterModel('filter1', 0, 0, 1, 'A', enums.FilterType.Equality.value, False)
 filterModel2 = FilterModel('filter2', 1, 0, 2, 100, enums.FilterType.LessThan.value, False)
-filterModel3 = FilterModel('filter3', 500, 0, 0, 11, enums.FilterType.MoreThan.value, False)
+filterModel3 = FilterModel('filter3', 2, 0, 0, 11, enums.FilterType.MoreThan.value, False)
 
 filtersList = [filterModel1, filterModel2, filterModel3]
 
