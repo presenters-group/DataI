@@ -69,6 +69,7 @@ const visualizersReducer = createReducer(
     };
   }),
   on(fromActions.fetchChartAsSVGSuccess, (state, {data}) =>{
+    console.log('nlanalasd')
     let newState = {
       ...state
       ,entities : {...state.entities,[data.visualizerId] : {
