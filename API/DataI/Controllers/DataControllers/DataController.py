@@ -20,12 +20,12 @@ class DataController():
   # Don't add 1 to id here (it must be already added).
   def loadTablesFromExcelFile(self, filePath: str, greatestTableId: int):
     loader = ExcelFileLoader(filePath)
-    self.data.dataSources = loader.loadFile(greatestTableId)
+    self.data.dataSources.append(loader.loadFile(greatestTableId))
 
   # Don't add 1 to id here (it must be already added).
   def loadTableFromCSVFile(self, filePath: str, greatestTableId: int):
     loader = CSVFileLoader(filePath)
-    self.data.dataSources = loader.loadFile(greatestTableId)
+    self.data.dataSources.append(loader.loadFile(greatestTableId))
 
   def insertNewTable(self, table: TableModel):
     DataSourcesController.insertNewTable(self.data, table)
@@ -53,7 +53,13 @@ class DataController():
   def updateFilterById(self, filter: FilterModel, id: int):
     return FiltersController.updateFilterById(self.data, filter, id)
 
+  @classmethod
+  def getMaxIdInList(cls, idList):
+    return getMaxIdInList(idList)
 
+  @classmethod
+  def getElementIndexById(cls, list, id: int):
+    return getElementIndexById(list, id)
   def deleteVisualizer(self,id):
     return VisualizationsController.deleteVisualizer(self.data,id)
 
@@ -63,13 +69,14 @@ class DataController():
   def deleteFilter(self,id):
     return FiltersController.deleteFilter(self.data,id)
 
-def getMaxIdInList(idList: List):
+def getMaxIdInList(idList):
   max = 0
   for item in idList:
     if item.id > max:
       max = item.id
   return max
 
+def getElementIndexById(list, id: int):
 def getElementById(elementList:List, id):
   index = -1
   for single in elementList:
@@ -82,3 +89,4 @@ def getElementIndexById(list: List, id: int):
     if element.id == id:
       return indexCounter
     indexCounter += 1
+  return -1

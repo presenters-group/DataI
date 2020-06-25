@@ -1,5 +1,6 @@
 import json
 
+from django.db import models
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 
@@ -14,14 +15,16 @@ from DataI.Models.VisualizationModel import VisualizationModel
 
 import os
 
+from DataI.forms import DocumentForm
+from DataI.models import Document
 
 dataController = DataController()
-dirname = os.path.dirname(__file__)
-filename = os.path.join(dirname, '../Test.xlsx')
+dirName = os.path.dirname(__file__)
+filename = os.path.join(dirName, '../Test.xlsx')
 
 dataController.loadTablesFromExcelFile(filename, 0)
 
-#load static data:
+# load static data:
 jsonVisio = '''
 {
             "name": "visualization1",
@@ -125,22 +128,23 @@ loadedJsonFilters = json.loads(jsonFilters)
 for filter in loadedJsonFilters:
   dataController.data.filters.append(FilterModel.from_json(filter))
 
-#load static data.
+
+# load static data.
 
 @csrf_exempt
 def fullDataHandler(request):
   if request.method == 'GET':
-    return HttpResponse(json.dumps(dataController.data, indent= 4, cls= ObjectEncoder, ensure_ascii= False))
+    return HttpResponse(json.dumps(dataController.data, indent=4, cls=ObjectEncoder, ensure_ascii=False))
 
 
 @csrf_exempt
 def dataSourcesHandler(request):
   if request.method == 'GET':
-    return HttpResponse(json.dumps(dataController.data.dataSources, indent= 4, cls= ObjectEncoder, ensure_ascii= False))
+    return HttpResponse(json.dumps(dataController.data.dataSources, indent=4, cls=ObjectEncoder, ensure_ascii=False))
   elif request.method == 'POST':
     table = TableModel.from_json(json.loads(request.body.decode()))
     dataController.insertNewTable(table)
-    return HttpResponse(json.dumps(table, indent= 4, cls= ObjectEncoder, ensure_ascii= False))
+    return HttpResponse(json.dumps(table, indent=4, cls=ObjectEncoder, ensure_ascii=False))
 
 @csrf_exempt
 def dataSourcesModifire(request,id):
@@ -166,7 +170,7 @@ def visualizersHandler(request):
   elif request.method == 'POST':
     visualizer = VisualizationModel.from_json(json.loads(request.body.decode()))
     dataController.insertNewVisualizer(visualizer)
-    return HttpResponse(json.dumps(visualizer, indent=4, cls=ObjectEncoder, ensure_ascii=False))
+    return HttpResponse(json.dumps(visualizer, indent= 4, cls= ObjectEncoder, ensure_ascii= False))
 
 @csrf_exempt
 def visualizersModifire(request,id):
@@ -177,7 +181,7 @@ def visualizersModifire(request,id):
 @csrf_exempt
 def dashBoardsHandler(request):
   if request.method == 'GET':
-    return HttpResponse(json.dumps(dataController.data.dashboards, indent= 4, cls= ObjectEncoder, ensure_ascii= False))
+    return HttpResponse(json.dumps(dataController.data.dashboards, indent=4, cls=ObjectEncoder, ensure_ascii=False))
   elif request.method == 'POST':
     dashBoard = DashboardModel.from_json(json.loads(request.body.decode()))
     dataController.insertNewDashboard(dashBoard)
@@ -193,7 +197,7 @@ def dashBoardsModifire(request,id):
 @csrf_exempt
 def filtersHandler(request):
   if request.method == 'GET':
-    return HttpResponse(json.dumps(dataController.data.filters, indent= 4, cls= ObjectEncoder, ensure_ascii= False))
+    return HttpResponse(json.dumps(dataController.data.filters, indent=4, cls=ObjectEncoder, ensure_ascii=False))
   elif request.method == 'POST':
     filter = FilterModel.from_json(json.loads(request.body.decode()))
     dataController.inserNewFilter(filter)
@@ -212,13 +216,13 @@ def dataSourceModifier(request, id):
     newTable = dataController.updateTableById(newTable, int(id))
     return HttpResponse(json.dumps(newTable, indent=4, cls=ObjectEncoder, ensure_ascii=False))
 
+
 @csrf_exempt
 def visualizerModifier(request, id):
   if request.method == 'PUT':
     newVisio = VisualizationModel.from_json(json.loads(request.body.decode()))
     newVisio = dataController.updateVisualizerById(newVisio, id)
     return HttpResponse(json.dumps(newVisio, indent=4, cls=ObjectEncoder, ensure_ascii=False))
-
 
 
 @csrf_exempt
@@ -237,6 +241,22 @@ def filterModifier(request, id):
     return HttpResponse(json.dumps(newFilter, indent=4, cls=ObjectEncoder, ensure_ascii=False))
 
 
+@csrf_exempt
+def excelUpload(request):
+  #form = DocumentForm(request.POST, request.FILES)
+  # if form.is_valid():
+  newdoc = Document(docfile=request.FILES['file_upload'])
+  try:
+    newdoc.save()
+  except:
+    pass
+
+  fileName = request.FILES['file_upload'].name
+  dirName = os.path.dirname(__file__)
+  filePath = os.path.join(dirName, '../')[1:] + fileName
+  print(dataController.data.dataSources[0].id)
+  dataController.loadTablesFromExcelFile(filePath, DataController.getMaxIdInList(dataController.data.dataSources) + 1)
+  return HttpResponse()
 
 
 

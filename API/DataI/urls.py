@@ -10,6 +10,8 @@ urlpatterns = [
   path('dashboards/', views.dashBoardsHandler),
   path('dashboards/<int:id>/', views.dashboardModifier),
   path('filters/', views.filtersHandler),
+  path('filters/<int:id>/', views.filterModifier),
+  path('excel-upload/', views.excelUpload),
   path('data-sources/<int:id>',views.dataSourcesModifire),
   path('visualizers/<int:id>',views.visualizersModifire),
   path('dashboards/<int:id>',views.dashBoardsModifire),
