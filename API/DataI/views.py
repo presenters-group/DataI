@@ -149,14 +149,24 @@ def dataSourcesModifire(request,id):
     return HttpResponse(json.dumps(table, indent= 4, cls= ObjectEncoder, ensure_ascii= False))
 
 
+# @csrf_exempt
+# def visualizersHandler(request):
+#   if request.method == 'GET':
+#     return HttpResponse(json.dumps(dataController.data.visualizations, indent= 4, cls= ObjectEncoder, ensure_ascii= False))
+#   elif request.method == 'POST':
+#     visualizer = VisualizationModel.from_json(json.loads(request.body.decode()))
+#     dataController.insertNewVisualizer(visualizer)
+#     return HttpResponse(json.dumps(visualizer, indent= 4, cls= ObjectEncoder, ensure_ascii= False))
+
+
 @csrf_exempt
 def visualizersHandler(request):
   if request.method == 'GET':
-    return HttpResponse(json.dumps(dataController.data.visualizations, indent= 4, cls= ObjectEncoder, ensure_ascii= False))
+    return HttpResponse(json.dumps(dataController.data.visualizations, indent=4, cls=ObjectEncoder, ensure_ascii=False))
   elif request.method == 'POST':
     visualizer = VisualizationModel.from_json(json.loads(request.body.decode()))
     dataController.insertNewVisualizer(visualizer)
-    return HttpResponse(json.dumps(visualizer, indent= 4, cls= ObjectEncoder, ensure_ascii= False))
+    return HttpResponse(json.dumps(visualizer, indent=4, cls=ObjectEncoder, ensure_ascii=False))
 
 @csrf_exempt
 def visualizersModifire(request,id):

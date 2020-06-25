@@ -57,3 +57,22 @@ export const selectFiltersTree = createSelector(
     return tree;
   }
 );
+
+
+export const selectFiltersForDataSource = createSelector(
+  selectFiltersEntities,
+  (state,props) => props.dataSource != '' ? objectFilter(state,(value)=>value.dataSource != props.dataSource) : {}
+);
+
+
+function objectFilter (obj, predicate){
+    let result = {}, key;
+
+    for (key in obj) {
+        if (obj.hasOwnProperty(key) && !predicate(obj[key])) {
+            result[key] = obj[key];
+        }
+    }
+
+    return result;
+};

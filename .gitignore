@@ -47,3 +47,31 @@ Thumbs.db
 
 
 
+API/DataI/Controllers/DataControllers/__pycache__/__init__.cpython-38.pyc
+API/DataI/Controllers/DataControllers/__pycache__/DashboardsController.cpython-38.pyc
+API/DataI/Controllers/DataControllers/__pycache__/DataController.cpython-38.pyc
+API/DataI/Controllers/DataControllers/__pycache__/DataSourcesController.cpython-38.pyc
+API/DataI/Controllers/DataControllers/__pycache__/FiltersController.cpython-38.pyc
+API/DataI/Controllers/DataControllers/__pycache__/VisualizationsController.cpython-38.pyc
+API/DataI/Controllers/FileLoaders/__pycache__/__init__.cpython-38.pyc
+API/DataI/Controllers/FileLoaders/__pycache__/CSVFileLoader.cpython-38.pyc
+API/DataI/Controllers/FileLoaders/__pycache__/ExcelFileLoader.cpython-38.pyc
+API/DataI/Controllers/FileLoaders/__pycache__/FileLoader.cpython-38.pyc
+API/DataI/Controllers/__pycache__/__init__.cpython-38.pyc
+API/DataI/Models/__pycache__/__init__.cpython-38.pyc
+API/DataI/Models/__pycache__/BasicInfo.cpython-38.pyc
+API/DataI/Models/__pycache__/ColumnModel.cpython-38.pyc
+API/DataI/Models/__pycache__/DashboardModel.cpython-38.pyc
+API/DataI/Models/__pycache__/DataModel.cpython-38.pyc
+API/DataI/Models/__pycache__/FilterModel.cpython-38.pyc
+API/DataI/Models/__pycache__/TableModel.cpython-38.pyc
+API/DataI/Models/__pycache__/VisualizationModel.cpython-38.pyc
+API/DataI/__pycache__/__init__.cpython-38.pyc
+API/DataI/__pycache__/enums.cpython-38.pyc
+API/DataI/__pycache__/JSONSerializer.cpython-38.pyc
+API/DataI/__pycache__/urls.cpython-38.pyc
+API/DataI/__pycache__/views.cpython-38.pyc
+API/DataIBackend/__pycache__/__init__.cpython-38.pyc
+API/DataIBackend/__pycache__/settings.cpython-38.pyc
+API/DataIBackend/__pycache__/urls.cpython-38.pyc
+API/DataIBackend/__pycache__/wsgi.cpython-38.pyc

@@ -16,7 +16,7 @@
 
     <mat-form-field>
       <mat-label>Data Source</mat-label>
-      <mat-select formControlName="data">
+      <mat-select (selectionChange)="onSelectDataSource()" formControlName="data">
         <mat-select-trigger>
           {{
             form.value.data ? (dataSources | async)[form.value.data].name : ""
@@ -32,7 +32,7 @@
 
     <mat-form-field>
       <mat-label>Columns</mat-label>
-      <mat-select formArrayName="usedColumns" multiple>
+      <mat-select  formControlName="usedColumns" [disabled]="form.value.data == ''" multiple>
         <mat-select-trigger>
           {{
             form.value.usedColumns.length
@@ -63,49 +63,94 @@
       </mat-select>
     </mat-form-field>
 
-    <!-- <mat-form-field appearance="legacy">
-      <mat-label for="usedColumns">Used Columns:</mat-label>
-      <input
-        matInput
-        placeholder="1,2,3"
-        id="usedColumns"
-        type="text"
-        formArrayName="usedColumns"
-      />
-    </mat-form-field> -->
 
-    <mat-form-field appearance="legacy">
-      <mat-label for="xColumn">X Column:</mat-label>
-      <input
-        matInput
-        placeholder="1"
-        id="xColumn"
-        type="text"
-        formControlName="xColumn"
-      />
+
+    <mat-form-field>
+      <mat-label>X Column</mat-label>
+      <mat-select formControlName="xColumn" [disabled]="form.value.data == ''">
+        <mat-select-trigger>
+          {{
+            form.value.xColumn != ''
+              ? (dataSources | async)[form.value.data].columns[
+                  form.value.xColumn
+                ].name
+              : ""
+          }}
+        </mat-select-trigger>
+        <ng-container *ngIf="form.value.data != ''">
+          <mat-option
+            *ngFor="
+              let column of objectKeys((dataSources | async)[form.value.data].columns)
+            "
+            [value]="column"
+            >{{
+              (dataSources | async)[form.value.data].columns[column].name
+            }}</mat-option
+          >
+        </ng-container>
+      </mat-select>
     </mat-form-field>
 
-    <mat-form-field appearance="legacy">
-      <mat-label for="chart">Chart:</mat-label>
-      <input
-        matInput
-        placeholder="BarChart"
-        id="chart"
-        type="text"
-        formControlName="chart"
-      />
+
+
+
+
+
+
+
+    <mat-form-field>
+      <mat-label>Filters</mat-label>
+      <mat-select formControlName="filters" [disabled]="form.value.data == ''" multiple>
+        <mat-select-trigger>
+          {{
+            form.value.filters.length
+              ? (filters | async)[
+                form.value.filters[0]
+              ].name
+              : ""
+          }}
+          <span
+            *ngIf="form.value.filters?.length > 1"
+            class="example-additional-selection"
+          >
+            (+{{ form.value.filters.length - 1 }}
+            {{ form.value.filters?.length === 2 ? "other" : "others" }})
+          </span>
+        </mat-select-trigger>
+        <ng-container *ngIf="form.value.data != ''">
+          <mat-option
+            *ngFor="
+              let filter of objectKeys((filters | async))
+            "
+            [value]="filter"
+            >{{
+              (filters | async)[filter].name
+            }}</mat-option
+          >
+        </ng-container>
+      </mat-select>
     </mat-form-field>
 
-    <mat-form-field appearance="legacy">
-      <mat-label for="filters">Filters:</mat-label>
-      <input
-        matInput
-        placeholder="1,2,3"
-        id="filters"
-        type="text"
-        formArrayName="filters"
-      />
+
+
+
+    <mat-form-field>
+      <mat-label>Charts</mat-label>
+      <mat-select  formControlName="chart">
+        <mat-select-trigger>
+          {{
+            form.value.chart ? form.value.chart : ""
+          }}
+        </mat-select-trigger>
+        <mat-option
+          *ngFor="let chart of (charts | async)"
+          [value]="chart"
+          >{{ chart }}</mat-option
+        >
+      </mat-select>
     </mat-form-field>
+
+
   </form>
 </mat-dialog-content>
 
