@@ -13,6 +13,7 @@ urlpatterns = [
   path('filters/', views.filtersHandler),
   path('filters/<int:id>/', views.filterModifier),
   path('chartsNames/', views.getChartsNames),
+  path('chart/', views.getChartSVG),
   path('excel-upload/', views.excelUpload),
   path('csv-upload/', views.csvUpload),
   path('', views.fullDataHandler),

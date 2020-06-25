@@ -1,9 +1,9 @@
 import json
+import os
 
 from django.db import models
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
-
 from DataI.Controllers.DataControllers.DataController import DataController
 from DataI.Controllers.FileLoaders.ExcelFileLoader import ExcelFileLoader
 from DataI.JSONSerializer import ObjectEncoder
@@ -12,11 +12,9 @@ from DataI.Models.DataModel import DataModel
 from DataI.Models.FilterModel import FilterModel
 from DataI.Models.TableModel import TableModel
 from DataI.Models.VisualizationModel import VisualizationModel
-
-import os
-
-from DataI.forms import DocumentForm
 from DataI.models import Document
+
+
 
 dataController = DataController()
 dirName = os.path.dirname(__file__)
@@ -35,7 +33,7 @@ jsonVisio = '''
                 2
             ],
             "xColumn": 0,
-            "chart": "BoundaryLineChart",
+            "chart": "verticalBarChart",
             "filters": [
                 {
                     "id": 1,
@@ -149,16 +147,6 @@ def dataSourcesHandler(request):
 
 
 
-# @csrf_exempt
-# def visualizersHandler(request):
-#   if request.method == 'GET':
-#     return HttpResponse(json.dumps(dataController.data.visualizations, indent= 4, cls= ObjectEncoder, ensure_ascii= False))
-#   elif request.method == 'POST':
-#     visualizer = VisualizationModel.from_json(json.loads(request.body.decode()))
-#     dataController.insertNewVisualizer(visualizer)
-#     return HttpResponse(json.dumps(visualizer, indent= 4, cls= ObjectEncoder, ensure_ascii= False))
-
-
 @csrf_exempt
 def visualizersHandler(request):
   if request.method == 'GET':
@@ -213,7 +201,6 @@ def cellModifier(request, tableId, columnId, cellIndex):
     returnDict['tableID'] = tableId
     returnDict['columnId'] = columnId
     returnDict['cellIndex'] = cellIndex
-    print(returnDict)
     return HttpResponse(json.dumps(returnDict, indent=4, cls=ObjectEncoder, ensure_ascii=False))
 
 
@@ -301,7 +288,12 @@ def getChartSVG(request):
     visualizerId = visioInfo.get('visualizerId')
     width = visioInfo.get('width')
     height = visioInfo.get('height')
-
+    svgString = dataController.getChartSVGString(visualizerId, width, height)
+    returnDict = dict()
+    returnDict['svg'] = svgString
+    returnDict['metaData'] = ""
+    returnDict['visualizerId'] = visualizerId
+    return HttpResponse(json.dumps(returnDict, indent=4, cls=ObjectEncoder, ensure_ascii=False))
 
 
 
