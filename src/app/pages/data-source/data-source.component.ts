@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { selectCurrentDataSource } from 'src/store/data-sources/data-sources.selectors';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/store';
+import { updateCell } from 'src/store/data-sources';
 
 @Component({
   selector: 'app-data-source',
@@ -19,5 +20,22 @@ export class DataSourceComponent implements OnInit {
   ngOnInit(): void {
 
   }
+  onCellUpdate(columnId,cellIndex,cellValue){
+    let tableId;
+    this.dataSource.subscribe((value)=>{
 
+      tableId = value.id
+      this.store.dispatch(
+        updateCell({data : {
+        tableId,
+        columnId,
+        cellIndex,
+        cellValue
+      }
+      }
+      )
+      )
+
+    })
+  }
 }

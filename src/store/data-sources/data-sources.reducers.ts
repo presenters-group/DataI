@@ -369,6 +369,15 @@ const dataSourcesReducer = createReducer(
         ...entities,
       },
     };
+  }),
+  //Updating Cell
+  on(fromActions.updateCellSuccess, (state, { data}) => {
+    let newState = {...state};
+    newState.entities[data.tableId].columns[data.columnId].cells[data.cellIndex] = data.cellValue;
+
+    return {
+      ...newState,
+    };
   })
 );
 

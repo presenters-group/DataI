@@ -13,6 +13,7 @@ export class VisualizersService {
   constructor(private httpClient: HttpClient) {}
 
   create(data : IVisualizer) {
+    console.log(JSON.stringify(data));
     return this.httpClient.post(`${this.URL}/`, { ...data });
   }
 

@@ -156,8 +156,7 @@ export class TreeViewComponent implements OnInit, AfterViewInit {
           const dialogConfig = new MatDialogConfig();
           let dialogRef = this.dialog.open(AddVisualizerComponent, dialogConfig);
           dialogRef.afterClosed().subscribe(result => {
-            console.log(result)
-            this.store.dispatch(createVisualizer({...result.value, id: 0, isDeleted: false}));
+            this.store.dispatch(createVisualizer({data:{...result.value, id: 0, isDeleted: false}}));
           });
       }
     });
