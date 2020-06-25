@@ -22,7 +22,7 @@ export class DataSourcesEffects {
 
       switchMap(({ data }) =>
         this.dataSourcesService.create(data).pipe(
-          map((data) => fromActions.createDataSourceSuccess({ data })),
+          map((data) => fromActions.fetchDataSources()),
 
           catchError((error) =>
             of(fromActions.createDataSourceFailed({ error }))

@@ -1,0 +1,31 @@
+.dialog-container{
+ width: 500px;
+ height: 400px;
+ display: flex;
+ flex-direction: row;
+ align-items: center;
+ justify-content: space-between;
+}
+
+.button{
+  width:240px;
+  height: 80%;
+  color: white;
+  font-size: xx-large;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4px;
+}
+
+.excel{
+  background-color: #138046;
+}
+
+.csv{
+  background-color: #002052;
+}
+
+input{
+  display: none;
+}

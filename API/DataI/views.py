@@ -271,8 +271,7 @@ def excelUpload(request):
   fileName = request.FILES['file_upload'].name
   projectPath = os.path.dirname(__file__)
   print(projectPath)
-  filePath = (os.path.join(projectPath.replace('/DataI', '')) + '/media/uploads/') + fileName
-  print(filePath)
+  filePath = projectPath.replace('/DataI', '') + '/media/uploads/' + fileName
   dataController.loadTablesFromExcelFile(filePath, DataController.getMaxIdInList(dataController.data.dataSources) + 1)
   return HttpResponse()
 

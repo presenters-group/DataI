@@ -7,12 +7,13 @@ import {
   selectIsThereACurrentTap,
 } from "src/store/core/selectors/core.selector";
 import { fetchDataSourcesSuccess, fetchDataSources } from "src/store/data-sources";
-import { fetchVisualizersSuccess, fetchVisualizers } from "src/store/visualizers";
+import { fetchVisualizersSuccess, fetchVisualizers, fetchChartAsSVGSuccess } from "src/store/visualizers";
 import { fetchDashboardsSuccess, fetchDashboards } from "src/store/dashboards";
 import { fetchFiltersSuccess, fetchFilters } from "src/store/filters";
 import { Router } from "@angular/router";
 import { HttpClient } from '@angular/common/http';
 import { BASE_URL } from 'src/utils/url.util';
+import { TEST_SVG_CHART } from 'src/utils/static.chart';
 
 @Component({
   selector: "app-root",
@@ -478,17 +479,6 @@ export class AppComponent implements OnInit, AfterViewInit {
     //   })
     // );
 
-
-  }
-  file;
-  sendFile(event){
-    this.file = event.target.files[0]
-    console.log(this.file)
-    let testData:FormData = new FormData();
-    testData.append('file_upload', this.file, this.file.name);
-    this.http.post(BASE_URL+'excel-upload/', testData).subscribe(response => {
-        console.log(response);
-    });
   }
 
 }

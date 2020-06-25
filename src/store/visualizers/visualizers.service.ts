@@ -28,4 +28,8 @@ export class VisualizersService {
   delete(id : number) {
     return this.httpClient.delete(`${this.URL}/${id}`);
   }
+
+  fetchVisualizerChart(data){
+    return this.httpClient.put(this.URL, {...data})
+  }
 }

@@ -86,4 +86,22 @@ export class VisualizersEffects {
       )
     )
   );
+
+  fetchVisualizerChart$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(fromActions.fetchChartAsSVG),
+
+      debounceTime(100),
+
+      switchMap(({ data }) =>
+        this.visualizersService.fetchVisualizerChart(data).pipe(
+          map((data) => fromActions.fetchVisualizersSuccess({ data })),
+
+          catchError((error) =>
+            of(fromActions.fetchVisualizersFailed({ error }))
+          )
+        )
+      )
+    )
+  );
 }

@@ -6,4 +6,5 @@ export interface IVisualizer {
   name: string;
   filters: any[];
   isDeleted: boolean;
+  chartSvg?: string;
 }

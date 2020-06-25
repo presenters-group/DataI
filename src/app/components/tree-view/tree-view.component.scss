@@ -1,8 +1,11 @@
 .container {
   display: flex;
   flex-direction: column;
+  padding-bottom: 40px;
 }
-.tree {
+#tree {
+  overflow-y: auto;
+  padding-bottom: 40px;
   // padding: 10px;
 }
 .item {

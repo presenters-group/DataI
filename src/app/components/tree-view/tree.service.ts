@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Store, State } from '@ngrx/store';
 import { AppState } from 'src/store';
 import { selectFiltersTree } from 'src/store/filters/filters.selectors';
-import { first } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { selectDataSourcesTree } from 'src/store/data-sources/data-sources.selectors';
 import { selectDashboardsTree } from 'src/store/dashboards/dashboards.selectors';
@@ -30,15 +29,15 @@ export class TreeService {
     }
   }
   fillOutDashboards(){
-    return this.store.select(selectDashboardsTree).pipe(first());
+    return this.store.select(selectDashboardsTree);
   }
   fillOutDataSources(){
-    return this.store.select(selectDataSourcesTree).pipe(first())
+    return this.store.select(selectDataSourcesTree)
   }
   fillOutVisualizers(){
-    return this.store.select(selectVisualizersTree).pipe(first())
+    return this.store.select(selectVisualizersTree)
   }
   fillOutFilters(){
-    return this.store.select(selectFiltersTree).pipe(first())
+    return this.store.select(selectFiltersTree)
   }
 }

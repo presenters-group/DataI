@@ -60,3 +60,21 @@ export const updateVisualizerFailed = createAction(
   "[VisualizersEffect] update Visualizer Failed",
   props<{ error }>()
 );
+
+export const fetchChartAsSVG = createAction(
+  "[VisualizerComponent] fetch svg chart",
+  props<{ data : {visualizerId : number, width: number ,height: number} }>()
+);
+
+export const fetchChartAsSVGSuccess = createAction(
+  "[VisualizerEffects] fetch svg chart success",
+  props<{ data }>()
+);
+
+
+export const fetchChartAsSVGFiled = createAction(
+  "[VisualizerEffects] fetch svg chart Filed",
+  props<{ error }>()
+);
+
+

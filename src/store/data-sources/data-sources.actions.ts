@@ -16,7 +16,7 @@ export const fetchDataSourcesFailed = createAction(
 /**Creating */
 export const createDataSource = createAction(
   "[TreeView] Create Data Sources",
-  props<{ data }>()
+  props<{ data:{file,type} }>()
 );
 
 export const createDataSourceSuccess = createAction(

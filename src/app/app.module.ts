@@ -26,6 +26,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
 import {MatSelectModule} from '@angular/material/select';
+import { AddDataSourceComponent } from './pages/data-source/dialogs/add-data-source/add-data-source.component';
+import {MatRippleModule} from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -39,11 +41,17 @@ import {MatSelectModule} from '@angular/material/select';
     FilterComponent,
     DataSourceComponent,
     AddVisualizerComponent,
+    AddDataSourceComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    StoreModule.forRoot({ ...fromStore.reducers }),
+    StoreModule.forRoot({ ...fromStore.reducers },{
+      runtimeChecks: {
+        strictStateImmutability: true,
+        strictActionImmutability: true
+    }}
+    ),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: environment.production,
@@ -57,7 +65,8 @@ import {MatSelectModule} from '@angular/material/select';
     ReactiveFormsModule,
     MatInputModule,
     MatButtonModule,
-    MatSelectModule
+    MatSelectModule,
+    MatRippleModule
   ],
   providers: [],
   bootstrap: [AppComponent],

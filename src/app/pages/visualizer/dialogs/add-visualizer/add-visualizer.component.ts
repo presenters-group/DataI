@@ -55,20 +55,6 @@ export class AddVisualizerComponent {
     this.dialogRef.close();
   }
 
-  // getDataSource(dataSources){
-  //   this.dataSources.pipe(first()).subscribe((value)=>{
-  //     console.log(value)
-  //   })
-  //   console.log(dataSources);
-  //   return dataSources
-  // }
-  // consol(data,t?){
-  //   if(t)
-  //     console.log('blablabla')
-  //   console.log(data);
-  //   return data;
-  // }
-
   onSelectDataSource(){
     console.log(this.form.value.data);
     this.filters = this.store.select(selectFiltersForDataSource,{dataSource : this.form.value.data})
