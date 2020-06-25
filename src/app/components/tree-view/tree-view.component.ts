@@ -17,6 +17,7 @@ import { ConditionalExpr } from '@angular/compiler';
 import { first } from 'rxjs/operators';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { AddVisualizerComponent } from 'src/app/pages/visualizer/dialogs/add-visualizer/add-visualizer.component';
+import { createVisualizer } from 'src/store/visualizers';
 @Component({
   selector: "app-tree-view",
   templateUrl: "./tree-view.component.html",
@@ -154,6 +155,10 @@ export class TreeViewComponent implements OnInit, AfterViewInit {
         case 'visualizers':
           const dialogConfig = new MatDialogConfig();
           let dialogRef = this.dialog.open(AddVisualizerComponent, dialogConfig);
+          dialogRef.afterClosed().subscribe(result => {
+            console.log(result)
+            this.store.dispatch(createVisualizer({...result.value, id: 0, isDeleted: false}));
+          });
       }
     });
   }

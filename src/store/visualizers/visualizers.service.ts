@@ -13,7 +13,7 @@ export class VisualizersService {
   constructor(private httpClient: HttpClient) {}
 
   create(data : IVisualizer) {
-    return this.httpClient.post(this.URL, { ...data });
+    return this.httpClient.post(`${this.URL}/`, { ...data });
   }
 
   update(data : IVisualizer) {
