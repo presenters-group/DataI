@@ -36,9 +36,10 @@ class InDashboardVisioModel(ObjectDeserializer):
 
 
 class DashboardModel(BasicInfo):
-    def __init__(self, visualizers: List[InDashboardVisioModel], name: str, id: int):
+    def __init__(self, visualizers: List[InDashboardVisioModel], name: str, id: int, isDeleted: bool):
         super(DashboardModel, self).__init__(name, id)
         self.visualizers = visualizers
+        self.isDeleted = isDeleted
 
     def __str__(self):
         return 'name: {}, ID: {}\nvisualizers:\n{}'.format(self.name, self.id, self.visualizers)
@@ -51,4 +52,5 @@ class DashboardModel(BasicInfo):
             visualizers.append(InDashboardVisioModel.from_json(element))
         name = data['name']
         id = data['id']
-        return cls(visualizers, name, id)
+        isDeleted = data['isDeleted']
+        return cls(visualizers, name, id, isDeleted)

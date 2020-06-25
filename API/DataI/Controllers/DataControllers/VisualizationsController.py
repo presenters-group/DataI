@@ -10,8 +10,13 @@ class VisualizationsController():
     visio.id = id + 1
     data.visualizations.append(visio)
 
+  def updateVisualizerById(cls, data: DataModel, visio: VisualizationModel, id: int):
+    oldVisioIndex = DataController.getElementIndexById(data.visualizations, id)
+    data.visualizations[oldVisioIndex] = visio
+    return data.visualizations[oldVisioIndex]
+
   @classmethod
-  def deleteVisualizer(cls,data:DataModel,id:int):
+  def deleteVisualizer(cls,data:DataModel,id: int):
     visualizationIndex =  DataController.getElementById(data.visualizations,id)
     print(visualizationIndex)
     if visualizationIndex != -1:
@@ -19,8 +24,3 @@ class VisualizationsController():
       return data.visualizations[visualizationIndex]
     return None
 
-
-  def updateVisualizerById(cls, data: DataModel, visio: VisualizationModel, id: int):
-    oldVisioIndex = DataController.getElementIndexById(data.visualizations, id)
-    data.visualizations[oldVisioIndex] = visio
-    return data.visualizations[oldVisioIndex]
