@@ -25,7 +25,7 @@ class DataController():
   # Don't add 1 to id here (it must be already added).
   def loadTableFromCSVFile(self, filePath: str, greatestTableId: int):
     loader = CSVFileLoader(filePath)
-    self.data.dataSources.extend(loader.loadFile(greatestTableId))
+    self.data.dataSources.append(loader.loadFile(greatestTableId))
 
   def insertNewTable(self, table: TableModel):
     DataSourcesController.insertNewTable(self.data, table)
@@ -65,6 +65,9 @@ class DataController():
 
   def deleteFilter(self, id):
     return FiltersController.deleteFilter(self.data, id)
+
+  def getChartsNames(self):
+    return VisualizationsController.getChartsNames(self.data)
 
   @classmethod
   def getMaxIdInList(cls, idList):

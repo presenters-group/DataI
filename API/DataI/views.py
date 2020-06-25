@@ -208,7 +208,13 @@ def cellModifier(request, tableId, columnId, cellIndex):
   if request.method == 'PUT':
     newCell = json.loads(request.body.decode()).get('cellValue')
     newCell = dataController.updateCellByCords(newCell, tableId, columnId, cellIndex)
-    return HttpResponse(json.dumps(newCell, indent=4, cls=ObjectEncoder, ensure_ascii=False))
+    returnDict = dict()
+    returnDict['cellValue'] = newCell.value
+    returnDict['tableID'] = tableId
+    returnDict['columnId'] = columnId
+    returnDict['cellIndex'] = cellIndex
+    print(returnDict)
+    return HttpResponse(json.dumps(returnDict, indent=4, cls=ObjectEncoder, ensure_ascii=False))
 
 
 
@@ -247,6 +253,12 @@ def filterModifier(request, id):
     return HttpResponse(json.dumps(filter, indent=4, cls=ObjectEncoder, ensure_ascii=False))
 
 
+@csrf_exempt
+def getChartsNames(request):
+  if request.method == 'GET':
+    chartsNames = dataController.getChartsNames()
+    return HttpResponse(chartsNames)
+
 
 @csrf_exempt
 def excelUpload(request):
@@ -280,6 +292,15 @@ def csvUpload(request):
   print(filePath)
   dataController.loadTableFromCSVFile(filePath, DataController.getMaxIdInList(dataController.data.dataSources) + 1)
   return HttpResponse()
+
+
+@csrf_exempt
+def getChartSVG(request):
+  if request.method == 'PUT':
+    visioInfo = json.loads(request.body.decode())
+    visualizerId = visioInfo.get('visualizerId')
+    width = visioInfo.get('width')
+    height = visioInfo.get('height')
 
 
 
