@@ -87,7 +87,8 @@ jsonDashboard = '''
                         }
                     ]
                 }
-            ]
+            ],
+            "isDeleted": false
         }
 '''
 jsonFilters = '''
@@ -127,14 +128,14 @@ dataController.data.dashboards.append(DashboardModel.from_json(json.loads(jsonDa
 loadedJsonFilters = json.loads(jsonFilters)
 for filter in loadedJsonFilters:
   dataController.data.filters.append(FilterModel.from_json(filter))
-
-
 # load static data.
+
 
 @csrf_exempt
 def fullDataHandler(request):
   if request.method == 'GET':
     return HttpResponse(json.dumps(dataController.data, indent=4, cls=ObjectEncoder, ensure_ascii=False))
+
 
 
 @csrf_exempt
@@ -146,11 +147,6 @@ def dataSourcesHandler(request):
     dataController.insertNewTable(table)
     return HttpResponse(json.dumps(table, indent=4, cls=ObjectEncoder, ensure_ascii=False))
 
-@csrf_exempt
-def dataSourcesModifire(request,id):
-  if request.method == 'DELETE':
-    table = dataController.deleteTable(id)
-    return HttpResponse(json.dumps(table, indent= 4, cls= ObjectEncoder, ensure_ascii= False))
 
 
 # @csrf_exempt
@@ -172,11 +168,6 @@ def visualizersHandler(request):
     dataController.insertNewVisualizer(visualizer)
     return HttpResponse(json.dumps(visualizer, indent= 4, cls= ObjectEncoder, ensure_ascii= False))
 
-@csrf_exempt
-def visualizersModifire(request,id):
-  if request.method == 'DELETE':
-    visualizer = dataController.deleteVisualizer(id)
-    return HttpResponse(json.dumps(visualizer, indent= 4, cls= ObjectEncoder, ensure_ascii= False))
 
 @csrf_exempt
 def dashBoardsHandler(request):
@@ -187,11 +178,6 @@ def dashBoardsHandler(request):
     dataController.insertNewDashboard(dashBoard)
     return HttpResponse(json.dumps(dashBoard, indent=4, cls=ObjectEncoder, ensure_ascii=False))
 
-@csrf_exempt
-def dashBoardsModifire(request,id):
-  if request.method == 'DELETE':
-    dashBoard = dataController.deleteDashBoard(id)
-    return HttpResponse(json.dumps(dashBoard, indent=4, cls=ObjectEncoder,ensure_ascii=False))
 
 
 @csrf_exempt
@@ -203,11 +189,7 @@ def filtersHandler(request):
     dataController.inserNewFilter(filter)
     return HttpResponse(json.dumps(filter, indent=4, cls=ObjectEncoder, ensure_ascii=False))
 
-@csrf_exempt
-def filtersModifire(request,id):
-  if request.method == 'DELETE':
-    filter = dataController.deleteFilter(id)
-    return HttpResponse(json.dumps(filter, indent=4, cls=ObjectEncoder, ensure_ascii=False))
+
 
 @csrf_exempt
 def dataSourceModifier(request, id):
@@ -215,6 +197,19 @@ def dataSourceModifier(request, id):
     newTable = TableModel.from_json(json.loads(request.body.decode()))
     newTable = dataController.updateTableById(newTable, int(id))
     return HttpResponse(json.dumps(newTable, indent=4, cls=ObjectEncoder, ensure_ascii=False))
+  elif request.method == 'DELETE':
+    table = dataController.deleteTable(id)
+    return HttpResponse(json.dumps(table, indent=4, cls=ObjectEncoder, ensure_ascii=False))
+
+
+
+@csrf_exempt
+def cellModifier(request, tableId, columnId, cellIndex):
+  if request.method == 'PUT':
+    newCell = json.loads(request.body.decode()).get('cellValue')
+    newCell = dataController.updateCellByCords(newCell, tableId, columnId, cellIndex)
+    return HttpResponse(json.dumps(newCell, indent=4, cls=ObjectEncoder, ensure_ascii=False))
+
 
 
 @csrf_exempt
@@ -223,6 +218,10 @@ def visualizerModifier(request, id):
     newVisio = VisualizationModel.from_json(json.loads(request.body.decode()))
     newVisio = dataController.updateVisualizerById(newVisio, id)
     return HttpResponse(json.dumps(newVisio, indent=4, cls=ObjectEncoder, ensure_ascii=False))
+  elif request.method == 'DELETE':
+    visualizer = dataController.deleteVisualizer(id)
+    return HttpResponse(json.dumps(visualizer, indent=4, cls=ObjectEncoder, ensure_ascii=False))
+
 
 
 @csrf_exempt
@@ -231,6 +230,10 @@ def dashboardModifier(request, id):
     newDashboard = DashboardModel.from_json(json.loads(request.body.decode()))
     newDashboard = dataController.updateDashboardById(newDashboard, id)
     return HttpResponse(json.dumps(newDashboard, indent=4, cls=ObjectEncoder, ensure_ascii=False))
+  if request.method == 'DELETE':
+    dashBoard = dataController.deleteDashBoard(id)
+    return HttpResponse(json.dumps(dashBoard, indent=4, cls=ObjectEncoder, ensure_ascii=False))
+
 
 
 @csrf_exempt
@@ -239,12 +242,14 @@ def filterModifier(request, id):
     newFilter = FilterModel.from_json(json.loads(request.body.decode()))
     newFilter = dataController.updateFilterById(newFilter, id)
     return HttpResponse(json.dumps(newFilter, indent=4, cls=ObjectEncoder, ensure_ascii=False))
+  if request.method == 'DELETE':
+    filter = dataController.deleteFilter(id)
+    return HttpResponse(json.dumps(filter, indent=4, cls=ObjectEncoder, ensure_ascii=False))
+
 
 
 @csrf_exempt
 def excelUpload(request):
-  #form = DocumentForm(request.POST, request.FILES)
-  # if form.is_valid():
   newdoc = Document(docfile=request.FILES['file_upload'])
   try:
     newdoc.save()
@@ -252,11 +257,41 @@ def excelUpload(request):
     pass
 
   fileName = request.FILES['file_upload'].name
-  dirName = os.path.dirname(__file__)
-  filePath = os.path.join(dirName, '../')[1:] + fileName
-  print(dataController.data.dataSources[0].id)
+  projectPath = os.path.dirname(__file__)
+  print(projectPath)
+  filePath = (os.path.join(projectPath.replace('/DataI', '')) + '/media/uploads/') + fileName
+  print(filePath)
   dataController.loadTablesFromExcelFile(filePath, DataController.getMaxIdInList(dataController.data.dataSources) + 1)
   return HttpResponse()
+
+
+@csrf_exempt
+def csvUpload(request):
+  newdoc = Document(docfile=request.FILES['file_upload'])
+  try:
+    newdoc.save()
+  except:
+    pass
+
+  fileName = request.FILES['file_upload'].name
+  projectPath = os.path.dirname(__file__)
+  print(projectPath)
+  filePath = (os.path.join(projectPath.replace('/DataI', '')) + '/media/uploads/') + fileName
+  print(filePath)
+  dataController.loadTableFromCSVFile(filePath, DataController.getMaxIdInList(dataController.data.dataSources) + 1)
+  return HttpResponse()
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

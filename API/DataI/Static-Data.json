@@ -383,7 +383,8 @@
                         }
                     ]
                 }
-            ]
+            ],
+            "isDeleted": false
         }
     ],
     "filters": [

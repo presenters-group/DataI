@@ -20,12 +20,12 @@ class DataController():
   # Don't add 1 to id here (it must be already added).
   def loadTablesFromExcelFile(self, filePath: str, greatestTableId: int):
     loader = ExcelFileLoader(filePath)
-    self.data.dataSources.append(loader.loadFile(greatestTableId))
+    self.data.dataSources.extend(loader.loadFile(greatestTableId))
 
   # Don't add 1 to id here (it must be already added).
   def loadTableFromCSVFile(self, filePath: str, greatestTableId: int):
     loader = CSVFileLoader(filePath)
-    self.data.dataSources.append(loader.loadFile(greatestTableId))
+    self.data.dataSources.extend(loader.loadFile(greatestTableId))
 
   def insertNewTable(self, table: TableModel):
     DataSourcesController.insertNewTable(self.data, table)
@@ -39,10 +39,11 @@ class DataController():
   def inserNewFilter(self, filter: FilterModel):
     FiltersController.inserNewFilter(self.data, filter)
 
-  def deleteTable(self,id):
-    return DataSourcesController.deleteTable(self.data,id)
   def updateTableById(self, table: TableModel, id: int):
     return DataSourcesController.updateTableById(self.data, table, id)
+
+  def updateCellByCords(self, cell, tableId: int, columnId: int, cellIndex):
+    return DataSourcesController.updateCellByCords(self.data, cell, tableId, columnId, cellIndex)
 
   def updateVisualizerById(self, visio: VisualizationModel, id: int):
     return VisualizationsController.updateVisualizerById(self.data, visio, id)
@@ -53,6 +54,18 @@ class DataController():
   def updateFilterById(self, filter: FilterModel, id: int):
     return FiltersController.updateFilterById(self.data, filter, id)
 
+  def deleteTable(self, id):
+    return DataSourcesController.deleteTable(self.data, id)
+
+  def deleteVisualizer(self, id):
+    return VisualizationsController.deleteVisualizer(self.data, id)
+
+  def deleteDashBoard(self, id):
+    return DashboardsController.deleteDashBoard(self.data, id)
+
+  def deleteFilter(self, id):
+    return FiltersController.deleteFilter(self.data, id)
+
   @classmethod
   def getMaxIdInList(cls, idList):
     return getMaxIdInList(idList)
@@ -60,14 +73,7 @@ class DataController():
   @classmethod
   def getElementIndexById(cls, list, id: int):
     return getElementIndexById(list, id)
-  def deleteVisualizer(self,id):
-    return VisualizationsController.deleteVisualizer(self.data,id)
 
-  def deleteDashBoard(self,id):
-    return DashboardsController.deleteDashBoard(self.data,id)
-
-  def deleteFilter(self,id):
-    return FiltersController.deleteFilter(self.data,id)
 
 def getMaxIdInList(idList):
   max = 0
@@ -76,13 +82,13 @@ def getMaxIdInList(idList):
       max = item.id
   return max
 
-def getElementIndexById(list, id: int):
-def getElementById(elementList:List, id):
+def getElementById(elementsList:List, id):
   index = -1
-  for single in elementList:
-    if single.id == id:
-      index = single.id
+  for element in elementsList:
+    if element.id == id:
+      index = element.id
   return index
+
 def getElementIndexById(list: List, id: int):
   indexCounter = 0
   for element in list:
