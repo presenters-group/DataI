@@ -1,5 +1,6 @@
 from typing import List
 
+from DataI import enums
 from DataI.Controllers.DataControllers.DashboardsController import DashboardsController
 from DataI.Controllers.DataControllers.DataSourcesController import DataSourcesController
 from DataI.Controllers.DataControllers.FiltersController import FiltersController
@@ -68,7 +69,8 @@ class DataController():
     return FiltersController.deleteFilter(self.data, id)
 
   def getChartsNames(self):
-    return VisualizationsController.getChartsNames(self.data)
+    names = [enums.ChartTypes.verticalBarChart.value, enums.ChartTypes.BasicLineChart.value, enums.ChartTypes.PointChart.value]
+    return names
 
   def getChartSVGString(self, visioId, width, height):
     return DrawController.getSVGString(self.data, visioId, width, height)

@@ -244,7 +244,9 @@ def filterModifier(request, id):
 def getChartsNames(request):
   if request.method == 'GET':
     chartsNames = dataController.getChartsNames()
-    return HttpResponse(chartsNames)
+    namesDict = dict()
+    namesDict['chartsNames'] = chartsNames
+    return HttpResponse(json.dumps(namesDict, indent=4, cls=ObjectEncoder, ensure_ascii=False))
 
 
 @csrf_exempt

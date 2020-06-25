@@ -24,11 +24,5 @@ class VisualizationsController():
       return data.visualizations[visualizationIndex]
     return None
 
-  @classmethod
-  def getChartsNames(cls, data: DataModel):
-    chartsNames = list()
-    for visio in data.visualizations:
-      chartsNames.append(visio.chart)
-    return chartsNames
 
 
