@@ -31,6 +31,7 @@ class ChartTypes(enum.Enum):
     horizontalBarChart = 'horizontalBarChart'
     StackedBarChart = 'StackedBarChart'
     BasicLineChart = 'BasicLineChart'
+    PointChart = 'PointChart'
     BoundaryLineChart = 'BoundaryLineChart'
     DoughnutChart = 'DoughnutChart'
     PieChart = 'PieChart'

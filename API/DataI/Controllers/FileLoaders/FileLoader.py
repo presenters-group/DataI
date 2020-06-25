@@ -1,4 +1,6 @@
 import random
+import re
+
 import pandas
 from typing import List, Dict
 from DataI import enums
@@ -31,7 +33,8 @@ class FileLoader():
         columnCells = [CellModel(name, enums.CellType.string.value)]
         for cell in cells.values():
             # get cell type
-            if cell is int or cell is float:
+            cell = str(cell)
+            if cell.isnumeric():
                 type = enums.CellType.numeric.value
             else:
                 type = enums.CellType.string.value
