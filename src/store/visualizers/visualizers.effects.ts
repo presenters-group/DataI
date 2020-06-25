@@ -20,15 +20,16 @@ export class VisualizersEffects {
 
       debounceTime(100),
 
-      switchMap(({ data }) =>
-        this.visualizersService.create(data).pipe(
+      switchMap(({data}) => {
+        console.log(data)
+        return this.visualizersService.create(data as any).pipe(
           map((data) => fromActions.createVisualizerSuccess({ data })),
 
           catchError((error) =>
             of(fromActions.createVisualizerFailed({ error }))
           )
-        )
-      )
+        );
+      })
     )
   );
 

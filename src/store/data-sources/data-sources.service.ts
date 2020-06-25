@@ -26,4 +26,11 @@ export class DataSourcesService {
   delete(id: number) {
     return this.httpClient.delete(`${this.URL}/${id}`);
   }
+
+  updateCell(data){
+    console.log(data)
+    return this.httpClient.put(`${this.URL}/cell/${data.tableId}/${data.columnId}/${data.cellIndex}`,{
+      cellValue: data.cellValue
+    })
+  }
 }
