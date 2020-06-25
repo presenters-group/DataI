@@ -12,9 +12,9 @@ urlpatterns = [
   path('dashboards/<int:id>/', views.dashboardModifier),
   path('filters/', views.filtersHandler),
   path('filters/<int:id>/', views.filterModifier),
+  path('chartsNames/', views.getChartsNames),
   path('excel-upload/', views.excelUpload),
   path('csv-upload/', views.csvUpload),
-
   path('', views.fullDataHandler),
 
 ]

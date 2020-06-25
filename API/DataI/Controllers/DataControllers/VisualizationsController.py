@@ -16,11 +16,19 @@ class VisualizationsController():
     return data.visualizations[oldVisioIndex]
 
   @classmethod
-  def deleteVisualizer(cls,data:DataModel,id: int):
+  def deleteVisualizer(cls, data: DataModel, id: int):
     visualizationIndex =  DataController.getElementById(data.visualizations,id)
     print(visualizationIndex)
     if visualizationIndex != -1:
       data.visualizations[visualizationIndex].isDeleted = True
       return data.visualizations[visualizationIndex]
     return None
+
+  @classmethod
+  def getChartsNames(cls, data: DataModel):
+    chartsNames = list()
+    for visio in data.visualizations:
+      chartsNames.append(visio.chart)
+    return chartsNames
+
 
