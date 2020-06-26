@@ -28,17 +28,23 @@ class DrawController():
   def getSVGString(cls, data: DataModel, visioID: int, width: double, height: double) -> str:
     visioIndex = DataController.getElementIndexById(data.visualizations, visioID)
     visualizer = data.visualizations[visioIndex]
+
     drawTable = cls.generateVisualizerTable(data, visioID)
-    xColumn = cls.__seperateXColumn(drawTable, visualizer.xColumn)
+    cls.__removeXColumnIfExists(drawTable, visualizer.xColumn)
+    
+
+    xColumnIndex = DataController.getElementIndexById(data.dataSources, visualizer.xColumn)
+    xColumn = data.dataSources[visualizer.data].columns[xColumnIndex]
+
     drawer = ChartsFactory.generateCharts(visualizer.chart, drawTable, width, height, xColumn, double(8.0))
     return drawer.SVG
 
   @classmethod
-  def __seperateXColumn(cls, table: TableModel, xColumnId: int):
-    xColumnIndex = DataController.getElementIndexById(table.columns, xColumnId)
-    XColumn = table.columns[xColumnIndex]
-    table.columns.remove(XColumn)
-    return XColumn
+  def __removeXColumnIfExists(cls, drawTable: TableModel, xColumnId: int):
+    for column in drawTable.columns:
+      if column.id == xColumnId:
+        drawTable.columns.pop(xColumnId)
+        return
 
 
 

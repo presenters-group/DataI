@@ -51,6 +51,9 @@ jsonVisio = '''
             "isDeleted": false
         }
 '''
+jsonVisio1 = '''
+{"name":"Bilal Azizieh","id":4,"data":0,"usedColumns":[1],"xColumn":2,"chart":"BasicLineChart","filters":[],"isDeleted":false}
+'''
 jsonDashboard = '''
 {
             "name": "dashboard1",
@@ -122,6 +125,7 @@ jsonFilters = '''
 '''
 
 dataController.data.visualizations.append(VisualizationModel.from_json(json.loads(jsonVisio)))
+dataController.data.visualizations.append(VisualizationModel.from_json(json.loads(jsonVisio1)))
 dataController.data.dashboards.append(DashboardModel.from_json(json.loads(jsonDashboard)))
 loadedJsonFilters = json.loads(jsonFilters)
 for filter in loadedJsonFilters:

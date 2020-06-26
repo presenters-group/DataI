@@ -68,14 +68,14 @@ dataSource = TableModel(columns, 'Table1', 0, properties, aggregator, False)
 #=================================================================================================================
 
 newCells = [CellModel('الوزن', enums.CellType.string.value),
-        CellModel(10, enums.CellType.string.value),
-        CellModel(17, enums.CellType.string.value),
-        CellModel(55, enums.CellType.string.value),
-        CellModel(39, enums.CellType.string.value),
-        CellModel(71, enums.CellType.string.value),
-        CellModel(66, enums.CellType.string.value),
-        CellModel(55, enums.CellType.string.value),
-        CellModel(21, enums.CellType.string.value),
+        CellModel(10, enums.CellType.numeric.value),
+        CellModel(17, enums.CellType.numeric.value),
+        CellModel(55, enums.CellType.numeric.value),
+        CellModel(39, enums.CellType.numeric.value),
+        CellModel(71, enums.CellType.numeric.value),
+        CellModel(66, enums.CellType.numeric.value),
+        CellModel(55, enums.CellType.numeric.value),
+        CellModel(21, enums.CellType.numeric.value),
          ]
 
 newStyle = ColumnStyleModel('#EBD4AE', 1.5, 0.0, 'Calibri')
@@ -115,7 +115,7 @@ inDF2 = InDashboardFilterModel(1, m2)
 
 inDV1 = InDashboardVisioModel(0, [inDF1, inDF2], m2)
 
-dashboard1 = DashboardModel([inDV1], 'dashboard1', 0)
+dashboard1 = DashboardModel([inDV1], 'dashboard1', 0, False)
 
 
 #=================================================================================================================
