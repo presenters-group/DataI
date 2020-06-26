@@ -69,10 +69,17 @@ export const selectCurrentVisualizer = createSelector(
   selectVisualizersState,
   selectCurrentTapObject,
   (state,current) => {
-    return state.entities[current.id]
+    return current && current.id ? state.entities[current.id] : null
   }
 );
 
+
+export const selectVisualizersChart = createSelector(
+  selectCurrentVisualizer,
+  (visualizer) => {
+    return visualizer ? visualizer.chartSvg || '' : null;
+  }
+);
 
 export const selectCurrentVisualizerFilters = createSelector(
   selectCurrentVisualizer,

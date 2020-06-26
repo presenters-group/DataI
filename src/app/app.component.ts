@@ -6,14 +6,22 @@ import {
   isTreeOpened,
   selectIsThereACurrentTap,
 } from "src/store/core/selectors/core.selector";
-import { fetchDataSourcesSuccess, fetchDataSources } from "src/store/data-sources";
-import { fetchVisualizersSuccess, fetchVisualizers, fetchChartAsSVGSuccess } from "src/store/visualizers";
+import {
+  fetchDataSourcesSuccess,
+  fetchDataSources,
+} from "src/store/data-sources";
+import {
+  fetchVisualizersSuccess,
+  fetchVisualizers,
+  fetchChartAsSVGSuccess,
+} from "src/store/visualizers";
 import { fetchDashboardsSuccess, fetchDashboards } from "src/store/dashboards";
 import { fetchFiltersSuccess, fetchFilters } from "src/store/filters";
 import { Router } from "@angular/router";
-import { HttpClient } from '@angular/common/http';
-import { BASE_URL } from 'src/utils/url.util';
-import { TEST_SVG_CHART } from 'src/utils/static.chart';
+import { HttpClient } from "@angular/common/http";
+import { BASE_URL } from "src/utils/url.util";
+import { TEST_SVG_CHART } from "src/utils/static.chart";
+import { fetchCharts } from 'src/store/core/actions/core.actions';
 
 @Component({
   selector: "app-root",
@@ -29,7 +37,11 @@ export class AppComponent implements OnInit, AfterViewInit {
   isTreeOpened: Observable<boolean>;
   isThereAnOpenedTap: Observable<boolean>;
   eventHandlers: any[] = [];
-  constructor(private store: Store<AppState>, private router: Router,private http : HttpClient) {
+  constructor(
+    private store: Store<AppState>,
+    private router: Router,
+    private http: HttpClient
+  ) {
     this.isThereAnOpenedTap = this.store.select(selectIsThereACurrentTap);
     this.isTreeOpened = this.store.select(isTreeOpened);
   }
@@ -74,411 +86,13 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   fillTheStoreOut() {
     this.store.dispatch(fetchDataSources());
-    // this.store.dispatch(
-    //   fetchDataSourcesSuccess({
-    //     data: [
-    //       {
-    //         name: "Table1",
-    //         id: 0,
-    //         columns: [
-    //           {
-    //             name: "السعر",
-    //             id: 500,
-    //             cells: [
-    //               {
-    //                 value: "السعر",
-    //                 type: "string",
-    //               },
-    //               {
-    //                 value: 10,
-    //                 type: "numeric",
-    //               },
-    //               {
-    //                 value: 20,
-    //                 type: "numeric",
-    //               },
-    //               {
-    //                 value: 20,
-    //                 type: "numeric",
-    //               },
-    //               {
-    //                 value: 20,
-    //                 type: "numeric",
-    //               },
-    //               {
-    //                 value: 15,
-    //                 type: "numeric",
-    //               },
-    //               {
-    //                 value: 15,
-    //                 type: "numeric",
-    //               },
-    //               {
-    //                 value: 10,
-    //                 type: "numeric",
-    //               },
-    //               {
-    //                 value: 10,
-    //                 type: "numeric",
-    //               },
-    //             ],
-    //             style: {
-    //               color: "#26C485",
-    //               lineWeight: 1.0,
-    //               pointWeight: 1.0,
-    //               font: "Calibri",
-    //             },
-    //             columnType: "Measures",
-    //             valueCategories: [
-    //               {
-    //                 value: "السعر",
-    //                 type: "string",
-    //               },
-    //               {
-    //                 value: 10,
-    //                 type: "numeric",
-    //               },
-    //               {
-    //                 value: 20,
-    //                 type: "numeric",
-    //               },
-    //               {
-    //                 value: 15,
-    //                 type: "numeric",
-    //               },
-    //             ],
-    //             isDeleted: false,
-    //           },
-    //           {
-    //             name: "الكمية",
-    //             id: 40,
-    //             cells: [
-    //               {
-    //                 value: "الكمية",
-    //                 type: "string",
-    //               },
-    //               {
-    //                 value: 40,
-    //                 type: "numeric",
-    //               },
-    //               {
-    //                 value: 50,
-    //                 type: "numeric",
-    //               },
-    //               {
-    //                 value: 50,
-    //                 type: "numeric",
-    //               },
-    //               {
-    //                 value: 50,
-    //                 type: "numeric",
-    //               },
-    //               {
-    //                 value: 50,
-    //                 type: "numeric",
-    //               },
-    //               {
-    //                 value: 60,
-    //                 type: "numeric",
-    //               },
-    //               {
-    //                 value: 50,
-    //                 type: "numeric",
-    //               },
-    //               {
-    //                 value: 40,
-    //                 type: "numeric",
-    //               },
-    //             ],
-    //             style: {
-    //               color: "#3066BE",
-    //               lineWeight: 1.0,
-    //               pointWeight: 1.0,
-    //               font: "Calibri",
-    //             },
-    //             columnType: "Measures",
-    //             valueCategories: [
-    //               {
-    //                 value: "الكمية",
-    //                 type: "string",
-    //               },
-    //               {
-    //                 value: 40,
-    //                 type: "numeric",
-    //               },
-    //               {
-    //                 value: 50,
-    //                 type: "numeric",
-    //               },
-    //               {
-    //                 value: 60,
-    //                 type: "numeric",
-    //               },
-    //             ],
-    //             isDeleted: false,
-    //           },
-    //           {
-    //             name: "النوع",
-    //             id: 359,
-    //             cells: [
-    //               {
-    //                 value: "النوع",
-    //                 type: "string",
-    //               },
-    //               {
-    //                 value: "Laptop",
-    //                 type: "string",
-    //               },
-    //               {
-    //                 value: "Laptop",
-    //                 type: "string",
-    //               },
-    //               {
-    //                 value: "Laptop",
-    //                 type: "string",
-    //               },
-    //               {
-    //                 value: "Mouse",
-    //                 type: "string",
-    //               },
-    //               {
-    //                 value: "Mouse",
-    //                 type: "string",
-    //               },
-    //               {
-    //                 value: "Mouse",
-    //                 type: "string",
-    //               },
-    //               {
-    //                 value: "Keyboard",
-    //                 type: "string",
-    //               },
-    //               {
-    //                 value: "Keyboard",
-    //                 type: "string",
-    //               },
-    //             ],
-    //             style: {
-    //               color: "#DBD56E",
-    //               lineWeight: 1.0,
-    //               pointWeight: 1.0,
-    //               font: "Calibri",
-    //             },
-    //             columnType: "Dimensions",
-    //             valueCategories: [
-    //               {
-    //                 value: "النوع",
-    //                 type: "string",
-    //               },
-    //               {
-    //                 value: "Laptop",
-    //                 type: "string",
-    //               },
-    //               {
-    //                 value: "Mouse",
-    //                 type: "string",
-    //               },
-    //               {
-    //                 value: "Keyboard",
-    //                 type: "string",
-    //               },
-    //             ],
-    //             isDeleted: false,
-    //           },
-    //           {
-    //             name: "الوزن",
-    //             id: 501,
-    //             cells: [
-    //               {
-    //                 value: "الوزن",
-    //                 type: "string",
-    //               },
-    //               {
-    //                 value: 10,
-    //                 type: "string",
-    //               },
-    //               {
-    //                 value: 17,
-    //                 type: "string",
-    //               },
-    //               {
-    //                 value: 55,
-    //                 type: "string",
-    //               },
-    //               {
-    //                 value: 39,
-    //                 type: "string",
-    //               },
-    //               {
-    //                 value: 71,
-    //                 type: "string",
-    //               },
-    //               {
-    //                 value: 66,
-    //                 type: "string",
-    //               },
-    //               {
-    //                 value: 55,
-    //                 type: "string",
-    //               },
-    //               {
-    //                 value: 21,
-    //                 type: "string",
-    //               },
-    //             ],
-    //             style: {
-    //               color: "#EBD4AE",
-    //               lineWeight: 1.5,
-    //               pointWeight: 0.0,
-    //               font: "Calibri",
-    //             },
-    //             columnType: "Measures",
-    //             valueCategories: [
-    //               {
-    //                 value: "الوزن",
-    //                 type: "string",
-    //               },
-    //               {
-    //                 value: 10,
-    //                 type: "string",
-    //               },
-    //               {
-    //                 value: 17,
-    //                 type: "string",
-    //               },
-    //               {
-    //                 value: 55,
-    //                 type: "string",
-    //               },
-    //               {
-    //                 value: 39,
-    //                 type: "string",
-    //               },
-    //               {
-    //                 value: 71,
-    //                 type: "string",
-    //               },
-    //               {
-    //                 value: 66,
-    //                 type: "string",
-    //               },
-    //               {
-    //                 value: 21,
-    //                 type: "string",
-    //               },
-    //             ],
-    //             isDeleted: false,
-    //           },
-    //         ],
-    //         columnsVisibility: [true, true, true],
-    //         rowsVisibility: [true, true, true],
-    //         properties: {
-    //           sourceFileType: "DataI",
-    //           zoomValue: 50,
-    //           xColumn: 0,
-    //         },
-    //         rightToLeft: true,
-    //         aggregator: null,
-    //         isDeleted: false,
-    //       },
-    //     ],
-    //   })
-    // );
+
     this.store.dispatch(fetchVisualizers());
-    // this.store.dispatch(
-    //   fetchVisualizersSuccess({
-    //     data: [
-    //       {
-    //         name: "visualization1",
-    //         id: 0,
-    //         data: 0,
-    //         usedColumns: [0, 1],
-    //         usedRow: 2,
-    //         chart: "BoundaryLineChart",
-    //         filters: [0, 1],
-    //         isDeleted: false,
-    //       },
-    //     ],
-    //   })
-    // );
-    this.store.dispatch(fetchDashboards())
-    // this.store.dispatch(
-    //   fetchDashboardsSuccess({
-    //     data: [
-    //       {
-    //         name: "dashboard1",
-    //         id: 0,
-    //         visualizers: [
-    //           {
-    //             visualizationIndex: 0,
-    //             measurements: {
-    //               width: 1.0,
-    //               height: 1.0,
-    //               x: 1.0,
-    //               y: 1.0,
-    //             },
-    //             displayedFilters: [
-    //               {
-    //                 filterIndex: 0,
-    //                 measurements: {
-    //                   width: 0.0,
-    //                   height: 0.0,
-    //                   x: 0.0,
-    //                   y: 0.0,
-    //                 },
-    //               },
-    //               {
-    //                 filterIndex: 1,
-    //                 measurements: {
-    //                   width: 1.0,
-    //                   height: 1.0,
-    //                   x: 1.0,
-    //                   y: 1.0,
-    //                 },
-    //               },
-    //             ],
-    //           },
-    //         ],
-    //       },
-    //     ],
-    //   })
-    // );
+
+    this.store.dispatch(fetchDashboards());
 
     this.store.dispatch(fetchFilters());
-    // this.store.dispatch(
-    //   fetchFiltersSuccess({
-    //     data: [
-    //       {
-    //         name: "filter1",
-    //         id: 0,
-    //         dataSource: 0,
-    //         filteredColumn: 40,
-    //         initValue: 10,
-    //         type: "Equality",
-    //         isDeleted: false,
-    //       },
-    //       {
-    //         name: "filter2",
-    //         id: 1,
-    //         dataSource: 0,
-    //         filteredColumn: 359,
-    //         initValue: 15,
-    //         type: "LessThan",
-    //         isDeleted: false,
-    //       },
-    //       {
-    //         name: "filter3",
-    //         id: 2,
-    //         dataSource: 0,
-    //         filteredColumn: 500,
-    //         initValue: "Laptop",
-    //         type: "Equality",
-    //         isDeleted: false,
-    //       },
-    //     ],
-    //   })
-    // );
 
+    this.store.dispatch(fetchCharts());
   }
-
 }

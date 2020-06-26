@@ -95,9 +95,11 @@ export class VisualizersEffects {
 
       switchMap(({ data }) =>
         this.visualizersService.fetchVisualizerChart(data).pipe(
-          map((data) => fromActions.fetchVisualizersSuccess({ data })),
+          map((data) => {
+            return fromActions.fetchChartAsSVGSuccess({ data })
+          }),
           catchError((error) =>
-            of(fromActions.fetchVisualizersFailed({ error }))
+            of(fromActions.fetchChartAsSVGFiled({ error }))
           )
         )
       )
