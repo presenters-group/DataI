@@ -1,6 +1,6 @@
 <div class="container">
-  <div  id='chart' class="chart">
-
+  <div [innerHTML]="safe(svg | async)" id='chart' class="chart">
+    <!-- {{svg | async}} -->
   </div>
   <div class="filters">
     <div *ngFor="let filter of filters | async" class="filter">

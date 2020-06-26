@@ -50,7 +50,7 @@ const appReducer = createReducer(
     taps.push(tap);
     return { ...state, taps, currentTap: taps.length - 1 };
   }),
-  on(fromActions.fetchChartsSuccess, (state, {data})=> ({...state, charts: data}))
+  on(fromActions.fetchChartsSuccess, (state, {data})=> ({...state, charts: data.chartsNames}))
 );
 
 export function reducer(state: CoreState | undefined, action: Action) {

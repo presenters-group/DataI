@@ -74,6 +74,13 @@ export const selectCurrentVisualizer = createSelector(
 );
 
 
+export const selectVisualizersChart = createSelector(
+  selectCurrentVisualizer,
+  (visualizer) => {
+    return visualizer.chartSvg || '';
+  }
+);
+
 export const selectCurrentVisualizerFilters = createSelector(
   selectCurrentVisualizer,
   selectFiltersEntities,

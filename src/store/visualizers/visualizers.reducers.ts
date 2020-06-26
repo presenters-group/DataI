@@ -77,7 +77,6 @@ const visualizersReducer = createReducer(
         chartSvg : data.svg
       }}
     }
-    // newState.entities[data.visualizerId].chartSvg = data.svg;
     return {...newState}
   })
 );
