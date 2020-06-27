@@ -142,10 +142,18 @@ print('________')
 print('________')
 print('________')
 
-svgString = DrawController.getSVGString(dataController.data, 0, double(10), double(1000))
+for col in dataController.data.dataSources[0].columns:
+  print(col.columnType)
+  print(col.cells[0])
 
 
-print(svgString)
+string = '100.k0'
+isDigit = string.replace('.', '').isdigit()
+print(isDigit)
+# svgString = DrawController.getSVGString(dataController.data, 0, double(10), double(1000))
+#
+#
+# print(svgString)
 
 
 

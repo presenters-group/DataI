@@ -50,7 +50,8 @@ class ColumnModel(BasicInfo):
 
     def __getColumnType(self, column: List[CellModel]):
         for cell in column:
-            if not str(cell.value).isnumeric():
+          isDigit = str(cell.value).replace('.', '').isdigit()
+          if not isDigit:
                 return enums.ColumnDataType.Dimensions.value
 
         return enums.ColumnDataType.Measures.value
