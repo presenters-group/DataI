@@ -27,7 +27,7 @@ class CellType(enum.Enum):
 
 class ChartTypes(enum.Enum):
     table = 'table'
-    verticalBarChart = 'verticalBarChart'
+    VerticalBarChart = 'VerticalBarChart'
     horizontalBarChart = 'horizontalBarChart'
     StackedBarChart = 'StackedBarChart'
     BasicLineChart = 'BasicLineChart'
@@ -35,6 +35,10 @@ class ChartTypes(enum.Enum):
     BoundaryLineChart = 'BoundaryLineChart'
     DoughnutChart = 'DoughnutChart'
     PieChart = 'PieChart'
+    MultiplePieChart = 'MultiplePieChart'
+    SmartPieChart = 'SmartPieChart'
+    PyramidalChart = 'PyramidalChart'
+    HumanChart = 'HumanChart'
 
 
 

@@ -12,6 +12,8 @@ class DrawController():
     visioIndex = DataController.getElementIndexById(data.visualizations, visioID)
     tableIndex = data.visualizations[visioIndex].data
     for columnIndex in data.visualizations[visioIndex].usedColumns:
+      print(tableIndex)
+      print(columnIndex)
       columns.append(data.dataSources[tableIndex].columns[columnIndex])
 
     returnTable = TableModel(columns,
@@ -31,7 +33,6 @@ class DrawController():
 
     drawTable = cls.generateVisualizerTable(data, visioID)
     cls.__removeXColumnIfExists(drawTable, visualizer.xColumn)
-    
 
     xColumnIndex = DataController.getElementIndexById(data.dataSources, visualizer.xColumn)
     xColumn = data.dataSources[visualizer.data].columns[xColumnIndex]
@@ -43,7 +44,7 @@ class DrawController():
   def __removeXColumnIfExists(cls, drawTable: TableModel, xColumnId: int):
     for column in drawTable.columns:
       if column.id == xColumnId:
-        drawTable.columns.pop(xColumnId)
+        drawTable.columns.pop(DataController.getElementIndexById(drawTable.columns, xColumnId))
         return
 
 

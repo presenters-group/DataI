@@ -30,10 +30,11 @@ jsonVisio = '''
             "data": 0,
             "usedColumns": [
                 0,
+                1,
                 2
             ],
             "xColumn": 0,
-            "chart": "verticalBarChart",
+            "chart": "VerticalBarChart",
             "filters": [
                 {
                     "id": 1,
@@ -50,9 +51,6 @@ jsonVisio = '''
             ],
             "isDeleted": false
         }
-'''
-jsonVisio1 = '''
-{"name":"Bilal Azizieh","id":4,"data":0,"usedColumns":[1],"xColumn":2,"chart":"BasicLineChart","filters":[],"isDeleted":false}
 '''
 jsonDashboard = '''
 {
@@ -125,12 +123,11 @@ jsonFilters = '''
 '''
 
 dataController.data.visualizations.append(VisualizationModel.from_json(json.loads(jsonVisio)))
-dataController.data.visualizations.append(VisualizationModel.from_json(json.loads(jsonVisio1)))
 dataController.data.dashboards.append(DashboardModel.from_json(json.loads(jsonDashboard)))
 loadedJsonFilters = json.loads(jsonFilters)
 for filter in loadedJsonFilters:
   dataController.data.filters.append(FilterModel.from_json(filter))
-# load static data.
+#load static data.
 
 
 @csrf_exempt
@@ -244,14 +241,6 @@ def filterModifier(request, id):
     return HttpResponse(json.dumps(filter, indent=4, cls=ObjectEncoder, ensure_ascii=False))
 
 
-@csrf_exempt
-def getChartsNames(request):
-  if request.method == 'GET':
-    chartsNames = dataController.getChartsNames()
-    namesDict = dict()
-    namesDict['chartsNames'] = chartsNames
-    return HttpResponse(json.dumps(namesDict, indent=4, cls=ObjectEncoder, ensure_ascii=False))
-
 
 @csrf_exempt
 def excelUpload(request):
@@ -263,8 +252,9 @@ def excelUpload(request):
 
   fileName = request.FILES['file_upload'].name
   projectPath = os.path.dirname(__file__)
-  print(projectPath)
+  print('project path: ' + projectPath)
   filePath = projectPath.replace('/DataI', '') + '/media/uploads/' + fileName
+  print(filePath)
   dataController.loadTablesFromExcelFile(filePath, DataController.getMaxIdInList(dataController.data.dataSources) + 1)
   return HttpResponse()
 
@@ -279,11 +269,22 @@ def csvUpload(request):
 
   fileName = request.FILES['file_upload'].name
   projectPath = os.path.dirname(__file__)
-  print(projectPath)
+  print('project path: ' + projectPath)
   filePath = (os.path.join(projectPath.replace('/DataI', '')) + '/media/uploads/') + fileName
   print(filePath)
   dataController.loadTableFromCSVFile(filePath, DataController.getMaxIdInList(dataController.data.dataSources) + 1)
   return HttpResponse()
+
+
+
+@csrf_exempt
+def getChartsNames(request):
+  if request.method == 'GET':
+    chartsNames = dataController.getChartsNames()
+    namesDict = dict()
+    namesDict['chartsNames'] = chartsNames
+    return HttpResponse(json.dumps(namesDict, indent=4, cls=ObjectEncoder, ensure_ascii=False))
+
 
 
 @csrf_exempt
@@ -294,6 +295,7 @@ def getChartSVG(request):
     width = visioInfo.get('width')
     height = visioInfo.get('height')
     svgString = dataController.getChartSVGString(visualizerId, width, height)
+    #print(svgString)
     returnDict = dict()
     returnDict['svg'] = svgString
     returnDict['metaData'] = ""

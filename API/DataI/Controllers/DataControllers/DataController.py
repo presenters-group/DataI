@@ -22,6 +22,7 @@ class DataController():
   # Don't add 1 to id here (it must be already added).
   def loadTablesFromExcelFile(self, filePath: str, greatestTableId: int):
     loader = ExcelFileLoader(filePath)
+    print(loader.loadFile(greatestTableId))
     self.data.dataSources.extend(loader.loadFile(greatestTableId))
 
   # Don't add 1 to id here (it must be already added).
@@ -69,7 +70,10 @@ class DataController():
     return FiltersController.deleteFilter(self.data, id)
 
   def getChartsNames(self):
-    names = [enums.ChartTypes.verticalBarChart.value, enums.ChartTypes.BasicLineChart.value, enums.ChartTypes.PointChart.value]
+    names = [enums.ChartTypes.VerticalBarChart.value, enums.ChartTypes.BoundaryLineChart.value,
+             enums.ChartTypes.PointChart.value, enums.ChartTypes.MultiplePieChart.value,
+             enums.ChartTypes.HumanChart.value, enums.ChartTypes.PyramidalChart.value,
+             enums.ChartTypes.SmartPieChart.value]
     return names
 
   def getChartSVGString(self, visioId, width, height):

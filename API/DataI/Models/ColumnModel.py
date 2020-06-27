@@ -5,7 +5,7 @@ from DataI import enums
 
 
 class CellModel(ObjectDeserializer):
-    def __init__(self, value: object, type: str):
+    def __init__(self, value, type: str):
         self.value = value
         self.type = type
 

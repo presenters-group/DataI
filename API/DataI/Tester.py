@@ -1,5 +1,6 @@
 import json
 import os
+import re
 
 from numpy import double
 
@@ -15,6 +16,7 @@ from DataI.Models.DashboardModel import DashboardModel
 from DataI.Models.FilterModel import FilterModel
 from DataI.Models.VisualizationModel import VisualizationModel
 
+
 dataController = DataController()
 dirName = os.path.dirname(__file__)
 filename = os.path.join(dirName, '../Test.xlsx')
@@ -29,10 +31,11 @@ jsonVisio = '''
             "data": 0,
             "usedColumns": [
                 0,
+                1,
                 2
             ],
             "xColumn": 0,
-            "chart": "verticalBarChart",
+            "chart": "MultiplePieChart",
             "filters": [
                 {
                     "id": 1,
@@ -126,19 +129,23 @@ loadedJsonFilters = json.loads(jsonFilters)
 for filter in loadedJsonFilters:
   dataController.data.filters.append(FilterModel.from_json(filter))
 
-
 drawTable = DrawController.generateVisualizerTable(dataController.data, 0)
 
-for column in drawTable.columns:
-  print(column.id)
+# for column in drawTable.columns:
+#   for cell in column.cells:
+#     print(cell.value)
+#     print(cell.type)
+#     print(type(cell.value))
+
+
+print('________')
+print('________')
+print('________')
 
 svgString = DrawController.getSVGString(dataController.data, 0, double(10), double(1000))
 
-#print(svgString)
 
-
-
-
+print(svgString)
 
 
 
