@@ -14,7 +14,7 @@ export class DataSourcesEffects {
     private dataSourcesService: DataSourcesService
   ) {}
 
-  createVisualizer$ = createEffect(() =>
+  createDataSource$ = createEffect(() =>
     this.actions$.pipe(
       ofType(fromActions.createDataSource),
 
@@ -22,7 +22,7 @@ export class DataSourcesEffects {
 
       switchMap(({ data }) =>
         this.dataSourcesService.create(data).pipe(
-          map((data) => fromActions.createDataSourceSuccess({ data })),
+          map((data) => fromActions.fetchDataSources()),
 
           catchError((error) =>
             of(fromActions.createDataSourceFailed({ error }))
@@ -32,7 +32,7 @@ export class DataSourcesEffects {
     )
   );
 
-  readeVisualizer$ = createEffect(() =>
+  readeDataSource$ = createEffect(() =>
     this.actions$.pipe(
       ofType(fromActions.fetchDataSources),
 
@@ -50,7 +50,7 @@ export class DataSourcesEffects {
     )
   );
 
-  updateVisualizer$ = createEffect(() =>
+  updateDataSource$ = createEffect(() =>
     this.actions$.pipe(
       ofType(fromActions.updateDataSource),
 
@@ -68,7 +68,7 @@ export class DataSourcesEffects {
     )
   );
 
-  deleteVisualizer$ = createEffect(() =>
+  deleteDataSource$ = createEffect(() =>
     this.actions$.pipe(
       ofType(fromActions.deleteDataSource),
 
@@ -85,4 +85,22 @@ export class DataSourcesEffects {
       )
     )
   );
+
+  updateCell$ = createEffect(() =>
+  this.actions$.pipe(
+    ofType(fromActions.updateCell),
+
+    debounceTime(100),
+
+    switchMap(({ data }) =>
+      this.dataSourcesService.updateCell(data).pipe(
+        map((id) => fromActions.updateCellSuccess({ data })),
+
+        catchError((error) =>
+          of(fromActions.updateCellField({ error }))
+        )
+      )
+    )
+  )
+);
 }

@@ -1,334 +1,172 @@
 import json
+import os
+import re
 
-from Charts.Charts import MultiplePieChart
-from DataI.Models.TableModel import TableModel
+from numpy import double
 
-tableString = '''
+from DataI.Controllers.DataControllers.DataController import DataController
+from DataI.Controllers.DrawControllers.DrawController import DrawController
+from DataI.Models.DashboardModel import DashboardModel
+from DataI.Models.FilterModel import FilterModel
+import os
+
+from DataI.Controllers.DataControllers.DataController import DataController
+from DataI.Controllers.DrawControllers.DrawController import DrawController
+from DataI.Models.DashboardModel import DashboardModel
+from DataI.Models.FilterModel import FilterModel
+from DataI.Models.VisualizationModel import VisualizationModel
+
+
+dataController = DataController()
+dirName = os.path.dirname(__file__)
+filename = os.path.join(dirName, '../Test.xlsx')
+
+dataController.loadTablesFromExcelFile(filename, 0)
+
+# load static data:
+jsonVisio = '''
 {
-            "name": "Table1",
+            "name": "visualization1",
             "id": 0,
-            "columns": [
+            "data": 0,
+            "usedColumns": [
+                0,
+                1,
+                2
+            ],
+            "xColumn": 0,
+            "chart": "MultiplePieChart",
+            "filters": [
                 {
-                    "name": "السعر",
-                    "id": 0,
-                    "cells": [
-                        {
-                            "value": "السعر",
-                            "type": "string"
-                        },
-                        {
-                            "value": 10,
-                            "type": "numeric"
-                        },
-                        {
-                            "value": 20,
-                            "type": "numeric"
-                        },
-                        {
-                            "value": 20,
-                            "type": "numeric"
-                        },
-                        {
-                            "value": 20,
-                            "type": "numeric"
-                        },
-                        {
-                            "value": 15,
-                            "type": "numeric"
-                        },
-                        {
-                            "value": 15,
-                            "type": "numeric"
-                        },
-                        {
-                            "value": 10,
-                            "type": "numeric"
-                        },
-                        {
-                            "value": 10,
-                            "type": "numeric"
-                        }
-                    ],
-                    "style": {
-                        "color": "#26C485",
-                        "lineWeight": 1.0,
-                        "pointWeight": 1.0,
-                        "font": "Calibri"
-                    },
-                    "columnType": "Measures",
-                    "valueCategories": [
-                        {
-                            "value": "السعر",
-                            "type": "string"
-                        },
-                        {
-                            "value": 10,
-                            "type": "numeric"
-                        },
-                        {
-                            "value": 20,
-                            "type": "numeric"
-                        },
-                        {
-                            "value": 15,
-                            "type": "numeric"
-                        }
-                    ],
-                    "isDeleted": false
-                },
-                {
-                    "name": "الكمية",
                     "id": 1,
-                    "cells": [
-                        {
-                            "value": "الكمية",
-                            "type": "string"
-                        },
-                        {
-                            "value": 40,
-                            "type": "numeric"
-                        },
-                        {
-                            "value": 50,
-                            "type": "numeric"
-                        },
-                        {
-                            "value": 50,
-                            "type": "numeric"
-                        },
-                        {
-                            "value": 50,
-                            "type": "numeric"
-                        },
-                        {
-                            "value": 50,
-                            "type": "numeric"
-                        },
-                        {
-                            "value": 60,
-                            "type": "numeric"
-                        },
-                        {
-                            "value": 50,
-                            "type": "numeric"
-                        },
-                        {
-                            "value": 40,
-                            "type": "numeric"
-                        }
-                    ],
-                    "style": {
-                        "color": "#3066BE",
-                        "lineWeight": 1.0,
-                        "pointWeight": 1.0,
-                        "font": "Calibri"
-                    },
-                    "columnType": "Measures",
-                    "valueCategories": [
-                        {
-                            "value": "الكمية",
-                            "type": "string"
-                        },
-                        {
-                            "value": 40,
-                            "type": "numeric"
-                        },
-                        {
-                            "value": 50,
-                            "type": "numeric"
-                        },
-                        {
-                            "value": 60,
-                            "type": "numeric"
-                        }
-                    ],
-                    "isDeleted": false
+                    "value": 5
                 },
                 {
-                    "name": "النوع",
+                    "id": 0,
+                    "value": "testerValue"
+                },
+                {
                     "id": 2,
-                    "cells": [
-                        {
-                            "value": "النوع",
-                            "type": "string"
-                        },
-                        {
-                            "value": "Laptop",
-                            "type": "string"
-                        },
-                        {
-                            "value": "Laptop",
-                            "type": "string"
-                        },
-                        {
-                            "value": "Laptop",
-                            "type": "string"
-                        },
-                        {
-                            "value": "Mouse",
-                            "type": "string"
-                        },
-                        {
-                            "value": "Mouse",
-                            "type": "string"
-                        },
-                        {
-                            "value": "Mouse",
-                            "type": "string"
-                        },
-                        {
-                            "value": "Keyboard",
-                            "type": "string"
-                        },
-                        {
-                            "value": "Keyboard",
-                            "type": "string"
-                        }
-                    ],
-                    "style": {
-                        "color": "#DBD56E",
-                        "lineWeight": 1.0,
-                        "pointWeight": 1.0,
-                        "font": "Calibri"
-                    },
-                    "columnType": "Dimensions",
-                    "valueCategories": [
-                        {
-                            "value": "النوع",
-                            "type": "string"
-                        },
-                        {
-                            "value": "Laptop",
-                            "type": "string"
-                        },
-                        {
-                            "value": "Mouse",
-                            "type": "string"
-                        },
-                        {
-                            "value": "Keyboard",
-                            "type": "string"
-                        }
-                    ],
-                    "isDeleted": false
-                },
-                {
-                    "name": "الوزن",
-                    "id": 3,
-                    "cells": [
-                        {
-                            "value": "الوزن",
-                            "type": "string"
-                        },
-                        {
-                            "value": 10,
-                            "type": "string"
-                        },
-                        {
-                            "value": 17,
-                            "type": "string"
-                        },
-                        {
-                            "value": 55,
-                            "type": "string"
-                        },
-                        {
-                            "value": 39,
-                            "type": "string"
-                        },
-                        {
-                            "value": 71,
-                            "type": "string"
-                        },
-                        {
-                            "value": 66,
-                            "type": "string"
-                        },
-                        {
-                            "value": 55,
-                            "type": "string"
-                        },
-                        {
-                            "value": 21,
-                            "type": "string"
-                        }
-                    ],
-                    "style": {
-                        "color": "#EBD4AE",
-                        "lineWeight": 1.5,
-                        "pointWeight": 0.0,
-                        "font": "Calibri"
-                    },
-                    "columnType": "Measures",
-                    "valueCategories": [
-                        {
-                            "value": "الوزن",
-                            "type": "string"
-                        },
-                        {
-                            "value": 10,
-                            "type": "string"
-                        },
-                        {
-                            "value": 17,
-                            "type": "string"
-                        },
-                        {
-                            "value": 55,
-                            "type": "string"
-                        },
-                        {
-                            "value": 39,
-                            "type": "string"
-                        },
-                        {
-                            "value": 71,
-                            "type": "string"
-                        },
-                        {
-                            "value": 66,
-                            "type": "string"
-                        },
-                        {
-                            "value": 21,
-                            "type": "string"
-                        }
-                    ],
-                    "isDeleted": false
+                    "value": 2142
                 }
             ],
-            "columnsVisibility": [
-                true,
-                true,
-                true
-            ],
-            "rowsVisibility": [
-                true,
-                true,
-                true,
-                true,
-                true,
-                true,
-                true,
-                true,
-                true
-            ],
-            "properties": {
-                "sourceFileType": "DataI",
-                "zoomValue": 50
-            },
-            "aggregator": {
-                "aggregatedTable": [],
-                "aggregationColumn": 0,
-                "isActive": false
-            },
             "isDeleted": false
         }
 '''
+jsonDashboard = '''
+{
+            "name": "dashboard1",
+            "id": 0,
+            "visualizers": [
+                {
+                    "visualizationIndex": 0,
+                    "measurements": {
+                        "width": 1.0,
+                        "height": 1.0,
+                        "x": 1.0,
+                        "y": 1.0
+                    },
+                    "displayedFilters": [
+                        {
+                            "filterIndex": 0,
+                            "measurements": {
+                                "width": 0.0,
+                                "height": 0.0,
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "filterIndex": 1,
+                            "measurements": {
+                                "width": 1.0,
+                                "height": 1.0,
+                                "x": 1.0,
+                                "y": 1.0
+                            }
+                        }
+                    ]
+                }
+            ],
+            "isDeleted": false
+        }
+'''
+jsonFilters = '''
+[
+        {
+            "name": "filter1",
+            "id": 0,
+            "dataSource": 0,
+            "filteredColumn": 1,
+            "initValue": "A",
+            "type": "Equality",
+            "isDeleted": false
+        },
+        {
+            "name": "filter2",
+            "id": 1,
+            "dataSource": 0,
+            "filteredColumn": 2,
+            "initValue": 100,
+            "type": "LessThan",
+            "isDeleted": false
+        },
+        {
+            "name": "filter3",
+            "id": 2,
+            "dataSource": 0,
+            "filteredColumn": 0,
+            "initValue": 11,
+            "type": "MoreThan",
+            "isDeleted": false
+        }
+    ]
+'''
 
-table = TableModel.from_json(json.loads(tableString))
-xColumn = table.columns[0]
-table.columns.pop(0)
-chart = MultiplePieChart(table, xColumn, 1000, 1000, "tester")
-print(chart.SVG)
-print(table)
+dataController.data.visualizations.append(VisualizationModel.from_json(json.loads(jsonVisio)))
+dataController.data.dashboards.append(DashboardModel.from_json(json.loads(jsonDashboard)))
+loadedJsonFilters = json.loads(jsonFilters)
+for filter in loadedJsonFilters:
+  dataController.data.filters.append(FilterModel.from_json(filter))
+
+drawTable = DrawController.generateVisualizerTable(dataController.data, 0)
+
+# for column in drawTable.columns:
+#   for cell in column.cells:
+#     print(cell.value)
+#     print(cell.type)
+#     print(type(cell.value))
+
+
+print('________')
+print('________')
+print('________')
+
+for col in dataController.data.dataSources[0].columns:
+  print(col.columnType)
+  print(col.cells[0])
+
+
+string = '100.k0'
+isDigit = string.replace('.', '').isdigit()
+print(isDigit)
+# svgString = DrawController.getSVGString(dataController.data, 0, double(10), double(1000))
+#
+#
+# print(svgString)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

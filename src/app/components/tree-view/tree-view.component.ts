@@ -17,6 +17,8 @@ import { ConditionalExpr } from '@angular/compiler';
 import { first } from 'rxjs/operators';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { AddVisualizerComponent } from 'src/app/pages/visualizer/dialogs/add-visualizer/add-visualizer.component';
+import { createVisualizer } from 'src/store/visualizers';
+import { AddDataSourceComponent } from 'src/app/pages/data-source/dialogs/add-data-source/add-data-source.component';
 @Component({
   selector: "app-tree-view",
   templateUrl: "./tree-view.component.html",
@@ -149,15 +151,13 @@ export class TreeViewComponent implements OnInit, AfterViewInit {
       console.log(value)
       switch(value){
         case 'data-sources':
-          console.log(value)
-          break;
+          let dialogRefDataSource = this.dialog.open(AddDataSourceComponent);
+           break;
         case 'visualizers':
-          const dialogConfig = new MatDialogConfig();
-        dialogConfig.disableClose = true;
-        dialogConfig.autoFocus = true;
-        dialogConfig.hasBackdrop= false;
-        dialogConfig.panelClass='dialog-container'
-          let dialogRef = this.dialog.open(AddVisualizerComponent, dialogConfig);
+          let dialogRefVisualizer = this.dialog.open(AddVisualizerComponent);
+          dialogRefVisualizer.afterClosed().subscribe(result => {
+            this.store.dispatch(createVisualizer({data:{...result.value, id: 0, isDeleted: false}}));
+          });
       }
     });
   }
@@ -167,7 +167,12 @@ export class TreeViewComponent implements OnInit, AfterViewInit {
   }
 
   onRefreshClick(){
-
+    this.store.select(selectCurrentTree).subscribe((value: any) => {
+      this.treeService.fillOut(value).subscribe((tree) => {
+        this.items = tree;
+      });
+      this.initialTree();
+    });
   }
 
 }

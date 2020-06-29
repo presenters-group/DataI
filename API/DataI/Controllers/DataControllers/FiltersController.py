@@ -10,9 +10,16 @@ class FiltersController():
     filter.id = id + 1
     data.filters.append(filter)
 
-
   @classmethod
   def updateFilterById(cls, data: DataModel, filter: FilterModel, id: int):
     oldFilterIndex = DataController.getElementIndexById(data.filters, id)
     data.filters[oldFilterIndex] = filter
     return data.filters[oldFilterIndex]
+
+  @classmethod
+  def deleteFilter(cls,data:DataModel, id:int):
+      filterIndex = DataController.getElementById(data.filters,id)
+      if filterIndex != -1:
+        data.filters[filterIndex].isDeleted = True
+        return data.filters[filterIndex]
+      return None

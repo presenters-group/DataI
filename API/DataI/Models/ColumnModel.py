@@ -5,7 +5,7 @@ from DataI import enums
 
 
 class CellModel(ObjectDeserializer):
-    def __init__(self, value: object, type: str):
+    def __init__(self, value, type: str):
         self.value = value
         self.type = type
 
@@ -50,7 +50,8 @@ class ColumnModel(BasicInfo):
 
     def __getColumnType(self, column: List[CellModel]):
         for cell in column:
-            if type(cell.value) is str:
+          isDigit = str(cell.value).replace('.', '').isdigit()
+          if not isDigit:
                 return enums.ColumnDataType.Dimensions.value
 
         return enums.ColumnDataType.Measures.value

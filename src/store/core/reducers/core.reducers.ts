@@ -9,12 +9,18 @@ export interface Tap {
 export interface CoreState {
   currentTree: "filters" | "dashboards" | "data-sources" | "visualizers";
   currentTap: number;
+  charts: string[];
   taps: Tap[];
 }
 
 export const initialState: CoreState = {
   currentTap: null,
   currentTree: null,
+  charts: [
+    'bar-chart',
+    'line-chart',
+    'pie-chart'
+  ],
   taps: [],
 };
 const appReducer = createReducer(
@@ -43,7 +49,8 @@ const appReducer = createReducer(
     console.log("anything02");
     taps.push(tap);
     return { ...state, taps, currentTap: taps.length - 1 };
-  })
+  }),
+  on(fromActions.fetchChartsSuccess, (state, {data})=> ({...state, charts: data.chartsNames}))
 );
 
 export function reducer(state: CoreState | undefined, action: Action) {

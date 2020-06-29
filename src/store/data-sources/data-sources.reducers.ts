@@ -369,6 +369,27 @@ const dataSourcesReducer = createReducer(
         ...entities,
       },
     };
+  }),
+  //Updating Cell
+  on(fromActions.updateCellSuccess, (state, { data }) => {
+    // console.log(data);
+    let cells = [...state.entities[data.tableId].columns[data.columnId].cells]
+    cells[data.cellIndex] = {
+      value : data.cellValue,
+      type: state.entities[data.tableId].columns[data.columnId].cells[data.cellIndex].type
+    }
+    let newState = {
+      entities : {...state.entities,
+        [data.tableId] : {...state.entities[data.tableId],
+          columns: {...state.entities[data.tableId].columns,
+            [data.columnId]: {...state.entities[data.tableId].columns[data.columnId],
+              cells: cells
+            },
+          }
+        }
+      }
+    }
+    return {...newState};
   })
 );
 

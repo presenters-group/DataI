@@ -1,6 +1,10 @@
 import random
 import pandas
+
 from typing import List, Dict
+
+from numpy import double
+
 from DataI import enums
 from DataI.Models.ColumnModel import CellModel, ColumnStyleModel, ColumnModel
 from DataI.Models.TableModel import PropertiesModel, TableModel, AggregationModel
@@ -31,10 +35,13 @@ class FileLoader():
         columnCells = [CellModel(name, enums.CellType.string.value)]
         for cell in cells.values():
             # get cell type
-            if cell is int or cell is float:
+            #cell = str(cell)
+            if str(cell).isnumeric():
                 type = enums.CellType.numeric.value
+                cell = float(cell)
             else:
                 type = enums.CellType.string.value
+                cell = str(cell)
             columnCells.append(CellModel(cell, type))
         # create column style:
         style = ColumnStyleModel(randomColumnColor, 1.0, 1.0, 'Calibri')

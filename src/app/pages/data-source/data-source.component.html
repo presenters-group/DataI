@@ -1,6 +1,6 @@
 <table>
   <tr *ngFor="let column of objectKeys((dataSource | async).columns)">
-    <td *ngFor="let cell of (dataSource | async).columns[column].cells">
+    <td contenteditable="true"  (blur)="onCellUpdate(column,i,$event.target.innerText)" *ngFor="let cell of (dataSource | async).columns[column].cells; let i = index">
       {{cell.value}}
     </td>
   </tr>

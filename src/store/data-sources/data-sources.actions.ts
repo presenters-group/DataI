@@ -16,7 +16,7 @@ export const fetchDataSourcesFailed = createAction(
 /**Creating */
 export const createDataSource = createAction(
   "[TreeView] Create Data Sources",
-  props<{ data }>()
+  props<{ data:{file,type} }>()
 );
 
 export const createDataSourceSuccess = createAction(
@@ -58,5 +58,24 @@ export const updateDataSourceSuccess = createAction(
 
 export const updateDataSourceFailed = createAction(
   "[DataSourceEffect] update Data Sources Failed",
+  props<{ error }>()
+);
+
+
+
+export const updateCell = createAction(
+  "[DataSourceEffect] update cell",
+  props<{ data: {tableId: number, columnId : number, cellIndex: number, cellValue: any} }>()
+);
+
+
+export const updateCellSuccess = createAction(
+  "[DataSourceEffect] update cell Success",
+  props<{ data: {tableId: number, columnId : number, cellIndex: number, cellValue: any} }>()
+);
+
+
+export const updateCellField = createAction(
+  "[DataSourceEffect] update cell Field",
   props<{ error }>()
 );

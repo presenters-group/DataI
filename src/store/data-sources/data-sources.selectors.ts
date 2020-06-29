@@ -10,7 +10,10 @@ export const selectDataSourcesState = createFeatureSelector<
 
 export const selectDataSourcesEntities = createSelector(
   selectDataSourcesState,
-  (state) => state.entities
+  (state) => {
+    console.log(state.entities)
+    return state.entities
+  }
 );
 
 export const selectCurrentDataSource = createSelector(
@@ -20,6 +23,7 @@ export const selectCurrentDataSource = createSelector(
     return entities[currentTap.id];
   }
 );
+
 
 export const selectDataSourcesTree = createSelector(
   selectDataSourcesEntities,

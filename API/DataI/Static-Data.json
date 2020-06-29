@@ -218,35 +218,35 @@
                         },
                         {
                             "value": 10,
-                            "type": "string"
+                            "type": "numeric"
                         },
                         {
                             "value": 17,
-                            "type": "string"
+                            "type": "numeric"
                         },
                         {
                             "value": 55,
-                            "type": "string"
+                            "type": "numeric"
                         },
                         {
                             "value": 39,
-                            "type": "string"
+                            "type": "numeric"
                         },
                         {
                             "value": 71,
-                            "type": "string"
+                            "type": "numeric"
                         },
                         {
                             "value": 66,
-                            "type": "string"
+                            "type": "numeric"
                         },
                         {
                             "value": 55,
-                            "type": "string"
+                            "type": "numeric"
                         },
                         {
                             "value": 21,
-                            "type": "string"
+                            "type": "numeric"
                         }
                     ],
                     "style": {
@@ -263,31 +263,31 @@
                         },
                         {
                             "value": 10,
-                            "type": "string"
+                            "type": "numeric"
                         },
                         {
                             "value": 17,
-                            "type": "string"
+                            "type": "numeric"
                         },
                         {
                             "value": 55,
-                            "type": "string"
+                            "type": "numeric"
                         },
                         {
                             "value": 39,
-                            "type": "string"
+                            "type": "numeric"
                         },
                         {
                             "value": 71,
-                            "type": "string"
+                            "type": "numeric"
                         },
                         {
                             "value": 66,
-                            "type": "string"
+                            "type": "numeric"
                         },
                         {
                             "value": 21,
-                            "type": "string"
+                            "type": "numeric"
                         }
                     ],
                     "isDeleted": false
@@ -383,7 +383,8 @@
                         }
                     ]
                 }
-            ]
+            ],
+            "isDeleted": false
         }
     ],
     "filters": [

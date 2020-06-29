@@ -45,3 +45,11 @@ export const selectCurrentTapLink = createSelector(
     return id != null ? taps[id].type : "";
   }
 );
+
+
+export const selectCharts = createSelector(
+  selectCoreState,
+  (state) => {
+    return state.charts;
+  }
+);

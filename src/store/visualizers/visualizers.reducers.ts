@@ -2,6 +2,7 @@ import { createReducer, Action, on } from "@ngrx/store";
 import { IVisualizer } from "./visualizers.models";
 import * as fromActions from "./visualizers.actions";
 import { MapInterface } from "src/store/core/models/mapinterface";
+import { TEST_SVG_CHART } from 'src/utils/static.chart';
 export interface VisualizersState {
   entities: IVisualizer[];
 }
@@ -12,12 +13,13 @@ export const initialState: VisualizersState = {
       name: "visualization1",
       data: 0,
       usedColumns: [0, 2],
-      usedRow: 1,
+      xColumn: 1,
       chart: "BoundaryLineChart",
       filters: [0, 1],
       isDeleted: false,
     },
   ],
+
 };
 const visualizersReducer = createReducer(
   initialState,
@@ -65,6 +67,17 @@ const visualizersReducer = createReducer(
         ...entities,
       },
     };
+  }),
+  on(fromActions.fetchChartAsSVGSuccess, (state, {data}) =>{
+    console.log('nlanalasd')
+    let newState = {
+      ...state
+      ,entities : {...state.entities,[data.visualizerId] : {
+        ...state.entities[data.visualizerId],
+        chartSvg : data.svg
+      }}
+    }
+    return {...newState}
   })
 );
 

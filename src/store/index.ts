@@ -26,6 +26,7 @@ export const reducers: ActionReducerMap<AppState> = {
 };
 
 export const effects = [
+  fromCore.CoreEffects,
   fromDataSources.DataSourcesEffects,
   fromDashboards.DashboardsEffects,
   fromVisualizers.VisualizersEffects,

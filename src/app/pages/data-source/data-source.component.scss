@@ -5,9 +5,12 @@ table {
   width: 100%;
 }
 table tr {
+  width: max-content;
     display: table-cell;
 }
 table tr td {
+  width: max-content;
+  min-width: 100%;
   display: block;
   border: 1px solid #dddddd;
   text-align: left;
