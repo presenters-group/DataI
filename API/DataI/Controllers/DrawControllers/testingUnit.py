@@ -1,8 +1,7 @@
 from numpy import double
-
-from Charts.Charts.PointChart import PointChart
-from Charts.Charts.LineChart import LineChart
 from DataI import enums
+from DataI.Controllers.DrawControllers.LineChart import LineChart
+from DataI.Controllers.DrawControllers.PointChart import PointChart
 from DataI.Models.ColumnModel import CellModel, ColumnStyleModel, ColumnModel
 from DataI.Models.TableModel import PropertiesModel, TableModel, AggregationModel
 

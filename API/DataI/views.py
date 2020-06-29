@@ -27,7 +27,7 @@ jsonVisio = '''
 {
             "name": "visualization1",
             "id": 0,
-            "dataSourceTableWithoutXcolumn": 0,
+            "data": 0,
             "usedColumns": [
                 0,
                 1,

@@ -20,25 +20,25 @@ class ChartsFactory():
                      width: double, height: double, xColomn: ColumnModel, quality: double):
 
     if chartType == enums.ChartTypes.BoundaryLineChart.value:
-      return BoundaryLineChart(table, width, height, xColomn, quality)
+      return BoundaryLineChart(table, width, height, xColomn, quality, '')
 
     if chartType == enums.ChartTypes.PointChart.value:
-      return PointChart(table, width, height, xColomn, quality)
+      return PointChart(table, width, height, xColomn, quality, '')
 
     if chartType == enums.ChartTypes.VerticalBarChart.value:
-      return BarChart(table, width, height, xColomn, quality)
+      return BarChart(table, width, height, xColomn, quality, '')
 
     if chartType == enums.ChartTypes.HumanChart.value:
-      return HumanChart(table, xColomn, 'testerrr')
+      return HumanChart(table.columns[0], xColomn, 'testerrr')
 
     if chartType == enums.ChartTypes.MultiplePieChart.value:
       return MultiplePieChart(table, xColomn, 1000, 1000, 'testerrr')
 
     if chartType == enums.ChartTypes.PyramidalChart.value:
-      return PyramidalChart(table, xColomn, 1000, 1000, 'testerrr')
+      return PyramidalChart(table.columns[0], xColomn, 1000, 1000, 'testerrr')
 
     if chartType == enums.ChartTypes.SmartPieChart.value:
-      return SmartPieChart(table, xColomn, 'testerrr')
+      return SmartPieChart(table.columns[0], xColomn, 'testerrr')
 
 
 

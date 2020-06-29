@@ -1,5 +1,5 @@
-from Charts.Charts import LineChart
 from DataI.Controllers.DataControllers.DataController import DataController
+from DataI.Controllers.DrawControllers.LineChart import LineChart
 from DataI.Controllers.FileLoaders.ExcelFileLoader import ExcelFileLoader
 
 dataController = DataController()

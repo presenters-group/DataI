@@ -18,6 +18,6 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('dataSourceTableWithoutXcolumn/', include('DataI.urls')),
+    path('data/', include('DataI.urls')),
 
 ]

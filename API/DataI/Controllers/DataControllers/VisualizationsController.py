@@ -10,6 +10,7 @@ class VisualizationsController():
     visio.id = id + 1
     data.visualizations.append(visio)
 
+  @classmethod
   def updateVisualizerById(cls, data: DataModel, visio: VisualizationModel, id: int):
     oldVisioIndex = DataController.getElementIndexById(data.visualizations, id)
     data.visualizations[oldVisioIndex] = visio

@@ -41,7 +41,7 @@ class DrawController():
     return drawer.SVG
 
   @classmethod
-  def __removeXColumnIfExists(cls, drawTable: TableModel, xColumnId: int):
+  def __removeXColumnIfExists(ctablels, drawTable: TableModel, xColumnId: int):
     for column in drawTable.columns:
       if column.id == xColumnId:
         drawTable.columns.pop(DataController.getElementIndexById(drawTable.columns, xColumnId))

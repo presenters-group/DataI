@@ -3,9 +3,9 @@ from typing import List
 from DataI import enums
 from DataI.Controllers.DataControllers.DashboardsController import DashboardsController
 from DataI.Controllers.DataControllers.DataSourcesController import DataSourcesController
+from DataI.Controllers.DrawControllers.DrawController import DrawController
 from DataI.Controllers.DataControllers.FiltersController import FiltersController
 from DataI.Controllers.DataControllers.VisualizationsController import VisualizationsController
-from DataI.Controllers.DrawControllers.DrawController import DrawController
 from DataI.Controllers.FileLoaders.CSVFileLoader import CSVFileLoader
 from DataI.Controllers.FileLoaders.ExcelFileLoader import ExcelFileLoader
 from DataI.Models.DashboardModel import DashboardModel

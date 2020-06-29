@@ -1,18 +1,16 @@
 import random
-from typing import List
-
 import drawSvg as draw
-from numpy import double
 
+from typing import List
+from numpy import double
 from DataI.Models.ColumnModel import ColumnModel
-from DataI.Models.TableModel import TableModel
 
 
 class PyramidalChart:
-  def __init__(self, firstcColumon: TableModel, secondColumn: ColumnModel, width: double, height: double, nameFile):
+  def __init__(self, firstcColumon: ColumnModel, secondColumn: ColumnModel, width: double, height: double, nameFile):
     self.widthView = width
     self.heightView = height
-    self.firstColumn = firstcColumon.columns[0]
+    self.firstColumn = firstcColumon
     self.secondColumn = secondColumn
     self.listOfLength = list()
     self.d = draw.Drawing(self.widthView + 300, self.heightView + 100)
@@ -20,7 +18,7 @@ class PyramidalChart:
     self.drawlayOut()
     self.drawStack()
     self.drawPyramidal()
-    self.d.saveSvg(nameFile + '.svg')
+    #self.d.saveSvg(nameFile + '.svg')
     self.SVG = self.d.asSvg()
 
   def drawPyramidal(self):
