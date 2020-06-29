@@ -381,23 +381,23 @@ export class AppComponent implements OnInit, AfterViewInit {
     //     ],
     //   })
     // );
-    this.store.dispatch(fetchVisualizers());
-    // this.store.dispatch(
-    //   fetchVisualizersSuccess({
-    //     data: [
-    //       {
-    //         name: "visualization1",
-    //         id: 0,
-    //         data: 0,
-    //         usedColumns: [500, 359],
-    //         usedRow: 501,
-    //         chart: "BoundaryLineChart",
-    //         filters: [0, 1],
-    //         isDeleted: false,
-    //       },
-    //     ],
-    //   })
-    // );
+    // this.store.dispatch(fetchVisualizers());
+    this.store.dispatch(
+      fetchVisualizersSuccess({
+        data: [
+          {
+            name: "visualization1",
+            id: 0,
+            data: 0,
+            usedColumns: [0, 1],
+            usedRow: 2,
+            chart: "BoundaryLineChart",
+            filters: [0, 1],
+            isDeleted: false,
+          },
+        ],
+      })
+    );
     this.store.dispatch(fetchDashboards())
     // this.store.dispatch(
     //   fetchDashboardsSuccess({

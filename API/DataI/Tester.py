@@ -1,48 +1,334 @@
 import json
 
-from xlsxwriter.exceptions import FileCreateError
+from Charts.Charts import MultiplePieChart
+from DataI.Models.TableModel import TableModel
 
-from DataI.Controllers.FileLoaders.CSVFileLoader import CSVFileLoader
-from DataI.Controllers.FileLoaders.ExcelFileLoader import ExcelFileLoader
-from DataI.Controllers.FileSaver.CSVFileSaver import CSVFileSaver
-from DataI.Controllers.FileSaver.ExcelFileSaver import ExcelFileSaver
-from DataI.Controllers.FileSaver.FileSaver import FileSaver
-from DataI.JSONSerializer import ObjectEncoder
+tableString = '''
+{
+            "name": "Table1",
+            "id": 0,
+            "columns": [
+                {
+                    "name": "السعر",
+                    "id": 0,
+                    "cells": [
+                        {
+                            "value": "السعر",
+                            "type": "string"
+                        },
+                        {
+                            "value": 10,
+                            "type": "numeric"
+                        },
+                        {
+                            "value": 20,
+                            "type": "numeric"
+                        },
+                        {
+                            "value": 20,
+                            "type": "numeric"
+                        },
+                        {
+                            "value": 20,
+                            "type": "numeric"
+                        },
+                        {
+                            "value": 15,
+                            "type": "numeric"
+                        },
+                        {
+                            "value": 15,
+                            "type": "numeric"
+                        },
+                        {
+                            "value": 10,
+                            "type": "numeric"
+                        },
+                        {
+                            "value": 10,
+                            "type": "numeric"
+                        }
+                    ],
+                    "style": {
+                        "color": "#26C485",
+                        "lineWeight": 1.0,
+                        "pointWeight": 1.0,
+                        "font": "Calibri"
+                    },
+                    "columnType": "Measures",
+                    "valueCategories": [
+                        {
+                            "value": "السعر",
+                            "type": "string"
+                        },
+                        {
+                            "value": 10,
+                            "type": "numeric"
+                        },
+                        {
+                            "value": 20,
+                            "type": "numeric"
+                        },
+                        {
+                            "value": 15,
+                            "type": "numeric"
+                        }
+                    ],
+                    "isDeleted": false
+                },
+                {
+                    "name": "الكمية",
+                    "id": 1,
+                    "cells": [
+                        {
+                            "value": "الكمية",
+                            "type": "string"
+                        },
+                        {
+                            "value": 40,
+                            "type": "numeric"
+                        },
+                        {
+                            "value": 50,
+                            "type": "numeric"
+                        },
+                        {
+                            "value": 50,
+                            "type": "numeric"
+                        },
+                        {
+                            "value": 50,
+                            "type": "numeric"
+                        },
+                        {
+                            "value": 50,
+                            "type": "numeric"
+                        },
+                        {
+                            "value": 60,
+                            "type": "numeric"
+                        },
+                        {
+                            "value": 50,
+                            "type": "numeric"
+                        },
+                        {
+                            "value": 40,
+                            "type": "numeric"
+                        }
+                    ],
+                    "style": {
+                        "color": "#3066BE",
+                        "lineWeight": 1.0,
+                        "pointWeight": 1.0,
+                        "font": "Calibri"
+                    },
+                    "columnType": "Measures",
+                    "valueCategories": [
+                        {
+                            "value": "الكمية",
+                            "type": "string"
+                        },
+                        {
+                            "value": 40,
+                            "type": "numeric"
+                        },
+                        {
+                            "value": 50,
+                            "type": "numeric"
+                        },
+                        {
+                            "value": 60,
+                            "type": "numeric"
+                        }
+                    ],
+                    "isDeleted": false
+                },
+                {
+                    "name": "النوع",
+                    "id": 2,
+                    "cells": [
+                        {
+                            "value": "النوع",
+                            "type": "string"
+                        },
+                        {
+                            "value": "Laptop",
+                            "type": "string"
+                        },
+                        {
+                            "value": "Laptop",
+                            "type": "string"
+                        },
+                        {
+                            "value": "Laptop",
+                            "type": "string"
+                        },
+                        {
+                            "value": "Mouse",
+                            "type": "string"
+                        },
+                        {
+                            "value": "Mouse",
+                            "type": "string"
+                        },
+                        {
+                            "value": "Mouse",
+                            "type": "string"
+                        },
+                        {
+                            "value": "Keyboard",
+                            "type": "string"
+                        },
+                        {
+                            "value": "Keyboard",
+                            "type": "string"
+                        }
+                    ],
+                    "style": {
+                        "color": "#DBD56E",
+                        "lineWeight": 1.0,
+                        "pointWeight": 1.0,
+                        "font": "Calibri"
+                    },
+                    "columnType": "Dimensions",
+                    "valueCategories": [
+                        {
+                            "value": "النوع",
+                            "type": "string"
+                        },
+                        {
+                            "value": "Laptop",
+                            "type": "string"
+                        },
+                        {
+                            "value": "Mouse",
+                            "type": "string"
+                        },
+                        {
+                            "value": "Keyboard",
+                            "type": "string"
+                        }
+                    ],
+                    "isDeleted": false
+                },
+                {
+                    "name": "الوزن",
+                    "id": 3,
+                    "cells": [
+                        {
+                            "value": "الوزن",
+                            "type": "string"
+                        },
+                        {
+                            "value": 10,
+                            "type": "string"
+                        },
+                        {
+                            "value": 17,
+                            "type": "string"
+                        },
+                        {
+                            "value": 55,
+                            "type": "string"
+                        },
+                        {
+                            "value": 39,
+                            "type": "string"
+                        },
+                        {
+                            "value": 71,
+                            "type": "string"
+                        },
+                        {
+                            "value": 66,
+                            "type": "string"
+                        },
+                        {
+                            "value": 55,
+                            "type": "string"
+                        },
+                        {
+                            "value": 21,
+                            "type": "string"
+                        }
+                    ],
+                    "style": {
+                        "color": "#EBD4AE",
+                        "lineWeight": 1.5,
+                        "pointWeight": 0.0,
+                        "font": "Calibri"
+                    },
+                    "columnType": "Measures",
+                    "valueCategories": [
+                        {
+                            "value": "الوزن",
+                            "type": "string"
+                        },
+                        {
+                            "value": 10,
+                            "type": "string"
+                        },
+                        {
+                            "value": 17,
+                            "type": "string"
+                        },
+                        {
+                            "value": 55,
+                            "type": "string"
+                        },
+                        {
+                            "value": 39,
+                            "type": "string"
+                        },
+                        {
+                            "value": 71,
+                            "type": "string"
+                        },
+                        {
+                            "value": 66,
+                            "type": "string"
+                        },
+                        {
+                            "value": 21,
+                            "type": "string"
+                        }
+                    ],
+                    "isDeleted": false
+                }
+            ],
+            "columnsVisibility": [
+                true,
+                true,
+                true
+            ],
+            "rowsVisibility": [
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true
+            ],
+            "properties": {
+                "sourceFileType": "DataI",
+                "zoomValue": 50
+            },
+            "aggregator": {
+                "aggregatedTable": [],
+                "aggregationColumn": 0,
+                "isActive": false
+            },
+            "isDeleted": false
+        }
+'''
 
-xl = ExcelFileLoader(r'C:\Users\Allonios\Desktop\Project 1\Test.xlsx')
-tablesList = xl.loadFile(0)
-jsonString = json.dumps(tablesList, indent=4, cls=ObjectEncoder, ensure_ascii=False)
-fHandler = open('openXLTester.json', 'w', encoding='utf8')
-fHandler.write(jsonString)
-
-# csv = CSVFileLoader(r'C:\Users\Allonios\Desktop\Project 1\Test.csv')
-# table = csv.loadFile(0)
-# print(FileSaver.tableToDataFrameConverter(table))
-# jsonString = json.dumps(table, indent=4, cls=ObjectEncoder, ensure_ascii=False)
-# fHandler = open('openCSVTester.json', 'w', encoding='utf8')
-# fHandler.write(jsonString)
-
-saver = CSVFileSaver('demo.csv')
-try:
-    saver.saveFile(tablesList)
-except FileCreateError:
-    print('file is opened else where')
-
-# import pandas as pd
-#
-# # dataframe Name and Age columns
-# df = pd.DataFrame({'Name': ['A', 'B', 'C', 'D'],
-#                    'Age': [10, 0, 30, 50]})
-#
-# # Create a Pandas Excel writer using XlsxWriter as the engine.
-# writer = pd.ExcelWriter('demo.xlsx', engine='xlsxwriter')
-#
-# # Convert the dataframe to an XlsxWriter Excel object.
-# df.to_excel(writer, sheet_name='Sheet1', index=False)
-# df.to_excel(writer, sheet_name='Sheet2', index=False)
-#
-# # Close the Pandas Excel writer and output the Excel file.
-# writer.save()
-
-
-
+table = TableModel.from_json(json.loads(tableString))
+xColumn = table.columns[0]
+table.columns.pop(0)
+chart = MultiplePieChart(table, xColumn, 1000, 1000, "tester")
+print(chart.SVG)
+print(table)

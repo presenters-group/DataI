@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+     width="1500" height="1000" viewBox="0 -1000 1500 1000">
+<defs>
+</defs>
+<rect x="0" y="-1100" width="1500" height="1100" fill="#ffffff" />
+<rect x="0" y="-62.26415094339623" width="1050" height="62.26415094339623" fill="#de264f" fill-opacity="0.5" stroke="white" stroke-width="2" />
+<rect x="0" y="-124.52830188679246" width="1050" height="62.26415094339623" fill="#db2dac" fill-opacity="0.5" stroke="white" stroke-width="2" />
+<rect x="0" y="-158.49056603773585" width="1050" height="33.9622641509434" fill="#c3b516" fill-opacity="0.5" stroke="white" stroke-width="2" />
+<rect x="0" y="-311.3207547169811" width="1050" height="152.83018867924528" fill="#f7d32a" fill-opacity="0.5" stroke="white" stroke-width="2" />
+<rect x="0" y="-588.6792452830189" width="1050" height="277.35849056603774" fill="#458738" fill-opacity="0.5" stroke="white" stroke-width="2" />
+<rect x="0" y="-772.6415094339623" width="1050" height="183.9622641509434" fill="#83b8e0" fill-opacity="0.5" stroke="white" stroke-width="2" />
+<rect x="0" y="-900.0" width="1050" height="127.35849056603773" fill="#b5bd" fill-opacity="0.5" stroke="white" stroke-width="2" />
+<path d="M1008.5,989.9l-7.7-153.2c0,0-1.4-8.6-11.5-12.2c-10.1-3.6-262.8-172.1-262.8-172.1s-10.1-67-38.2-96.5	l16.6-76.3c0,0,22.3,14.4,25.9-9.4c3.6-23.8,20.2-106.6,3.6-118.1s-10.8-1.4-10.8-1.4s37.4-79.9-11.5-192.2c0,0-22.3-31-56.9-25.2	c0,0-30.2-36.7-121-20.9c0,0-39.6-11.5-41.8,18.7c0,0-49-3.6-83.5,97.9c0,0-17.3,56.9,33.1,133.2c0,0-38.2-6.5-25.2,23l14.4,95.8	c0,0,7.2,20.2,37.4,11.5l10.1,64.8c0,0-27.4,22.3-33.8,74.2L161.3,817.3c0,0-44.4,19.8-41.3,172.6l882.2,0.1h9.7H1300v110H0V0h1300	v990L1008.5,989.9z" stroke-width="0" stroke="gray" fill="white" fill-opacity="1" transform="translate(0,-1000)" />
+<circle cx="1100" cy="-80" r="20" fill="#de264f" fill-opacity="0.5" stroke-width="0" />
+<text x="1150" y="-70" font-size="30">0: 6.91%</text>
+<circle cx="1100" cy="-160" r="20" fill="#db2dac" fill-opacity="0.5" stroke-width="0" />
+<text x="1150" y="-150" font-size="30">15: 6.91%</text>
+<circle cx="1100" cy="-240" r="20" fill="#c3b516" fill-opacity="0.5" stroke-width="0" />
+<text x="1150" y="-230" font-size="30">0: 3.77%</text>
+<circle cx="1100" cy="-320" r="20" fill="#f7d32a" fill-opacity="0.5" stroke-width="0" />
+<text x="1150" y="-310" font-size="30">33: 16.9%</text>
+<circle cx="1100" cy="-400" r="20" fill="#458738" fill-opacity="0.5" stroke-width="0" />
+<text x="1150" y="-390" font-size="30">2: 30.8%</text>
+<circle cx="1100" cy="-480" r="20" fill="#83b8e0" fill-opacity="0.5" stroke-width="0" />
+<text x="1150" y="-470" font-size="30">11: 20.4%</text>
+<circle cx="1100" cy="-560" r="20" fill="#b5bd" fill-opacity="0.5" stroke-width="0" />
+<text x="1150" y="-550" font-size="30">22: 14.1%</text>
+</svg>

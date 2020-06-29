@@ -2,336 +2,31 @@ import json
 
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
+
+from DataI.Controllers.DataControllers.DataController import DataController
 from DataI.Controllers.FileLoaders.ExcelFileLoader import ExcelFileLoader
 from DataI.JSONSerializer import ObjectEncoder
+from DataI.Models.DashboardModel import DashboardModel
 from DataI.Models.DataModel import DataModel
+from DataI.Models.FilterModel import FilterModel
 from DataI.Models.TableModel import TableModel
+from DataI.Models.VisualizationModel import VisualizationModel
 
-jsonString = '''
-  {
-    "dataSources": [
-        {
-            "name": "Table1",
-            "id": 0,
-            "columns": [
-                {
-                    "name": "السعر",
-                    "id": 500,
-                    "cells": [
-                        {
-                            "value": "السعر",
-                            "type": "string"
-                        },
-                        {
-                            "value": 10,
-                            "type": "numeric"
-                        },
-                        {
-                            "value": 20,
-                            "type": "numeric"
-                        },
-                        {
-                            "value": 20,
-                            "type": "numeric"
-                        },
-                        {
-                            "value": 20,
-                            "type": "numeric"
-                        },
-                        {
-                            "value": 15,
-                            "type": "numeric"
-                        },
-                        {
-                            "value": 15,
-                            "type": "numeric"
-                        },
-                        {
-                            "value": 10,
-                            "type": "numeric"
-                        },
-                        {
-                            "value": 10,
-                            "type": "numeric"
-                        }
-                    ],
-                    "style": {
-                        "color": "#26C485",
-                        "lineWeight": 1.0,
-                        "pointWeight": 1.0,
-                        "font": "Calibri"
-                    },
-                    "columnType": "Measures",
-                    "valueCategories": [
-                        {
-                            "value": "السعر",
-                            "type": "string"
-                        },
-                        {
-                            "value": 10,
-                            "type": "numeric"
-                        },
-                        {
-                            "value": 20,
-                            "type": "numeric"
-                        },
-                        {
-                            "value": 15,
-                            "type": "numeric"
-                        }
-                    ],
-                    "isDeleted": false
-                },
-                {
-                    "name": "الكمية",
-                    "id": 40,
-                    "cells": [
-                        {
-                            "value": "الكمية",
-                            "type": "string"
-                        },
-                        {
-                            "value": 40,
-                            "type": "numeric"
-                        },
-                        {
-                            "value": 50,
-                            "type": "numeric"
-                        },
-                        {
-                            "value": 50,
-                            "type": "numeric"
-                        },
-                        {
-                            "value": 50,
-                            "type": "numeric"
-                        },
-                        {
-                            "value": 50,
-                            "type": "numeric"
-                        },
-                        {
-                            "value": 60,
-                            "type": "numeric"
-                        },
-                        {
-                            "value": 50,
-                            "type": "numeric"
-                        },
-                        {
-                            "value": 40,
-                            "type": "numeric"
-                        }
-                    ],
-                    "style": {
-                        "color": "#3066BE",
-                        "lineWeight": 1.0,
-                        "pointWeight": 1.0,
-                        "font": "Calibri"
-                    },
-                    "columnType": "Measures",
-                    "valueCategories": [
-                        {
-                            "value": "الكمية",
-                            "type": "string"
-                        },
-                        {
-                            "value": 40,
-                            "type": "numeric"
-                        },
-                        {
-                            "value": 50,
-                            "type": "numeric"
-                        },
-                        {
-                            "value": 60,
-                            "type": "numeric"
-                        }
-                    ],
-                    "isDeleted": false
-                },
-                {
-                    "name": "النوع",
-                    "id": 359,
-                    "cells": [
-                        {
-                            "value": "النوع",
-                            "type": "string"
-                        },
-                        {
-                            "value": "Laptop",
-                            "type": "string"
-                        },
-                        {
-                            "value": "Laptop",
-                            "type": "string"
-                        },
-                        {
-                            "value": "Laptop",
-                            "type": "string"
-                        },
-                        {
-                            "value": "Mouse",
-                            "type": "string"
-                        },
-                        {
-                            "value": "Mouse",
-                            "type": "string"
-                        },
-                        {
-                            "value": "Mouse",
-                            "type": "string"
-                        },
-                        {
-                            "value": "Keyboard",
-                            "type": "string"
-                        },
-                        {
-                            "value": "Keyboard",
-                            "type": "string"
-                        }
-                    ],
-                    "style": {
-                        "color": "#DBD56E",
-                        "lineWeight": 1.0,
-                        "pointWeight": 1.0,
-                        "font": "Calibri"
-                    },
-                    "columnType": "Dimensions",
-                    "valueCategories": [
-                        {
-                            "value": "النوع",
-                            "type": "string"
-                        },
-                        {
-                            "value": "Laptop",
-                            "type": "string"
-                        },
-                        {
-                            "value": "Mouse",
-                            "type": "string"
-                        },
-                        {
-                            "value": "Keyboard",
-                            "type": "string"
-                        }
-                    ],
-                    "isDeleted": false
-                },
-                {
-                    "name": "الوزن",
-                    "id": 501,
-                    "cells": [
-                        {
-                            "value": "الوزن",
-                            "type": "string"
-                        },
-                        {
-                            "value": 10,
-                            "type": "string"
-                        },
-                        {
-                            "value": 17,
-                            "type": "string"
-                        },
-                        {
-                            "value": 55,
-                            "type": "string"
-                        },
-                        {
-                            "value": 39,
-                            "type": "string"
-                        },
-                        {
-                            "value": 71,
-                            "type": "string"
-                        },
-                        {
-                            "value": 66,
-                            "type": "string"
-                        },
-                        {
-                            "value": 55,
-                            "type": "string"
-                        },
-                        {
-                            "value": 21,
-                            "type": "string"
-                        }
-                    ],
-                    "style": {
-                        "color": "#EBD4AE",
-                        "lineWeight": 1.5,
-                        "pointWeight": 0.0,
-                        "font": "Calibri"
-                    },
-                    "columnType": "Measures",
-                    "valueCategories": [
-                        {
-                            "value": "الوزن",
-                            "type": "string"
-                        },
-                        {
-                            "value": 10,
-                            "type": "string"
-                        },
-                        {
-                            "value": 17,
-                            "type": "string"
-                        },
-                        {
-                            "value": 55,
-                            "type": "string"
-                        },
-                        {
-                            "value": 39,
-                            "type": "string"
-                        },
-                        {
-                            "value": 71,
-                            "type": "string"
-                        },
-                        {
-                            "value": 66,
-                            "type": "string"
-                        },
-                        {
-                            "value": 21,
-                            "type": "string"
-                        }
-                    ],
-                    "isDeleted": false
-                }
-            ],
-            "columnsVisibility": [
-                true,
-                true,
-                true
-            ],
-            "rowsVisibility": [
-                true,
-                true,
-                true,
-                true,
-                true,
-                true,
-                true,
-                true,
-                true
-            ],
-            "properties": {
-                "sourceFileType": "DataI",
-                "zoomValue": 50
-            },
-            "aggregator": null,
-            "isDeleted": false
-        }
-    ],
-    "visualizations": [
-        {
+import os
+
+
+dataController = DataController()
+dirname = os.path.dirname(__file__)
+filename = os.path.join(dirname, '../Test.xlsx')
+
+dataController.loadTablesFromExcelFile(filename, 0)
+
+#load static dataSourceTableWithoutXcolumn:
+jsonVisio = '''
+{
             "name": "visualization1",
             "id": 0,
-            "data": 0,
+            "dataSourceTableWithoutXcolumn": 0,
             "usedColumns": [
                 0,
                 2
@@ -354,9 +49,9 @@ jsonString = '''
             ],
             "isDeleted": false
         }
-    ],
-    "dashboards": [
-        {
+'''
+jsonDashboard = '''
+{
             "name": "dashboard1",
             "id": 0,
             "visualizers": [
@@ -391,8 +86,9 @@ jsonString = '''
                 }
             ]
         }
-    ],
-    "filters": [
+'''
+jsonFilters = '''
+[
         {
             "name": "filter1",
             "id": 0,
@@ -413,7 +109,7 @@ jsonString = '''
         },
         {
             "name": "filter3",
-            "id": 500,
+            "id": 2,
             "dataSource": 0,
             "filteredColumn": 0,
             "initValue": 11,
@@ -421,80 +117,93 @@ jsonString = '''
             "isDeleted": false
         }
     ]
-}
 '''
 
-data = DataModel.from_json(json.loads(jsonString))
+dataController.data.visualizations.append(VisualizationModel.from_json(json.loads(jsonVisio)))
+dataController.data.dashboards.append(DashboardModel.from_json(json.loads(jsonDashboard)))
+loadedJsonFilters = json.loads(jsonFilters)
+for filter in loadedJsonFilters:
+  dataController.data.filters.append(FilterModel.from_json(filter))
 
-def initializeApp(data: DataModel):
-  loader = ExcelFileLoader('file:///home/allonios/FullEnd/API/Test.xlsx')
-  data.dataSources = loader.loadFile(0)
+#load static dataSourceTableWithoutXcolumn.
 
-#initializeApp(data)
-
-
+@csrf_exempt
 def fullDataHandler(request):
   if request.method == 'GET':
-    return
-  elif request.method == 'POST':
-    data.from_json(postFullData(request))
-
-def postFullData(request):
-  pass
+    return HttpResponse(json.dumps(dataController.data, indent= 4, cls= ObjectEncoder, ensure_ascii= False))
 
 
 @csrf_exempt
 def dataSourcesHandler(request):
   if request.method == 'GET':
-    return HttpResponse(json.dumps(data.dataSources, indent= 4, cls= ObjectEncoder, ensure_ascii= False))
+    return HttpResponse(json.dumps(dataController.data.dataSources, indent= 4, cls= ObjectEncoder, ensure_ascii= False))
   elif request.method == 'POST':
-    data.dataSources.clear()
-    jsonDataSources = json.loads(request.body.decode()).get('dataSources')
-    for jsonTable in jsonDataSources:
-      data.dataSources.append(TableModel.from_json(jsonTable))
-
-    print(data.dataSources[0].columns[0].cells[0].value)
-
-    return HttpResponse()
+    table = TableModel.from_json(json.loads(request.body.decode()))
+    dataController.insertNewTable(table)
+    return HttpResponse(json.dumps(table, indent= 4, cls= ObjectEncoder, ensure_ascii= False))
 
 
-
+@csrf_exempt
 def visualizersHandler(request):
   if request.method == 'GET':
-    return HttpResponse(json.dumps(data.visualizations, indent= 4, cls= ObjectEncoder, ensure_ascii= False))
+    return HttpResponse(json.dumps(dataController.data.visualizations, indent= 4, cls= ObjectEncoder, ensure_ascii= False))
   elif request.method == 'POST':
-    postVisualizers(request)
-
-def postVisualizers(request):
-  pass
-
+    visualizer = VisualizationModel.from_json(json.loads(request.body.decode()))
+    dataController.insertNewVisualizer(visualizer)
+    return HttpResponse(json.dumps(visualizer, indent= 4, cls= ObjectEncoder, ensure_ascii= False))
 
 
+
+@csrf_exempt
 def dashBoardsHandler(request):
   if request.method == 'GET':
-    return HttpResponse(json.dumps(data.dashboards, indent= 4, cls= ObjectEncoder, ensure_ascii= False))
+    return HttpResponse(json.dumps(dataController.data.dashboards, indent= 4, cls= ObjectEncoder, ensure_ascii= False))
   elif request.method == 'POST':
-    postDashboards(request)
-
-def postDashboards(request):
-  pass
-
+    dashBoard = DashboardModel.from_json(json.loads(request.body.decode()))
+    dataController.insertNewDashboard(dashBoard)
+    return HttpResponse(json.dumps(dashBoard, indent=4, cls=ObjectEncoder, ensure_ascii=False))
 
 
+@csrf_exempt
 def filtersHandler(request):
   if request.method == 'GET':
-    return HttpResponse(json.dumps(data.filters, indent= 4, cls= ObjectEncoder, ensure_ascii= False))
+    return HttpResponse(json.dumps(dataController.data.filters, indent= 4, cls= ObjectEncoder, ensure_ascii= False))
   elif request.method == 'POST':
-    postFilters(request)
-
-def postFilters(request):
-  pass
-
+    filter = FilterModel.from_json(json.loads(request.body.decode()))
+    dataController.inserNewFilter(filter)
+    return HttpResponse(json.dumps(filter, indent=4, cls=ObjectEncoder, ensure_ascii=False))
 
 
+@csrf_exempt
+def dataSourceModifier(request, id):
+  if request.method == 'PUT':
+    newTable = TableModel.from_json(json.loads(request.body.decode()))
+    newTable = dataController.updateTableById(newTable, int(id))
+    return HttpResponse(json.dumps(newTable, indent=4, cls=ObjectEncoder, ensure_ascii=False))
+
+@csrf_exempt
+def visualizerModifier(request, id):
+  if request.method == 'PUT':
+    newVisio = VisualizationModel.from_json(json.loads(request.body.decode()))
+    newVisio = dataController.updateVisualizerById(newVisio, id)
+    return HttpResponse(json.dumps(newVisio, indent=4, cls=ObjectEncoder, ensure_ascii=False))
 
 
 
+@csrf_exempt
+def dashboardModifier(request, id):
+  if request.method == 'PUT':
+    newDashboard = DashboardModel.from_json(json.loads(request.body.decode()))
+    newDashboard = dataController.updateDashboardById(newDashboard, id)
+    return HttpResponse(json.dumps(newDashboard, indent=4, cls=ObjectEncoder, ensure_ascii=False))
+
+
+@csrf_exempt
+def filterModifier(request, id):
+  if request.method == 'PUT':
+    newFilter = FilterModel.from_json(json.loads(request.body.decode()))
+    newFilter = dataController.updateFilterById(newFilter, id)
+    return HttpResponse(json.dumps(newFilter, indent=4, cls=ObjectEncoder, ensure_ascii=False))
 
 
 

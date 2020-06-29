@@ -17,7 +17,6 @@ export const selectFiltersTree = createSelector(
   selectDataSourcesEntities,
   (entities, dataSourceEntities) => {
     let tree: any = { name: "filters", children: [] };
-    // entities.forEach((entity, key) =>
     for (let key in entities) {
       let entity = entities[key];
       let filter = {

@@ -1,7 +1,7 @@
-from numpy import double, long
+from numpy import double
 
-from Charts.PointChart import PointChart
-from Charts.LinerChart import LinertChart
+from Charts.Charts.PointChart import PointChart
+from Charts.Charts.LineChart import LineChart
 from DataI import enums
 from DataI.Models.ColumnModel import CellModel, ColumnStyleModel, ColumnModel
 from DataI.Models.TableModel import PropertiesModel, TableModel, AggregationModel
@@ -72,13 +72,9 @@ testdatasource = TableModel(columns, 'Table1', 0, properties, aggregator, False)
 #=================================================================================================================
 
 
-
-import drawSvg as draw
-
-
 dataSource = testdatasource
 Xcolomn =dataSource.columns[2]
 chart = PointChart(dataSource,double(1000),double(1000),Xcolomn,8,"point")
-chart2 = LinertChart(dataSource,double(1000),double(1000),Xcolomn,8,"Line")
-print(chart.lsitOfIndexing)
+chart2 = LineChart(dataSource, double(1000), double(1000), Xcolomn, 8, "Line")
+print(chart.listOfIndexing)
 
