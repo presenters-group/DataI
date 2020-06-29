@@ -22,7 +22,6 @@ class DataController():
   # Don't add 1 to id here (it must be already added).
   def loadTablesFromExcelFile(self, filePath: str, greatestTableId: int):
     loader = ExcelFileLoader(filePath)
-    print(loader.loadFile(greatestTableId))
     self.data.dataSources.extend(loader.loadFile(greatestTableId))
 
   # Don't add 1 to id here (it must be already added).

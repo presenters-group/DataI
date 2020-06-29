@@ -1,7 +1,6 @@
-import pandas
 import ntpath
 
-from typing import List
+import pandas
 
 from DataI.Controllers.FileLoaders.FileLoader import FileLoader
 from DataI.Models.TableModel import TableModel
