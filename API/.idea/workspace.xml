@@ -49,7 +49,9 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="ProjectId" id="1dfabTrTpx8RCHAVgf9P3TfWg6Z" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -61,10 +63,15 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
   </component>
-  <component name="RunManager" selected="Python.Tester">
-    <configuration name="TestJSONGenerator" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/Charts/Charts" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Python.Charts-unit-test">
+    <configuration name="Charts-unit-test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="DataIBackend" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -72,7 +79,7 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/DataI" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Charts/Charts" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
@@ -108,7 +115,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="svgTest" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="__init__" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="DataIBackend" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -116,7 +123,7 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Charts/Charts" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
@@ -130,7 +137,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="views" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="testing" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="DataIBackend" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -138,7 +145,28 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/DataI" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Chart" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Chart/testing.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="testingUnit" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="DataIBackend" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Charts/Charts" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
@@ -154,15 +182,16 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.Charts-unit-test" />
+        <item itemvalue="Python.__init__" />
         <item itemvalue="Python.Tester" />
-        <item itemvalue="Python.TestJSONGenerator" />
-        <item itemvalue="Python.svgTest" />
-        <item itemvalue="Python.views" />
+        <item itemvalue="Python.testingUnit" />
+        <item itemvalue="Python.testing" />
       </list>
     </recent_temporary>
   </component>
   <component name="SvnConfiguration">
-    <configuration />
+    <configuration>$USER_HOME$/.subversion</configuration>
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -192,13 +221,28 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="SHOW_DIRTY_RECURSIVELY" value="true" />
     <ignored-roots>
       <path value="$PROJECT_DIR$" />
     </ignored-roots>
+    <MESSAGE value="chart2" />
+    <MESSAGE value="Charts2" />
+    <MESSAGE value="PieChart" />
+    <MESSAGE value="Chart" />
+    <MESSAGE value="pieChart" />
+    <option name="LAST_COMMIT_MESSAGE" value="pieChart" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="589" y="236" width="732" height="633" key="#Inspections" timestamp="1592978540818">
-      <screen x="0" y="30" width="1920" height="1050" />
+    <state x="317" y="48" key="#Inspections" timestamp="1593017341304">
+      <screen x="0" y="0" width="2646" height="1024" />
+    </state>
+    <state x="317" y="48" key="#Inspections/0.0.2646.1024@0.0.2646.1024" timestamp="1593017341304" />
+    <state x="571" y="235" key="#Notifications" timestamp="1593051528529">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state x="571" y="235" key="#Notifications/0.0.1366.768/1366.0.1280.1024@0.0.1366.768" timestamp="1593051528529" />
+    <state x="373" y="35" width="608" height="669" key="#TestJSONGenerator" timestamp="1593014021315">
+      <screen x="0" y="0" width="2646" height="1024" />
     </state>
     <state x="589" y="236" width="732" height="633" key="#Inspections/0.30.1920.1050@0.30.1920.1050" timestamp="1592978540818" />
     <state x="517" y="27" key="#Tester" timestamp="1593004988704">
@@ -240,9 +284,19 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="465" y="236" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1592818677328" />
-    <state x="623" y="261" width="672" height="678" key="search.everywhere.popup" timestamp="1592829530783">
-      <screen x="0" y="30" width="1920" height="1050" />
+    <state x="481" y="281" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1593051507549">
+      <screen x="0" y="0" width="1366" height="768" />
     </state>
+    <state x="481" y="281" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1366.768/1366.0.1280.1024@0.0.1366.768" timestamp="1593051507549" />
+    <state x="1243" y="0" width="1280" height="681" maximized="true" key="dock-window-1" timestamp="1593433825929">
+      <screen x="1366" y="0" width="1280" height="1024" />
+    </state>
+    <state x="1243" y="0" width="1280" height="681" maximized="true" key="dock-window-1/0.0.1366.768/1366.0.1280.1024@0.0.1366.768" timestamp="1593433825929" />
+    <state x="443" y="161" width="672" height="473" key="search.everywhere.popup" timestamp="1593425990961">
+      <screen x="0" y="0" width="1366" height="732" />
+    </state>
+    <state x="443" y="161" width="672" height="473" key="search.everywhere.popup/0.0.1366.732/1366.0.1024.768@0.0.1366.732" timestamp="1593425990961" />
+    <state x="443" y="169" width="672" height="496" key="search.everywhere.popup/0.0.1366.768/1366.0.1280.1024@0.0.1366.768" timestamp="1593161439464" />
     <state x="623" y="261" width="672" height="678" key="search.everywhere.popup/0.30.1920.1050@0.30.1920.1050" timestamp="1592829530783" />
   </component>
 </project>
