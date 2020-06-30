@@ -8,7 +8,7 @@ import { DashboardsService } from "./dashboards.service";
 
 import * as fromActions from "./dashboards.actions";
 import { closeTapFromTree } from '../core/actions/core.actions';
-import { CREATE_SUCCESSFUL, CREATE_FAILED, UPDATE_SUCCESSFUL, UPDATE_FAILED, DELETE_SUCCESSFUL, DELETE_FAILED } from 'src/utils/messages.constants';
+import { CREATE_SUCCESSFUL, CREATE_FAILED, UPDATE_SUCCESSFUL, UPDATE_FAILED, DELETE_SUCCESSFUL, DELETE_FAILED, FETCH_FAILED } from 'src/utils/messages.constants';
 import { showSuccess, showError } from '../notifications';
 @Injectable()
 export class DashboardsEffects {
@@ -53,7 +53,10 @@ export class DashboardsEffects {
           map((data) => fromActions.fetchDashboardsSuccess({ data })),
 
           catchError((error) =>
-            of(fromActions.fetchDashboardsFailed({ error }))
+            [
+              fromActions.fetchDashboardsFailed({ error }),
+              showError({message : FETCH_FAILED})
+            ]
           )
         )
       )

@@ -14,6 +14,7 @@ import {
   CREATE_SUCCESSFUL,
   DELETE_SUCCESSFUL,
   DELETE_FAILED,
+  FETCH_FAILED,
 } from "src/utils/messages.constants";
 import { showSuccess, showError } from "../notifications";
 @Injectable()
@@ -55,7 +56,9 @@ export class FiltersEffects {
         this.filtersService.fetch().pipe(
           map((data) => fromActions.fetchFiltersSuccess({ data })),
 
-          catchError((error) => of(fromActions.fetchFiltersFailed({ error })))
+          catchError((error) => [fromActions.fetchFiltersFailed({ error }),
+            showError({message : FETCH_FAILED})
+          ])
         )
       )
     )

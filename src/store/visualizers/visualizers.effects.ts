@@ -9,7 +9,7 @@ import { VisualizersService } from "./visualizers.service";
 import * as fromActions from "./visualizers.actions";
 import { closeTapFromTree } from "../core/actions/core.actions";
 import { showSuccess, showError } from "../notifications";
-import { CREATE_SUCCESSFUL, CREATE_FAILED, UPDATE_SUCCESSFUL, UPDATE_FAILED, DELETE_SUCCESSFUL } from "src/utils/messages.constants";
+import { CREATE_SUCCESSFUL, CREATE_FAILED, UPDATE_SUCCESSFUL, UPDATE_FAILED, DELETE_SUCCESSFUL, DELETE_FAILED, FETCH_FAILED } from "src/utils/messages.constants";
 @Injectable()
 export class VisualizersEffects {
   constructor(
@@ -50,7 +50,11 @@ export class VisualizersEffects {
           map((data) => fromActions.fetchVisualizersSuccess({ data })),
 
           catchError((error) =>
-            of(fromActions.fetchVisualizersFailed({ error }))
+
+            [
+              fromActions.fetchVisualizersFailed({ error }),
+              showError({message : FETCH_FAILED})
+            ]
           )
         )
       )
@@ -99,7 +103,7 @@ export class VisualizersEffects {
 
           catchError((error) => [
             fromActions.deleteVisualizerFailed({ error }),
-            showError({ message: UPDATE_FAILED }),
+            showError({ message: DELETE_FAILED }),
           ])
         )
       )

@@ -16,6 +16,7 @@ import {
   UPDATE_FAILED,
   DELETE_SUCCESSFUL,
   DELETE_FAILED,
+  FETCH_FAILED,
 } from "src/utils/messages.constants";
 @Injectable()
 export class DataSourcesEffects {
@@ -57,12 +58,15 @@ export class DataSourcesEffects {
           map((data) => fromActions.fetchDataSourcesSuccess({ data })),
 
           catchError((error) =>
-            of(fromActions.fetchDataSourcesFailed({ error }))
+            [
+              fromActions.fetchDataSourcesFailed({ error }),
+              showError({message : FETCH_FAILED})
+            ]
+            )
           )
         )
       )
-    )
-  );
+    );
 
   updateDataSource$ = createEffect(() =>
     this.actions$.pipe(
