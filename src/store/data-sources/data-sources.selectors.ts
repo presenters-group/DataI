@@ -56,22 +56,22 @@ export const selectDataSourcesTree = createSelector(
         if (columnEntity.columnType == "Measures")
           measuresColumns.push({
             name: columnEntity.name,
-            content: {
-              type: "column-measures",
-              tableId: key,
-              id: columnKey,
-              name: columnEntity.name,
-            },
+            // content: {
+            //   type: "column-measures",
+            //   tableId: key,
+            //   id: columnKey,
+            //   name: columnEntity.name,
+            // },
           });
         if (columnEntity.columnType == "Dimensions")
           dimensionsColumns.push({
             name: columnEntity.name,
-            content: {
-              type: "column-dimensions",
-              tableId: key,
-              id: columnKey,
-              name: columnEntity.name,
-            },
+            // content: {
+            //   type: "column-dimensions",
+            //   tableId: key,
+            //   id: columnKey,
+            //   name: columnEntity.name,
+            // },
           });
       }
       dataSources.children[0].children = measuresColumns;

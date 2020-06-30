@@ -4,6 +4,7 @@ import * as fromDataSources from "./data-sources";
 import * as fromVisualizers from "./visualizers";
 import * as fromDashboards from "./dashboards";
 import * as fromFilters from "./filters";
+import * as fromNotifications from './notifications'
 import { ActionReducerMap } from "@ngrx/store";
 import { CoreState } from "./core";
 import { DataSourcesState } from "./data-sources";
@@ -27,7 +28,7 @@ export const reducers: ActionReducerMap<AppState> = {
 
 export const effects = [
   fromCore.CoreEffects,
-  fromCore.NotificationsEffects,
+  fromNotifications.NotificationsEffects,
   fromDataSources.DataSourcesEffects,
   fromDashboards.DashboardsEffects,
   fromVisualizers.VisualizersEffects,

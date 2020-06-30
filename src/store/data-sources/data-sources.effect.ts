@@ -7,6 +7,16 @@ import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { DataSourcesService } from "./data-sources.service";
 
 import * as fromActions from "./data-sources.actions";
+import { closeTapFromTree } from "../core/actions/core.actions";
+import { showError, showSuccess } from "../notifications";
+import {
+  CREATE_FAILED,
+  CREATE_SUCCESSFUL,
+  UPDATE_SUCCESSFUL,
+  UPDATE_FAILED,
+  DELETE_SUCCESSFUL,
+  DELETE_FAILED,
+} from "src/utils/messages.constants";
 @Injectable()
 export class DataSourcesEffects {
   constructor(
@@ -22,11 +32,15 @@ export class DataSourcesEffects {
 
       switchMap(({ data }) =>
         this.dataSourcesService.create(data).pipe(
-          map((data) => fromActions.fetchDataSources()),
+          switchMap((data) => [
+            fromActions.fetchDataSources(),
+            showSuccess({ message: CREATE_SUCCESSFUL }),
+          ]),
 
-          catchError((error) =>
-            of(fromActions.createDataSourceFailed({ error }))
-          )
+          catchError((error) => [
+            fromActions.createDataSourceFailed({ error }),
+            showError({ message: CREATE_FAILED }),
+          ])
         )
       )
     )
@@ -58,11 +72,15 @@ export class DataSourcesEffects {
 
       switchMap(({ data }) =>
         this.dataSourcesService.update(data).pipe(
-          map((data) => fromActions.updateDataSourceSuccess({ data })),
+          switchMap((data) => [
+            fromActions.updateDataSourceSuccess({ data }),
+            showSuccess({ message: UPDATE_SUCCESSFUL }),
+          ]),
 
-          catchError((error) =>
-            of(fromActions.updateDataSourceFailed({ error }))
-          )
+          catchError((error) => [
+            fromActions.updateDataSourceFailed({ error }),
+            showError({ message: UPDATE_FAILED }),
+          ])
         )
       )
     )
@@ -76,31 +94,45 @@ export class DataSourcesEffects {
 
       switchMap(({ id }) =>
         this.dataSourcesService.delete(id).pipe(
-          map((data) => fromActions.deleteDataSourceSuccess({ data })),
+          switchMap((data) => [
+            fromActions.deleteDataSourceSuccess({ data }),
+            closeTapFromTree({
+              tap: { type: "data-source", id: (data as any).id },
+            }),
+            showSuccess({ message: DELETE_SUCCESSFUL }),
+          ]),
 
-          catchError((error) =>
-            of(fromActions.deleteDataSourceFailed({ error }))
-          )
+          catchError((error) => [
+            fromActions.deleteDataSourceFailed({ error }),
+            showError({ message: DELETE_FAILED }),
+          ])
         )
       )
     )
   );
 
   updateCell$ = createEffect(() =>
-  this.actions$.pipe(
-    ofType(fromActions.updateCell),
+    this.actions$.pipe(
+      ofType(fromActions.updateCell),
 
-    debounceTime(100),
+      debounceTime(100),
 
-    switchMap(({ data }) =>
-      this.dataSourcesService.updateCell(data).pipe(
-        map((id) => fromActions.updateCellSuccess({ data })),
+      switchMap(({ data }) =>
+        this.dataSourcesService.updateCell(data).pipe(
+          switchMap((data) => [
+            fromActions.updateDataSourceSuccess({ data }),
+            closeTapFromTree({
+              tap: { type: "data-source", id: (data as any).id },
+            }),
+            showSuccess({ message: UPDATE_SUCCESSFUL }),
+          ]),
 
-        catchError((error) =>
-          of(fromActions.updateCellField({ error }))
+          catchError((error) => [
+            fromActions.updateDataSourceFailed({ error }),
+            showError({ message: UPDATE_FAILED }),
+          ])
         )
       )
     )
-  )
-);
+  );
 }

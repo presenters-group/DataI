@@ -42,6 +42,7 @@ const dataSourcesReducer = createReducer(
     fromActions.updateDataSourceSuccess,
     fromActions.createDataSourceSuccess,
     (state, { data }) => {
+      console.log(data)
       const entities = {
         ...state.entities,
         [data.id]: data,

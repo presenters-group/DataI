@@ -7,6 +7,15 @@ import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { FiltersService } from "./filters.service";
 
 import * as fromActions from "./filters.actions";
+import { closeTapFromTree } from "../core/actions/core.actions";
+import {
+  UPDATE_SUCCESSFUL,
+  UPDATE_FAILED,
+  CREATE_SUCCESSFUL,
+  DELETE_SUCCESSFUL,
+  DELETE_FAILED,
+} from "src/utils/messages.constants";
+import { showSuccess, showError } from "../notifications";
 @Injectable()
 export class FiltersEffects {
   constructor(
@@ -22,9 +31,15 @@ export class FiltersEffects {
 
       switchMap(({ data }) =>
         this.filtersService.create(data).pipe(
-          map((data) => fromActions.createFilterSuccess({ data })),
+          switchMap((data) => [
+            fromActions.createFilterSuccess({ data }),
+            showSuccess({ message: CREATE_SUCCESSFUL }),
+          ]),
 
-          catchError((error) => of(fromActions.createFilterFailed({ error })))
+          catchError((error) => [
+            fromActions.createFilterFailed({ error }),
+            showError({ message: CREATE_SUCCESSFUL }),
+          ])
         )
       )
     )
@@ -54,9 +69,15 @@ export class FiltersEffects {
 
       switchMap(({ data }) =>
         this.filtersService.update(data).pipe(
-          map((data) => fromActions.updateFilterSuccess({ data })),
+          switchMap((data) => [
+            fromActions.updateFilterSuccess({ data }),
+            showSuccess({ message: UPDATE_SUCCESSFUL }),
+          ]),
 
-          catchError((error) => of(fromActions.updateFilterFailed({ error })))
+          catchError((error) => [
+            fromActions.updateFilterFailed({ error }),
+            showError({ message: UPDATE_FAILED }),
+          ])
         )
       )
     )
@@ -70,9 +91,16 @@ export class FiltersEffects {
 
       switchMap(({ id }) =>
         this.filtersService.delete(id).pipe(
-          map((data) => fromActions.deleteFilterSuccess({ data })),
+          switchMap((data) => [
+            fromActions.deleteFilterSuccess({ data }),
+            showSuccess({ message: DELETE_SUCCESSFUL }),
+            closeTapFromTree({ tap: { type: "filter", id: (data as any).id } }),
+          ]),
 
-          catchError((error) => of(fromActions.deleteFilterFailed({ error })))
+          catchError((error) => [
+            fromActions.deleteFilterFailed({ error }),
+            showError({ message: DELETE_FAILED }),
+          ])
         )
       )
     )

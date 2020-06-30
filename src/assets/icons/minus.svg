@@ -68,6 +68,39 @@
          transform="translate(10.4521,10.8726)"
          id="rect961-5" />
     </clipPath>
+    <clipPath
+       id="clip0-9">
+      <rect
+         id="rect866-3"
+         transform="translate(11.4521,9.66455)"
+         fill="#ffffff"
+         height="24.7656"
+         width="21.698601"
+         x="0"
+         y="0" />
+    </clipPath>
+    <clipPath
+       id="clip0-3-6">
+      <rect
+         id="rect961-0"
+         transform="translate(10.4521,10.8726)"
+         fill="#ffffff"
+         height="21.745399"
+         width="21.698601"
+         x="0"
+         y="0" />
+    </clipPath>
+    <clipPath
+       id="clip0-6-6">
+      <rect
+         id="rect1002-2"
+         transform="translate(11.4521,13.5737)"
+         fill="#ffffff"
+         height="21.745399"
+         width="21.698601"
+         x="0"
+         y="0" />
+    </clipPath>
   </defs>
   <sodipodi:namedview
      id="base"
@@ -76,9 +109,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="17.678399"
-     inkscape:cx="2.5661165"
-     inkscape:cy="4.7256771"
+     inkscape:zoom="13.856498"
+     inkscape:cx="2.7570645"
+     inkscape:cy="3.6704878"
      inkscape:document-units="mm"
      inkscape:current-layer="g1016"
      showgrid="false"
@@ -108,7 +141,7 @@
              sodipodi:nodetypes="cc"
              id="path832-2"
              d="m 17.128646,22.354801 9.742719,-0.04537"
-             style="fill:none;stroke:#000000;stroke-width:1.88976;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+             style="fill:#ff0000;stroke:#ff0000;stroke-width:1.51181104;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
         </g>
       </g>
     </g>

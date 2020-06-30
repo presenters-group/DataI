@@ -21,6 +21,11 @@ export const closeTap = createAction(
   props<{ tapIndex }>()
 );
 
+export const closeTapFromTree = createAction(
+  "[TreeComponent] Close a tap from tree component by sending id and type",
+  props<{ tap }>()
+);
+
 export const fetchCharts = createAction(
   "[TapsComponent] fetch charts"
 );

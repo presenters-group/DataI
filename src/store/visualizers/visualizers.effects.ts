@@ -7,6 +7,9 @@ import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { VisualizersService } from "./visualizers.service";
 
 import * as fromActions from "./visualizers.actions";
+import { closeTapFromTree } from "../core/actions/core.actions";
+import { showSuccess, showError } from "../notifications";
+import { CREATE_SUCCESSFUL, CREATE_FAILED, UPDATE_SUCCESSFUL, UPDATE_FAILED, DELETE_SUCCESSFUL } from "src/utils/messages.constants";
 @Injectable()
 export class VisualizersEffects {
   constructor(
@@ -20,13 +23,17 @@ export class VisualizersEffects {
 
       debounceTime(100),
 
-      switchMap(({data}) => {
+      switchMap(({ data }) => {
         return this.visualizersService.create(data as any).pipe(
-          map((data) => fromActions.createVisualizerSuccess({ data })),
+          switchMap((data) => [
+            fromActions.createVisualizerSuccess({ data }),
+            showSuccess({ message: CREATE_SUCCESSFUL }),
+          ]),
 
-          catchError((error) =>
-            of(fromActions.createVisualizerFailed({ error }))
-          )
+          catchError((error) => [
+            fromActions.createVisualizerFailed({ error }),
+            showError({ message: CREATE_FAILED }),
+          ])
         );
       })
     )
@@ -58,11 +65,16 @@ export class VisualizersEffects {
 
       switchMap(({ data }) =>
         this.visualizersService.update(data).pipe(
-          map((data) => fromActions.updateVisualizerSuccess({ data })),
 
-          catchError((error) =>
-            of(fromActions.updateVisualizerFailed({ error }))
-          )
+          switchMap((data) => [
+            fromActions.updateVisualizerSuccess({ data }),
+            showSuccess({ message: UPDATE_SUCCESSFUL }),
+          ]),
+
+          catchError((error) => [
+            fromActions.updateVisualizerFailed({ error }),
+            showError({ message: UPDATE_FAILED }),
+          ])
         )
       )
     )
@@ -76,11 +88,19 @@ export class VisualizersEffects {
 
       switchMap(({ id }) =>
         this.visualizersService.delete(id).pipe(
-          map((data) => fromActions.deleteVisualizerSuccess({ data })),
 
-          catchError((error) =>
-            of(fromActions.deleteVisualizerFailed({ error }))
-          )
+          switchMap((data) => [
+            fromActions.deleteVisualizerSuccess({ data }),
+            showSuccess({ message: DELETE_SUCCESSFUL }),
+            closeTapFromTree({
+              tap: { type: "visualizer", id: (data as any).id },
+            }),
+          ]),
+
+          catchError((error) => [
+            fromActions.deleteVisualizerFailed({ error }),
+            showError({ message: UPDATE_FAILED }),
+          ])
         )
       )
     )
@@ -95,11 +115,9 @@ export class VisualizersEffects {
       switchMap(({ data }) =>
         this.visualizersService.fetchVisualizerChart(data).pipe(
           map((data) => {
-            return fromActions.fetchChartAsSVGSuccess({ data })
+            return fromActions.fetchChartAsSVGSuccess({ data });
           }),
-          catchError((error) =>
-            of(fromActions.fetchChartAsSVGFiled({ error }))
-          )
+          catchError((error) => of(fromActions.fetchChartAsSVGFiled({ error })))
         )
       )
     )

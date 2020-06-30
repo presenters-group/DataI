@@ -5,12 +5,13 @@ import {
   ViewChild,
   ElementRef,
   Renderer2,
+  ChangeDetectionStrategy,
 } from "@angular/core";
 import { Store } from "@ngrx/store";
 import { selectCurrentTree } from "src/store/core/selectors/core.selector";
 import { AppState } from "src/store";
 import { TreeService } from "./tree.service";
-import { addToTapes } from "src/store/core/actions/core.actions";
+import { addToTapes, closeTapFromTree } from "src/store/core/actions/core.actions";
 import { ConditionalExpr } from "@angular/compiler";
 import { first } from "rxjs/operators";
 import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
@@ -19,10 +20,10 @@ import { createVisualizer, deleteVisualizer } from "src/store/visualizers";
 import { AddDataSourceComponent } from "src/app/pages/data-source/dialogs/add-data-source/add-data-source.component";
 import { AddFilterComponent } from "src/app/pages/filter/dialogs/add-filter/add-filter.component";
 import { createFilter, deleteFilter } from "src/store/filters";
-import { NotificationService } from "src/store/core/notification/notification.service";
 import { element } from "protractor";
 import { deleteDataSource } from "src/store/data-sources";
 import { deleteDashboard } from "src/store/dashboards";
+import { NotificationService } from 'src/store/notifications/notifications.service';
 @Component({
   selector: "app-tree-view",
   templateUrl: "./tree-view.component.html",
@@ -43,16 +44,13 @@ export class TreeViewComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {}
 
   ngAfterViewInit(): void {
-    this.store.select(selectCurrentTree).subscribe((value: any) => {
-      this.treeService.fillOut(value).subscribe((tree) => {
-        this.items = tree;
-      });
-      this.initialTree();
-    });
+    this.onRefreshClick()
   }
   initialTree() {
     this.tree.nativeElement.innerHTML = "";
-    this.createTree(this.tree.nativeElement, this.items, 0);
+    console.log(this.items);
+    for(let i = 0 ; i< this.items.children.length; i++)
+      this.createTree(this.tree.nativeElement, this.items.children[i], 0);
   }
 
   createTree(element: ElementRef, items: any, level: number) {

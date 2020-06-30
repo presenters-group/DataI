@@ -1,5 +1,4 @@
 * {
-  transition: 0.5s all;
 }
 .container {
   display: flex;
@@ -11,6 +10,7 @@
   overflow-x: hidden;
   padding-bottom: 40px;
   padding-right: 20px;
+  padding-left: 10px;
   // padding: 10px;
 }
 .item {
@@ -19,6 +19,7 @@
   margin-top: 8px;
 }
 .arrow {
+  transition: 0.5s all;
   margin-right: 3px;
 }
 .minus {
@@ -51,6 +52,7 @@
 }
 
 .tools-container {
+  padding-left: 10px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -63,7 +65,17 @@
 }
 .name {
   height: 22px;
+  line-height: 22px;
   overflow: hidden;
   white-space: pre;
   text-overflow: ellipsis;
+}
+.first-tool{
+  margin-left: auto;
+}
+.horizontal-line{
+  height: 1px;
+  background-color: var(--gray3);
+  width: 100%;
+
 }
