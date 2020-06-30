@@ -32,10 +32,10 @@ class ChartsFactory():
       return HumanChart(table.columns[0], xColomn, 'testerrr')
 
     if chartType == enums.ChartTypes.MultiplePieChart.value:
-      return MultiplePieChart(table, xColomn, 1000, 1000, 'testerrr')
+      return MultiplePieChart(table, xColomn, width, height, 'testerrr')
 
     if chartType == enums.ChartTypes.PyramidalChart.value:
-      return PyramidalChart(table.columns[0], xColomn, 1000, 1000, 'testerrr')
+      return PyramidalChart(table.columns[0], xColomn, width, height, 'testerrr')
 
     if chartType == enums.ChartTypes.SmartPieChart.value:
       return SmartPieChart(table.columns[0], xColomn, 'testerrr')
