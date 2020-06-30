@@ -21,7 +21,6 @@ export class VisualizersEffects {
       debounceTime(100),
 
       switchMap(({data}) => {
-        console.log(data)
         return this.visualizersService.create(data as any).pipe(
           map((data) => fromActions.createVisualizerSuccess({ data })),
 
@@ -77,7 +76,7 @@ export class VisualizersEffects {
 
       switchMap(({ id }) =>
         this.visualizersService.delete(id).pipe(
-          map((id) => fromActions.deleteVisualizerSuccess({ id })),
+          map((data) => fromActions.deleteVisualizerSuccess({ data })),
 
           catchError((error) =>
             of(fromActions.deleteVisualizerFailed({ error }))

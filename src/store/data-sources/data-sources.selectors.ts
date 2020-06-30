@@ -11,13 +11,24 @@ export const selectDataSourcesState = createFeatureSelector<
 export const selectDataSourcesEntities = createSelector(
   selectDataSourcesState,
   (state) => {
-    console.log(state.entities)
     return state.entities
   }
 );
 
+export const selectUndeletedDataSourcesEntities = createSelector(
+  selectDataSourcesState,
+  (state) => {
+    let newState = {}
+    for(let key in state.entities){
+      if(!state.entities[key].isDeleted)
+        newState[key] = {...state.entities[key]}
+    }
+    return newState
+  }
+)
+
 export const selectCurrentDataSource = createSelector(
-  selectDataSourcesEntities,
+  selectUndeletedDataSourcesEntities,
   selectCurrentTapObject,
   (entities, currentTap) => {
     return entities[currentTap.id];
@@ -26,10 +37,9 @@ export const selectCurrentDataSource = createSelector(
 
 
 export const selectDataSourcesTree = createSelector(
-  selectDataSourcesEntities,
+  selectUndeletedDataSourcesEntities,
   (entities) => {
     let tree: any = { name: "Data Sources", children: [] };
-    // entities.forEach((entity, key) =>
     for (let key in entities) {
       let entity = entities[key];
       let dataSources = {
@@ -37,13 +47,10 @@ export const selectDataSourcesTree = createSelector(
         content: { type: "data-source", id: key, name: entity.name },
         children: [],
       };
-      console.log(entity);
       dataSources.children.push({ name: "Measures", children: [] });
       dataSources.children.push({ name: "Dimensions", children: [] });
-      console.log(dataSources);
       let measuresColumns = [];
       let dimensionsColumns = [];
-      // entity.columns.forEach((entity,columnKey)=>
       for (let columnKey in entity.columns) {
         let columnEntity = entity.columns[columnKey];
         if (columnEntity.columnType == "Measures")

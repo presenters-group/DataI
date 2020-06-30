@@ -70,7 +70,7 @@ export class FiltersEffects {
 
       switchMap(({ id }) =>
         this.filtersService.delete(id).pipe(
-          map((id) => fromActions.deleteFilterSuccess({ id })),
+          map((data) => fromActions.deleteFilterSuccess({ data })),
 
           catchError((error) => of(fromActions.deleteFilterFailed({ error })))
         )

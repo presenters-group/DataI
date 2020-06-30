@@ -41,15 +41,10 @@ export class AddVisualizerComponent {
     })
   }
   onNoClick(): void {
-    console.log(this.form)
-    this.dataSources.pipe(first()).subscribe((value)=>{
-      console.log(value[this.form.value])
-    })
     this.dialogRef.close();
   }
 
   onSelectDataSource(){
-    console.log(this.form.value.data);
     this.filters = this.store.select(selectFiltersForDataSource,{dataSource : this.form.value.data})
   }
 

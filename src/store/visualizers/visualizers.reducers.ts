@@ -57,17 +57,18 @@ const visualizersReducer = createReducer(
   ),
 
   /**Deleting */
-  on(fromActions.deleteVisualizerSuccess, (state, { id }) => {
-    const { [id]: deletedVisualizer, ...entities } = state.entities;
-
+  on(fromActions.deleteVisualizerSuccess, (state, { data }) => {
     return {
       ...state,
       entities: {
-        [id]: { ...deletedVisualizer, isDeleted: true },
-        ...entities,
+        ...state.entities,
+        [data.id]: {...data},
       },
     };
   }),
+
+
+
   on(fromActions.fetchChartAsSVGSuccess, (state, {data}) =>{
     let newState = {
       ...state
@@ -77,7 +78,6 @@ const visualizersReducer = createReducer(
         chartData: data.metaData
       }}
     }
-    console.log(data);
     return {...newState}
   })
 );

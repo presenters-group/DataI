@@ -76,7 +76,7 @@ export class DataSourcesEffects {
 
       switchMap(({ id }) =>
         this.dataSourcesService.delete(id).pipe(
-          map((id) => fromActions.deleteDataSourceSuccess({ id })),
+          map((data) => fromActions.deleteDataSourceSuccess({ data })),
 
           catchError((error) =>
             of(fromActions.deleteDataSourceFailed({ error }))

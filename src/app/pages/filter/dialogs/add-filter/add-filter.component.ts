@@ -38,16 +38,9 @@ export class AddFilterComponent implements OnInit {
 
 
   onNoClick(): void {
-    console.log(this.form)
     this.dataSources.pipe(first()).subscribe((value)=>{
-      console.log(value[this.form.value])
     })
     this.dialogRef.close();
-  }
-
-  consol(data){
-    console.log(data)
-    return data
   }
 
 }

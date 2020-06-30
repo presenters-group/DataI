@@ -96,7 +96,7 @@
         </mat-select-trigger>
         <ng-container *ngIf="form.value.dataSource != '' && form.value.filteredColumn != ''">
         <mat-option
-          *ngFor="let type of consol((dataSources | async)[form.value.dataSource].columns[form.value.filteredColumn].columnType == 'Dimensions' ? ['Equality'] : ['MoreThan','LessThan'])"
+          *ngFor="let type of (dataSources | async)[form.value.dataSource].columns[form.value.filteredColumn].columnType == 'Dimensions' ? ['Equality'] : ['MoreThan','LessThan']"
           [value]="type"
           >
           {{type}}

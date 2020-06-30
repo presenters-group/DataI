@@ -11,17 +11,17 @@ import * as fromActions from "./dashboards.actions";
 export class DashboardsEffects {
   constructor(
     private actions$: Actions,
-    private visualizersService: DashboardsService
+    private dashboardsService: DashboardsService
   ) {}
 
-  createVisualizer$ = createEffect(() =>
+  createDashboard$ = createEffect(() =>
     this.actions$.pipe(
       ofType(fromActions.createDashboard),
 
       debounceTime(100),
 
       switchMap(({ data }) =>
-        this.visualizersService.create(data).pipe(
+        this.dashboardsService.create(data).pipe(
           map((data) => fromActions.createDashboardSuccess({ data })),
 
           catchError((error) =>
@@ -32,14 +32,14 @@ export class DashboardsEffects {
     )
   );
 
-  readeVisualizer$ = createEffect(() =>
+  readeDashboard$ = createEffect(() =>
     this.actions$.pipe(
       ofType(fromActions.fetchDashboards),
 
       debounceTime(100),
 
       switchMap(() =>
-        this.visualizersService.fetch().pipe(
+        this.dashboardsService.fetch().pipe(
           map((data) => fromActions.fetchDashboardsSuccess({ data })),
 
           catchError((error) =>
@@ -50,14 +50,14 @@ export class DashboardsEffects {
     )
   );
 
-  updateVisualizer$ = createEffect(() =>
+  updateDashboard$ = createEffect(() =>
     this.actions$.pipe(
       ofType(fromActions.updateDashboard),
 
       debounceTime(100),
 
       switchMap(({ data }) =>
-        this.visualizersService.update(data).pipe(
+        this.dashboardsService.update(data).pipe(
           map((data) => fromActions.updateDashboardSuccess({ data })),
 
           catchError((error) =>
@@ -68,15 +68,15 @@ export class DashboardsEffects {
     )
   );
 
-  deleteVisualizer$ = createEffect(() =>
+  deleteDashboard$ = createEffect(() =>
     this.actions$.pipe(
       ofType(fromActions.deleteDashboard),
 
       debounceTime(100),
 
       switchMap(({ id }) =>
-        this.visualizersService.delete(id).pipe(
-          map((id) => fromActions.deleteDashboardSuccess({ id })),
+        this.dashboardsService.delete(id).pipe(
+          map((data) => fromActions.deleteDashboardSuccess({ data })),
 
           catchError((error) =>
             of(fromActions.deleteDashboardFailed({ error }))

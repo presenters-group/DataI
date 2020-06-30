@@ -10,13 +10,30 @@ export const selectDashboardsState = createFeatureSelector<
   DashboardsState
 >("dashboards");
 
+
+
 export const selectDashboardsEntities = createSelector(
   selectDashboardsState,
   (state) => state.entities
 );
 
+
+export const selectUndeletedDashboardsEntities = createSelector(
+  selectDashboardsState,
+  (state) => {
+    let newState = {}
+    for(let key in state.entities){
+      if(!state.entities[key].isDeleted)
+        newState[key] = {...state.entities[key]}
+    }
+    return newState
+  }
+)
+
+
+
 export const selectDashboardsTree = createSelector(
-  selectDashboardsEntities,
+  selectUndeletedDashboardsEntities,
   selectVisualizersEntities,
   selectFiltersEntities,
   (entities, visualizersEntities, filtersEntities) => {
@@ -50,7 +67,6 @@ export const selectDashboardsTree = createSelector(
         visualizers.push(visualizer);
       });
       dashboards.children.push(...visualizers);
-      console.log(dashboards);
       tree.children.push(dashboards);
     };
     return tree;

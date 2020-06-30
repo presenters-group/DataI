@@ -25,7 +25,6 @@ export class DataSourcesService {
   }
 
   fetch() {
-    this.httpClient.get(this.URL).subscribe((value)=> console.log(value))
     return this.httpClient.get(this.URL);
   }
 
@@ -34,9 +33,6 @@ export class DataSourcesService {
   }
 
   updateCell(data){
-    console.log(JSON.stringify({
-      cellValue: data.cellValue
-    }))
     return this.httpClient.put(`${this.URL}/cell/${data.tableId}/${data.columnId}/${data.cellIndex}/`,{
       cellValue: data.cellValue
     })

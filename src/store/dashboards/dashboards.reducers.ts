@@ -7,42 +7,7 @@ export interface DashboardsState {
 }
 
 export const initialState: DashboardsState = {
-  entities: [
-    {
-      name: "dashboard1",
-      visualizers: [
-        {
-          visualizationIndex: 0,
-          measurements: {
-            width: 1.0,
-            height: 1.0,
-            x: 1.0,
-            y: 1.0,
-          },
-          displayedFilters: [
-            {
-              filterIndex: 0,
-              measurements: {
-                width: 0.0,
-                height: 0.0,
-                x: 0.0,
-                y: 0.0,
-              },
-            },
-            {
-              filterIndex: 1,
-              measurements: {
-                width: 1.0,
-                height: 1.0,
-                x: 1.0,
-                y: 1.0,
-              },
-            },
-          ],
-        },
-      ],
-    },
-  ],
+  entities: [],
 };
 const dashboardsReducer = createReducer(
   initialState,
@@ -80,14 +45,12 @@ const dashboardsReducer = createReducer(
   ),
 
   /**Deleting */
-  on(fromActions.deleteDashboardSuccess, (state, { id }) => {
-    const { [id]: deletedDashboard, ...entities } = state.entities;
-
+  on(fromActions.deleteDashboardSuccess, (state, { data }) => {
     return {
       ...state,
       entities: {
-        [id]: { ...deletedDashboard, isDeleted: true },
-        ...entities,
+        ...state.entities,
+        [data.id]: {...data},
       },
     };
   })

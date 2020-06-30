@@ -21,8 +21,8 @@ import { AddFilterComponent } from "src/app/pages/filter/dialogs/add-filter/add-
 import { createFilter, deleteFilter } from "src/store/filters";
 import { NotificationService } from "src/store/core/notification/notification.service";
 import { element } from "protractor";
-import { deleteDataSource } from 'src/store/data-sources';
-import { deleteDashboard } from 'src/store/dashboards';
+import { deleteDataSource } from "src/store/data-sources";
+import { deleteDashboard } from "src/store/dashboards";
 @Component({
   selector: "app-tree-view",
   templateUrl: "./tree-view.component.html",
@@ -124,10 +124,8 @@ export class TreeViewComponent implements OnInit, AfterViewInit {
   }
 
   onNameClick($event, renderer) {
-    console.log("anything");
     let element = $event.srcElement;
     let parent = renderer.parentNode(element);
-    console.log(parent.content);
     if (
       parent.content &&
       (parent.content.type == "filter" ||
@@ -152,7 +150,6 @@ export class TreeViewComponent implements OnInit, AfterViewInit {
       ? renderer.removeClass(element, "opened")
       : renderer.addClass(element, "opened");
     let parent = renderer.parentNode(element);
-    console.log(parent.content);
     let uncle = renderer.nextSibling(parent);
     [...uncle.classList].includes("closed")
       ? renderer.removeClass(uncle, "closed")
@@ -164,7 +161,6 @@ export class TreeViewComponent implements OnInit, AfterViewInit {
       .select(selectCurrentTree)
       .pipe(first())
       .subscribe((value: any) => {
-        console.log(value);
         switch (value) {
           case "data-sources":
             let dialogRefDataSource = this.dialog.open(AddDataSourceComponent);
@@ -202,29 +198,32 @@ export class TreeViewComponent implements OnInit, AfterViewInit {
         title: `Are you sure you want to delete ${content.name}?`,
       })
       .subscribe((value) => {
-        if (value == true){
-          console.log(content.type)
+        if (value == true) {
           switch (content.type) {
             case "visualizer":
               this.store.dispatch(deleteVisualizer({ id: content.id }));
-            case "filters":
+              break;
+            case "filter":
               this.store.dispatch(deleteFilter({ id: content.id }));
+              break;
             case "data-source":
               this.store.dispatch(deleteDataSource({ id: content.id }));
+              break;
             case "dashboard":
               this.store.dispatch(deleteDashboard({ id: content.id }));
+              break;
           }
+          this.onRefreshClick();
         }
       });
-
   }
 
   onRefreshClick() {
     this.store.select(selectCurrentTree).subscribe((value: any) => {
       this.treeService.fillOut(value).subscribe((tree) => {
         this.items = tree;
+        this.initialTree();
       });
-      this.initialTree();
     });
   }
 }

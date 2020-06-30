@@ -15,14 +15,29 @@ export const selectVisualizersEntities = createSelector(
   (state) => state.entities
 );
 
+
+export const selectUndeletedVisualizersEntities = createSelector(
+  selectVisualizersState,
+  (state) => {
+    let newState = {}
+    for(let key in state.entities){
+      if(!state.entities[key].isDeleted)
+        newState[key] = {...state.entities[key]}
+    }
+    return newState
+  }
+)
+
+
+
+
 export const selectVisualizersTree = createSelector(
-  selectVisualizersEntities,
+  selectUndeletedVisualizersEntities,
   selectDataSourcesEntities,
   selectFiltersEntities,
   (entities, dataSourcesEntities, filtersEntities) => {
     let tree: any = { name: "Visualizers", children: [] };
       for(let key in entities)
-    // entities.forEach((entity, key) =>
     {
       let entity = entities[key]
       let visualizers = {
@@ -39,9 +54,6 @@ export const selectVisualizersTree = createSelector(
       });
 
       let row = { name: "Row", children: [] };
-      console.log(dataSourcesEntities[entity.data].columns[entity.xColumn]);
-      console.log(entity.data);
-      console.log(entity.xColumn);
       row.children.push({
         name: dataSourcesEntities[entity.data].columns[entity.xColumn].name,
       });

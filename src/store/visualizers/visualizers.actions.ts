@@ -37,7 +37,7 @@ export const deleteVisualizer = createAction(
 
 export const deleteVisualizerSuccess = createAction(
   "[VisualizersEffect] Delete Visualizer Success",
-  props<{ id }>()
+  props<{ data }>()
 );
 
 export const deleteVisualizerFailed = createAction(

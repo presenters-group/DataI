@@ -37,7 +37,7 @@ export const deleteDashboard = createAction(
 
 export const deleteDashboardSuccess = createAction(
   "[DashboardsEffect] Delete Dashboard Success",
-  props<{ id }>()
+  props<{ data }>()
 );
 
 export const deleteDashboardFailed = createAction(

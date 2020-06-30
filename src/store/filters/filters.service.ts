@@ -11,7 +11,6 @@ export class FiltersService {
   constructor(private httpClient: HttpClient) {}
 
   create(data) {
-    console.log(data)
     return this.httpClient.post(`${this.URL}/`, {
       ...data,
        dataSource: Number.parseInt(data.dataSource),
@@ -28,6 +27,6 @@ export class FiltersService {
   }
 
   delete(id: number) {
-    return this.httpClient.delete(`${this.URL}/${id}`);
+    return this.httpClient.delete(`${this.URL}/${id}/`);
   }
 }

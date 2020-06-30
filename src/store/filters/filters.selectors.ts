@@ -12,8 +12,22 @@ export const selectFiltersEntities = createSelector(
   (state) => state.entities
 );
 
+
+export const selectUndeletedFiltersEntities = createSelector(
+  selectFiltersState,
+  (state) => {
+    let newState = {}
+    for(let key in state.entities){
+      if(!state.entities[key].isDeleted)
+        newState[key] = {...state.entities[key]}
+    }
+    return newState
+  }
+)
+
+
 export const selectFiltersTree = createSelector(
-  selectFiltersEntities,
+  selectUndeletedFiltersEntities,
   selectDataSourcesEntities,
   (entities, dataSourceEntities) => {
     let tree: any = { name: "filters", children: [] };
@@ -60,7 +74,7 @@ export const selectFiltersTree = createSelector(
 
 
 export const selectFiltersForDataSource = createSelector(
-  selectFiltersEntities,
+  selectUndeletedFiltersEntities,
   (state,props) => props.dataSource != '' ? objectFilter(state,(value)=>value.dataSource != props.dataSource) : {}
 );
 

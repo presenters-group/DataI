@@ -46,7 +46,6 @@ const appReducer = createReducer(
   }),
   on(fromActions.addToTapes, (state, { tap }) => {
     let taps = [...state.taps];
-    console.log("anything02");
     taps.push(tap);
     return { ...state, taps, currentTap: taps.length - 1 };
   }),
