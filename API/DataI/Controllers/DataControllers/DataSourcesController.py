@@ -20,14 +20,12 @@ class DataSourcesController():
     return data.dataSources[oldTableIndex]
 
   @classmethod
-  def updateCellByCords(cls, data: DataModel,cell, tableId: int, columnId: int, cellIndex):
+  def updateCellByCords(cls, data: DataModel, cell, tableId: int, columnId: int, cellIndex):
     targetTableIndex = DataController.getElementIndexById(data.dataSources, tableId)
     targetColumnIndex = DataController.getElementIndexById(data.dataSources[targetTableIndex].columns, columnId)
     data.dataSources[targetTableIndex].columns[targetColumnIndex].cells[cellIndex].value = cell
     data.dataSources[targetTableIndex].columns[targetColumnIndex].cells[cellIndex].type = cls.__getCellType(cell)
     return data.dataSources[targetTableIndex].columns[targetColumnIndex].cells[cellIndex]
-
-
 
   @classmethod
   def deleteTable(cls, data: DataModel, id: int):
@@ -39,8 +37,8 @@ class DataSourcesController():
 
   @classmethod
   def __getCellType(cls, cell):
-    if type(cell) is str:
-      return enums.CellType.string.value
-    else:
+    isDigit = str(cell).replace('.', '').isdigit()
+    if isDigit:
       return enums.CellType.numeric.value
-
+    else:
+      return enums.CellType.string.value

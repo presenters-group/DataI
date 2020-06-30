@@ -75,7 +75,7 @@ class BarChart(Chart):
     for column in self.dataSourceTableWithoutXcolumn.columns:
       if (column != self.Xcolumn):
         for i in range(1, len(column.cells)):
-          if (type(column.cells[i].value) != type(str)):
+          if column.cells[i].type != enums.CellType.string.value:
             return column.cells[i].value
     return 0
 

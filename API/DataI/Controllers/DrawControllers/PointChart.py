@@ -50,7 +50,7 @@ class PointChart(Chart):
     for column in self.dataSourceTableWithoutXcolumn.columns:
       if (column.columnType == enums.ColumnDataType.Measures.value):
         for cell in column.cells[1:]:
-          return cell.value
+          return double(cell.value)
     return 0
 
   def getStartvalue(self) -> double:
@@ -119,7 +119,7 @@ class PointChart(Chart):
         self.listOfLevelXValue.append(min)
         min += self.yUnit
     else:
-      for i in range(0, self.quality):
+      for i in range(0, int(self.quality)):
         self.listOfLevelXValue.append(double(self.minimumValue))
         self.minimumValue += self.yUnit
 
@@ -128,7 +128,7 @@ class PointChart(Chart):
 
   def drawYLineLevels(self):
     y = self.heightOfXLabels
-    for i in range(0, self.quality):
+    for i in range(0, int(self.quality)):
       p = draw.Path(stroke_width=self.yUnit / 75, stroke='lightgray', fill='gray', fill_opacity=0)
       p.M(self.widthOfYLabels, self.convertY(self.listOfLevelXValue[i]))
       p.h(self.widthOfCoordinatePlane)
@@ -193,7 +193,7 @@ class PointChart(Chart):
   def drawSideLable(self):
     y = self.heightOfXLabels
     x = self.widthOfYLabels / 10
-    for i in range(0, self.quality):
+    for i in range(0, int(self.quality)):
       num = str(self.listOfLevelXValue[i])
       self.listOfIndexing.append(num)
       if (len(num) > 10):

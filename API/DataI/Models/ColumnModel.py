@@ -66,7 +66,7 @@ class ColumnModel(BasicInfo):
 
     def __getColumnType(self, column: List[CellModel]):
         for cell in column:
-          isDigit = str(cell.value).replace('.', '').isdigit()
+          isDigit = str(cell.value).replace('.', '').isdigit() or str(cell.value).replace('-', '').isdigit()
           if not isDigit:
                 return enums.ColumnDataType.Dimensions.value
 
