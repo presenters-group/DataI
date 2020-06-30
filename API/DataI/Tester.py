@@ -142,20 +142,45 @@ print('________')
 print('________')
 print('________')
 
+
 for col in dataController.data.dataSources[0].columns:
   print(col.columnType)
-  print(col.cells[0])
+  print(col.cells[2])
 
 
 string = '100.k0'
 isDigit = string.replace('.', '').isdigit()
 print(isDigit)
-# svgString = DrawController.getSVGString(dataController.data, 0, double(10), double(1000))
-#
-#
+svgString = DrawController.getSVGString(dataController.data, 0, double(10), double(1000))
+
+
 # print(svgString)
 
 
+
+# from DataI import enums
+# from DataI.Models.ColumnModel import CellModel, ColumnModel
+#
+# cell1 = CellModel(10, enums.CellType.numeric.value)
+# cell2 = CellModel(20, enums.CellType.numeric.value)
+#
+# cells = [cell1, cell2, cell2, cell2, cell2, cell2]
+#
+# column1 = ColumnModel(cells, 'name', 10, None, False)
+# column2 = ColumnModel(cells, 'name', 10, None, False)
+#
+# column = column1 + column2
+#
+# for cell in column.cells:
+#   print(cell)
+
+
+# data = -1
+# isDigit = str(data).replace('.', '').isdigit() or str(data).replace('-', '').isdigit()
+# print(isDigit)
+# print(str(data).replace('-', ''))
+# print(data)
+# print(type(data))
 
 
 

@@ -1,18 +1,15 @@
 import random
 from typing import List
-
 import drawSvg as draw
 from numpy import double
-
 from DataI.Models.ColumnModel import ColumnModel
-from DataI.Models.TableModel import TableModel
 
 
 class HumanChart:
-  def __init__(self, firstcColumon: TableModel, secondColumn: ColumnModel, nameFile):
+  def __init__(self, firstcColumon: ColumnModel, secondColumn: ColumnModel, nameFile):
     self.widthView = 1000
     self.heightView = 1000
-    self.firstColumn = firstcColumon.columns[0]
+    self.firstColumn = firstcColumon
     self.secondColumn = secondColumn
     self.colorList = self.generateRandomColorsList(len(self.firstColumn.cells))
     self.listOfLength = list()
@@ -22,7 +19,7 @@ class HumanChart:
     self.drawStack()
     self.drawHuman()
     self.drawText()
-    self.d.saveSvg(nameFile + '.svg')
+    # self.d.saveSvg(nameFile+'.svg')
     self.SVG = self.d.asSvg()
 
   def drawHuman(self):

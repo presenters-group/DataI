@@ -1,19 +1,17 @@
 import random
-from typing import List
-
 import drawSvg as draw
 import numpy as np
-from numpy import double
 
+from typing import List
+from numpy import double
 from DataI.Models.ColumnModel import ColumnModel
-from DataI.Models.TableModel import TableModel
 
 
 class PieChart:
-  def __init__(self, firstColumn: TableModel, secondColumn: ColumnModel, width: double, height: double):
+  def __init__(self, firstColumn: ColumnModel, secondColumn: ColumnModel, width: double, height: double, nameFile):
     self.widthView = width
     self.heightView = height
-    self.firstColumn = firstColumn.columns[0]
+    self.firstColumn = firstColumn
     self.secondColumn = secondColumn
     self.r = min(width, height) / 2
     self.d = draw.Drawing(self.widthView + 500, self.heightView + 100)
@@ -22,6 +20,7 @@ class PieChart:
     self.yCenter = - min(width + 100, height + 100) / 2
     self.drawlayOut()
     self.drawCircle()
+    #self.d.saveSvg(nameFile + '.svg')
     self.SVG = self.d.asSvg()
 
   def drawlayOut(self):

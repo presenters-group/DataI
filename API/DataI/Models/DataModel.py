@@ -15,5 +15,5 @@ class DataModel(ObjectDeserializer):
         self.filters = filters
 
     def __str__(self):
-        return 'data sources:\n{}\nvisualizations:\n{}\ndashboards:\n{}\n'\
+        return 'dataSourceTableWithoutXcolumn sources:\n{}\nvisualizations:\n{}\ndashboards:\n{}\n'\
             .format(self.dataSources, self.visualizations, self.dashboards, self.filters)

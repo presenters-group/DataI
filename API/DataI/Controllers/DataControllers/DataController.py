@@ -3,9 +3,9 @@ from typing import List
 from DataI import enums
 from DataI.Controllers.DataControllers.DashboardsController import DashboardsController
 from DataI.Controllers.DataControllers.DataSourcesController import DataSourcesController
+from DataI.Controllers.DrawControllers.DrawController import DrawController
 from DataI.Controllers.DataControllers.FiltersController import FiltersController
 from DataI.Controllers.DataControllers.VisualizationsController import VisualizationsController
-from DataI.Controllers.DrawControllers.DrawController import DrawController
 from DataI.Controllers.FileLoaders.CSVFileLoader import CSVFileLoader
 from DataI.Controllers.FileLoaders.ExcelFileLoader import ExcelFileLoader
 from DataI.Models.DashboardModel import DashboardModel
@@ -22,7 +22,6 @@ class DataController():
   # Don't add 1 to id here (it must be already added).
   def loadTablesFromExcelFile(self, filePath: str, greatestTableId: int):
     loader = ExcelFileLoader(filePath)
-    print(loader.loadFile(greatestTableId))
     self.data.dataSources.extend(loader.loadFile(greatestTableId))
 
   # Don't add 1 to id here (it must be already added).
