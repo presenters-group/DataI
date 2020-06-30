@@ -12,11 +12,7 @@ export class CoreService {
   constructor(private httpClient: HttpClient) {}
 
   fetch() {
-     this.httpClient.get(this.URL).subscribe((value)=>{
-      console.log(value)
-     })
-
-    return this.httpClient.get(this.URL);
+      return this.httpClient.get(this.URL);
   }
 
 }

@@ -10,8 +10,12 @@ export class FiltersService {
 
   constructor(private httpClient: HttpClient) {}
 
-  create(data: IFilter) {
-    return this.httpClient.post(this.URL, { ...data });
+  create(data) {
+    return this.httpClient.post(`${this.URL}/`, {
+      ...data,
+       dataSource: Number.parseInt(data.dataSource),
+       filteredColumn: Number.parseInt(data.filteredColumn)
+     });
   }
 
   update(data: IFilter) {
@@ -23,6 +27,6 @@ export class FiltersService {
   }
 
   delete(id: number) {
-    return this.httpClient.delete(`${this.URL}/${id}`);
+    return this.httpClient.delete(`${this.URL}/${id}/`);
   }
 }

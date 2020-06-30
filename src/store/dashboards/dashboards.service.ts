@@ -25,6 +25,6 @@ export class DashboardsService {
   }
 
   delete(id : number) {
-    return this.httpClient.delete(`${this.URL}/${id}`);
+    return this.httpClient.delete(`${this.URL}/${id}/`);
   }
 }
