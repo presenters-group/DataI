@@ -10,8 +10,13 @@ export class FiltersService {
 
   constructor(private httpClient: HttpClient) {}
 
-  create(data: IFilter) {
-    return this.httpClient.post(this.URL, { ...data });
+  create(data) {
+    console.log(data)
+    return this.httpClient.post(`${this.URL}/`, {
+      ...data,
+       dataSource: Number.parseInt(data.dataSource),
+       filteredColumn: Number.parseInt(data.filteredColumn)
+     });
   }
 
   update(data: IFilter) {

@@ -1,0 +1,151 @@
+<h2 mat-dialog-title>Add Filter</h2>
+
+<mat-dialog-content>
+  <form [formGroup]="form">
+
+
+
+
+    <mat-form-field appearance="legacy">
+      <mat-label for="name">Name</mat-label>
+      <input
+        ngDefaultControl
+        matInput
+        placeholder="Visualizer1"
+        id="name"
+        type="text"
+        formControlName="name"
+      />
+    </mat-form-field>
+
+
+
+
+
+
+    <mat-form-field>
+      <mat-label>Data Source</mat-label>
+      <mat-select formControlName="dataSource">
+        <mat-select-trigger>
+          {{
+            form.value.dataSource ? (dataSources | async)[form.value.dataSource].name : ""
+          }}
+        </mat-select-trigger>
+        <mat-option
+          *ngFor="let dataSource of objectKeys(dataSources | async)"
+          [value]="dataSource"
+          >{{ (dataSources | async)[dataSource].name }}</mat-option
+        >
+      </mat-select>
+    </mat-form-field>
+
+
+
+
+
+
+
+
+
+
+
+    <mat-form-field>
+      <mat-label>Filtered Column</mat-label>
+      <mat-select formControlName="filteredColumn" [disabled]="form.value.dataSource == ''">
+        <mat-select-trigger>
+          {{
+            form.value.filteredColumn != ''
+              ? (dataSources | async)[form.value.dataSource].columns[
+                  form.value.filteredColumn
+                ].name
+              : ""
+          }}
+        </mat-select-trigger>
+        <ng-container *ngIf="form.value.dataSource != ''">
+          <mat-option
+            *ngFor="
+              let column of (objectKeys((dataSources | async)[form.value.dataSource].columns))
+            "
+            [value]="column"
+            >{{
+              (dataSources | async)[form.value.dataSource].columns[column].name
+            }}</mat-option
+          >
+        </ng-container>
+      </mat-select>
+    </mat-form-field>
+
+
+
+
+
+
+
+
+
+
+
+
+    <mat-form-field>
+      <mat-label>Type</mat-label>
+      <mat-select  formControlName="type" [disabled]="form.value.dataSource == '' || form.value.filteredColumn == ''">
+        <mat-select-trigger>
+          {{
+            form.value.type ? form.value.type : ""
+          }}
+        </mat-select-trigger>
+        <ng-container *ngIf="form.value.dataSource != '' && form.value.filteredColumn != ''">
+        <mat-option
+          *ngFor="let type of consol((dataSources | async)[form.value.dataSource].columns[form.value.filteredColumn].columnType == 'Dimensions' ? ['Equality'] : ['MoreThan','LessThan'])"
+          [value]="type"
+          >
+          {{type}}
+          </mat-option
+        >
+        </ng-container>
+      </mat-select>
+    </mat-form-field>
+
+
+
+
+
+
+
+
+
+
+
+    <mat-form-field *ngIf="['MoreThan','LessThan'].includes(form.value.type)" appearance="legacy">
+      <mat-label for="name">Initial Value</mat-label>
+      <input
+        ngDefaultControl
+        matInput
+        placeholder="Visualizer1"
+        id="name"
+        type="text"
+        formControlName="initValue"
+      />
+    </mat-form-field>
+
+
+
+
+
+
+
+
+  </form>
+</mat-dialog-content>
+
+<div mat-dialog-actions>
+  <button mat-flat-button (click)="onNoClick()">Cancel</button>
+  <button
+    mat-flat-button
+    color="primary"
+    [mat-dialog-close]="form"
+    cdkFocusInitial
+  >
+    Add
+  </button>
+</div>

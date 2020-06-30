@@ -7,18 +7,22 @@ import {
   Renderer2,
 } from "@angular/core";
 import { Store } from "@ngrx/store";
-import {
-  selectCurrentTree,
-} from "src/store/core/selectors/core.selector";
+import { selectCurrentTree } from "src/store/core/selectors/core.selector";
 import { AppState } from "src/store";
 import { TreeService } from "./tree.service";
 import { addToTapes } from "src/store/core/actions/core.actions";
-import { ConditionalExpr } from '@angular/compiler';
-import { first } from 'rxjs/operators';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { AddVisualizerComponent } from 'src/app/pages/visualizer/dialogs/add-visualizer/add-visualizer.component';
-import { createVisualizer } from 'src/store/visualizers';
-import { AddDataSourceComponent } from 'src/app/pages/data-source/dialogs/add-data-source/add-data-source.component';
+import { ConditionalExpr } from "@angular/compiler";
+import { first } from "rxjs/operators";
+import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
+import { AddVisualizerComponent } from "src/app/pages/visualizer/dialogs/add-visualizer/add-visualizer.component";
+import { createVisualizer, deleteVisualizer } from "src/store/visualizers";
+import { AddDataSourceComponent } from "src/app/pages/data-source/dialogs/add-data-source/add-data-source.component";
+import { AddFilterComponent } from "src/app/pages/filter/dialogs/add-filter/add-filter.component";
+import { createFilter, deleteFilter } from "src/store/filters";
+import { NotificationService } from "src/store/core/notification/notification.service";
+import { element } from "protractor";
+import { deleteDataSource } from 'src/store/data-sources';
+import { deleteDashboard } from 'src/store/dashboards';
 @Component({
   selector: "app-tree-view",
   templateUrl: "./tree-view.component.html",
@@ -27,12 +31,13 @@ import { AddDataSourceComponent } from 'src/app/pages/data-source/dialogs/add-da
 export class TreeViewComponent implements OnInit, AfterViewInit {
   @ViewChild("tree") tree: ElementRef;
 
-  items
+  items;
   constructor(
     private renderer: Renderer2,
     private store: Store<AppState>,
     private treeService: TreeService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private notification: NotificationService
   ) {}
 
   ngOnInit(): void {}
@@ -55,12 +60,7 @@ export class TreeViewComponent implements OnInit, AfterViewInit {
     this.renderer.appendChild(element, itemElement);
     let content = this.renderer.createElement("div");
     content.content = items.content;
-    if (content.content) {
-      content.addEventListener("dblclick", ($event) => {
-        this.onNameDoubleClick($event, this.renderer);
-      });
-      // content.addEventListener('click',this.onNameDoubleClick($event,this.renderer)) ;
-    }
+
     this.renderer.addClass(content, "content");
     this.renderer.appendChild(itemElement, content);
     if (items.children) {
@@ -108,9 +108,22 @@ export class TreeViewComponent implements OnInit, AfterViewInit {
     this.renderer.addClass(name, "name");
     this.renderer.appendChild(content, name);
     this.renderer.addClass(itemElement, "item");
+    if (content.content) {
+      this.renderer.addClass(content, "clickable");
+      name.addEventListener("click", ($event) => {
+        this.onNameClick($event, this.renderer);
+      });
+      let minus = this.renderer.createElement("img");
+      this.renderer.setAttribute(minus, "src", "/assets/icons/minus.svg");
+      this.renderer.appendChild(content, minus);
+      this.renderer.addClass(minus, "minus");
+      minus.addEventListener("click", ($event) => {
+        this.onDeleteClick($event, this.renderer);
+      });
+    }
   }
 
-  onNameDoubleClick($event, renderer) {
+  onNameClick($event, renderer) {
     console.log("anything");
     let element = $event.srcElement;
     let parent = renderer.parentNode(element);
@@ -146,27 +159,67 @@ export class TreeViewComponent implements OnInit, AfterViewInit {
       : renderer.addClass(uncle, "closed");
   }
 
-  onAddClick(){
-    this.store.select(selectCurrentTree).pipe(first()).subscribe((value: any) => {
-      console.log(value)
-      switch(value){
-        case 'data-sources':
-          let dialogRefDataSource = this.dialog.open(AddDataSourceComponent);
-           break;
-        case 'visualizers':
-          let dialogRefVisualizer = this.dialog.open(AddVisualizerComponent);
-          dialogRefVisualizer.afterClosed().subscribe(result => {
-            this.store.dispatch(createVisualizer({data:{...result.value, id: 0, isDeleted: false}}));
-          });
-      }
-    });
+  onAddClick() {
+    this.store
+      .select(selectCurrentTree)
+      .pipe(first())
+      .subscribe((value: any) => {
+        console.log(value);
+        switch (value) {
+          case "data-sources":
+            let dialogRefDataSource = this.dialog.open(AddDataSourceComponent);
+            break;
+          case "visualizers":
+            let dialogRefVisualizer = this.dialog.open(AddVisualizerComponent);
+            dialogRefVisualizer.afterClosed().subscribe((result) => {
+              this.store.dispatch(
+                createVisualizer({
+                  data: { ...result.value, id: 0, isDeleted: false },
+                })
+              );
+            });
+            break;
+          case "filters":
+            let dialogRefFilter = this.dialog.open(AddFilterComponent);
+            dialogRefFilter.afterClosed().subscribe((result) => {
+              this.store.dispatch(
+                createFilter({
+                  data: { ...result.value, id: 0, isDeleted: false },
+                })
+              );
+            });
+            break;
+        }
+      });
   }
 
-  onDeleteClick(){
+  onDeleteClick($event, renderer) {
+    let element = $event.srcElement;
+    let content = this.renderer.parentNode(element).content;
+
+    this.notification
+      .deleteConfirmAlert({
+        title: `Are you sure you want to delete ${content.name}?`,
+      })
+      .subscribe((value) => {
+        if (value == true){
+          console.log(content.type)
+          switch (content.type) {
+            case "visualizer":
+              this.store.dispatch(deleteVisualizer({ id: content.id }));
+            case "filters":
+              this.store.dispatch(deleteFilter({ id: content.id }));
+            case "data-source":
+              this.store.dispatch(deleteDataSource({ id: content.id }));
+            case "dashboard":
+              this.store.dispatch(deleteDashboard({ id: content.id }));
+          }
+        }
+      });
 
   }
 
-  onRefreshClick(){
+  onRefreshClick() {
     this.store.select(selectCurrentTree).subscribe((value: any) => {
       this.treeService.fillOut(value).subscribe((tree) => {
         this.items = tree;
@@ -174,5 +227,4 @@ export class TreeViewComponent implements OnInit, AfterViewInit {
       this.initialTree();
     });
   }
-
 }

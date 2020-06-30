@@ -69,14 +69,15 @@ const visualizersReducer = createReducer(
     };
   }),
   on(fromActions.fetchChartAsSVGSuccess, (state, {data}) =>{
-    console.log('nlanalasd')
     let newState = {
       ...state
       ,entities : {...state.entities,[data.visualizerId] : {
         ...state.entities[data.visualizerId],
-        chartSvg : data.svg
+        chartSvg : data.svg,
+        chartData: data.metaData
       }}
     }
+    console.log(data);
     return {...newState}
   })
 );

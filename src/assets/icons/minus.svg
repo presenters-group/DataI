@@ -4,17 +4,50 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   sodipodi:docname="minus.svg"
-   inkscape:version="1.1-dev (2e60fb975d, 2020-06-03)"
-   id="svg6"
+   width="3.5556896mm"
+   height="3.5556896mm"
+   viewBox="0 0 3.5556894 3.5556896"
    version="1.1"
-   viewBox="0 0 11.641666 11.666775"
-   height="11.666775mm"
-   width="11.641666mm">
+   id="svg6"
+   inkscape:version="1.1-dev (2e60fb975d, 2020-06-03)"
+   sodipodi:docname="minus.svg">
   <defs
      id="defs2">
     <clipPath
        id="clip0">
+      <rect
+         id="rect866"
+         transform="translate(11.4521,9.66455)"
+         fill="#ffffff"
+         height="24.7656"
+         width="21.698601"
+         x="0"
+         y="0" />
+    </clipPath>
+    <clipPath
+       id="clip0-3">
+      <rect
+         id="rect961"
+         transform="translate(10.4521,10.8726)"
+         fill="#ffffff"
+         height="21.745399"
+         width="21.698601"
+         x="0"
+         y="0" />
+    </clipPath>
+    <clipPath
+       id="clip0-6">
+      <rect
+         id="rect1002"
+         transform="translate(11.4521,13.5737)"
+         fill="#ffffff"
+         height="21.745399"
+         width="21.698601"
+         x="0"
+         y="0" />
+    </clipPath>
+    <clipPath
+       id="clip0-7">
       <rect
          y="0"
          x="0"
@@ -22,10 +55,10 @@
          height="24.7656"
          fill="#ffffff"
          transform="translate(11.4521,9.66455)"
-         id="rect866" />
+         id="rect866-5" />
     </clipPath>
     <clipPath
-       id="clip0-3">
+       id="clip0-3-3">
       <rect
          y="0"
          x="0"
@@ -33,44 +66,50 @@
          height="21.745399"
          fill="#ffffff"
          transform="translate(10.4521,10.8726)"
-         id="rect961" />
+         id="rect961-5" />
     </clipPath>
   </defs>
   <sodipodi:namedview
-     inkscape:window-maximized="1"
-     inkscape:window-y="0"
-     inkscape:window-x="0"
-     inkscape:window-height="719"
-     inkscape:window-width="1366"
-     showgrid="false"
-     inkscape:current-layer="g978"
-     inkscape:document-units="mm"
-     inkscape:cy="11.950379"
-     inkscape:cx="51.644602"
-     inkscape:zoom="4.4417632"
-     inkscape:pageshadow="2"
-     inkscape:pageopacity="0.0"
-     borderopacity="1.0"
-     bordercolor="#666666"
+     id="base"
      pagecolor="#ffffff"
-     id="base" />
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="17.678399"
+     inkscape:cx="2.5661165"
+     inkscape:cy="4.7256771"
+     inkscape:document-units="mm"
+     inkscape:current-layer="g1016"
+     showgrid="false"
+     inkscape:window-width="1366"
+     inkscape:window-height="719"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1" />
   <g
-     transform="translate(-77.821967,-86.048783)"
-     id="layer1"
+     inkscape:label="Layer 1"
      inkscape:groupmode="layer"
-     inkscape:label="Layer 1">
+     id="layer1"
+     transform="translate(-100.60788,-92.112683)">
     <g
-       transform="matrix(0.26458333,0,0,0.26458333,93.632176,86.073059)"
+       style="fill:none"
        id="g931"
-       style="fill:none">
+       transform="matrix(0.26458333,0,0,0.26458333,93.632176,86.073059)">
       <g
-         transform="translate(-58.755123,-0.09175204)"
+         style="fill:none"
          id="g978"
-         style="fill:none">
-        <path
-           style="fill:none;stroke:#000000;stroke-width:1.88976;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-           d="m 11.211052,21.767934 20.129396,-0.04537"
-           id="path832" />
+         transform="translate(-58.755123,-0.09175204)">
+        <g
+           style="fill:none"
+           id="g1016"
+           transform="translate(69.839397,7.3059751)">
+          <path
+             sodipodi:nodetypes="cc"
+             id="path832-2"
+             d="m 17.128646,22.354801 9.742719,-0.04537"
+             style="fill:none;stroke:#000000;stroke-width:1.88976;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+        </g>
       </g>
     </g>
   </g>

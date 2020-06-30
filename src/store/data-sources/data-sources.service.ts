@@ -30,7 +30,7 @@ export class DataSourcesService {
   }
 
   delete(id: number) {
-    return this.httpClient.delete(`${this.URL}/${id}`);
+    return this.httpClient.delete(`${this.URL}/${id}/`);
   }
 
   updateCell(data){

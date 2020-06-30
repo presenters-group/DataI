@@ -28,6 +28,9 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatSelectModule} from '@angular/material/select';
 import { AddDataSourceComponent } from './pages/data-source/dialogs/add-data-source/add-data-source.component';
 import {MatRippleModule} from '@angular/material/core';
+import { AddDashboardComponent } from './pages/dashboard/dialogs/add-dashboard/add-dashboard.component';
+import { AddFilterComponent } from './pages/filter/dialogs/add-filter/add-filter.component';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
 @NgModule({
   declarations: [
@@ -42,6 +45,8 @@ import {MatRippleModule} from '@angular/material/core';
     DataSourceComponent,
     AddVisualizerComponent,
     AddDataSourceComponent,
+    AddDashboardComponent,
+    AddFilterComponent,
   ],
   imports: [
     BrowserModule,
@@ -66,7 +71,8 @@ import {MatRippleModule} from '@angular/material/core';
     MatInputModule,
     MatButtonModule,
     MatSelectModule,
-    MatRippleModule
+    MatRippleModule,
+    SweetAlert2Module
   ],
   providers: [],
   bootstrap: [AppComponent],

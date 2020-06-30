@@ -33,11 +33,6 @@ export class VisualizersService {
   }
 
   fetchVisualizerChart(data) {
-    // this.httpClient
-    //   .put(`http://127.0.0.1:8000/data/chart/`, { ...data })
-    //   .subscribe((value) => {
-    //     console.log(value);
-    //   });
     return this.httpClient.put(`http://127.0.0.1:8000/data/chart/`, {
       ...data,
     });

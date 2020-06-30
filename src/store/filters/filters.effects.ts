@@ -11,17 +11,17 @@ import * as fromActions from "./filters.actions";
 export class FiltersEffects {
   constructor(
     private actions$: Actions,
-    private visualizersService: FiltersService
+    private filtersService: FiltersService
   ) {}
 
-  createVisualizer$ = createEffect(() =>
+  createFilters$ = createEffect(() =>
     this.actions$.pipe(
       ofType(fromActions.createFilter),
 
       debounceTime(100),
 
       switchMap(({ data }) =>
-        this.visualizersService.create(data).pipe(
+        this.filtersService.create(data).pipe(
           map((data) => fromActions.createFilterSuccess({ data })),
 
           catchError((error) => of(fromActions.createFilterFailed({ error })))
@@ -30,14 +30,14 @@ export class FiltersEffects {
     )
   );
 
-  readeVisualizer$ = createEffect(() =>
+  readeFilters$ = createEffect(() =>
     this.actions$.pipe(
       ofType(fromActions.fetchFilters),
 
       debounceTime(100),
 
       switchMap(() =>
-        this.visualizersService.fetch().pipe(
+        this.filtersService.fetch().pipe(
           map((data) => fromActions.fetchFiltersSuccess({ data })),
 
           catchError((error) => of(fromActions.fetchFiltersFailed({ error })))
@@ -46,14 +46,14 @@ export class FiltersEffects {
     )
   );
 
-  updateVisualizer$ = createEffect(() =>
+  updateFilter$ = createEffect(() =>
     this.actions$.pipe(
       ofType(fromActions.updateFilter),
 
       debounceTime(100),
 
       switchMap(({ data }) =>
-        this.visualizersService.update(data).pipe(
+        this.filtersService.update(data).pipe(
           map((data) => fromActions.updateFilterSuccess({ data })),
 
           catchError((error) => of(fromActions.updateFilterFailed({ error })))
@@ -62,14 +62,14 @@ export class FiltersEffects {
     )
   );
 
-  deleteVisualizer$ = createEffect(() =>
+  deleteFilter$ = createEffect(() =>
     this.actions$.pipe(
       ofType(fromActions.deleteFilter),
 
       debounceTime(100),
 
       switchMap(({ id }) =>
-        this.visualizersService.delete(id).pipe(
+        this.filtersService.delete(id).pipe(
           map((id) => fromActions.deleteFilterSuccess({ id })),
 
           catchError((error) => of(fromActions.deleteFilterFailed({ error })))
