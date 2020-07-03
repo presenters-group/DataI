@@ -1,20 +1,16 @@
 import json
 import os
 
-from django.db import models
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
+
 from DataI.Controllers.DataControllers.DataController import DataController
-from DataI.Controllers.FileLoaders.ExcelFileLoader import ExcelFileLoader
 from DataI.JSONSerializer import ObjectEncoder
 from DataI.Models.DashboardModel import DashboardModel
-from DataI.Models.DataModel import DataModel
 from DataI.Models.FilterModel import FilterModel
 from DataI.Models.TableModel import TableModel
 from DataI.Models.VisualizationModel import VisualizationModel
 from DataI.models import Document
-
-
 
 dataController = DataController()
 dirName = os.path.dirname(__file__)
@@ -22,7 +18,7 @@ filename = os.path.join(dirName, '../Test.xlsx')
 
 dataController.loadTablesFromExcelFile(filename, 0)
 
-# load static data:
+#load static data:
 jsonVisio = '''
 {
             "name": "visualization1",

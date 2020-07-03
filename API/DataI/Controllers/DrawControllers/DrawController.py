@@ -12,8 +12,6 @@ class DrawController():
     visioIndex = DataController.getElementIndexById(data.visualizations, visioID)
     tableIndex = data.visualizations[visioIndex].data
     for columnIndex in data.visualizations[visioIndex].usedColumns:
-      print(tableIndex)
-      print(columnIndex)
       columns.append(data.dataSources[tableIndex].columns[columnIndex])
 
     returnTable = TableModel(columns,
