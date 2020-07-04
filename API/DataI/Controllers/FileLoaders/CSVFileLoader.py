@@ -13,10 +13,3 @@ class CSVFileLoader(FileLoader):
         csvDict = csvFile.to_dict()
         randomColors = FileLoader._generateRandomColorsList(len(csvDict.keys()))
         return FileLoader._generateTableFromDict(csvDict, ntpath.basename(self.filePath), id, randomColors)
-
-
-
-
-
-
-

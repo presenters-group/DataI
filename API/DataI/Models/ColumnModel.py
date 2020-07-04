@@ -35,10 +35,9 @@ class ColumnStyleModel(ObjectDeserializer):
 
 
 class ColumnModel(BasicInfo):
-    def __init__(self, cells: List[CellModel], name: str, id: int, style: ColumnStyleModel, isDeleted: bool):
+    def __init__(self, cells: List[CellModel], name: str, id: int, isDeleted: bool):
         super(ColumnModel, self).__init__(name, id)
         self.cells = cells
-        self.style = style
         self.columnType = self.__getColumnType(cells[1:])
         self.valueCategories = list()
         self.isDeleted = isDeleted
@@ -55,7 +54,7 @@ class ColumnModel(BasicInfo):
         cells = list()
         for cell, i in zip(self.cells, range(len(self.cells))):
             cells.append(CellModel(cell + other.cells[i], cell.type))
-        return ColumnModel(cells, self.name, self.id, self.style, self.isDeleted)
+        return ColumnModel(cells, self.name, self.id, self.isDeleted)
 
 
     def __cellInList(self, cell, list):
@@ -77,9 +76,8 @@ class ColumnModel(BasicInfo):
         cells = list(map(CellModel.from_json, data["cells"]))
         name = data['name']
         id = data['id']
-        style = ColumnStyleModel.from_json(data['style'])
         isDeleted = data['isDeleted']
-        return cls(cells, name, id, style, isDeleted)
+        return cls(cells, name, id, isDeleted)
 
 
 

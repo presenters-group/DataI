@@ -18,8 +18,13 @@ class ExcelFileLoader(FileLoader):
             FileLoader._fillNaNs(xlLoader)
             xlDict = xlLoader.to_dict()
             # generate random colors list with the length of the columns number.
-            randomColors = FileLoader._generateRandomColorsList(len(xlDict.keys()))
-            tables.append(FileLoader._generateTableFromDict(xlDict, sheetName, tableIdCounter, randomColors))
+            randomColumnsColors = FileLoader._generateRandomColorsList(len(xlDict.keys()))
+            # generate random colors list with the length of the rows number.
+            xlDictValues = xlDict.values()
+            xlDictIterator = iter(xlDictValues)
+            firstVaule = next(xlDictIterator)
+            randomRowsColors = FileLoader._generateRandomColorsList(len(firstVaule))
+            tables.append(FileLoader._generateTableFromDict(xlDict, sheetName, tableIdCounter, randomColumnsColors, randomRowsColors))
             tableIdCounter += 1
         return tables
 
