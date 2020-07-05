@@ -33,7 +33,6 @@ import { AddFilterComponent } from './pages/filter/dialogs/add-filter/add-filter
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { FilterItemComponent } from './pages/filter/components/filter-item/filter-item.component';
 import {MatCheckboxModule} from '@angular/material/checkbox';
-// import { NgxMoveableModule, NgxMoveableComponent } from 'ngx-moveable';
 
 @NgModule({
   declarations: [
@@ -51,7 +50,6 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     AddDashboardComponent,
     AddFilterComponent,
     FilterItemComponent,
-    // NgxMoveableComponent
   ],
   imports: [
     BrowserModule,
@@ -79,8 +77,6 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     MatRippleModule,
     SweetAlert2Module,
     MatCheckboxModule,
-    // NgxMoveableModule,
-
   ],
   providers: [],
   bootstrap: [AppComponent],

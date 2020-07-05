@@ -6,7 +6,7 @@
   </tr>
   <tr *ngFor="let column of objectKeys((dataSource | async).columns);let i = index">
     <td [ngStyle]="{'background-color' : (dataSource | async).columnsColors[i] }">
-      {{(dataSource | async).columnsColor[i]}}
+      {{consol((dataSource | async).columnsColor[i])}}
     </td>
     <td
       contenteditable="true"

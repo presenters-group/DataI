@@ -40,4 +40,9 @@ export class DataSourceComponent implements AfterViewInit {
         );
       });
   }
+
+  consol(data){
+    console.log(data)
+    return data
+  }
 }
