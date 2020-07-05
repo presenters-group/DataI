@@ -1,3 +1,6 @@
+
+
+
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 
@@ -24,10 +27,14 @@ import { FormsModule } from '@angular/forms';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
 import {MatInputModule} from '@angular/material/input';
+import {MatIconModule} from '@angular/material/icon';
+import {MatMenuModule} from '@angular/material/menu';
 import {MatButtonModule} from '@angular/material/button';
 import {MatSelectModule} from '@angular/material/select';
+import {MatSidenavModule} from '@angular/material/sidenav'
 import { AddDataSourceComponent } from './pages/data-source/dialogs/add-data-source/add-data-source.component';
 import {MatRippleModule} from '@angular/material/core';
+import { MovingDirective } from './directives/moving.directive';
 
 @NgModule({
   declarations: [
@@ -42,6 +49,7 @@ import {MatRippleModule} from '@angular/material/core';
     DataSourceComponent,
     AddVisualizerComponent,
     AddDataSourceComponent,
+    MovingDirective
   ],
   imports: [
     BrowserModule,
@@ -66,8 +74,11 @@ import {MatRippleModule} from '@angular/material/core';
     MatInputModule,
     MatButtonModule,
     MatSelectModule,
-    MatRippleModule
-  ],
+    MatRippleModule,
+    MatMenuModule,
+    MatIconModule,
+    MatSidenavModule
+    ],
   providers: [],
   bootstrap: [AppComponent],
   entryComponents: [AddVisualizerComponent]

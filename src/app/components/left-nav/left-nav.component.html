@@ -1,7 +1,30 @@
 <div class="container">
-  <div class="menu">
-    <img src="/assets/icons/menu.svg" alt="" />
-  </div>
+  <button mat-button [matMenuTriggerFor]="something" ><img src="/assets/icons/menu.svg" alt=""></button>
+
+  <mat-menu #something="matMenu">
+    <div mat-meun-item class="container" style="flex-direction: row;" >
+      <img src="/assets/images/logo.svg" alt="" style="width: 150px; height: 150px;">
+      <div>
+        <h6>DataI</h6>
+        <p>See what you can't see</p>
+      </div>
+    </div>
+
+    <button mat-menu-item>Open</button>
+    <button mat-menu-item>Save</button>
+    <button mat-menu-item>Save as</button>
+    <hr>
+    <button mat-menu-item [matMenuTriggerFor]="Export">Export As</button>
+    <mat-menu #Export="matMenu">
+
+    </mat-menu>
+    <button mat-menu-item>import</button>
+    <hr>
+    <button mat-menu-item>Help</button>
+    <button mat-menu-item>About</button>
+    <button mat-menu-item>Contact Us</button>
+  </mat-menu>
+
   <div class="item" *ngFor="let icon of icons; let i = index" (click)="onIconClick(i)">
     <button
       (mouseenter)="onIconEnter(i)"
