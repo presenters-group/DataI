@@ -14,7 +14,7 @@ class VisualizationModel(ObjectDeserializer, BasicInfo):
         self.isDeleted = isDeleted
 
     def __str__(self):
-        return 'name: {}, ID: {}\ndata:\n{}\nfilters:\n{}\nisDeleted: {}\n'.format(self.name, self.id, self.data, self.filters, self.isDeleted)
+        return 'name: {}, ID: {}\ndataSourceTableWithoutXcolumn:\n{}\nfilters:\n{}\nisDeleted: {}\n'.format(self.name, self.id, self.data, self.filters, self.isDeleted)
 
 
 

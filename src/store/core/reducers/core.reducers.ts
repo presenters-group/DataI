@@ -44,10 +44,37 @@ const appReducer = createReducer(
       currentTap: taps[tapIndex - 1] ? tapIndex - 1 : 0,
     };
   }),
+
+  on(fromActions.closeTapFromTree, (state, { tap }) => {
+    let taps = [];
+    let tapIndex;
+    for (let i = 0; i < state.taps.length; i++)
+      if (state.taps[i].type != tap.type || state.taps[i].id != tap.id) {
+        taps.push(state.taps[i]);
+        tapIndex = i
+      }
+    if (taps.length == 0) return { ...state, taps, currentTap: null };
+    return {
+      ...state,
+      taps,
+      currentTap: taps[tapIndex - 1] ? tapIndex - 1 : 0,
+    };
+  }),
+
+
   on(fromActions.addToTapes, (state, { tap }) => {
     let taps = [...state.taps];
-    console.log("anything02");
-    taps.push(tap);
+    let chosenTap = -1;
+    let i;
+    for(i = 0 ; i < taps.length; i ++)
+      if(taps[i] .type == tap.type && taps[i].id == tap.id){
+        chosenTap = i
+        break;
+      }
+    if(chosenTap == -1)
+      taps.push(tap);
+    else
+      return { ...state, taps, currentTap: i }
     return { ...state, taps, currentTap: taps.length - 1 };
   }),
   on(fromActions.fetchChartsSuccess, (state, {data})=> ({...state, charts: data.chartsNames}))

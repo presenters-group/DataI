@@ -70,14 +70,12 @@ const filtersReducer = createReducer(
   ),
 
   /**Deleting */
-  on(fromActions.deleteFilterSuccess, (state, { id }) => {
-    const { [id]: deletedFilter, ...entities } = state.entities;
-
+  on(fromActions.deleteFilterSuccess, (state, { data }) => {
     return {
       ...state,
       entities: {
-        [id]: { ...deletedFilter, isDeleted: true },
-        ...entities,
+        ...state.entities,
+        [data.id]: {...data},
       },
     };
   })

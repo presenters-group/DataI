@@ -29,15 +29,10 @@ export class VisualizersService {
   }
 
   delete(id: number) {
-    return this.httpClient.delete(`${this.URL}/${id}`);
+    return this.httpClient.delete(`${this.URL}/${id}/`);
   }
 
   fetchVisualizerChart(data) {
-    // this.httpClient
-    //   .put(`http://127.0.0.1:8000/data/chart/`, { ...data })
-    //   .subscribe((value) => {
-    //     console.log(value);
-    //   });
     return this.httpClient.put(`http://127.0.0.1:8000/data/chart/`, {
       ...data,
     });

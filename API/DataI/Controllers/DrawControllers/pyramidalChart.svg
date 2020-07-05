@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+     width="1300" height="1100" viewBox="0 -1100 1300 1100">
+<defs>
+</defs>
+<rect x="0" y="-1100" width="1500" height="1100" fill="#ffffff" />
+<rect x="0" y="-119.18238993710692" width="900" height="69.18238993710692" fill="#b8631c" fill-opacity="0.5" stroke="white" stroke-width="5" />
+<circle cx="1000" cy="-80" r="20" fill="#b8631c" fill-opacity="0.5" stroke-width="0" />
+<text x="1050" y="-70" font-size="30">0: 6.91%</text>
+<rect x="0" y="-188.36477987421384" width="900" height="69.18238993710692" fill="#21e7bf" fill-opacity="0.5" stroke="white" stroke-width="5" />
+<circle cx="1000" cy="-160" r="20" fill="#21e7bf" fill-opacity="0.5" stroke-width="0" />
+<text x="1050" y="-150" font-size="30">15: 6.91%</text>
+<rect x="0" y="-226.1006289308176" width="900" height="37.735849056603776" fill="#a5824" fill-opacity="0.5" stroke="white" stroke-width="5" />
+<circle cx="1000" cy="-240" r="20" fill="#a5824" fill-opacity="0.5" stroke-width="0" />
+<text x="1050" y="-230" font-size="30">0: 3.77%</text>
+<rect x="0" y="-395.9119496855346" width="900" height="169.81132075471697" fill="#37f623" fill-opacity="0.5" stroke="white" stroke-width="5" />
+<circle cx="1000" cy="-320" r="20" fill="#37f623" fill-opacity="0.5" stroke-width="0" />
+<text x="1050" y="-310" font-size="30">33: 16.9%</text>
+<rect x="0" y="-704.0880503144654" width="900" height="308.17610062893084" fill="#e29fce" fill-opacity="0.5" stroke="white" stroke-width="5" />
+<circle cx="1000" cy="-400" r="20" fill="#e29fce" fill-opacity="0.5" stroke-width="0" />
+<text x="1050" y="-390" font-size="30">2: 30.8%</text>
+<rect x="0" y="-908.4905660377358" width="900" height="204.40251572327045" fill="#45f8aa" fill-opacity="0.5" stroke="white" stroke-width="5" />
+<circle cx="1000" cy="-480" r="20" fill="#45f8aa" fill-opacity="0.5" stroke-width="0" />
+<text x="1050" y="-470" font-size="30">11: 20.4%</text>
+<rect x="0" y="-1050.0" width="900" height="141.50943396226415" fill="#a175ab" fill-opacity="0.5" stroke="white" stroke-width="5" />
+<circle cx="1000" cy="-560" r="20" fill="#a175ab" fill-opacity="0.5" stroke-width="0" />
+<text x="1050" y="-550" font-size="30">22: 14.1%</text>
+<path d="M0,-50 V-1050 H450.0 Z" stroke-width="0" stroke="gray" fill="white" fill-opacity="1" />
+<path d="M900,-50 V-1050 H450.0 Z" stroke-width="0" stroke="gray" fill="white" fill-opacity="1" />
+</svg>

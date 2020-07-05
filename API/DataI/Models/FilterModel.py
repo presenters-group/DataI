@@ -12,6 +12,6 @@ class FilterModel(ObjectDeserializer, BasicInfo):
         self.isDeleted = isDeleted
 
     def __str__(self):
-        return 'name: {}, ID: {}, data source: {}, filtered column: {}, initial value: {}, filter type: {}, isDeleted: {}\n'\
+        return 'name: {}, ID: {}, dataSourceTableWithoutXcolumn source: {}, filtered column: {}, initial value: {}, filter type: {}, isDeleted: {}\n'\
             .format(self.name, self.id, self.dataSource, self.filteredColumn, self.initValue, self.type, self.isDeleted)
 

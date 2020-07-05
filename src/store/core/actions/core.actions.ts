@@ -5,7 +5,6 @@ export const updateCurrentTree = createAction(
   props<{ name }>()
 );
 
-
 export const addToTapes = createAction(
   "[TreeView] addToTapes",
   props<{ tap }>()
@@ -20,6 +19,11 @@ export const setCurrentTap = createAction(
 export const closeTap = createAction(
   "[TapsComponent] Close To Tapes",
   props<{ tapIndex }>()
+);
+
+export const closeTapFromTree = createAction(
+  "[TreeComponent] Close a tap from tree component by sending id and type",
+  props<{ tap }>()
 );
 
 export const fetchCharts = createAction(

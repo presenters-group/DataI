@@ -46,6 +46,8 @@ testem.log
 Thumbs.db
 
 
+# Created by https://www.toptal.com/developers/gitignore/api/django
+# Edit at https://www.toptal.com/developers/gitignore?templates=django
 
 # Created by https://www.toptal.com/developers/gitignore/api/django
 # Edit at https://www.toptal.com/developers/gitignore?templates=django
@@ -54,6 +56,7 @@ Thumbs.db
 *.log
 *.pot
 *.pyc
+
 __pycache__/
 local_settings.py
 db.sqlite3

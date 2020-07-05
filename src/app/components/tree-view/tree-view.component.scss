@@ -1,3 +1,5 @@
+* {
+}
 .container {
   display: flex;
   flex-direction: column;
@@ -5,16 +7,28 @@
 }
 #tree {
   overflow-y: auto;
+  overflow-x: hidden;
   padding-bottom: 40px;
+  padding-right: 20px;
+  padding-left: 10px;
   // padding: 10px;
 }
 .item {
   max-height: auto;
-  margin: 5px;
+  margin-left: 5px;
   margin-top: 8px;
 }
 .arrow {
+  transition: 0.5s all;
   margin-right: 3px;
+}
+.minus {
+  visibility: hidden;
+  margin-left: auto;
+  display: block;
+}
+.content:hover .minus {
+  visibility: visible;
 }
 .closed {
   display: none;
@@ -25,25 +39,43 @@
   transform: rotate(90deg);
 }
 
-* {
-  transition: 0.5s all;
-}
 .content {
   display: flex;
   align-items: center;
+  // height: 14px;
+}
+.clickable {
+  cursor: pointer;
 }
 .childrenContainerElement {
   border-left: solid 0.5px var(--gray3);
 }
 
-.tools-container{
+.tools-container {
+  padding-left: 10px;
   display: flex;
   flex-direction: row;
   align-items: center;
   width: 100%;
   height: 30px;
 }
-.tool{
+.tool {
   width: 40px;
   height: 20px;
+}
+.name {
+  height: 22px;
+  line-height: 22px;
+  overflow: hidden;
+  white-space: pre;
+  text-overflow: ellipsis;
+}
+.first-tool{
+  margin-left: auto;
+}
+.horizontal-line{
+  height: 1px;
+  background-color: var(--gray3);
+  width: 100%;
+
 }

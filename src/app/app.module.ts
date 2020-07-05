@@ -35,6 +35,9 @@ import {MatSidenavModule} from '@angular/material/sidenav'
 import { AddDataSourceComponent } from './pages/data-source/dialogs/add-data-source/add-data-source.component';
 import {MatRippleModule} from '@angular/material/core';
 import { MovingDirective } from './directives/moving.directive';
+import { AddDashboardComponent } from './pages/dashboard/dialogs/add-dashboard/add-dashboard.component';
+import { AddFilterComponent } from './pages/filter/dialogs/add-filter/add-filter.component';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
 @NgModule({
   declarations: [
@@ -49,7 +52,9 @@ import { MovingDirective } from './directives/moving.directive';
     DataSourceComponent,
     AddVisualizerComponent,
     AddDataSourceComponent,
-    MovingDirective
+    MovingDirective,
+    AddDashboardComponent,
+    AddFilterComponent,
   ],
   imports: [
     BrowserModule,
@@ -77,7 +82,8 @@ import { MovingDirective } from './directives/moving.directive';
     MatRippleModule,
     MatMenuModule,
     MatIconModule,
-    MatSidenavModule
+    MatSidenavModule,
+    SweetAlert2Module
     ],
   providers: [],
   bootstrap: [AppComponent],

@@ -37,7 +37,7 @@ export const deleteFilter = createAction(
 
 export const deleteFilterSuccess = createAction(
   "[FiltersEffect] Delete Filter Success",
-  props<{ id }>()
+  props<{ data }>()
 );
 
 export const deleteFilterFailed = createAction(

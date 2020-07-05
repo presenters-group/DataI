@@ -57,24 +57,25 @@ const visualizersReducer = createReducer(
   ),
 
   /**Deleting */
-  on(fromActions.deleteVisualizerSuccess, (state, { id }) => {
-    const { [id]: deletedVisualizer, ...entities } = state.entities;
-
+  on(fromActions.deleteVisualizerSuccess, (state, { data }) => {
     return {
       ...state,
       entities: {
-        [id]: { ...deletedVisualizer, isDeleted: true },
-        ...entities,
+        ...state.entities,
+        [data.id]: {...data},
       },
     };
   }),
+
+
+
   on(fromActions.fetchChartAsSVGSuccess, (state, {data}) =>{
-    console.log('nlanalasd')
     let newState = {
       ...state
       ,entities : {...state.entities,[data.visualizerId] : {
         ...state.entities[data.visualizerId],
-        chartSvg : data.svg
+        chartSvg : data.svg,
+        chartData: data.metaData
       }}
     }
     return {...newState}

@@ -37,7 +37,7 @@ export const deleteDataSource = createAction(
 
 export const deleteDataSourceSuccess = createAction(
   "[DataSourceEffect] Delete Data Sources Success",
-  props<{ id }>()
+  props<{ data }>()
 );
 
 export const deleteDataSourceFailed = createAction(

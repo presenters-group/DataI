@@ -1,0 +1,35 @@
+Index: ../package.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>{\r\n  \"name\": \"data-i\",\r\n  \"version\": \"0.0.0\",\r\n  \"scripts\": {\r\n    \"ng\": \"ng\",\r\n    \"start\": \"concurrently --kill-others \\\"ng serve\\\" \\\"python3 API/manage.py runserver\\\"\",\r\n    \"build\": \"ng build\",\r\n    \"test\": \"ng test\",\r\n    \"lint\": \"ng lint\",\r\n    \"e2e\": \"ng e2e\"\r\n  },\r\n  \"private\": true,\r\n  \"dependencies\": {\r\n    \"@angular/animations\": \"~9.0.2\",\r\n    \"@angular/common\": \"~9.0.2\",\r\n    \"@angular/compiler\": \"~9.0.2\",\r\n    \"@angular/core\": \"~9.0.2\",\r\n    \"@angular/forms\": \"~9.0.2\",\r\n    \"@angular/material\": \"^9.2.4\",\r\n    \"@angular/platform-browser\": \"~9.0.2\",\r\n    \"@angular/platform-browser-dynamic\": \"~9.0.2\",\r\n    \"@angular/router\": \"~9.0.2\",\r\n    \"@ngrx/effects\": \"^9.2.0\",\r\n    \"@ngrx/store\": \"^9.2.0\",\r\n    \"@ngrx/store-devtools\": \"^9.2.0\",\r\n    \"rxjs\": \"~6.5.4\",\r\n    \"tslib\": \"^1.10.0\",\r\n    \"zone.js\": \"~0.10.2\"\r\n  },\r\n  \"devDependencies\": {\r\n    \"@angular-devkit/build-angular\": \"~0.900.3\",\r\n    \"@angular/cli\": \"~9.0.3\",\r\n    \"@angular/compiler-cli\": \"~9.0.2\",\r\n    \"@angular/language-service\": \"~9.0.2\",\r\n    \"@types/jasmine\": \"~3.5.0\",\r\n    \"@types/jasminewd2\": \"~2.0.3\",\r\n    \"@types/node\": \"^12.11.1\",\r\n    \"codelyzer\": \"^5.1.2\",\r\n    \"concurrently\": \"^5.2.0\",\r\n    \"jasmine-core\": \"~3.5.0\",\r\n    \"jasmine-spec-reporter\": \"~4.2.1\",\r\n    \"karma\": \"~4.3.0\",\r\n    \"karma-chrome-launcher\": \"~3.1.0\",\r\n    \"karma-coverage-istanbul-reporter\": \"~2.1.0\",\r\n    \"karma-jasmine\": \"~2.0.1\",\r\n    \"karma-jasmine-html-reporter\": \"^1.4.2\",\r\n    \"protractor\": \"~5.4.3\",\r\n    \"ts-node\": \"~8.3.0\",\r\n    \"tslint\": \"~5.18.0\",\r\n    \"typescript\": \"~3.7.5\"\r\n  }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- ../package.json	(revision 15318cd9bdb8db17348aefc3a531a4a40e90423b)
++++ ../package.json	(date 1593026647350)
+@@ -3,7 +3,7 @@
+   "version": "0.0.0",
+   "scripts": {
+     "ng": "ng",
+-    "start": "concurrently --kill-others \"ng serve\" \"python3 API/manage.py runserver\"",
++    "start": "concurrently --kill-others \"ng serve --poll=2000\" \"python3 API/manage.py runserver\"",
+     "build": "ng build",
+     "test": "ng test",
+     "lint": "ng lint",
+@@ -12,6 +12,7 @@
+   "private": true,
+   "dependencies": {
+     "@angular/animations": "~9.0.2",
++    "@angular/cdk": "^9.2.4",
+     "@angular/common": "~9.0.2",
+     "@angular/compiler": "~9.0.2",
+     "@angular/core": "~9.0.2",
+@@ -28,7 +29,7 @@
+     "zone.js": "~0.10.2"
+   },
+   "devDependencies": {
+-    "@angular-devkit/build-angular": "~0.900.3",
++    "@angular-devkit/build-angular": "^0.901.9",
+     "@angular/cli": "~9.0.3",
+     "@angular/compiler-cli": "~9.0.2",
+     "@angular/language-service": "~9.0.2",

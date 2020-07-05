@@ -52,6 +52,9 @@ class TableModel(BasicInfo):
 
         self.rowsVisibility = buffeRowList
 
+        self.columnsColors = List[str]
+        self.rowsColors = List[str]
+
         self.properties = properties
         self.aggregator = aggregator
         self.isDeleted = isDeleted
@@ -66,8 +69,10 @@ class TableModel(BasicInfo):
 
 
     def __str__(self):
-        return 'name: {}, ID: {}\ncolumns:\n{}\nproperties: {}, aggregator:\n{}\nisDeleted: {}\n'\
-            .format(self.name, self.id, self.columns, self.properties, self.aggregator, self.isDeleted)
+        return 'name: {}, ID: {}\ncolumns:\n{}\nproperties: {}, aggregator:\n{}\n'\
+               'column colors:\n{}\nrows colors:\n{}\nisDeleted: {}\n'\
+            .format(self.name, self.id, self.columns, self.properties, self.aggregator,
+                    self.columnsColors, self.rowsColors, self.isDeleted)
 
     @classmethod
     def from_json(cls, data):

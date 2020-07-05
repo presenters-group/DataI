@@ -25,7 +25,9 @@ SECRET_KEY = 'judqg_&1nkw+n03+9s5t$0_eubz3o^u5%7r%8f4on-&$o+tbk_'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+  # 'localhost:4200'
+]
 
 
 # Application definition
@@ -39,7 +41,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'DataI.apps.DataiConfig',
     'corsheaders',
-
 ]
 
 MIDDLEWARE = [
