@@ -1,3 +1,6 @@
+
+
+
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 
@@ -24,10 +27,14 @@ import { FormsModule } from '@angular/forms';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
 import {MatInputModule} from '@angular/material/input';
+import {MatIconModule} from '@angular/material/icon';
+import {MatMenuModule} from '@angular/material/menu';
 import {MatButtonModule} from '@angular/material/button';
 import {MatSelectModule} from '@angular/material/select';
+import {MatSidenavModule} from '@angular/material/sidenav'
 import { AddDataSourceComponent } from './pages/data-source/dialogs/add-data-source/add-data-source.component';
 import {MatRippleModule} from '@angular/material/core';
+import { MovingDirective } from './directives/moving.directive';
 import { AddDashboardComponent } from './pages/dashboard/dialogs/add-dashboard/add-dashboard.component';
 import { AddFilterComponent } from './pages/filter/dialogs/add-filter/add-filter.component';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
@@ -47,6 +54,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     DataSourceComponent,
     AddVisualizerComponent,
     AddDataSourceComponent,
+    MovingDirective,
     AddDashboardComponent,
     AddFilterComponent,
     FilterItemComponent,
@@ -75,9 +83,12 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     MatButtonModule,
     MatSelectModule,
     MatRippleModule,
+    MatMenuModule,
+    MatIconModule,
+    MatSidenavModule,
     SweetAlert2Module,
     MatCheckboxModule,
-  ],
+    ],
   providers: [],
   bootstrap: [AppComponent],
   entryComponents: [AddVisualizerComponent]

@@ -10,7 +10,7 @@ import { DataSourceComponent } from './pages/data-source/data-source.component';
 const routes: Routes = [
   {
     path:"",
-    component:HomeComponent,
+    component:DashboardComponent,
   },
   {
     path:"dashboard",

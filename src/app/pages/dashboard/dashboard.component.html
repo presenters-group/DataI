@@ -1,1 +1,34 @@
-<p>dashboard works!</p>
+<div class="container">
+  <div appMoving id="dashboard" *ngFor="let dashboard of dashboards" class="container">
+    <div
+      id="visualizer"
+      #visualizer
+      *ngFor="let visualizer of dashboard.visualizers"
+      class="inner visualizer"
+      appMoving
+      [ngStyle]="{
+        'width.px':visualizer.measurements.width,
+        'height.px':visualizer.measurements.height,
+        'top.px':visualizer.measurements.y,
+        'left.px':visualizer.measurements.x
+      }">
+    </div>
+    <div *ngFor="let visualizer of dashboard.visualizers" class="inner">
+      <div
+          class="inner"
+          *ngFor="let filter of visualizer.displayedFilters"
+
+          [ngStyle]="{
+            'width.px':filter.measurements.width,
+            'height.px':filter.measurements.height,
+            'top.px':filter.measurements.y,
+            'left.px':filter.measurements.x,
+            'background-color':'red'
+          }"
+          >
+          filter
+      </div>
+    </div>
+  </div>
+</div>
+
