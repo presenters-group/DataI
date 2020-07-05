@@ -33,6 +33,7 @@ export class VisualizersService {
   }
 
   fetchVisualizerChart(data) {
+    console.log({...data})
     return this.httpClient.put(`http://127.0.0.1:8000/data/chart/`, {
       ...data,
     });

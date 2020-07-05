@@ -2,6 +2,7 @@ import { createFeatureSelector, createSelector } from "@ngrx/store";
 import { AppState } from "..";
 import { FiltersState } from "./filters.reducers";
 import { selectDataSourcesEntities } from "../data-sources/data-sources.selectors";
+import { selectCurrentTapObject } from '../core/selectors/core.selector';
 
 export const selectFiltersState = createFeatureSelector<AppState, FiltersState>(
   "filters"
@@ -30,7 +31,7 @@ export const selectFiltersTree = createSelector(
   selectUndeletedFiltersEntities,
   selectDataSourcesEntities,
   (entities, dataSourceEntities) => {
-    let tree: any = { name: "filters", children: [] };
+    let tree: any = { name: "Filters", children: [] };
     for (let key in entities) {
       let entity = entities[key];
       let filter = {
@@ -78,6 +79,20 @@ export const selectFiltersForDataSource = createSelector(
   (state,props) => props.dataSource != '' ? objectFilter(state,(value)=>value.dataSource != props.dataSource) : {}
 );
 
+export const selectCurrentFilter = createSelector(
+  selectFiltersState,
+  selectCurrentTapObject,
+  (state,current) => {return current && current.id != undefined ? state.entities[current.id] : null}
+);
+
+
+export const selectCurrentFilterDataSource = createSelector(
+  selectDataSourcesEntities,
+  selectCurrentFilter,
+  (state,{dataSource}) => state[dataSource]
+);
+
+
 
 function objectFilter (obj, predicate){
     let result = {}, key;
@@ -90,3 +105,4 @@ function objectFilter (obj, predicate){
 
     return result;
 };
+

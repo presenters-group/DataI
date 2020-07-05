@@ -31,6 +31,9 @@ import {MatRippleModule} from '@angular/material/core';
 import { AddDashboardComponent } from './pages/dashboard/dialogs/add-dashboard/add-dashboard.component';
 import { AddFilterComponent } from './pages/filter/dialogs/add-filter/add-filter.component';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+import { FilterItemComponent } from './pages/filter/components/filter-item/filter-item.component';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+// import { NgxMoveableModule, NgxMoveableComponent } from 'ngx-moveable';
 
 @NgModule({
   declarations: [
@@ -47,6 +50,8 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
     AddDataSourceComponent,
     AddDashboardComponent,
     AddFilterComponent,
+    FilterItemComponent,
+    // NgxMoveableComponent
   ],
   imports: [
     BrowserModule,
@@ -72,7 +77,10 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
     MatButtonModule,
     MatSelectModule,
     MatRippleModule,
-    SweetAlert2Module
+    SweetAlert2Module,
+    MatCheckboxModule,
+    // NgxMoveableModule,
+
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -5,5 +5,6 @@ export interface IFilter {
   filteredColumn: number;
   initValue: any;
   type: string;
+  id: number;
   isDeleted: boolean;
 }

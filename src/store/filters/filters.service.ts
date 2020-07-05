@@ -18,8 +18,12 @@ export class FiltersService {
      });
   }
 
-  update(data: IFilter) {
-    return this.httpClient.put(this.URL, { ...data });
+  update(data) {
+    console.log(JSON.stringify(data))
+    return this.httpClient.put(`${this.URL}/${data.id}/`, {
+      dataSource: Number.parseInt(data.dataSource),
+      filteredColumn : Number.parseInt(data.filteredColumn)
+      ,...data, isDeleted: false });
   }
 
   fetch() {

@@ -7,32 +7,7 @@ export interface FiltersState {
 }
 
 export const initialState: FiltersState = {
-  entities: [
-    {
-      name: "filter1",
-      dataSource: 0,
-      filteredColumn: 1,
-      initValue: 10,
-      type: "Equality",
-      isDeleted: false,
-    },
-    {
-      name: "filter2",
-      dataSource: 0,
-      filteredColumn: 2,
-      initValue: 15,
-      type: "LessThan",
-      isDeleted: false,
-    },
-    {
-      name: "filter3",
-      dataSource: 0,
-      filteredColumn: 0,
-      initValue: "Laptop",
-      type: "Equality",
-      isDeleted: false,
-    },
-  ],
+  entities: [],
 };
 const filtersReducer = createReducer(
   initialState,

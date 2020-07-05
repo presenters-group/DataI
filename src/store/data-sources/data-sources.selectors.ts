@@ -2,6 +2,7 @@ import { createFeatureSelector, createSelector } from "@ngrx/store";
 import { AppState } from "..";
 import { DataSourcesState } from "./data-sources.reducers";
 import { selectCurrentTapObject } from "../core/selectors/core.selector";
+import { selectFiltersEntities, selectFiltersForDataSource, selectCurrentFilter } from '../filters/filters.selectors';
 
 export const selectDataSourcesState = createFeatureSelector<
   AppState,
@@ -81,3 +82,9 @@ export const selectDataSourcesTree = createSelector(
     return tree;
   }
 );
+
+
+
+
+
+

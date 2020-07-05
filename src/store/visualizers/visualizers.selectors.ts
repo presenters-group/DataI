@@ -81,7 +81,7 @@ export const selectCurrentVisualizer = createSelector(
   selectVisualizersState,
   selectCurrentTapObject,
   (state,current) => {
-    return current && current.id ? state.entities[current.id] : null
+    return current && current.id != undefined ? state.entities[current.id] : null
   }
 );
 

@@ -1,0 +1,63 @@
+.container{
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  padding: 15px;
+}
+
+.name{
+  font-size: 12px;
+
+}
+
+.sub-name{
+  color: var(--gray3);
+  font-size: 8px;
+  margin-right: 10px;
+}
+.horizontal-line{
+  width: 50%;
+  height: 1px;
+  background-color: var(--gray3);
+}
+.sub-names-container{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.header{
+  display: flex;
+  justify-content: space-between;
+}
+.enable{
+  margin-left: 10px;
+}
+.value-item{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.property{
+  margin-top: 10px;
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+input{
+  width: 75px;
+  background-color: var(--gray3);
+  text-align: center;
+}
+.property-title{
+  margin-right: 10px;
+}
+
+
+mat-checkbox{
+  margin-left: 10px;
+}

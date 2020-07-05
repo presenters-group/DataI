@@ -3,6 +3,7 @@ import { AppState } from 'src/store';
 import { Store } from '@ngrx/store';
 import { createDataSource } from 'src/store/data-sources';
 import { MatDialogRef } from '@angular/material/dialog';
+import { NotificationService } from 'src/store/notifications/notifications.service';
 
 @Component({
   selector: 'app-add-data-source',
@@ -13,6 +14,7 @@ export class AddDataSourceComponent {
   file
   constructor(private store : Store<AppState>,
     public dialogRef: MatDialogRef<AddDataSourceComponent>,
+    private swal: NotificationService
     ) { }
 
   onExcelClick($event){
@@ -21,6 +23,8 @@ export class AddDataSourceComponent {
       this.store.dispatch(createDataSource({data: {file : this.file, type: 'excel'}}))
       this.dialogRef.close();
     }
+    else
+      this.swal.fail('Please Add a Valid File');
   }
 
   onCsvClick($event){
@@ -29,6 +33,8 @@ export class AddDataSourceComponent {
       this.store.dispatch(createDataSource({data: {file : this.file, type: 'csv'}}))
       this.dialogRef.close();
     }
+    else
+    this.swal.fail('Please Add a Valid File');
   }
 
 }
