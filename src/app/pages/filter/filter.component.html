@@ -1,34 +1,133 @@
 <div class="container">
-  <div class="title">Filter 1</div>
+  <div class="title">{{ form.value.name }}</div>
   <div class="horizontal-line"></div>
-  <div class="column">
-    <div class="property-type">
-      name
+  <div class="sub-container">
+    <div class="filter-information">
+      <form [formGroup]="form">
+        <mat-form-field appearance="legacy">
+          <mat-label for="name">Name</mat-label>
+          <input
+          required
+            ngDefaultControl
+            matInput
+            placeholder="Visualizer1"
+            id="name"
+            type="text"
+            formControlName="name"
+          />
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Data Source</mat-label>
+          <mat-select required (selectionChange)="onChangeDataSource()" formControlName="dataSource">
+            <mat-select-trigger>
+              {{ (dataSources | async)[form.value.dataSource].name }}
+            </mat-select-trigger>
+            <mat-option
+              *ngFor="let dataSource of objectKeys(dataSources | async)"
+              [value]="dataSource"
+              >{{ (dataSources | async)[dataSource].name }}</mat-option
+            >
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Filtered Column</mat-label>
+          <mat-select
+          required
+            formControlName="filteredColumn"
+            [disabled]="form.value.dataSource == ''"
+          >
+            <mat-select-trigger>
+              {{
+                form.value.filteredColumn != ""
+                  ? (dataSources | async)[form.value.dataSource].columns[
+                      form.value.filteredColumn
+                    ].name
+                  : ""
+              }}
+            </mat-select-trigger>
+            <ng-container *ngIf="form.value.dataSource != ''">
+              <mat-option
+                *ngFor="
+                  let column of objectKeys(
+                    (dataSources | async)[form.value.dataSource].columns
+                  )
+                "
+                [value]="column"
+                >{{
+                  (dataSources | async)[form.value.dataSource].columns[column]
+                    .name
+                }}</mat-option
+              >
+            </ng-container>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Type</mat-label>
+          <mat-select
+          required
+            formControlName="type"
+            [disabled]="
+              form.value.dataSource == '' || form.value.filteredColumn == ''
+            "
+          >
+            <mat-select-trigger>
+              {{ form.value.type ? form.value.type : "" }}
+            </mat-select-trigger>
+            <ng-container
+              *ngIf="
+                form.value.dataSource != '' && form.value.filteredColumn != ''
+              "
+            >
+              <mat-option
+                *ngFor="
+                  let type of (dataSources | async)[form.value.dataSource]
+                    .columns[form.value.filteredColumn].columnType ==
+                  'Dimensions'
+                    ? ['Equality']
+                    : ['MoreThan', 'LessThan', 'Equality']
+                "
+                [value]="type"
+              >
+                {{ type }}
+              </mat-option>
+            </ng-container>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field
+          *ngIf="
+            form.value.filteredColumn != '' &&
+            (dataSources | async)[form.value.dataSource].columns[
+              form.value.filteredColumn
+            ].columnType == 'Measures'
+          "
+          appearance="legacy"
+        >
+          <mat-label for="initialValue">Initial Value</mat-label>
+          <input
+            ngDefaultControl
+            matInput
+            placeholder="Visualizer1"
+            id="initialValue"
+            type="text"
+            formControlName="initValue"
+          />
+        </mat-form-field>
+      </form>
+      <div class="buttons">
+        <button mat-flat-button (click)="onNoClick()">Cancel</button>
+        <button mat-flat-button color="primary" (click)="onSaveClick()">
+          Save
+        </button>
+      </div>
     </div>
-    <input class="property-input" type="text" value="filter1" />
-  </div>
-  <div class="column">
-    <div class="property-type">
-      Data source
+    <div class="preview">
+      <div class="preview-title">Preview</div>
+      <app-filter-item *ngIf="form.valid" [filter]="this.form.value"> </app-filter-item>
+      <div class="form-not-valid" *ngIf="!form.valid">Please Complete the form to see the preview</div>
     </div>
-    <input class="property-input" type="text" value="filter1" />
-  </div>
-  <div class="column">
-    <div class="property-type">
-      Column Type
-    </div>
-    <input class="property-input" type="text" value="filter1" />
-  </div>
-  <div class="column">
-    <div class="property-type">
-      Column
-    </div>
-    <input class="property-input" type="text" value="filter1" />
-  </div>
-  <div class="column">
-    <div class="property-type">
-      Type
-    </div>
-    <input class="property-input" type="text" value="filter1" />
   </div>
 </div>

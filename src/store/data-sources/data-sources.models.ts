@@ -7,4 +7,5 @@ export interface IDataSource {
   rightToLeft : boolean,
   aggregator : any,
   isDeleted : boolean,
+  valueCategories: any[]
 }

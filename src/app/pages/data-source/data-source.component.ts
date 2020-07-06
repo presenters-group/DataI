@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, AfterViewInit } from "@angular/core";
 import { Observable } from "rxjs";
 import { selectCurrentDataSource } from "src/store/data-sources/data-sources.selectors";
 import { Store } from "@ngrx/store";
@@ -11,14 +11,18 @@ import { first } from 'rxjs/operators';
   templateUrl: "./data-source.component.html",
   styleUrls: ["./data-source.component.scss"],
 })
-export class DataSourceComponent implements OnInit {
+export class DataSourceComponent implements AfterViewInit {
   dataSource: Observable<any>;
   objectKeys = Object.keys;
   constructor(private store: Store<AppState>) {
     this.dataSource = this.store.select(selectCurrentDataSource);
   }
 
-  ngOnInit(): void {}
+  ngAfterViewInit(
+
+  ): void {}
+
+
 
   onCellUpdate(columnId, cellIndex, cellValue) {
       let tableId;
@@ -35,5 +39,10 @@ export class DataSourceComponent implements OnInit {
           })
         );
       });
+  }
+
+  consol(data){
+    console.log(data)
+    return data
   }
 }

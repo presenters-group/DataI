@@ -1,0 +1,79 @@
+<div class="container">
+  <div class="header">
+    <div class="name-container">
+      <div class="name">{{ filter.name }}</div>
+      <div class="sub-names-container">
+        <div class="sub-name">
+          {{
+            (dataSources | async)[filter.dataSource].columns[
+              filter.filteredColumn
+            ].name
+          }}
+        </div>
+        <div class="sub-name" *ngIf="visualizerName">
+          ({{ visualizerName }})
+        </div>
+      </div>
+    </div>
+    <div class="enable">
+      <mat-checkbox
+        color="primary"
+        [checked]="enabled"
+        (change)="onEnableClicked()"
+      >
+      </mat-checkbox>
+    </div>
+  </div>
+  <div class="horizontal-line"></div>
+  <div class="value-container">
+    <div
+      *ngIf="
+        (dataSources | async)[filter.dataSource].columns[filter.filteredColumn]
+          .columnType == 'Measures'
+      "
+      class="value-item"
+    >
+      <div class="property">
+        <div class="property-title" matPrefix>
+          {{
+            filter.type == "Equality"
+              ? "="
+              : filter.type == "LessThan"
+              ? "<"
+              : ">"
+          }}
+        </div>
+        <input matInput [value]="filter.initValue" />
+      </div>
+    </div>
+
+    <div
+      *ngIf="
+        (dataSources | async)[filter.dataSource].columns[filter.filteredColumn]
+          .columnType == 'Dimensions'
+      "
+      class="value-item"
+    >
+      <div
+        *ngFor="
+          let column of (dataSources | async)[filter.dataSource].columns[
+            filter.filteredColumn
+          ].valueCategories
+        "
+        class="property"
+      >
+        <div class="property-title" matPrefix>
+          {{ column.value }}
+        </div>
+        <div class="enable">
+          <mat-checkbox
+            color="primary"
+            [checked]="value.includes(column.value)"
+            (change)="onDimChangeValue(column.value)"
+          >
+          </mat-checkbox>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

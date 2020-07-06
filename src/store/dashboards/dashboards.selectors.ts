@@ -39,7 +39,6 @@ export const selectDashboardsTree = createSelector(
   (entities, visualizersEntities, filtersEntities) => {
     let tree: any = { name: "Dashboards", children: [] };
     for(let key in entities)
-    // entities.forEach((entity, key) =>
     {
       let entity = entities[key]
       let dashboards = {
@@ -60,7 +59,7 @@ export const selectDashboardsTree = createSelector(
           let filterEntity = filtersEntities[value.filterIndex]
           filters.push({
             name: filterEntity.name,
-            content: { type: "filters", id: key ,name: filterEntity.name},
+            content: { type: "filter", id: key ,name: filterEntity.name},
           });
         });
         visualizer.children.push(...filters);

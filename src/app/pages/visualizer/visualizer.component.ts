@@ -1,4 +1,12 @@
-import { Component, OnInit, AfterViewInit, Sanitizer, OnDestroy } from "@angular/core";
+import {
+  Component,
+  OnInit,
+  AfterViewInit,
+  Sanitizer,
+  OnDestroy,
+  ViewChild,
+  HostListener,
+} from "@angular/core";
 import { Observable } from "rxjs";
 import { Store } from "@ngrx/store";
 import { AppState } from "src/store";
@@ -19,37 +27,43 @@ import { SafeHtml, DomSanitizer } from "@angular/platform-browser";
   templateUrl: "./visualizer.component.html",
   styleUrls: ["./visualizer.component.scss"],
 })
-export class VisualizerComponent implements AfterViewInit,OnDestroy {
+export class VisualizerComponent implements AfterViewInit, OnDestroy {
   svg: Observable<SafeHtml> = this.store.select(selectVisualizersChart);
   visualizer: Observable<any> = this.store.select(selectCurrentVisualizer);
   filters: Observable<any> = this.store.select(selectCurrentVisualizerFilters);
   oldValue: number;
+  @ViewChild("chart") chart;
+
+  @HostListener('window:resize', ['$event'])
+  onResize() {
+    this.visualizer
+    .pipe(first())
+      .subscribe((value) => {
+        this.oldValue = value.id;
+        console.log(this.chart.nativeElement.offsetWidth,this.chart.nativeElement.offsetHeight)
+        this.store.dispatch(
+          fetchChartAsSVG({
+            data: {
+              visualizerId: value.id,
+              width: this.chart.nativeElement.offsetWidth,
+              height: this.chart.nativeElement.offsetHeight,
+            },
+          })
+        );
+      });
+
+  }
+
   constructor(
     private store: Store<AppState>,
-    private httpClient: HttpClient,
     private sanitizer: DomSanitizer
   ) {}
 
   ngAfterViewInit(): void {
-    this.visualizer.pipe(
-      filter((value)=> value  && value.id != this.oldValue)
-    ).subscribe((value) => {
-      this.oldValue = value.id
-      let chart = document.getElementById("chart");
-
-      this.store.dispatch(
-        fetchChartAsSVG({
-          data: {
-            visualizerId: value.id,
-            width: chart.offsetWidth,
-            height: chart.offsetHeight,
-          },
-        })
-      );
-    });
+    this.onResize()
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.oldValue = -1;
   }
 

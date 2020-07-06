@@ -10,6 +10,7 @@ import { updateCurrentTree } from "src/store/core/actions/core.actions";
   styleUrls: ["./left-nav.component.scss"],
 })
 export class LeftNavComponent implements OnInit {
+  showFiller = false;
   icons = [
     {
       name: "data-sources",
