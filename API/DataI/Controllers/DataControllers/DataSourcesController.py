@@ -25,6 +25,9 @@ class DataSourcesController():
         targetColumnIndex = DataController.getElementIndexById(data.dataSources[targetTableIndex].columns, columnId)
         data.dataSources[targetTableIndex].columns[targetColumnIndex].cells[cellIndex].value = cell
         data.dataSources[targetTableIndex].columns[targetColumnIndex].cells[cellIndex].type = cls.__getCellType(cell)
+        # check if the edited cell is a title cell (the first cell is the column name).
+        if cellIndex == 0:
+            data.dataSources[targetTableIndex].columns[targetColumnIndex].name = str(cell)
         return data.dataSources[targetTableIndex].columns[targetColumnIndex].cells[cellIndex]
 
     @classmethod

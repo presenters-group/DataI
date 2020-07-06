@@ -12,7 +12,9 @@ class DrawController():
         columns = list()
         visioIndex = DataController.getElementIndexById(data.visualizations, visioID)
         tableIndex = data.visualizations[visioIndex].data
-        for columnIndex in data.visualizations[visioIndex].usedColumns:
+
+        for columnId in data.visualizations[visioIndex].usedColumns:
+            columnIndex = DataController.getElementIndexById(data.dataSources[tableIndex].columns, columnId)
             columns.append(data.dataSources[tableIndex].columns[columnIndex])
 
         returnTable = TableModel(columns,
@@ -21,6 +23,17 @@ class DrawController():
                                  data.dataSources[tableIndex].properties,
                                  data.dataSources[tableIndex].aggregator,
                                  data.dataSources[tableIndex].isDeleted)
+
+        # setting used colors in table:
+        # 1- rows:
+        returnTable.rowsColors = data.dataSources[tableIndex].rowsColors
+        # 2- columns:
+        columnsColors = list()
+        for columnId in data.visualizations[visioIndex].usedColumns:
+            columnIndex = DataController.getElementIndexById(data.dataSources[tableIndex].columns, columnId)
+            columnsColors.append(data.dataSources[tableIndex].columnsColors[columnIndex])
+        returnTable.columnsColors = columnsColors
+
 
         return returnTable
 

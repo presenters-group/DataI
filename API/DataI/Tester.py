@@ -6,6 +6,7 @@ from numpy import double
 
 from DataI.Controllers.DataControllers.DataController import DataController
 from DataI.Controllers.DrawControllers.DrawController import DrawController
+from DataI.Controllers.Filters.FilterController import NumericFilterController
 from DataI.Models.DashboardModel import DashboardModel
 from DataI.Models.FilterModel import FilterModel
 import os
@@ -23,10 +24,12 @@ filename = os.path.join(dirName, '../Test.xlsx')
 
 dataController.loadTablesFromExcelFile(filename, 0)
 
+filter = NumericFilterController()
 
-print(dataController.data.dataSources[0])
+filteredColumn = filter.implementFilter(dataController.data.dataSources[0].columns[0], '<', 10)
 
-
+for cell in filteredColumn.cells:
+    print(cell)
 
 
 

@@ -1,3 +1,5 @@
+from typing import List
+
 from numpy import double
 
 from DataI import enums
@@ -11,17 +13,18 @@ class BoundaryLineChart(LineChart):
     def __init__(self, dataSource: TableModel, width: double, height: double, Xcolomn: ColumnModel, quality: double,
                  nameFile):
         super().__init__(dataSource, width, height, Xcolomn, quality, nameFile)
-        self.drawLines()
+        self.drawLines(dataSource.columnsColors)
         # self.d.saveSvg(nameFile + '.svg')
         # self.d.savePng(nameFile + '.png')
         self.SVG = self.d.asSvg()
 
-    def drawLines(self):
+    def drawLines(self, colors: List[str]):
+        columnCounter = 0
         for column in self.dataSourceTableWithoutXcolumn.columns:
             if column.columnType == enums.ColumnDataType.Measures.value:
                 add = self.widthOfYLabels
-                p = draw.Path(stroke_width=self.xUnit / 50, stroke=column.style.color,
-                              fill=column.style.color, fill_opacity=0.05, id=str(self.Index))
+                p = draw.Path(stroke_width=self.xUnit / 50, stroke=colors[columnCounter],
+                              fill=colors[columnCounter], fill_opacity=0.05, id=str(self.Index))
                 name = str(column.name)
                 self.listOfIndexing.append(name)
                 self.Index += 1
@@ -33,3 +36,5 @@ class BoundaryLineChart(LineChart):
                             p.L(add, self.convertY(double(cell.value)))
                 p.V(self.convertY(self.findZeroInSVG()))
                 self.d.append(p)
+
+            columnCounter += 1

@@ -1,3 +1,5 @@
+from typing import List
+
 import drawSvg as draw
 
 from numpy import double, long
@@ -33,9 +35,9 @@ class PointChart(Chart):
         self.getYLevelsValue()
         self.startValue = self.listOfLevelXValue[0]
         self.drawYLineLevels()
-        self.drawPointsOfValuesInDataSourceTableWithoutXColumn()
+        self.drawPointsOfValuesInDataSourceTableWithoutXColumn(dataSourceTableWithoutXcolumn.columnsColors)
         self.drawXPointsWithXValueSteps()
-        self.drawColmunsColorList()
+        self.drawColmunsColorList(dataSourceTableWithoutXcolumn.columnsColors)
         self.drawSideLable()
         self.d.setPixelScale(1)  # Set number of pixels per geometry unit
         # self.d.setRenderSize(400,200)
@@ -135,7 +137,8 @@ class PointChart(Chart):
             self.d.append(p)
             y += self.yStep
 
-    def drawPointsOfValuesInDataSourceTableWithoutXColumn(self):
+    def drawPointsOfValuesInDataSourceTableWithoutXColumn(self, colors: List[str]):
+        columnCounter = 0
         for column in self.dataSourceTableWithoutXcolumn.columns:
             if column.columnType == enums.ColumnDataType.Measures.value:
                 print(column.columnType)
@@ -145,10 +148,12 @@ class PointChart(Chart):
                         add += self.xUnit
                         self.listOfIndexing.append("(" + str(self.xColumn.cells[i].value) + "," + str(cell.value) + ")")
                         self.d.append(draw.Circle(add, self.convertY(double(cell.value)), self.xUnit / 20,
-                                                  fill=column.style.color,
+                                                  fill=colors[columnCounter],
                                                   stroke_width=0,
                                                   stroke='black', id=(self.Index)))
                         self.Index += 1
+
+            columnCounter += 1
 
     def drawXPointsWithXValueSteps(self):
         add = self.widthOfYLabels
@@ -167,7 +172,7 @@ class PointChart(Chart):
                           transform="rotate(90," + str(add - 1) + "," + str(-self.heightOfXLabels / 1.3) + ")"))
             self.Index += 1
 
-    def drawColmunsColorList(self):
+    def drawColmunsColorList(self, colors: List[str]):
         fontSize = (self.widthView / (len(self.dataSourceTableWithoutXcolumn.columns) + 1)) / 10
         add = self.widthView / 50
         num = "X:" + str(self.xColumn.name)
@@ -180,19 +185,22 @@ class PointChart(Chart):
                       y=self.heightOfXLabels / 4 + (fontSize / 2),
                       id=str(self.Index)))
         add += self.widthView / (len(self.dataSourceTableWithoutXcolumn.columns) + 3)
+
+        columnCounter = 0
         for column in self.dataSourceTableWithoutXcolumn.columns:
             if column.columnType == enums.ColumnDataType.Measures.value:
                 num = column.name
                 if (len(str(num)) > 10):
                     num = num[0:8] + "..."
                 self.d.append(
-                    draw.Circle(add, self.heightOfXLabels / 4 + 8, fontSize / 2, fill=column.style.color,
+                    draw.Circle(add, self.heightOfXLabels / 4 + 8, fontSize / 2, fill=colors[columnCounter],
                                 stroke_width=0,
                                 stroke='black'))
                 self.d.append(draw.Text(text=str(num), fontSize=fontSize, x=add + (fontSize * 2),
                                         y=self.heightOfXLabels / 4 + (fontSize / 2),
                                         id=str(self.Index)))
                 add += self.widthView / (len(self.dataSourceTableWithoutXcolumn.columns) + 3)
+            columnCounter += 1
 
     def drawSideLable(self):
         y = self.heightOfXLabels

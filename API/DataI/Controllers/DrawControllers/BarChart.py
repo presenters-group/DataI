@@ -1,3 +1,5 @@
+from typing import List
+
 from numpy import double, long
 from DataI import enums
 from DataI.Controllers.DrawControllers.chart import Chart
@@ -44,16 +46,16 @@ class BarChart(Chart):
             self.startValue = self.listofLevelValue[0]
         self.drawlayOut()
         self.drawLineLevels()
-        self.drawPoints()
+        self.drawPoints(dataSource.columnsColors)
         self.drawXpoints(double(20))
-        self.drawColmunsColorList(double(20))
+        self.drawColmunsColorList(double(20), dataSource.columnsColors)
         self.drawSideLable()
         self.widthOfSingleColumn = 25
         self.drawlayOut()
-        self.drawColumns()
+        self.drawColumns(dataSource.columnsColors)
         self.drawLineLevels()
         self.drawXpoints(double(20))
-        self.drawColmunsColorList(double(20))
+        self.drawColmunsColorList(double(20), dataSource.columnsColors)
         self.drawSideLable()
         self.SVG = self.d.asSvg()
         # self.d.saveSvg(nameFile + '.svg')
@@ -175,7 +177,8 @@ class BarChart(Chart):
             self.d.append(p)
             y += self.yStep
 
-    def drawPoints(self):
+    def drawPoints(self, colors: List[str]):
+        columnCounter = 0
         for column in self.dataSourceTableWithoutXcolumn.columns:
             add = 200
             if (column != self.Xcolumn):
@@ -184,10 +187,11 @@ class BarChart(Chart):
                         add += 150
                         self.listOfIndexing.append("(" + str(self.Xcolumn.cells[i].value) + "," + str(cell.value) + ")")
                         self.d.append(
-                            draw.Circle(add, self.convertY(double(cell.value)), 5, fill=column.style.color,
+                            draw.Circle(add, self.convertY(double(cell.value)), 5, fill=colors[columnCounter],
                                         stroke_width=0,
                                         stroke='black', id=(self.Index)))
                         self.Index += 1
+            columnCounter += 1
 
     def drawSideLable(self):
         y = self.heightOfbuttomLable
@@ -205,7 +209,7 @@ class BarChart(Chart):
                                     y=self.convertY(self.listofLevelValue[i]), id=str(self.Index)))
             self.Index += 1
 
-    def drawColmunsColorList(self, fontSize: double):
+    def drawColmunsColorList(self, fontSize: double, colors: List[str]):
         add = 30
         for column, i in zip(self.dataSourceTableWithoutXcolumn.columns, range(0, len(self.Xcolumn.cells))):
             if (i == 0):
@@ -223,7 +227,7 @@ class BarChart(Chart):
                     num = num[0:8] + "..."
                 widthOfText = len(str(num)) * 3 * ((fontSize / 10) * 50 / 50)
                 self.d.append(
-                    draw.Circle(add, self.heightOfbuttomLable / 4 + 8, 15, fill=column.style.color, stroke_width=0,
+                    draw.Circle(add, self.heightOfbuttomLable / 4 + 8, 15, fill=colors[i], stroke_width=0,
                                 stroke='black'))
                 self.d.append(draw.Text(text=str(num), fontSize=fontSize, x=add + 25, y=self.heightOfbuttomLable / 4,
                                         id=str(self.Index)))
@@ -264,15 +268,15 @@ class BarChart(Chart):
         else:
             return double(self.widthOfSingleColumn * (index + 1))
 
-    def drawColumns(self):
+    def drawColumns(self, colors: List[str]):
         for column, j in zip(self.dataSourceTableWithoutXcolumn.columns,
                              range(0, len(self.dataSourceTableWithoutXcolumn.columns))):
             add = 250
             if (column != self.Xcolumn):
                 for cell, i in zip(column.cells, range(0, len(self.Xcolumn.cells))):
                     if (i != 0):
-                        p = draw.Path(stroke_width=2, stroke=column.style.color,
-                                      fill=column.style.color, fill_opacity=0.5, id=str(self.Index))
+                        p = draw.Path(stroke_width=2, stroke=colors[j],
+                                      fill=colors[j], fill_opacity=0.5, id=str(self.Index))
                         name = str(column.name)
                         self.listOfIndexing.append(name)
                         self.Index += 1

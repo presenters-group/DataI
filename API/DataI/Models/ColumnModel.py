@@ -42,13 +42,13 @@ class ColumnModel(BasicInfo):
         self.valueCategories = list()
         self.isDeleted = isDeleted
 
-        for cell in cells:
+        for cell in cells[1:]:
             if not self.__cellInList(cell, self.valueCategories):
                 self.valueCategories.append(cell)
 
     def __str__(self):
-        return 'name: {}, ID: {}\ncells: {}\n<<style: {}, type: {}>>\ncategories: {}\nisDeleted: {}\n'\
-            .format(self.name, self.id, self.cells, self.style, self.columnType, self.valueCategories, self.isDeleted)
+        return 'name: {}, ID: {}\ncells: {}\n<<type: {}>>\ncategories: {}\nisDeleted: {}\n'\
+            .format(self.name, self.id, self.cells, self.columnType, self.valueCategories, self.isDeleted)
 
     def __add__(self, other):
         cells = list()
