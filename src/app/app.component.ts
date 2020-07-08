@@ -15,7 +15,7 @@ import {
   fetchVisualizers,
   fetchChartAsSVGSuccess,
 } from "src/store/visualizers";
-import { fetchDashboardsSuccess, fetchDashboards } from "src/store/dashboards";
+import { fetchDashboardsSuccess, fetchDashboards, updateDashboard } from "src/store/dashboards";
 import { fetchFiltersSuccess, fetchFilters } from "src/store/filters";
 import { Router } from "@angular/router";
 import { HttpClient } from "@angular/common/http";
@@ -90,6 +90,43 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.store.dispatch(fetchVisualizers());
 
     this.store.dispatch(fetchDashboards());
+
+    this.store.dispatch(updateDashboard({data : {
+        name: 'dashboard1',
+        id: 0,
+        isDeleted : false,
+        visualizers: [
+          {
+            visualizationIndex: 0,
+            measurements: {
+              width: 500.0,
+              height: 300.0,
+              x: 100.0,
+              y: 100.0,
+            },
+            displayedFilters: [
+              {
+                filterIndex: 0,
+                measurements: {
+                  width: 100.0,
+                  height: 100.0,
+                  x: 100.0,
+                  y: 200.0,
+                },
+              },
+              {
+                filterIndex: 1,
+                measurements: {
+                  width: 100.0,
+                  height: 100.0,
+                  x: 300.0,
+                  y: 150.0,
+                }
+              }
+            ]
+          }
+        ]
+    }}))
 
     this.store.dispatch(fetchFilters());
 

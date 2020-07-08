@@ -4,7 +4,7 @@ import { selectCurrentDataSource } from "src/store/data-sources/data-sources.sel
 import { Store } from "@ngrx/store";
 import { AppState } from "src/store";
 import { updateCell } from "src/store/data-sources";
-import { first } from 'rxjs/operators';
+import { first, take } from 'rxjs/operators';
 
 @Component({
   selector: "app-data-source",
@@ -25,6 +25,9 @@ export class DataSourceComponent implements AfterViewInit {
 
 
   onCellUpdate(columnId, cellIndex, cellValue) {
+
+
+
       let tableId;
       this.dataSource.pipe(first()).subscribe((value) => {
         tableId = value.id;

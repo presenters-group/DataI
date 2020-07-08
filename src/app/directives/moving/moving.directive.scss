@@ -1,0 +1,42 @@
+.move-top{
+  top: -15px;
+}
+
+.move-right{
+  right: -15px;
+}
+
+.move-left{
+  left: -15px;
+}
+
+.move-bottom{
+ bottom: -15px;
+}
+
+.move-halfVertical{
+  top: 50%;
+  bottom: 50%;
+  transform: translateY(-50%);
+}
+
+.move-halfHorizontal{
+  right: 50%;
+  left: 50%;
+  transform: translateX(-50% );
+}
+
+.move-circle{
+  position: absolute;
+  border-radius: 50%;
+  width: 15px;
+  height: 15px;
+  z-index: 10;
+  background-color: blue;
+}
+
+.move-element{
+  position: absolute;
+  outline: dashed 5px blue;
+  outline-offset: 5px;
+}

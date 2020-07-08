@@ -17,7 +17,9 @@ export class DashboardsService {
   }
 
   update(data : IDashboard) {
-    return this.httpClient.put(this.URL, { ...data });
+    return this.httpClient.put(`${this.URL}/${data.id}/`,
+    data
+    )
   }
 
   fetch() {
