@@ -48,6 +48,9 @@ class MultipleEqualityFilter():
         columnIndex = DataController.getElementIndexById(table.columns, columnId)
         column = filteredTable.columns[columnIndex]
 
+        values = self.__castNumericListElementsToFloats(values)
+        print(values)
+
         rowCounter = 1
         for cell in column.cells[1:]:
             if cell.value not in values:
@@ -56,8 +59,17 @@ class MultipleEqualityFilter():
                 rowCounter -= 1
             rowCounter += 1
 
-
         return filteredTable
+
+    def __castNumericListElementsToFloats(self, values: List) -> List:
+        newList = list()
+        for element in values:
+            isDigit = str(element).replace('.', '').isdigit() or str(element).replace('-', '').isdigit()
+            if isDigit:
+                newList.append(float(element))
+            else:
+                newList.append(element)
+        return newList
 
 
 class FiltersController():
@@ -71,11 +83,30 @@ class FiltersController():
             filterModelIndex = DataController.getElementIndexById(data.filters, tableFilter['id'])
             filterModel = data.filters[filterModelIndex]
 
-            if tableFilter['isActive']:
+            if tableFilter['isActive'] and not filterModel.isDeleted:
                 filterObj = FiltersFactory.getFilter(filterModel.type)
                 filteredTable = filterObj.implementFilter(filteredTable, filterModel.filteredColumn, tableFilter['value'])
 
         return filteredTable
+
+    @classmethod
+    def getFilteredVisioTable(cls, data: DataModel, visioId: int) -> TableModel:
+        visioIndex = DataController.getElementIndexById(data.visualizations, visioId)
+        visio = data.visualizations[visioIndex]
+        tableIndex = DataController.getElementIndexById(data.dataSources, visio.data)
+        table = data.dataSources[tableIndex]
+        filteredTable = deepcopy(table)
+
+        for visioFilter in visio.filters:
+            filterModelIndex = DataController.getElementIndexById(data.filters, visioFilter['id'])
+            filterModel = data.filters[filterModelIndex]
+
+            if visioFilter['isActive'] and not filterModel.isDeleted:
+                filterObj = FiltersFactory.getFilter(filterModel.type)
+                filteredTable = filterObj.implementFilter(filteredTable, filterModel.filteredColumn, visioFilter['value'])
+
+        return filteredTable
+
 
     @classmethod
     def __appendNonFilteredColumns(cls, columnsList: List[ColumnModel], table: TableModel):
@@ -93,6 +124,9 @@ class FiltersController():
                 columnIndex = DataController.getElementIndexById(table.columns, id)
                 column = table.columns[columnIndex]
                 columnsList.append(column)
+
+
+
 
 
 

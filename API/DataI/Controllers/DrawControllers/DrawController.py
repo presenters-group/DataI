@@ -1,5 +1,6 @@
 from numpy import double
 
+from DataI.Controllers.DataControllers.VisualizationsController import VisualizationsController
 from DataI.Controllers.DrawControllers.ChartsFactory import ChartsFactory
 from DataI.Models.DataModel import DataModel
 from DataI.Models.TableModel import TableModel
@@ -48,6 +49,14 @@ class DrawController():
 
         xColumnIndex = DataController.getElementIndexById(data.dataSources, visualizer.xColumn)
         xColumn = data.dataSources[visualizer.data].columns[xColumnIndex]
+
+        #implment visualization filters.
+        drawTable = VisualizationsController.getFinalTables(data, visioID)
+
+        for column in drawTable.columns:
+            for cell in column.cells:
+                print(cell)
+            print('_________________________')
 
         drawer = ChartsFactory.generateCharts(visualizer.chart, drawTable, width, height, xColumn, double(8.0))
         return drawer.SVG

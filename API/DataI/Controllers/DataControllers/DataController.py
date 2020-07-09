@@ -29,6 +29,9 @@ class DataController():
         loader = CSVFileLoader(filePath)
         self.data.dataSources.append(loader.loadFile(greatestTableId))
 
+    def getFinalTables(self) -> List[TableModel]:
+        return DataSourcesController.getFinalTables(self.data)
+
     def insertNewTable(self, table: TableModel):
         DataSourcesController.insertNewTable(self.data, table)
 
@@ -38,7 +41,7 @@ class DataController():
     def insertNewDashboard(self, dashBoard: DashboardModel):
         DashboardsController.inserNewDashboard(self.data, dashBoard)
 
-    def inserNewFilter(self, filter: FilterModel):
+    def insertNewFilter(self, filter: FilterModel):
         FiltersModelController.insertNewFilter(self.data, filter)
 
     def updateTableById(self, table: TableModel, id: int):

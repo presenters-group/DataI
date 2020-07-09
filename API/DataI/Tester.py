@@ -59,6 +59,38 @@ jsonFilters = '''
         }
     ]
 '''
+jsonVisio = '''
+{
+            "name": "visualization1",
+            "id": 0,
+            "data": 0,
+            "usedColumns": [
+                0,
+                1,
+                2
+            ],
+            "xColumn": 0,
+            "chart": "VerticalBarChart",
+            "filters": [
+                {
+                    "id": 1,
+                    "value": 5,
+                    "isActive": true
+                },
+                {
+                    "id": 0,
+                    "value": "testerValue",
+                    "isActive": true
+                },
+                {
+                    "id": 2,
+                    "value": 2142,
+                    "isActive": false
+                }
+            ],
+            "isDeleted": false
+        }
+'''
 
 loadedJsonFilters = json.loads(jsonFilters)
 for filter in loadedJsonFilters:
@@ -74,27 +106,29 @@ filter2 = {
     "value": 60,
     "isActive": True
 }
-
 filter3 = {
     "id": 0,
-    "value": ['log'],
+    "value": ['log', '44', '15'],
     "isActive": True
 }
 
+dataController.data.visualizations.append(VisualizationModel.from_json(json.loads(jsonVisio)))
 dataController.data.dataSources[0].filters = [filter1, filter2]
 dataController.data.dataSources[1].filters = [filter3]
+dataController.data.visualizations[0].filters = [filter1]
 
-filteredTable = FiltersController.getFilteredTable(dataController.data, 1)
-filteredTables = DataSourcesController.getFinalTables(dataController.data)
+#filteredTable = FiltersController.getFilteredTable(dataController.data, 1)
+# filteredTables = DataSourcesController.getFinalTables(dataController.data)
+#
+# for table in filteredTables:
+#     for column in table.columns:
+#         for cell in column.cells:
+#             print(cell)
+#         print('_________________')
+#     print('==================================')
+#     print('__________________________________')
+#     print('==================================')
 
-for table in filteredTables:
-    for column in table.columns:
-        for cell in column.cells:
-            print(cell)
-        print('_________________')
-    print('==================================')
-    print('__________________________________')
-    print('==================================')
 
 # for column in dataController.data.dataSources[0].columns:
 #     for cell in column.cells:

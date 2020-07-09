@@ -18,7 +18,9 @@ filename = os.path.join(dirName, '../Test.xlsx')
 
 dataController.loadTablesFromExcelFile(filename, 0)
 
-# load static data:
+# ================================ load static data ================================:
+
+
 jsonVisio = '''
 {
             "name": "visualization1",
@@ -30,7 +32,7 @@ jsonVisio = '''
                 2
             ],
             "xColumn": 0,
-            "chart": "VerticalBarChart",
+            "chart": "BoundaryLineChart",
             "filters": [
                 {
                     "id": 1,
@@ -95,7 +97,7 @@ jsonFilters = '''
             "name": "filter1",
             "id": 0,
             "dataSource": 0,
-            "filteredColumn": 1,
+            "filteredColumn": 0,
             "initValue": "A",
             "type": "MultipleEquality",
             "isDeleted": false
@@ -121,14 +123,33 @@ jsonFilters = '''
     ]
 '''
 
+filter1 = {
+    "id": 1,
+    "value": 50,
+    "isActive": True
+}
+filter2 = {
+    "id": 1,
+    "value": 60,
+    "isActive": False
+}
+filter3 = {
+    "id": 0,
+    "value": ['log', '44', '15'],
+    "isActive": True
+}
+
 dataController.data.visualizations.append(VisualizationModel.from_json(json.loads(jsonVisio)))
 dataController.data.dashboards.append(DashboardModel.from_json(json.loads(jsonDashboard)))
 loadedJsonFilters = json.loads(jsonFilters)
 for filter in loadedJsonFilters:
     dataController.data.filters.append(FilterModel.from_json(filter))
 
+dataController.data.dataSources[0].filters = [filter1, filter2]
+dataController.data.dataSources[1].filters = [filter3]
+dataController.data.visualizations[0].filters = [filter1]
 
-# load static data.
+# ================================ load static data ================================.
 
 
 @csrf_exempt
@@ -140,8 +161,9 @@ def fullDataHandler(request):
 @csrf_exempt
 def dataSourcesHandler(request):
     if request.method == 'GET':
+        fullTables = dataController.getFinalTables()
         return HttpResponse(
-            json.dumps(dataController.data.dataSources, indent=4, cls=ObjectEncoder, ensure_ascii=False))
+            json.dumps(fullTables, indent=4, cls=ObjectEncoder, ensure_ascii=False))
     elif request.method == 'POST':
         table = TableModel.from_json(json.loads(request.body.decode()))
         dataController.insertNewTable(table)
@@ -175,7 +197,7 @@ def filtersHandler(request):
         return HttpResponse(json.dumps(dataController.data.filters, indent=4, cls=ObjectEncoder, ensure_ascii=False))
     elif request.method == 'POST':
         filter = FilterModel.from_json(json.loads(request.body.decode()))
-        dataController.inserNewFilter(filter)
+        dataController.insertNewFilter(filter)
         return HttpResponse(json.dumps(filter, indent=4, cls=ObjectEncoder, ensure_ascii=False))
 
 
