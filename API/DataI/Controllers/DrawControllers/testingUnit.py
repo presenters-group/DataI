@@ -64,7 +64,7 @@ properties = PropertiesModel(enums.FileType.DataI.value, 50)
 
 aggregator = AggregationModel([], 0, False)
 
-testdatasource = TableModel(columns, 'Table1', 0, properties, aggregator, False)
+testdatasource = TableModel(columns, 'Table1', 0, properties, aggregator, [], False)
 
 # =================================================================================================================
 # =================================================================================================================

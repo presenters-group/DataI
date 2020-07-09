@@ -34,15 +34,18 @@ jsonVisio = '''
             "filters": [
                 {
                     "id": 1,
-                    "value": 5
+                    "value": 5,
+                    "isActive": true
                 },
                 {
                     "id": 0,
-                    "value": "testerValue"
+                    "value": "testerValue",
+                    "isActive": true
                 },
                 {
                     "id": 2,
-                    "value": 2142
+                    "value": 2142,
+                    "isActive": false
                 }
             ],
             "isDeleted": false
@@ -94,7 +97,7 @@ jsonFilters = '''
             "dataSource": 0,
             "filteredColumn": 1,
             "initValue": "A",
-            "type": "Equality",
+            "type": "MultipleEquality",
             "isDeleted": false
         },
         {
@@ -103,7 +106,7 @@ jsonFilters = '''
             "dataSource": 0,
             "filteredColumn": 2,
             "initValue": 100,
-            "type": "LessThan",
+            "type": ">",
             "isDeleted": false
         },
         {
@@ -112,7 +115,7 @@ jsonFilters = '''
             "dataSource": 0,
             "filteredColumn": 0,
             "initValue": 11,
-            "type": "MoreThan",
+            "type": "<",
             "isDeleted": false
         }
     ]

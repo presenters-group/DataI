@@ -121,9 +121,9 @@ dashboard1 = DashboardModel([inDV1], 'dashboard1', 0, False)
 #=================================================================================================================
 #=================================================================================================================
 
-filterModel1 = FilterModel('filter1', 0, 0, 1, 'A', enums.FilterType.Equality.value, False)
-filterModel2 = FilterModel('filter2', 1, 0, 2, 100, enums.FilterType.LessThan.value, False)
-filterModel3 = FilterModel('filter3', 2, 0, 0, 11, enums.FilterType.MoreThan.value, False)
+filterModel1 = FilterModel('filter1', 0, 0, 1, 'A', enums.FilterType.Equality.value)
+filterModel2 = FilterModel('filter2', 1, 0, 2, 100, enums.FilterType.LessThan.value)
+filterModel3 = FilterModel('filter3', 2, 0, 0, 11, enums.FilterType.MoreThan.value)
 
 filtersList = [filterModel1, filterModel2, filterModel3]
 

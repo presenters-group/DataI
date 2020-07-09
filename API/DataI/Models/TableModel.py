@@ -21,7 +21,7 @@ class AggregationModel():
         self.isActive = isActive
 
     def __str__(self):
-        return 'aggregatedTable:\n{}, aggregationColumn: {}, is active: {}'\
+        return 'aggregatedTable:\n{}\naggregationColumn: {}, is active: {}'\
             .format(self.aggregatedTable, self.aggregationColumn, self.isActive)
 
     @classmethod
@@ -37,7 +37,7 @@ class AggregationModel():
 
 class TableModel(BasicInfo):
     def __init__(self, columns: List[ColumnModel], name: str, id: int, properties: PropertiesModel,
-                 aggregator: AggregationModel, isDeleted: bool):
+                 aggregator: AggregationModel, filters: List, isDeleted: bool):
         super().__init__(name, id)
         self.columns = columns
 
@@ -57,6 +57,7 @@ class TableModel(BasicInfo):
 
         self.properties = properties
         self.aggregator = aggregator
+        self.filters = filters
         self.isDeleted = isDeleted
 
     @classmethod
@@ -69,10 +70,10 @@ class TableModel(BasicInfo):
 
 
     def __str__(self):
-        return 'name: {}, ID: {}\ncolumns:\n{}\nproperties: {}, aggregator:\n{}\n'\
-               'column colors:\n{}\nrows colors:\n{}\nisDeleted: {}\n'\
+        return 'name: {}, ID: {}\ncolumns:\n{}\nproperties: {}\naggregator:\n{}\n'\
+               'column colors:\n{}\nrows colors:\n{}\nfilters:\n{}\nisDeleted: {}\n'\
             .format(self.name, self.id, self.columns, self.properties, self.aggregator,
-                    self.columnsColors, self.rowsColors, self.isDeleted)
+                    self.columnsColors, self.rowsColors, self.filters, self.isDeleted)
 
     @classmethod
     def from_json(cls, data):
@@ -86,9 +87,10 @@ class TableModel(BasicInfo):
         id = data['id']
         properties = PropertiesModel.from_json(data['properties'])
         aggregator = AggregationModel.from_json(data['aggregator'])
+        filters = data['filters']
         isDeleted = data['isDeleted']
 
-        returnTable = cls(columns, name, id, properties, aggregator, isDeleted)
+        returnTable = cls(columns, name, id, properties, aggregator, filters, isDeleted)
         returnTable.columnsVisibility = columnsVisibility
         returnTable.rowsVisibility = rowsVisibility
 

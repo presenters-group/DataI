@@ -22,6 +22,7 @@ class DrawController():
                                  data.dataSources[tableIndex].id,
                                  data.dataSources[tableIndex].properties,
                                  data.dataSources[tableIndex].aggregator,
+                                 data.dataSources[tableIndex].filters,
                                  data.dataSources[tableIndex].isDeleted)
 
         # setting used colors in table:
