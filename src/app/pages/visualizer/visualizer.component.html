@@ -1,5 +1,5 @@
 <div class="container">
-  <div [innerHTML]="safe(svg | async)" #chart class="chart"></div>
+  <app-visualizer-item class="chart-component" [visualizerId]="(visualizer | async).id"></app-visualizer-item>
   <div class="filters" *ngIf="(filters | async).length">
     <div class="filters-title">
       Filters

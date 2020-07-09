@@ -1,6 +1,6 @@
 .container {
   display: flex;
-  flex-direction: raw;
+  flex-direction: row;
 }
 .chart {
   overflow-x: auto;
@@ -21,4 +21,10 @@
 .filters-title {
   text-align: center;
   font-size: large;
+}
+.chart-component{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100%;
 }

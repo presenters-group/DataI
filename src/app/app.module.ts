@@ -34,12 +34,13 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatSidenavModule} from '@angular/material/sidenav'
 import { AddDataSourceComponent } from './pages/data-source/dialogs/add-data-source/add-data-source.component';
 import {MatRippleModule} from '@angular/material/core';
-import { MovingDirective } from './directives/moving.directive';
+import { MovingDirective } from './directives/moving/moving.directive';
 import { AddDashboardComponent } from './pages/dashboard/dialogs/add-dashboard/add-dashboard.component';
 import { AddFilterComponent } from './pages/filter/dialogs/add-filter/add-filter.component';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { FilterItemComponent } from './pages/filter/components/filter-item/filter-item.component';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import { VisualizerItemComponent } from './components/visualizer-item/visualizer-item.component';
 
 @NgModule({
   declarations: [
@@ -58,6 +59,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     AddDashboardComponent,
     AddFilterComponent,
     FilterItemComponent,
+    VisualizerItemComponent,
   ],
   imports: [
     BrowserModule,

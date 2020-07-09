@@ -4,6 +4,7 @@ import { DashboardsState } from "./dashboards.reducers";
 import { selectVisualizersEntities } from "../visualizers/visualizers.selectors";
 import { selectDataSourcesEntities } from "../data-sources/data-sources.selectors";
 import { selectFiltersEntities } from "../filters/filters.selectors";
+import { selectCurrentTapObject } from '../core/selectors/core.selector';
 
 export const selectDashboardsState = createFeatureSelector<
   AppState,
@@ -70,4 +71,11 @@ export const selectDashboardsTree = createSelector(
     };
     return tree;
   }
+);
+
+
+export const selectCurrentDashboard = createSelector(
+  selectDashboardsState,
+  selectCurrentTapObject,
+  (state,current) => {return current && current.id != undefined ? state.entities[current.id] : null}
 );

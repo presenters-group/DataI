@@ -125,9 +125,6 @@ export class DataSourcesEffects {
         this.dataSourcesService.updateCell(data).pipe(
           switchMap((data) => [
             fromActions.updateDataSourceSuccess({ data }),
-            closeTapFromTree({
-              tap: { type: "data-source", id: (data as any).id },
-            }),
             showSuccess({ message: UPDATE_SUCCESSFUL }),
           ]),
 

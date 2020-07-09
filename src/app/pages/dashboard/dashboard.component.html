@@ -1,34 +1,93 @@
 <div class="container">
-  <div appMoving id="dashboard" *ngFor="let dashboard of dashboards" class="container">
-    <div
-      id="visualizer"
-      #visualizer
-      *ngFor="let visualizer of dashboard.visualizers"
-      class="inner visualizer"
-      appMoving
-      [ngStyle]="{
-        'width.px':visualizer.measurements.width,
-        'height.px':visualizer.measurements.height,
-        'top.px':visualizer.measurements.y,
-        'left.px':visualizer.measurements.x
-      }">
-    </div>
-    <div *ngFor="let visualizer of dashboard.visualizers" class="inner">
-      <div
-          class="inner"
-          *ngFor="let filter of visualizer.displayedFilters"
+  <div class="edit">
+    <button
+      *ngIf="!edit"
+      (click)="edit = !edit"
+      mat-flat-button
+      color="primary"
+    >
+      Edit
+    </button>
+    <button *ngIf="edit" (click)="onSave()" mat-button color="primary">
+      Save
+    </button>
+    <!-- filter -->
 
-          [ngStyle]="{
-            'width.px':filter.measurements.width,
-            'height.px':filter.measurements.height,
-            'top.px':filter.measurements.y,
-            'left.px':filter.measurements.x,
-            'background-color':'red'
-          }"
-          >
-          filter
+    <button *ngIf="edit" (click)="edit = !edit" mat-flat-button color="primary">
+      Cancel
+    </button>
+  </div>
+  <div *ngIf="!edit">
+    <app-visualizer-item
+      *ngFor="let visualizer of (dashboard | async).visualizers"
+      class="inner visualizer"
+      [visualizerId]="visualizer.visualizationIndex"
+      [ngStyle]="{
+        'width.px': visualizer.measurements.width,
+        'height.px': visualizer.measurements.height,
+        'top.px': visualizer.measurements.y,
+        'left.px': visualizer.measurements.x
+      }"
+    ></app-visualizer-item>
+
+    <div
+      *ngFor="let visualizer of (dashboard | async).visualizers"
+      class="inner"
+    >
+      <app-filter-item
+        class="inner"
+        *ngFor="let filter of visualizer.displayedFilters"
+        [filter]="(filters | async)[filter.filterIndex]"
+        [ngStyle]="{
+          'width.px': filter.measurements.width,
+          'height.px': filter.measurements.height,
+          'top.px': filter.measurements.y,
+          'left.px': filter.measurements.x
+        }"
+      >
+        <!-- filter -->
+      </app-filter-item>
+    </div>
+  </div>
+
+  <div *ngIf="edit">
+    <div
+      *ngFor="let visualizer of (dashboard | async).visualizers"
+      id="visualizer"
+      class="inner visualizer-shape"
+      moving
+      [id]="'visualizer' + visualizer.visualizationIndex"
+      [ngStyle]="{
+        'width.px': visualizer.measurements.width,
+        'height.px': visualizer.measurements.height,
+        'top.px': visualizer.measurements.y,
+        'left.px': visualizer.measurements.x
+      }"
+    >
+      {{ (visualizers | async)[visualizer.visualizationIndex].name }}
+    </div>
+
+    <div
+      *ngFor="let visualizer of (dashboard | async).visualizers"
+      class="inner"
+    >
+      <div
+        class="inner filter-shape"
+        *ngFor="let filter of visualizer.displayedFilters"
+        [id]="'filter' + filter.filterIndex"
+        moving
+
+        [ngStyle]="{
+          'width.px': filter.measurements.width,
+          'height.px': filter.measurements.height,
+          'top.px': filter.measurements.y,
+          'left.px': filter.measurements.x
+        }"
+      >
+        {{ (filters | async)[filter.filterIndex].name }}<br />{{
+          (visualizers | async)[visualizer.visualizationIndex].name
+        }}
       </div>
     </div>
   </div>
 </div>
-

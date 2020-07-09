@@ -87,9 +87,9 @@ export const selectCurrentVisualizer = createSelector(
 
 
 export const selectVisualizersChart = createSelector(
-  selectCurrentVisualizer,
-  (visualizer) => {
-    return visualizer ? visualizer.chartSvg || '' : null;
+  selectVisualizersEntities,
+  (entities,{visualizerId}) => {
+    return entities[visualizerId] ? entities[visualizerId].chartSvg || '' : null;
   }
 );
 
