@@ -1,5 +1,6 @@
 from numpy import double
 
+from DataI.Controllers.DataControllers.VisualizationsController import VisualizationsController
 from DataI.Controllers.DrawControllers.ChartsFactory import ChartsFactory
 from DataI.Models.DataModel import DataModel
 from DataI.Models.TableModel import TableModel
@@ -22,6 +23,7 @@ class DrawController():
                                  data.dataSources[tableIndex].id,
                                  data.dataSources[tableIndex].properties,
                                  data.dataSources[tableIndex].aggregator,
+                                 data.dataSources[tableIndex].filters,
                                  data.dataSources[tableIndex].isDeleted)
 
         # setting used colors in table:
@@ -45,8 +47,16 @@ class DrawController():
         drawTable = cls.generateVisualizerTable(data, visioID)
         cls.__removeXColumnIfExists(drawTable, visualizer.xColumn)
 
+        # implement visualization filters.
+        drawTable = VisualizationsController.getFinalTable(data, visioID)
+
         xColumnIndex = DataController.getElementIndexById(data.dataSources, visualizer.xColumn)
-        xColumn = data.dataSources[visualizer.data].columns[xColumnIndex]
+        xColumn = drawTable.columns[xColumnIndex]
+
+        for column in drawTable.columns:
+            for cell in column.cells:
+                print(cell)
+            print('_________________________')
 
         drawer = ChartsFactory.generateCharts(visualizer.chart, drawTable, width, height, xColumn, double(8.0))
         return drawer.SVG

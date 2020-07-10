@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+     width="1647.0" height="992.4" viewBox="0 -992.4 1647.0 992.4">
+<defs>
+</defs>
+<rect x="0" y="-992.4" width="1647.0" height="992.4" fill="#ffffff" />
+<path d="M183.0,-165.4 h1464" stroke-width="0.24733333333333335" stroke="lightgray" fill="gray" fill-opacity="0" />
+<path d="M183.0,-268.775 h1464" stroke-width="0.24733333333333335" stroke="lightgray" fill="gray" fill-opacity="0" />
+<path d="M183.0,-372.15 h1464" stroke-width="0.24733333333333335" stroke="lightgray" fill="gray" fill-opacity="0" />
+<path d="M183.0,-475.525 h1464" stroke-width="0.24733333333333335" stroke="lightgray" fill="gray" fill-opacity="0" />
+<path d="M183.0,-578.9 h1464" stroke-width="0.24733333333333335" stroke="lightgray" fill="gray" fill-opacity="0" />
+<path d="M183.0,-682.275 h1464" stroke-width="0.24733333333333335" stroke="lightgray" fill="gray" fill-opacity="0" />
+<path d="M183.0,-785.6499999999999 h1464" stroke-width="0.24733333333333335" stroke="lightgray" fill="gray" fill-opacity="0" />
+<path d="M183.0,-889.025 h1464" stroke-width="0.24733333333333335" stroke="lightgray" fill="gray" fill-opacity="0" />
+<circle cx="475.8" cy="-248.99164420485175" r="14.64" fill="#b6ffc2" stroke-width="0" stroke="black" id="0" />
+<circle cx="768.6" cy="-165.4" r="14.64" fill="#b6ffc2" stroke-width="0" stroke="black" id="1" />
+<circle cx="1061.4" cy="-176.5455525606469" r="14.64" fill="#b6ffc2" stroke-width="0" stroke="black" id="2" />
+<circle cx="1354.2" cy="-783.9781671159029" r="14.64" fill="#b6ffc2" stroke-width="0" stroke="black" id="3" />
+<circle cx="475.8" cy="-288.0010781671159" r="14.64" fill="#eb1740" stroke-width="0" stroke="black" id="4" />
+<circle cx="768.6" cy="-232.2733153638814" r="14.64" fill="#eb1740" stroke-width="0" stroke="black" id="5" />
+<circle cx="1061.4" cy="-711.532075471698" r="14.64" fill="#eb1740" stroke-width="0" stroke="black" id="6" />
+<circle cx="1354.2" cy="-527.6304582210242" r="14.64" fill="#eb1740" stroke-width="0" stroke="black" id="7" />
+<circle cx="475.8" cy="-449.61159029649593" r="14.64" fill="#8119a6" stroke-width="0" stroke="black" id="8" />
+<circle cx="768.6" cy="-466.3299191374663" r="14.64" fill="#8119a6" stroke-width="0" stroke="black" id="9" />
+<circle cx="1061.4" cy="-711.532075471698" r="14.64" fill="#8119a6" stroke-width="0" stroke="black" id="10" />
+<circle cx="1354.2" cy="-527.6304582210242" r="14.64" fill="#8119a6" stroke-width="0" stroke="black" id="11" />
+<circle cx="475.8" cy="-165.4" r="11.712" fill="black" stroke-width="0" stroke="black" />
+<text x="459.26" y="-115.51876923076922" font-size="11.026666666666667" id="12" transform="rotate(90,474.8,-127.23076923076923)">السعر</text>
+<circle cx="768.6" cy="-165.4" r="11.712" fill="black" stroke-width="0" stroke="black" />
+<text x="752.0600000000001" y="-115.51876923076922" font-size="11.026666666666667" id="13" transform="rotate(90,767.6,-127.23076923076923)">15.0</text>
+<circle cx="1061.4" cy="-165.4" r="11.712" fill="black" stroke-width="0" stroke="black" />
+<text x="1044.8600000000001" y="-115.51876923076922" font-size="11.026666666666667" id="14" transform="rotate(90,1060.4,-127.23076923076923)">0.0</text>
+<circle cx="1354.2" cy="-165.4" r="11.712" fill="black" stroke-width="0" stroke="black" />
+<text x="1337.66" y="-115.51876923076922" font-size="11.026666666666667" id="15" transform="rotate(90,1353.2,-127.23076923076923)">2.0</text>
+<circle cx="32.94" cy="-49.35" r="20.5875" fill="black" stroke-width="0" stroke="black" />
+<text x="115.28999999999999" y="-61.9375" font-size="41.175" id="16">X:السعر</text>
+<circle cx="307.44" cy="-49.35" r="20.5875" fill="#b6ffc2" stroke-width="0" stroke="black" />
+<text x="389.78999999999996" y="-61.9375" font-size="41.175" id="16">السعر</text>
+<circle cx="581.94" cy="-49.35" r="20.5875" fill="#eb1740" stroke-width="0" stroke="black" />
+<text x="664.2900000000001" y="-61.9375" font-size="41.175" id="16">الحجم</text>
+<circle cx="856.44" cy="-49.35" r="20.5875" fill="#8119a6" stroke-width="0" stroke="black" />
+<text x="938.7900000000001" y="-61.9375" font-size="41.175" id="16">الكمية</text>
+<text x="18.3" y="-165.4" font-size="22.875" id="16">0.0</text>
+<text x="18.3" y="-268.775" font-size="22.875" id="17">18.55</text>
+<text x="18.3" y="-372.15" font-size="22.875" id="18">37.1</text>
+<text x="18.3" y="-475.525" font-size="22.875" id="19">55.65000...</text>
+<text x="18.3" y="-578.9" font-size="22.875" id="20">74.2</text>
+<text x="18.3" y="-682.275" font-size="22.875" id="21">92.75</text>
+<text x="18.3" y="-785.6499999999999" font-size="22.875" id="22">111.3</text>
+<text x="18.3" y="-889.025" font-size="22.875" id="23">129.85</text>
+<path d="M183.0,-165.4 V-165.4" stroke-width="5.856" stroke="#b6ffc2" fill="#b6ffc2" fill-opacity="0.05" id="24" />
+<path d="M183.0,-165.4 L475.8,-288.0010781671159 L768.6,-232.2733153638814 L1061.4,-711.532075471698 L1354.2,-527.6304582210242 V-165.4" stroke-width="5.856" stroke="#eb1740" fill="#eb1740" fill-opacity="0.05" id="25" />
+<path d="M183.0,-165.4 L475.8,-449.61159029649593 L768.6,-466.3299191374663 L1061.4,-711.532075471698 L1354.2,-527.6304582210242 V-165.4" stroke-width="5.856" stroke="#8119a6" fill="#8119a6" fill-opacity="0.05" id="26" />
+</svg>

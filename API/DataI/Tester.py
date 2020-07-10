@@ -4,9 +4,13 @@ import re
 
 from numpy import double
 
+from DataI import enums
 from DataI.Controllers.DataControllers.DataController import DataController
+from DataI.Controllers.DataControllers.DataSourcesController import DataSourcesController
 from DataI.Controllers.DrawControllers.DrawController import DrawController
-from DataI.Controllers.Filters.FilterController import NumericFilterController
+from DataI.Controllers.Filters.FilterController import NumericFilter, MultipleEqualityFilter, FiltersController
+from DataI.JSONSerializer import ObjectEncoder
+from DataI.Models.ColumnModel import CellModel
 from DataI.Models.DashboardModel import DashboardModel
 from DataI.Models.FilterModel import FilterModel
 import os
@@ -24,12 +28,125 @@ filename = os.path.join(dirName, '../Test.xlsx')
 
 dataController.loadTablesFromExcelFile(filename, 0)
 
-filter = NumericFilterController()
+jsonFilters = '''
+[
+        {
+            "name": "filter1",
+            "id": 0,
+            "dataSource": 0,
+            "filteredColumn": 0,
+            "initValue": "A",
+            "type": "MultipleEquality",
+            "isDeleted": false
+        },
+        {
+            "name": "filter2",
+            "id": 1,
+            "dataSource": 0,
+            "filteredColumn": 2,
+            "initValue": 100,
+            "type": ">",
+            "isDeleted": false
+        },
+        {
+            "name": "filter3",
+            "id": 2,
+            "dataSource": 0,
+            "filteredColumn": 0,
+            "initValue": 11,
+            "type": "<",
+            "isDeleted": false
+        }
+    ]
+'''
+jsonVisio = '''
+{
+            "name": "visualization1",
+            "id": 0,
+            "data": 0,
+            "usedColumns": [
+                0,
+                1,
+                2
+            ],
+            "xColumn": 0,
+            "chart": "VerticalBarChart",
+            "filters": [
+                {
+                    "id": 1,
+                    "value": 5,
+                    "isActive": true
+                },
+                {
+                    "id": 0,
+                    "value": "testerValue",
+                    "isActive": true
+                },
+                {
+                    "id": 2,
+                    "value": 2142,
+                    "isActive": false
+                }
+            ],
+            "isDeleted": false
+        }
+'''
 
-filteredColumn = filter.implementFilter(dataController.data.dataSources[0].columns[0], '<', 10)
+loadedJsonFilters = json.loads(jsonFilters)
+for filter in loadedJsonFilters:
+    dataController.data.filters.append(FilterModel.from_json(filter))
 
-for cell in filteredColumn.cells:
-    print(cell)
+filter1 = {
+    "id": 1,
+    "value": 50,
+    "isActive": True
+}
+filter2 = {
+    "id": 1,
+    "value": 60,
+    "isActive": True
+}
+filter3 = {
+    "id": 0,
+    "value": ['log', '44', '15'],
+    "isActive": True
+}
+
+dataController.data.visualizations.append(VisualizationModel.from_json(json.loads(jsonVisio)))
+dataController.data.dataSources[0].filters = [filter1, filter2]
+dataController.data.dataSources[1].filters = [filter3]
+dataController.data.visualizations[0].filters = [filter1]
+
+#filteredTable = FiltersController.getFilteredTable(dataController.data, 1)
+# filteredTables = DataSourcesController.getFinalTables(dataController.data)
+#
+# for table in filteredTables:
+#     for column in table.columns:
+#         for cell in column.cells:
+#             print(cell)
+#         print('_________________')
+#     print('==================================')
+#     print('__________________________________')
+#     print('==================================')
+
+
+# for column in dataController.data.dataSources[0].columns:
+#     for cell in column.cells:
+#         print(cell)
+#     print('____________________________')
+
+# filter = MultipleEqualityFilter()
+# filter = NumericFilter('>')
+
+# filteredTable= filter.implementFilter(dataController.data.dataSources[0], 2, [51, 15, 44])
+
+# for column in filteredTable.columns:
+#     for cell in column.cells:
+#         print(cell)
+#     print('__________________________')
+
+
+
 
 
 

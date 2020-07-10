@@ -20,9 +20,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="64fee853-01dd-4b64-bc35-3e73b57c88d3" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Default_Changelist.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Default_Changelist.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DataI/Controllers/Aggregation/Aggregation.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DataI/Controllers/Aggregation/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DataI/RegExTester.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/DataIBackend.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/DataIBackend.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataI/Controllers/DataControllers/DataSourcesController.py" beforeDir="false" afterPath="$PROJECT_DIR$/DataI/Controllers/DataControllers/DataSourcesController.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataI/Controllers/DataControllers/VisualizationsController.py" beforeDir="false" afterPath="$PROJECT_DIR$/DataI/Controllers/DataControllers/VisualizationsController.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataI/Controllers/DrawControllers/DrawController.py" beforeDir="false" afterPath="$PROJECT_DIR$/DataI/Controllers/DrawControllers/DrawController.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataI/Controllers/Filters/FilterController.py" beforeDir="false" afterPath="$PROJECT_DIR$/DataI/Controllers/Filters/FilterController.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../angular.json" beforeDir="false" afterPath="$PROJECT_DIR$/../angular.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -65,7 +73,7 @@
       <recent name="$PROJECT_DIR$/Charts/Charts" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.Charts-unit-test">
+  <component name="RunManager" selected="Python.RegExTester">
     <configuration name="Charts-unit-test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="DataIBackend" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -80,6 +88,27 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/DataI/TestJSONGenerator.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="RegExTester" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="DataIBackend" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/DataI" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/DataI/RegExTester.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -132,28 +161,6 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="testing" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="DataIBackend" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Chart" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Chart/testing.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <configuration name="testingUnit" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="DataIBackend" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -178,11 +185,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.RegExTester" />
+        <item itemvalue="Python.Tester" />
         <item itemvalue="Python.Charts-unit-test" />
         <item itemvalue="Python.__init__" />
-        <item itemvalue="Python.Tester" />
         <item itemvalue="Python.testingUnit" />
-        <item itemvalue="Python.testing" />
       </list>
     </recent_temporary>
   </component>
@@ -210,7 +217,34 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="structure">
+                    <value>
+                      <list>
+                        <option value="dir:/home/allonios/PycharmProjects/FullEnd/API/DataI/Controllers/DataControllers" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Paths">
+          <value>
+            <list>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="dir:/home/allonios/PycharmProjects/FullEnd/API/DataI/Controllers/DataControllers" />
+                </option>
+              </RecentGroup>
+            </list>
           </value>
         </entry>
       </map>
@@ -254,26 +288,30 @@
       <screen x="0" y="30" width="1920" height="1050" />
     </state>
     <state x="709" y="358" width="491" height="389" key="#com.intellij.fileTypes.FileTypeChooser/0.30.1920.1050@0.30.1920.1050" timestamp="1593023740402" />
-    <state width="1897" height="320" key="GridCell.Tab.0.bottom" timestamp="1593080784466">
+    <state x="100" y="130" width="1720" height="850" key="DiffContextDialog" timestamp="1594370756538">
       <screen x="0" y="30" width="1920" height="1050" />
     </state>
-    <state width="1897" height="320" key="GridCell.Tab.0.bottom/0.30.1920.1050@0.30.1920.1050" timestamp="1593080784466" />
+    <state x="100" y="130" width="1720" height="850" key="DiffContextDialog/0.30.1920.1050@0.30.1920.1050" timestamp="1594370756538" />
+    <state width="1897" height="345" key="GridCell.Tab.0.bottom" timestamp="1594382730549">
+      <screen x="0" y="30" width="1920" height="1050" />
+    </state>
+    <state width="1897" height="345" key="GridCell.Tab.0.bottom/0.30.1920.1050@0.30.1920.1050" timestamp="1594382730549" />
     <state width="1428" height="224" key="GridCell.Tab.0.bottom/66.0.1470.864@66.0.1470.864" timestamp="1593006257263" />
-    <state width="1897" height="320" key="GridCell.Tab.0.center" timestamp="1593080784465">
+    <state width="1897" height="345" key="GridCell.Tab.0.center" timestamp="1594382730547">
       <screen x="0" y="30" width="1920" height="1050" />
     </state>
-    <state width="1897" height="320" key="GridCell.Tab.0.center/0.30.1920.1050@0.30.1920.1050" timestamp="1593080784465" />
+    <state width="1897" height="345" key="GridCell.Tab.0.center/0.30.1920.1050@0.30.1920.1050" timestamp="1594382730547" />
     <state width="1428" height="224" key="GridCell.Tab.0.center/66.0.1470.864@66.0.1470.864" timestamp="1593006257263" />
-    <state width="1897" height="320" key="GridCell.Tab.0.left" timestamp="1593080784465">
+    <state width="1897" height="345" key="GridCell.Tab.0.left" timestamp="1594382730547">
       <screen x="0" y="30" width="1920" height="1050" />
     </state>
-    <state width="1897" height="320" key="GridCell.Tab.0.left/0.30.1920.1050@0.30.1920.1050" timestamp="1593080784465" />
+    <state width="1897" height="345" key="GridCell.Tab.0.left/0.30.1920.1050@0.30.1920.1050" timestamp="1594382730547" />
     <state width="1428" height="224" key="GridCell.Tab.0.left/66.0.1470.864@66.0.1470.864" timestamp="1593006257263" />
-    <state width="1897" height="320" key="GridCell.Tab.0.right" timestamp="1593080784466">
+    <state width="1897" height="345" key="GridCell.Tab.0.right" timestamp="1594382730548">
       <screen x="0" y="30" width="1920" height="1050" />
     </state>
-    <state width="1897" height="320" key="GridCell.Tab.0.right/0.30.1920.1050@0.30.1920.1050" timestamp="1593080784466" />
-    <state x="523" y="289" width="980" height="710" key="SettingsEditor" timestamp="1594406755397">
+    <state width="1897" height="345" key="GridCell.Tab.0.right/0.30.1920.1050@0.30.1920.1050" timestamp="1594382730548" />
+    <state x="523" y="289" key="SettingsEditor" timestamp="1593017057912">
       <screen x="0" y="30" width="1920" height="1050" />
     </state>
     <state x="523" y="289" key="SettingsEditor/0.30.1920.1050@0.30.1920.1050" timestamp="1594406755397" />
@@ -290,6 +328,10 @@
       <screen x="1366" y="0" width="1280" height="1024" />
     </state>
     <state x="1243" y="0" width="1280" height="681" maximized="true" key="dock-window-1/0.0.1366.768/1366.0.1280.1024@0.0.1366.768" timestamp="1593433825929" />
+    <state x="743" y="363" width="424" height="380" key="git4idea.history.wholeTree.VcsStructureChooser" timestamp="1594360604362">
+      <screen x="0" y="30" width="1920" height="1050" />
+    </state>
+    <state x="743" y="363" width="424" height="380" key="git4idea.history.wholeTree.VcsStructureChooser/0.30.1920.1050@0.30.1920.1050" timestamp="1594360604362" />
     <state x="443" y="161" width="672" height="473" key="search.everywhere.popup" timestamp="1593425990961">
       <screen x="0" y="0" width="1366" height="732" />
     </state>

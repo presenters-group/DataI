@@ -4,7 +4,7 @@ from DataI import enums
 from DataI.Controllers.DataControllers.DashboardsController import DashboardsController
 from DataI.Controllers.DataControllers.DataSourcesController import DataSourcesController
 from DataI.Controllers.DrawControllers.DrawController import DrawController
-from DataI.Controllers.DataControllers.FiltersController import FiltersController
+from DataI.Controllers.DataControllers.FiltersModelController import FiltersModelController
 from DataI.Controllers.DataControllers.VisualizationsController import VisualizationsController
 from DataI.Controllers.FileLoaders.CSVFileLoader import CSVFileLoader
 from DataI.Controllers.FileLoaders.ExcelFileLoader import ExcelFileLoader
@@ -29,6 +29,9 @@ class DataController():
         loader = CSVFileLoader(filePath)
         self.data.dataSources.append(loader.loadFile(greatestTableId))
 
+    def getFinalTables(self) -> List[TableModel]:
+        return DataSourcesController.getFinalTables(self.data)
+
     def insertNewTable(self, table: TableModel):
         DataSourcesController.insertNewTable(self.data, table)
 
@@ -38,8 +41,8 @@ class DataController():
     def insertNewDashboard(self, dashBoard: DashboardModel):
         DashboardsController.inserNewDashboard(self.data, dashBoard)
 
-    def inserNewFilter(self, filter: FilterModel):
-        FiltersController.inserNewFilter(self.data, filter)
+    def insertNewFilter(self, filter: FilterModel):
+        FiltersModelController.insertNewFilter(self.data, filter)
 
     def updateTableById(self, table: TableModel, id: int):
         return DataSourcesController.updateTableById(self.data, table, id)
@@ -60,7 +63,7 @@ class DataController():
         return DashboardsController.updateDashboardById(self.data, dashboard, id)
 
     def updateFilterById(self, filter: FilterModel, id: int):
-        return FiltersController.updateFilterById(self.data, filter, id)
+        return FiltersModelController.updateFilterById(self.data, filter, id)
 
     def deleteTable(self, id):
         return DataSourcesController.deleteTable(self.data, id)
@@ -72,7 +75,7 @@ class DataController():
         return DashboardsController.deleteDashBoard(self.data, id)
 
     def deleteFilter(self, id):
-        return FiltersController.deleteFilter(self.data, id)
+        return FiltersModelController.deleteFilter(self.data, id)
 
     def getChartsNames(self):
         names = [enums.ChartTypes.VerticalBarChart.value, enums.ChartTypes.BoundaryLineChart.value,
@@ -90,7 +93,11 @@ class DataController():
 
     @classmethod
     def getElementIndexById(cls, list, id: int):
-        return getElementIndexById(list, id)
+        return getElementIndexById(list, id)\
+
+    @classmethod
+    def elementExists(cls, list, id: int) -> bool:
+        return elementExists(list, id)
 
 
 def getMaxIdInList(idList):
@@ -116,3 +123,9 @@ def getElementIndexById(list: List, id: int):
             return indexCounter
         indexCounter += 1
     return -1
+
+def elementExists(list: List, id: int) -> bool:
+    for element in list:
+        if element.id == id:
+            return True
+    return False
