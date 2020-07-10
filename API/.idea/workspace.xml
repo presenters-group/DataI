@@ -20,22 +20,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="64fee853-01dd-4b64-bc35-3e73b57c88d3" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/DataI/Controllers/DrawControllers/DrawController.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DataI/Controllers/DrawControllers/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/DataIBackend.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/DataIBackend.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Default_Changelist.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Default_Changelist.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataI/Controllers/DataControllers/DataController.py" beforeDir="false" afterPath="$PROJECT_DIR$/DataI/Controllers/DataControllers/DataController.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataI/Controllers/DataControllers/VisualizationsController.py" beforeDir="false" afterPath="$PROJECT_DIR$/DataI/Controllers/DataControllers/VisualizationsController.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataI/Tester.py" beforeDir="false" afterPath="$PROJECT_DIR$/DataI/Tester.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataI/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/DataI/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataI/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/DataI/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataIBackend/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/DataIBackend/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../package-lock.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DjangoConsoleOptions" custom-start-script="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)">
+    <option name="myCustomStartScript" value="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -63,7 +58,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -149,6 +144,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Chart/testing.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
@@ -202,6 +198,7 @@
       <updated>1592818672809</updated>
       <workItem from="1592818675618" duration="103000" />
       <workItem from="1593004868637" duration="6700000" />
+      <workItem from="1594315076621" duration="566000" />
     </task>
     <servers />
   </component>
@@ -237,6 +234,7 @@
       <screen x="0" y="0" width="2646" height="1024" />
     </state>
     <state x="317" y="48" key="#Inspections/0.0.2646.1024@0.0.2646.1024" timestamp="1593017341304" />
+    <state x="589" y="236" width="732" height="633" key="#Inspections/0.30.1920.1050@0.30.1920.1050" timestamp="1592978540818" />
     <state x="571" y="235" key="#Notifications" timestamp="1593051528529">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
@@ -244,7 +242,6 @@
     <state x="373" y="35" width="608" height="669" key="#TestJSONGenerator" timestamp="1593014021315">
       <screen x="0" y="0" width="2646" height="1024" />
     </state>
-    <state x="589" y="236" width="732" height="633" key="#Inspections/0.30.1920.1050@0.30.1920.1050" timestamp="1592978540818" />
     <state x="517" y="27" key="#Tester" timestamp="1593004988704">
       <screen x="66" y="0" width="1470" height="864" />
     </state>
@@ -276,10 +273,11 @@
       <screen x="0" y="30" width="1920" height="1050" />
     </state>
     <state width="1897" height="320" key="GridCell.Tab.0.right/0.30.1920.1050@0.30.1920.1050" timestamp="1593080784466" />
-    <state x="523" y="289" key="SettingsEditor" timestamp="1593017057912">
+    <state x="523" y="289" width="980" height="710" key="SettingsEditor" timestamp="1594406755397">
       <screen x="0" y="30" width="1920" height="1050" />
     </state>
-    <state x="523" y="289" key="SettingsEditor/0.30.1920.1050@0.30.1920.1050" timestamp="1593017057912" />
+    <state x="523" y="289" key="SettingsEditor/0.30.1920.1050@0.30.1920.1050" timestamp="1594406755397" />
+    <state x="321" y="64" width="980" height="710" key="SettingsEditor/66.0.1470.864@66.0.1470.864" timestamp="1594315656172" />
     <state x="465" y="236" key="com.intellij.ide.util.TipDialog" timestamp="1592818677328">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
