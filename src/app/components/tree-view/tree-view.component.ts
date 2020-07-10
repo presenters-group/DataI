@@ -22,8 +22,9 @@ import { AddFilterComponent } from "src/app/pages/filter/dialogs/add-filter/add-
 import { createFilter, deleteFilter } from "src/store/filters";
 import { element } from "protractor";
 import { deleteDataSource } from "src/store/data-sources";
-import { deleteDashboard } from "src/store/dashboards";
+import { deleteDashboard, createDashboard } from "src/store/dashboards";
 import { NotificationService } from 'src/store/notifications/notifications.service';
+import { AddDashboardComponent } from 'src/app/pages/dashboard/dialogs/add-dashboard/add-dashboard.component';
 @Component({
   selector: "app-tree-view",
   templateUrl: "./tree-view.component.html",
@@ -177,6 +178,16 @@ export class TreeViewComponent implements OnInit, AfterViewInit {
             dialogRefFilter.afterClosed().subscribe((result) => {
               this.store.dispatch(
                 createFilter({
+                  data: { ...result.value, id: 0, isDeleted: false },
+                })
+              );
+            });
+            break;
+          case "dashboards":
+            let dialogRefDashboard = this.dialog.open(AddDashboardComponent);
+            dialogRefDashboard.afterClosed().subscribe((result) => {
+              this.store.dispatch(
+                createDashboard({
                   data: { ...result.value, id: 0, isDeleted: false },
                 })
               );

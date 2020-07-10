@@ -37,6 +37,9 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="DjangoConsoleOptions" custom-start-script="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)">
+    <option name="myCustomStartScript" value="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)" />
+  </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
@@ -63,7 +66,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -202,6 +205,7 @@
       <updated>1592818672809</updated>
       <workItem from="1592818675618" duration="103000" />
       <workItem from="1593004868637" duration="6700000" />
+      <workItem from="1594315076621" duration="566000" />
     </task>
     <servers />
   </component>
@@ -310,7 +314,8 @@
     <state x="523" y="289" key="SettingsEditor" timestamp="1593017057912">
       <screen x="0" y="30" width="1920" height="1050" />
     </state>
-    <state x="523" y="289" key="SettingsEditor/0.30.1920.1050@0.30.1920.1050" timestamp="1593017057912" />
+    <state x="523" y="289" key="SettingsEditor/0.30.1920.1050@0.30.1920.1050" timestamp="1594406755397" />
+    <state x="321" y="64" width="980" height="710" key="SettingsEditor/66.0.1470.864@66.0.1470.864" timestamp="1594315656172" />
     <state x="465" y="236" key="com.intellij.ide.util.TipDialog" timestamp="1592818677328">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

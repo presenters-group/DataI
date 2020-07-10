@@ -61,28 +61,28 @@ jsonDashboard = '''
                 {
                     "visualizationIndex": 0,
                     "measurements": {
-                        "width": 1.0,
-                        "height": 1.0,
-                        "x": 1.0,
-                        "y": 1.0
+                        "width": 100,
+                        "height": 100,
+                        "x": 50,
+                        "y": 50
                     },
                     "displayedFilters": [
                         {
                             "filterIndex": 0,
                             "measurements": {
-                                "width": 0.0,
-                                "height": 0.0,
-                                "x": 0.0,
-                                "y": 0.0
+                                "width": 50,
+                                "height": 50,
+                                "x": 30,
+                                "y": 30
                             }
                         },
                         {
                             "filterIndex": 1,
                             "measurements": {
-                                "width": 1.0,
-                                "height": 1.0,
-                                "x": 1.0,
-                                "y": 1.0
+                                "width": 50,
+                                "height": 50,
+                                "x": 40,
+                                "y": 40
                             }
                         }
                     ]
@@ -145,9 +145,9 @@ loadedJsonFilters = json.loads(jsonFilters)
 for filter in loadedJsonFilters:
     dataController.data.filters.append(FilterModel.from_json(filter))
 
-dataController.data.dataSources[0].filters = [filter1, filter2]
-dataController.data.dataSources[1].filters = [filter3]
-dataController.data.visualizations[0].filters = [filter1]
+# dataController.data.dataSources[0].filters = [filter1, filter2]
+# dataController.data.dataSources[1].filters = [filter3]
+# dataController.data.visualizations[0].filters = [filter1]
 
 # ================================ load static data ================================.
 
