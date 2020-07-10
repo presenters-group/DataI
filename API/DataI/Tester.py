@@ -117,7 +117,12 @@ dataController.data.dataSources[0].filters = [filter1, filter2]
 dataController.data.dataSources[1].filters = [filter3]
 dataController.data.visualizations[0].filters = [filter1]
 
-#filteredTable = FiltersController.getFilteredTable(dataController.data, 1)
+# for color in dataController.data.dataSources[0].rowsColors:
+
+filteredTable = FiltersController.getFilteredTable(dataController.data, 0)
+
+print(len(filteredTable.rowsColors))
+print(len(filteredTable.columns[0].cells))
 # filteredTables = DataSourcesController.getFinalTables(dataController.data)
 #
 # for table in filteredTables:

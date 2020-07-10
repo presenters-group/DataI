@@ -33,6 +33,7 @@ class NumericFilter():
         for cell in column.cells[1:]:
             if not operators[self.operator](cell.value, value):
                 DataSourcesController.removeRowFromTable(filteredTable, rowCounter)
+                filteredTable.rowsColors.pop(rowCounter - 1)
                 # refresh row counter after deleting
                 rowCounter -= 1
             rowCounter += 1
@@ -51,12 +52,15 @@ class MultipleEqualityFilter():
         column = filteredTable.columns[columnIndex]
 
         values = self.__castNumericListElementsToFloats(values)
-        print(values)
 
         rowCounter = 1
         for cell in column.cells[1:]:
             if cell.value not in values:
+                print('rows: ' + str(len(filteredTable.columns[0].cells)))
+                print('rows colors: ' + str(len(filteredTable.rowsColors)))
+                print('row counter: ' + str(rowCounter))
                 DataSourcesController.removeRowFromTable(filteredTable, rowCounter)
+                filteredTable.rowsColors.pop(rowCounter - 1)
                 # refresh row counter after deleting
                 rowCounter -= 1
             rowCounter += 1
@@ -129,14 +133,6 @@ class FiltersController():
                 columnIndex = DataController.getElementIndexById(table.columns, id)
                 column = table.columns[columnIndex]
                 columnsList.append(column)
-
-
-
-
-
-
-
-
 
 
 class FiltersFactory():
