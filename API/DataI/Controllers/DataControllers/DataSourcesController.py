@@ -98,13 +98,12 @@ class DataSourcesController():
     @classmethod
     def __updateCategorizedValues(cls, column: ColumnModel):
         column.valueCategories.clear()
-
         for cell in column.cells[1:]:
-            if not cls.__cellInList(cell, column.valueCategories):
+            if not cls.cellInList(cell, column.valueCategories):
                 column.valueCategories.append(cell)
 
     @classmethod
-    def __cellInList(self, cell, list):
+    def cellInList(self, cell, list):
         for item in list:
             if item.value == cell.value:
                 return True
@@ -115,3 +114,20 @@ class DataSourcesController():
 def removeRowFromTable(table: TableModel, rowIndex: int):
     for column in table.columns:
         column.cells.pop(rowIndex)
+
+def updateCategorizedValues(column: ColumnModel):
+    column.valueCategories.clear()
+    for cell in column.cells[1:]:
+        if not DataSourcesController.cellInList(cell, column.valueCategories):
+            column.valueCategories.append(cell)
+##############################################
+
+#util functions.
+def addTwoCellsLists(firstList: List[CellModel], secondList: List[CellModel]) -> List[CellModel]:
+    resultList = list()
+    for cell1, cell2 in zip(firstList, secondList):
+        resultList.append(CellModel(cell1.value + cell2.value, cell1.type))
+    return resultList
+
+
+

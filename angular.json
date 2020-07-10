@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "DataI"
+    }
+  },
+  "defaultProject": "DataI",
+  "cli": {
+    "analytics": "8a2dce7c-25ef-46b2-978b-f6dee8082230"
+  }
 }

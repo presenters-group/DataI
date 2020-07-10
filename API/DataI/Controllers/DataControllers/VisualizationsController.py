@@ -30,10 +30,10 @@ class VisualizationsController():
         return None
 
     @classmethod
-    def getFinalTables(cls, data: DataModel, visioId) -> TableModel:
+    def getFinalTable(cls, data: DataModel, visioId) -> TableModel:
         # Aggregation should be added here.
-        return cls.__getFilteredTables(data, visioId)
+        return cls.__getFilteredTable(data, visioId)
 
     @classmethod
-    def __getFilteredTables(cls, data: DataModel, visioId) -> TableModel:
+    def __getFilteredTable(cls, data: DataModel, visioId) -> TableModel:
         return FiltersController.getFilteredVisioTable(data, visioId)

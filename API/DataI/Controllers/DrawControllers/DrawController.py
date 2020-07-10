@@ -47,11 +47,11 @@ class DrawController():
         drawTable = cls.generateVisualizerTable(data, visioID)
         cls.__removeXColumnIfExists(drawTable, visualizer.xColumn)
 
-        xColumnIndex = DataController.getElementIndexById(data.dataSources, visualizer.xColumn)
-        xColumn = data.dataSources[visualizer.data].columns[xColumnIndex]
+        # implement visualization filters.
+        drawTable = VisualizationsController.getFinalTable(data, visioID)
 
-        #implment visualization filters.
-        drawTable = VisualizationsController.getFinalTables(data, visioID)
+        xColumnIndex = DataController.getElementIndexById(data.dataSources, visualizer.xColumn)
+        xColumn = drawTable.columns[xColumnIndex]
 
         for column in drawTable.columns:
             for cell in column.cells:

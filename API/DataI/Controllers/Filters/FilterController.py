@@ -37,6 +37,8 @@ class NumericFilter():
                 rowCounter -= 1
             rowCounter += 1
 
+        for column in filteredTable.columns:
+            DataSourcesController.updateCategorizedValues(column)
 
         return filteredTable
 
@@ -58,6 +60,9 @@ class MultipleEqualityFilter():
                 # refresh row counter after deleting
                 rowCounter -= 1
             rowCounter += 1
+
+        for column in filteredTable.columns:
+            DataSourcesController.updateCategorizedValues(column)
 
         return filteredTable
 
