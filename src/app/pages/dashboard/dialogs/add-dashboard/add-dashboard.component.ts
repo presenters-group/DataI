@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { MatDialogRef } from "@angular/material/dialog";
 import { AppState } from "src/store";
-import { FormBuilder } from "@angular/forms";
+import { FormBuilder, Form, FormGroup } from "@angular/forms";
 import { Store } from "@ngrx/store";
 
 @Component({
@@ -10,7 +10,8 @@ import { Store } from "@ngrx/store";
   styleUrls: ["./add-dashboard.component.scss"],
 })
 export class AddDashboardComponent implements OnInit {
-  form;
+  form :FormGroup;
+  forms : [];
   constructor(
     public dialogRef: MatDialogRef<AddDashboardComponent>,
     private store: Store<AppState>,
@@ -22,12 +23,10 @@ export class AddDashboardComponent implements OnInit {
 
   formBuild(){
     this.form = this.formBuilder.group({
-      data: [''],
-      usedColumns: [[]],
-      xColumn: [''],
-      chart: [''],
-      name: [''],
-      filters:([[]]),
+      visualizers: [[]],
+    })
+    this.form.valueChanges.subscribe((value)=>{
+
     })
   }
 

@@ -1,13 +1,66 @@
 <table>
   <tr>
-    <!-- <td *ngFor="let columnColor of (dataSource | async).columnsColor" [ngStyle]="{'background-color' : columnColor }">
-      {{columnColor}}
-    </td> -->
+    <td>
+      {{(dataSource | async).name}}
+    </td>
+    <td class="color-cell" *ngFor="let color of (dataSource | async).columnsColors">
+      <input type="color" [value]="color" />
+      &nbsp;
+      <!-- {{ color }} -->
+    </td>
   </tr>
-  <tr *ngFor="let columnId of objectKeys((dataSource | async).columns);let i = index">
-    <!-- <td [ngStyle]="{'background-color' : (dataSource | async).columnsColors[i] }">
-      {{consol((dataSource | async).columnsColor[i])}}
-    </td> -->
+  <tr *ngFor="let cell of (dataSource | async).columns[0].cells; let i = index">
+    <td *ngIf="!i"> Colors </td>
+    <td class="color-cell" *ngIf="i">
+      <input type="color" [value]="(dataSource | async).rowsColors[i - 1]" />
+      &nbsp;
+      <!-- {{ (dataSource | async).rowsColors[i - 1] }} -->
+    </td>
+    <td
+      contenteditable="true"
+      (blur)="onCellUpdate(column, i, $event.target.innerText)"
+      *ngFor="let column of objectKeys((dataSource | async).columns)"
+    >
+      {{ (dataSource | async).columns[column].cells[i].value }}
+    </td>
+  </tr>
+</table>
+
+<!--
+<div class="container">
+  <div class="column" *ngFor="let column of objectKeys((dataSource | async).columns)">
+    <div class="cell" *ngFor="let cell of (dataSource | async).columns[column].cells">
+      {{cell.value}}
+    </div>
+  </div>
+</div> -->
+
+<!-- <table>
+  <tr>
+    <td class="color-cell">
+      {{ (dataSource | async).name }}
+    </td>
+    <td class="color-cell">
+      {{ (dataSource | async).name }}
+    </td>
+    <td
+      class="color-cell"
+      *ngFor="let rowColor of (dataSource | async).rowsColors"
+    >
+      <input type="color" [value]="rowColor" /> &nbsp; {{ rowColor }}
+    </td>
+  </tr>
+  <tr
+    *ngFor="
+      let columnId of objectKeys((dataSource | async).columns);
+      let i = index
+    "
+  >
+    <td class="color-cell">
+      <input type="color" [value]="(dataSource | async).columnsColors[i]" />
+      &nbsp;
+      {{ (dataSource | async).columnsColors[i] }}
+    </td>
     <td
       contenteditable="true"
       (blur)="onCellUpdate(columnId, i, $event.target.innerText)"
@@ -19,4 +72,4 @@
       {{ cell.value }}
     </td>
   </tr>
-</table>
+</table> -->

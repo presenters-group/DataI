@@ -1,14 +1,48 @@
 table {
-  display: table;
-  font-family: arial, sans-serif;
   border-collapse: collapse;
-  width: 100%;
 }
-table tr {
-  width: max-content;
-    display: table-cell;
-}
+// table tr {
+//   width: max-content;
+//     display: table-cell;
+// }
 table tr td {
+  width: max-content;
+  min-width: 100%;
+  // display: block;
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+.color-cell{
+  // color: white;
+}
+
+.color-cell{
+  // width: 10px;
+  // height: 10px;
+}
+
+
+
+
+
+/**Try flex instead of table*/
+.container{
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+  align-items: stretch;
+}
+
+.column{
+  display: flex;
+  flex-direction: row;
+  justify-content: stretch;
+  align-items: stretch;
+}
+
+.cell{
+  height: 100%;
   width: max-content;
   min-width: 100%;
   display: block;
