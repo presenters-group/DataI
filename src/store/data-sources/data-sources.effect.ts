@@ -124,7 +124,7 @@ export class DataSourcesEffects {
       switchMap(({ data }) =>
         this.dataSourcesService.updateCell(data).pipe(
           switchMap((data) => [
-            fromActions.updateDataSourceSuccess({ data }),
+            fromActions.updateCellSuccess({ data }),
             showSuccess({ message: UPDATE_SUCCESSFUL }),
           ]),
 

@@ -50,3 +50,22 @@ table tr td {
   text-align: left;
   padding: 8px;
 }
+
+
+
+.filter {
+  margin-top: 10px;
+}
+.filters {
+  padding: 10px;
+  flex: 0.1;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  background-color: var(--gray3);
+}
+
+.filters-title {
+  text-align: center;
+  font-size: large;
+}

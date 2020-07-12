@@ -71,7 +71,7 @@ export const updateCell = createAction(
 
 export const updateCellSuccess = createAction(
   "[DataSourceEffect] update cell Success",
-  props<{ data: {tableId: number, columnId : number, cellIndex: number, cellValue: any} }>()
+  props<{ data }>()
 );
 
 
