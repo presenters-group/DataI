@@ -1,11 +1,10 @@
 import json
 import os
 
-from django.http import HttpResponse, Http404, HttpResponseNotFound
+from django.http import HttpResponse, HttpResponseNotFound
 from django.views.decorators.csrf import csrf_exempt
 
 from DataI.Controllers.DataControllers.DataController import DataController
-from DataI.Controllers.Filters.FilterController import FiltersController
 from DataI.JSONSerializer import ObjectEncoder
 from DataI.Models.DashboardModel import DashboardModel
 from DataI.Models.FilterModel import FilterModel
@@ -35,21 +34,6 @@ jsonVisio = '''
             "xColumn": 0,
             "chart": "BoundaryLineChart",
             "filters": [
-                {
-                    "id": 1,
-                    "value": 5,
-                    "isActive": true
-                },
-                {
-                    "id": 0,
-                    "value": "testerValue",
-                    "isActive": true
-                },
-                {
-                    "id": 2,
-                    "value": 2142,
-                    "isActive": false
-                }
             ],
             "isDeleted": false
         }
@@ -148,7 +132,8 @@ for filter in loadedJsonFilters:
 
 dataController.data.dataSources[0].filters = [filter1, filter2]
 dataController.data.dataSources[1].filters = [filter3]
-dataController.data.visualizations[0].filters = [filter1]
+# dataController.data.visualizations[0].filters = [filter1]
+
 
 # ================================ load static data ================================.
 
@@ -171,76 +156,6 @@ def dataSourcesHandler(request):
         table = TableModel.from_json(json.loads(request.body.decode()))
         dataController.insertNewTable(table)
         return HttpResponse(json.dumps(table, indent=4, cls=ObjectEncoder, ensure_ascii=False))
-    else:
-        return HttpResponseNotFound('No such request({} <{}>) is available'.format(request.path, request.method))
-
-
-@csrf_exempt
-def insertInDataSourceFilter(request, tableId):
-    if request.method == 'PUT':
-        filter = json.loads(request.body.decode())
-        returnTable = dataController.insertInDataSourceFilter(filter, tableId)
-        return HttpResponse(json.dumps(returnTable, indent=4, cls=ObjectEncoder, ensure_ascii=False))
-    else:
-        return HttpResponseNotFound('No such request({} <{}>) is available'.format(request.path, request.method))
-
-
-@csrf_exempt
-def updateInDataSourceFilter(request, tableId, filterId):
-    if request.method == 'PUT':
-        filter = json.loads(request.body.decode())
-        returnTable = dataController.updateInDataSourceFilter(filter, tableId, filterId)
-        if returnTable == -1:
-            return HttpResponseNotFound('Filter not found.')
-        return HttpResponse(json.dumps(returnTable, indent=4, cls=ObjectEncoder, ensure_ascii=False))
-    else:
-        return HttpResponseNotFound('No such request({} <{}>) is available'.format(request.path, request.method))
-
-@csrf_exempt
-def removeInDataSourceFilter(request, tableId, filterId):
-    if request.method == 'PUT':
-        returnTable = dataController.removeInDataSourceFilter(tableId, filterId)
-        if returnTable == -1:
-            return HttpResponseNotFound('Filter not found.')
-        return HttpResponse(json.dumps(returnTable, indent=4, cls=ObjectEncoder, ensure_ascii=False))
-    else:
-        return HttpResponseNotFound('No such request({} <{}>) is available'.format(request.path, request.method))
-
-
-
-@csrf_exempt
-def visualizersHandler(request):
-    if request.method == 'GET':
-        return HttpResponse(
-            json.dumps(dataController.data.visualizations, indent=4, cls=ObjectEncoder, ensure_ascii=False))
-    elif request.method == 'POST':
-        visualizer = VisualizationModel.from_json(json.loads(request.body.decode()))
-        dataController.insertNewVisualizer(visualizer)
-        return HttpResponse(json.dumps(visualizer, indent=4, cls=ObjectEncoder, ensure_ascii=False))
-    else:
-        return HttpResponseNotFound('No such request({} <{}>) is available'.format(request.path, request.method))
-
-
-@csrf_exempt
-def dashBoardsHandler(request):
-    if request.method == 'GET':
-        return HttpResponse(json.dumps(dataController.data.dashboards, indent=4, cls=ObjectEncoder, ensure_ascii=False))
-    elif request.method == 'POST':
-        dashBoard = DashboardModel.from_json(json.loads(request.body.decode()))
-        dataController.insertNewDashboard(dashBoard)
-        return HttpResponse(json.dumps(dashBoard, indent=4, cls=ObjectEncoder, ensure_ascii=False))
-    else:
-        return HttpResponseNotFound('No such request({} <{}>) is available'.format(request.path, request.method))
-
-
-@csrf_exempt
-def filtersHandler(request):
-    if request.method == 'GET':
-        return HttpResponse(json.dumps(dataController.data.filters, indent=4, cls=ObjectEncoder, ensure_ascii=False))
-    elif request.method == 'POST':
-        filter = FilterModel.from_json(json.loads(request.body.decode()))
-        dataController.insertNewFilter(filter)
-        return HttpResponse(json.dumps(filter, indent=4, cls=ObjectEncoder, ensure_ascii=False))
     else:
         return HttpResponseNotFound('No such request({} <{}>) is available'.format(request.path, request.method))
 
@@ -282,6 +197,7 @@ def columnColorModifier(request, tableId, columnId):
     else:
         return HttpResponseNotFound('No such request({} <{}>) is available'.format(request.path, request.method))
 
+
 @csrf_exempt
 def rowColorModifier(request, tableId, rowId):
     if request.method == 'PUT':
@@ -291,6 +207,51 @@ def rowColorModifier(request, tableId, rowId):
     else:
         return HttpResponseNotFound('No such request({} <{}>) is available'.format(request.path, request.method))
 
+
+@csrf_exempt
+def insertInDataSourceFilter(request, tableId):
+    if request.method == 'PUT':
+        filter = json.loads(request.body.decode())
+        returnTable = dataController.insertInDataSourceFilter(filter, tableId)
+        return HttpResponse(json.dumps(returnTable, indent=4, cls=ObjectEncoder, ensure_ascii=False))
+    else:
+        return HttpResponseNotFound('No such request({} <{}>) is available'.format(request.path, request.method))
+
+
+@csrf_exempt
+def updateInDataSourceFilter(request, tableId, filterId):
+    if request.method == 'PUT':
+        filter = json.loads(request.body.decode())
+        returnTable = dataController.updateInDataSourceFilter(filter, tableId, filterId)
+        if returnTable == -1:
+            return HttpResponseNotFound('Filter not found.')
+        return HttpResponse(json.dumps(returnTable, indent=4, cls=ObjectEncoder, ensure_ascii=False))
+    else:
+        return HttpResponseNotFound('No such request({} <{}>) is available'.format(request.path, request.method))
+
+
+@csrf_exempt
+def removeInDataSourceFilter(request, tableId, filterId):
+    if request.method == 'PUT':
+        returnTable = dataController.removeInDataSourceFilter(tableId, filterId)
+        if returnTable == -1:
+            return HttpResponseNotFound('Filter not found.')
+        return HttpResponse(json.dumps(returnTable, indent=4, cls=ObjectEncoder, ensure_ascii=False))
+    else:
+        return HttpResponseNotFound('No such request({} <{}>) is available'.format(request.path, request.method))
+
+
+@csrf_exempt
+def visualizersHandler(request):
+    if request.method == 'GET':
+        return HttpResponse(
+            json.dumps(dataController.data.visualizations, indent=4, cls=ObjectEncoder, ensure_ascii=False))
+    elif request.method == 'POST':
+        visualizer = VisualizationModel.from_json(json.loads(request.body.decode()))
+        dataController.insertNewVisualizer(visualizer)
+        return HttpResponse(json.dumps(visualizer, indent=4, cls=ObjectEncoder, ensure_ascii=False))
+    else:
+        return HttpResponseNotFound('No such request({} <{}>) is available'.format(request.path, request.method))
 
 
 @csrf_exempt
@@ -307,6 +268,47 @@ def visualizerModifier(request, id):
 
 
 @csrf_exempt
+def getChartsNames(request):
+    if request.method == 'GET':
+        chartsNames = dataController.getChartsNames()
+        namesDict = dict()
+        namesDict['chartsNames'] = chartsNames
+        return HttpResponse(json.dumps(namesDict, indent=4, cls=ObjectEncoder, ensure_ascii=False))
+    else:
+        return HttpResponseNotFound('No such request({} <{}>) is available'.format(request.path, request.method))
+
+
+@csrf_exempt
+def getChartSVG(request):
+    if request.method == 'PUT':
+        visioInfo = json.loads(request.body.decode())
+        visualizerId = visioInfo.get('visualizerId')
+        width = visioInfo.get('width')
+        height = visioInfo.get('height')
+        svgString = dataController.getChartSVGString(visualizerId, width, height)
+        # print(svgString)
+        returnDict = dict()
+        returnDict['svg'] = svgString
+        returnDict['metaData'] = ""
+        returnDict['visualizerId'] = visualizerId
+        return HttpResponse(json.dumps(returnDict, indent=4, cls=ObjectEncoder, ensure_ascii=False))
+    else:
+        return HttpResponseNotFound('No such request({} <{}>) is available'.format(request.path, request.method))
+
+
+@csrf_exempt
+def dashBoardsHandler(request):
+    if request.method == 'GET':
+        return HttpResponse(json.dumps(dataController.data.dashboards, indent=4, cls=ObjectEncoder, ensure_ascii=False))
+    elif request.method == 'POST':
+        dashBoard = DashboardModel.from_json(json.loads(request.body.decode()))
+        dataController.insertNewDashboard(dashBoard)
+        return HttpResponse(json.dumps(dashBoard, indent=4, cls=ObjectEncoder, ensure_ascii=False))
+    else:
+        return HttpResponseNotFound('No such request({} <{}>) is available'.format(request.path, request.method))
+
+
+@csrf_exempt
 def dashboardModifier(request, id):
     if request.method == 'PUT':
         newDashboard = DashboardModel.from_json(json.loads(request.body.decode()))
@@ -315,6 +317,18 @@ def dashboardModifier(request, id):
     if request.method == 'DELETE':
         dashBoard = dataController.deleteDashBoard(id)
         return HttpResponse(json.dumps(dashBoard, indent=4, cls=ObjectEncoder, ensure_ascii=False))
+    else:
+        return HttpResponseNotFound('No such request({} <{}>) is available'.format(request.path, request.method))
+
+
+@csrf_exempt
+def filtersHandler(request):
+    if request.method == 'GET':
+        return HttpResponse(json.dumps(dataController.data.filters, indent=4, cls=ObjectEncoder, ensure_ascii=False))
+    elif request.method == 'POST':
+        filter = FilterModel.from_json(json.loads(request.body.decode()))
+        dataController.insertNewFilter(filter)
+        return HttpResponse(json.dumps(filter, indent=4, cls=ObjectEncoder, ensure_ascii=False))
     else:
         return HttpResponseNotFound('No such request({} <{}>) is available'.format(request.path, request.method))
 
@@ -356,6 +370,7 @@ def excelUpload(request):
 def csvUpload(request):
     if request.method != 'PUT':
         return HttpResponseNotFound('No such request({} <{}>) is available'.format(request.path, request.method))
+
     newdoc = Document(docfile=request.FILES['file_upload'])
     try:
         newdoc.save()
@@ -369,32 +384,3 @@ def csvUpload(request):
     print(filePath)
     dataController.loadTableFromCSVFile(filePath, DataController.getMaxIdInList(dataController.data.dataSources) + 1)
     return HttpResponse()
-
-
-@csrf_exempt
-def getChartsNames(request):
-    if request.method == 'GET':
-        chartsNames = dataController.getChartsNames()
-        namesDict = dict()
-        namesDict['chartsNames'] = chartsNames
-        return HttpResponse(json.dumps(namesDict, indent=4, cls=ObjectEncoder, ensure_ascii=False))
-    else:
-        return HttpResponseNotFound('No such request({} <{}>) is available'.format(request.path, request.method))
-
-
-@csrf_exempt
-def getChartSVG(request):
-    if request.method == 'PUT':
-        visioInfo = json.loads(request.body.decode())
-        visualizerId = visioInfo.get('visualizerId')
-        width = visioInfo.get('width')
-        height = visioInfo.get('height')
-        svgString = dataController.getChartSVGString(visualizerId, width, height)
-        # print(svgString)
-        returnDict = dict()
-        returnDict['svg'] = svgString
-        returnDict['metaData'] = ""
-        returnDict['visualizerId'] = visualizerId
-        return HttpResponse(json.dumps(returnDict, indent=4, cls=ObjectEncoder, ensure_ascii=False))
-    else:
-        return HttpResponseNotFound('No such request({} <{}>) is available'.format(request.path, request.method))

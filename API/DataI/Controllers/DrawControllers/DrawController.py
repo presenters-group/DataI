@@ -53,10 +53,10 @@ class DrawController():
         xColumnIndex = DataController.getElementIndexById(data.dataSources, visualizer.xColumn)
         xColumn = drawTable.columns[xColumnIndex]
 
-        for column in drawTable.columns:
-            for cell in column.cells:
-                print(cell)
-            print('_________________________')
+        # for column in drawTable.columns:
+        #     for cell in column.cells:
+        #         print(cell)
+        #     print('_________________________')
 
         drawer = ChartsFactory.generateCharts(visualizer.chart, drawTable, width, height, xColumn, double(8.0))
         return drawer.SVG

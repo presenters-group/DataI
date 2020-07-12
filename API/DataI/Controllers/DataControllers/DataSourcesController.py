@@ -35,6 +35,14 @@ class DataSourcesController():
         return data.dataSources[oldTableIndex]
 
     @classmethod
+    def deleteTable(cls, data: DataModel, id: int):
+        elementIndex = DataController.getElementById(data.dataSources, id)
+        if elementIndex != -1:
+            data.dataSources[elementIndex].isDeleted = True
+            return data.dataSources[elementIndex]
+        return None
+
+    @classmethod
     def updateCellByCords(cls, data: DataModel, cell, tableId: int, columnId: int, cellIndex):
         targetTableIndex = DataController.getElementIndexById(data.dataSources, tableId)
         targetColumnIndex = DataController.getElementIndexById(data.dataSources[targetTableIndex].columns, columnId)
@@ -60,14 +68,6 @@ class DataSourcesController():
         targetTableIndex = DataController.getElementIndexById(data.dataSources, tableId)
         data.dataSources[targetTableIndex].rowsColors[rowId] = color
         return data.dataSources[targetTableIndex]
-
-    @classmethod
-    def deleteTable(cls, data: DataModel, id: int):
-        elementIndex = DataController.getElementById(data.dataSources, id)
-        if elementIndex != -1:
-            data.dataSources[elementIndex].isDeleted = True
-            return data.dataSources[elementIndex]
-        return None
 
     @classmethod
     def getRowFromTable(cls, table: TableModel, rowIndex: int) -> List[CellModel]:
