@@ -47,7 +47,7 @@ class TableModel(BasicInfo):
         self.columnsVisibility = bufferColumnsList
 
         buffeRowList = list()
-        for i in range(self.__getLongestColumnLength(columns)):
+        for i in range(self.__getLongestColumnLength(columns) - 1):
             buffeRowList.append(True)
 
         self.rowsVisibility = buffeRowList

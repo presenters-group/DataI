@@ -56,6 +56,15 @@ class DataController():
     def updateRowColorById(self, color: str, tableId: int, columnId: int):
         return DataSourcesController.updateRowColorById(self.data, color, tableId, columnId)
 
+    def insertInDataSourceFilter(self, filter, tableId: int):
+        return DataSourcesController.insertInDataSourceFilter(self.data, filter, tableId)
+
+    def updateInDataSourceFilter(self, filter, tableId, filterId):
+        return DataSourcesController.updateInDataSourceFilter(self.data, filter, tableId, filterId)
+
+    def removeInDataSourceFilter(self, tableId, filterId):
+        return DataSourcesController.removeInDataSourceFilter(self.data, tableId, filterId)
+
     def updateVisualizerById(self, visio: VisualizationModel, id: int):
         return VisualizationsController.updateVisualizerById(self.data, visio, id)
 
@@ -92,11 +101,15 @@ class DataController():
         return getMaxIdInList(idList)
 
     @classmethod
-    def getElementIndexById(cls, list, id: int):
-        return getElementIndexById(list, id)\
+    def getElementIndexById(cls, list: List, id: int):
+        return getElementIndexById(list, id)
 
     @classmethod
-    def elementExists(cls, list, id: int) -> bool:
+    def getElementIndexFromDictById(cls, list: List, id: int):
+        return getElementIndexFromDictById(list, id)
+
+    @classmethod
+    def elementExists(cls, list: List, id: int) -> bool:
         return elementExists(list, id)
 
 
@@ -120,6 +133,14 @@ def getElementIndexById(list: List, id: int):
     indexCounter = 0
     for element in list:
         if element.id == id:
+            return indexCounter
+        indexCounter += 1
+    return -1
+
+def getElementIndexFromDictById(list: List, id: int):
+    indexCounter = 0
+    for element in list:
+        if element['id'] == id:
             return indexCounter
         indexCounter += 1
     return -1

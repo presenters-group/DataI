@@ -1,10 +1,11 @@
 import json
 import os
 
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404, HttpResponseNotFound
 from django.views.decorators.csrf import csrf_exempt
 
 from DataI.Controllers.DataControllers.DataController import DataController
+from DataI.Controllers.Filters.FilterController import FiltersController
 from DataI.JSONSerializer import ObjectEncoder
 from DataI.Models.DashboardModel import DashboardModel
 from DataI.Models.FilterModel import FilterModel
@@ -129,7 +130,7 @@ filter1 = {
     "isActive": True
 }
 filter2 = {
-    "id": 1,
+    "id": 2,
     "value": 60,
     "isActive": False
 }
@@ -145,9 +146,9 @@ loadedJsonFilters = json.loads(jsonFilters)
 for filter in loadedJsonFilters:
     dataController.data.filters.append(FilterModel.from_json(filter))
 
-# dataController.data.dataSources[0].filters = [filter1, filter2]
-# dataController.data.dataSources[1].filters = [filter3]
-# dataController.data.visualizations[0].filters = [filter1]
+dataController.data.dataSources[0].filters = [filter1, filter2]
+dataController.data.dataSources[1].filters = [filter3]
+dataController.data.visualizations[0].filters = [filter1]
 
 # ================================ load static data ================================.
 
@@ -156,6 +157,8 @@ for filter in loadedJsonFilters:
 def fullDataHandler(request):
     if request.method == 'GET':
         return HttpResponse(json.dumps(dataController.data, indent=4, cls=ObjectEncoder, ensure_ascii=False))
+    else:
+        return HttpResponseNotFound('No such request({} <{}>) is available'.format(request.path, request.method))
 
 
 @csrf_exempt
@@ -168,6 +171,41 @@ def dataSourcesHandler(request):
         table = TableModel.from_json(json.loads(request.body.decode()))
         dataController.insertNewTable(table)
         return HttpResponse(json.dumps(table, indent=4, cls=ObjectEncoder, ensure_ascii=False))
+    else:
+        return HttpResponseNotFound('No such request({} <{}>) is available'.format(request.path, request.method))
+
+
+@csrf_exempt
+def insertInDataSourceFilter(request, tableId):
+    if request.method == 'PUT':
+        filter = json.loads(request.body.decode())
+        returnTable = dataController.insertInDataSourceFilter(filter, tableId)
+        return HttpResponse(json.dumps(returnTable, indent=4, cls=ObjectEncoder, ensure_ascii=False))
+    else:
+        return HttpResponseNotFound('No such request({} <{}>) is available'.format(request.path, request.method))
+
+
+@csrf_exempt
+def updateInDataSourceFilter(request, tableId, filterId):
+    if request.method == 'PUT':
+        filter = json.loads(request.body.decode())
+        returnTable = dataController.updateInDataSourceFilter(filter, tableId, filterId)
+        if returnTable == -1:
+            return HttpResponseNotFound('Filter not found.')
+        return HttpResponse(json.dumps(returnTable, indent=4, cls=ObjectEncoder, ensure_ascii=False))
+    else:
+        return HttpResponseNotFound('No such request({} <{}>) is available'.format(request.path, request.method))
+
+@csrf_exempt
+def removeInDataSourceFilter(request, tableId, filterId):
+    if request.method == 'PUT':
+        returnTable = dataController.removeInDataSourceFilter(tableId, filterId)
+        if returnTable == -1:
+            return HttpResponseNotFound('Filter not found.')
+        return HttpResponse(json.dumps(returnTable, indent=4, cls=ObjectEncoder, ensure_ascii=False))
+    else:
+        return HttpResponseNotFound('No such request({} <{}>) is available'.format(request.path, request.method))
+
 
 
 @csrf_exempt
@@ -179,6 +217,8 @@ def visualizersHandler(request):
         visualizer = VisualizationModel.from_json(json.loads(request.body.decode()))
         dataController.insertNewVisualizer(visualizer)
         return HttpResponse(json.dumps(visualizer, indent=4, cls=ObjectEncoder, ensure_ascii=False))
+    else:
+        return HttpResponseNotFound('No such request({} <{}>) is available'.format(request.path, request.method))
 
 
 @csrf_exempt
@@ -189,6 +229,8 @@ def dashBoardsHandler(request):
         dashBoard = DashboardModel.from_json(json.loads(request.body.decode()))
         dataController.insertNewDashboard(dashBoard)
         return HttpResponse(json.dumps(dashBoard, indent=4, cls=ObjectEncoder, ensure_ascii=False))
+    else:
+        return HttpResponseNotFound('No such request({} <{}>) is available'.format(request.path, request.method))
 
 
 @csrf_exempt
@@ -199,6 +241,8 @@ def filtersHandler(request):
         filter = FilterModel.from_json(json.loads(request.body.decode()))
         dataController.insertNewFilter(filter)
         return HttpResponse(json.dumps(filter, indent=4, cls=ObjectEncoder, ensure_ascii=False))
+    else:
+        return HttpResponseNotFound('No such request({} <{}>) is available'.format(request.path, request.method))
 
 
 @csrf_exempt
@@ -210,6 +254,8 @@ def dataSourceModifier(request, id):
     elif request.method == 'DELETE':
         table = dataController.deleteTable(id)
         return HttpResponse(json.dumps(table, indent=4, cls=ObjectEncoder, ensure_ascii=False))
+    else:
+        return HttpResponseNotFound('No such request({} <{}>) is available'.format(request.path, request.method))
 
 
 @csrf_exempt
@@ -223,6 +269,8 @@ def cellModifier(request, tableId, columnId, cellIndex):
         returnDict['columnId'] = columnId
         returnDict['cellIndex'] = cellIndex
         return HttpResponse(json.dumps(returnDict, indent=4, cls=ObjectEncoder, ensure_ascii=False))
+    else:
+        return HttpResponseNotFound('No such request({} <{}>) is available'.format(request.path, request.method))
 
 
 @csrf_exempt
@@ -231,6 +279,8 @@ def columnColorModifier(request, tableId, columnId):
         newColor = json.loads(request.body.decode()).get('color')
         table = dataController.updateColumnColorById(newColor, tableId, columnId)
         return HttpResponse(json.dumps(table, indent=4, cls=ObjectEncoder, ensure_ascii=False))
+    else:
+        return HttpResponseNotFound('No such request({} <{}>) is available'.format(request.path, request.method))
 
 @csrf_exempt
 def rowColorModifier(request, tableId, rowId):
@@ -238,6 +288,8 @@ def rowColorModifier(request, tableId, rowId):
         newColor = json.loads(request.body.decode()).get('color')
         table = dataController.updateRowColorById(newColor, tableId, rowId)
         return HttpResponse(json.dumps(table, indent=4, cls=ObjectEncoder, ensure_ascii=False))
+    else:
+        return HttpResponseNotFound('No such request({} <{}>) is available'.format(request.path, request.method))
 
 
 
@@ -250,6 +302,8 @@ def visualizerModifier(request, id):
     elif request.method == 'DELETE':
         visualizer = dataController.deleteVisualizer(id)
         return HttpResponse(json.dumps(visualizer, indent=4, cls=ObjectEncoder, ensure_ascii=False))
+    else:
+        return HttpResponseNotFound('No such request({} <{}>) is available'.format(request.path, request.method))
 
 
 @csrf_exempt
@@ -261,6 +315,8 @@ def dashboardModifier(request, id):
     if request.method == 'DELETE':
         dashBoard = dataController.deleteDashBoard(id)
         return HttpResponse(json.dumps(dashBoard, indent=4, cls=ObjectEncoder, ensure_ascii=False))
+    else:
+        return HttpResponseNotFound('No such request({} <{}>) is available'.format(request.path, request.method))
 
 
 @csrf_exempt
@@ -272,10 +328,15 @@ def filterModifier(request, id):
     if request.method == 'DELETE':
         filter = dataController.deleteFilter(id)
         return HttpResponse(json.dumps(filter, indent=4, cls=ObjectEncoder, ensure_ascii=False))
+    else:
+        return HttpResponseNotFound('No such request({} <{}>) is available'.format(request.path, request.method))
 
 
 @csrf_exempt
 def excelUpload(request):
+    if request.method != 'PUT':
+        return HttpResponseNotFound('No such request({} <{}>) is available'.format(request.path, request.method))
+
     newdoc = Document(docfile=request.FILES['file_upload'])
     try:
         newdoc.save()
@@ -293,6 +354,8 @@ def excelUpload(request):
 
 @csrf_exempt
 def csvUpload(request):
+    if request.method != 'PUT':
+        return HttpResponseNotFound('No such request({} <{}>) is available'.format(request.path, request.method))
     newdoc = Document(docfile=request.FILES['file_upload'])
     try:
         newdoc.save()
@@ -315,6 +378,8 @@ def getChartsNames(request):
         namesDict = dict()
         namesDict['chartsNames'] = chartsNames
         return HttpResponse(json.dumps(namesDict, indent=4, cls=ObjectEncoder, ensure_ascii=False))
+    else:
+        return HttpResponseNotFound('No such request({} <{}>) is available'.format(request.path, request.method))
 
 
 @csrf_exempt
@@ -331,3 +396,5 @@ def getChartSVG(request):
         returnDict['metaData'] = ""
         returnDict['visualizerId'] = visualizerId
         return HttpResponse(json.dumps(returnDict, indent=4, cls=ObjectEncoder, ensure_ascii=False))
+    else:
+        return HttpResponseNotFound('No such request({} <{}>) is available'.format(request.path, request.method))

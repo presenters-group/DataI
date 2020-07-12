@@ -104,7 +104,7 @@ filter1 = {
 filter2 = {
     "id": 1,
     "value": 60,
-    "isActive": True
+    "isActive": False
 }
 filter3 = {
     "id": 0,
@@ -113,16 +113,20 @@ filter3 = {
 }
 
 dataController.data.visualizations.append(VisualizationModel.from_json(json.loads(jsonVisio)))
-dataController.data.dataSources[0].filters = [filter1, filter2]
+dataController.data.dataSources[0].filters = [filter1, filter2, filter3]
 dataController.data.dataSources[1].filters = [filter3]
 dataController.data.visualizations[0].filters = [filter1]
 
+index = DataController.getElementIndexFromDictById(dataController.data.dataSources[0].filters, 0)
+
+print(dataController.data.dataSources[0].filters[index])
+
 # for color in dataController.data.dataSources[0].rowsColors:
 
-filteredTable = FiltersController.getFilteredTable(dataController.data, 0)
+#filteredTable = FiltersController.getFilteredTable(dataController.data, 0)
 
-print(len(filteredTable.rowsColors))
-print(len(filteredTable.columns[0].cells))
+# print(len(filteredTable.rowsColors))
+# print(len(filteredTable.columns[0].cells))
 # filteredTables = DataSourcesController.getFinalTables(dataController.data)
 #
 # for table in filteredTables:
