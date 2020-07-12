@@ -67,16 +67,17 @@ const dataSourcesReducer = createReducer(
   }),
   //Updating Cell
   on(fromActions.updateCellSuccess, (state, { data }) => {
-    let cells = [...state.entities[data.tableId].columns[data.columnId].cells]
+    console.log(data)
+    let cells = [...state.entities[data.tableID].columns[data.columnId].cells]
     cells[data.cellIndex] = {
       value : data.cellValue,
-      type: state.entities[data.tableId].columns[data.columnId].cells[data.cellIndex].type
+      type: state.entities[data.tableID].columns[data.columnId].cells[data.cellIndex].type
     }
     let newState = {
       entities : {...state.entities,
-        [data.tableId] : {...state.entities[data.tableId],
-          columns: {...state.entities[data.tableId].columns,
-            [data.columnId]: {...state.entities[data.tableId].columns[data.columnId],
+        [data.tableID] : {...state.entities[data.tableID],
+          columns: {...state.entities[data.tableID].columns,
+            [data.columnId]: {...state.entities[data.tableID].columns[data.columnId],
               cells: cells
             },
           }

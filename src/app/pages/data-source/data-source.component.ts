@@ -5,6 +5,7 @@ import { Store } from "@ngrx/store";
 import { AppState } from "src/store";
 import { updateCell } from "src/store/data-sources";
 import { first, take } from 'rxjs/operators';
+import { selectCurrentDataSourceFilters } from 'src/store/filters/filters.selectors';
 
 @Component({
   selector: "app-data-source",
@@ -14,6 +15,7 @@ import { first, take } from 'rxjs/operators';
 export class DataSourceComponent implements AfterViewInit {
   dataSource: Observable<any>;
   objectKeys = Object.keys;
+  filters: Observable<any> = this.store.select(selectCurrentDataSourceFilters);
   constructor(private store: Store<AppState>) {
     this.dataSource = this.store.select(selectCurrentDataSource);
   }
@@ -22,25 +24,28 @@ export class DataSourceComponent implements AfterViewInit {
 
   ): void {}
 
-
+ 
 
   onCellUpdate(columnId, cellIndex, cellValue) {
-
-
-
-      let tableId;
-      this.dataSource.pipe(first()).subscribe((value) => {
-        tableId = value.id;
-        this.store.dispatch(
-          updateCell({
-            data: {
-              tableId,
-              columnId,
-              cellIndex,
-              cellValue,
-            },
-          })
-        );
+    console.log("cellValue",cellValue)
+    let tableId;
+    this.dataSource.pipe(first()).subscribe((value) => {
+      let old = value.columns[columnId].cells[cellIndex];
+      console.log('inside');￼
+      if (old.value != cellValue){
+          console.log('OldValue',old.value);
+          tableId = value.id;
+          this.store.dispatch(
+            updateCell({
+              data: {
+                tableId,
+                columnId,
+                cellIndex, 
+                cellValue,
+              },
+            })
+          );
+        }
       });
   }
 

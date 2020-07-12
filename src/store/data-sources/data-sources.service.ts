@@ -33,6 +33,9 @@ export class DataSourcesService {
   }
 
   updateCell(data){
+    this.httpClient.put(`${this.URL}/cell/${data.tableId}/${data.columnId}/${data.cellIndex}/`,{
+      cellValue: data.cellValue
+    }).subscribe((value)=> {console.log(value)})
     return this.httpClient.put(`${this.URL}/cell/${data.tableId}/${data.columnId}/${data.cellIndex}/`,{
       cellValue: data.cellValue
     })

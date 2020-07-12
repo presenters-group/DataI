@@ -1,7 +1,7 @@
 import { createFeatureSelector, createSelector } from "@ngrx/store";
 import { AppState } from "..";
 import { FiltersState } from "./filters.reducers";
-import { selectDataSourcesEntities } from "../data-sources/data-sources.selectors";
+import { selectDataSourcesEntities, selectCurrentDataSource } from "../data-sources/data-sources.selectors";
 import { selectCurrentTapObject } from '../core/selectors/core.selector';
 
 export const selectFiltersState = createFeatureSelector<AppState, FiltersState>(
@@ -105,4 +105,17 @@ function objectFilter (obj, predicate){
 
     return result;
 };
+
+
+export const selectCurrentDataSourceFilters = createSelector(
+  selectCurrentDataSource,
+  selectFiltersEntities,
+  (dataSource,allFilters) => {
+    let filters = [];
+
+    for (let filter of dataSource.filters)
+      filters.push(allFilters[filter.id])
+    return filters;
+  }
+);
 

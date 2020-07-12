@@ -2,7 +2,7 @@ import { createFeatureSelector, createSelector, select } from "@ngrx/store";
 import { AppState } from "..";
 import { VisualizersState } from "./visualizers.reducers";
 import { selectFiltersEntities } from "../filters/filters.selectors";
-import { selectDataSourcesEntities } from "../data-sources/data-sources.selectors";
+import { selectDataSourcesEntities, selectCurrentDataSource } from "../data-sources/data-sources.selectors";
 import { selectCurrentTapObject } from '../core/selectors/core.selector';
 
 export const selectVisualizersState = createFeatureSelector<
@@ -104,3 +104,5 @@ export const selectCurrentVisualizerFilters = createSelector(
     return filters;
   }
 );
+
+

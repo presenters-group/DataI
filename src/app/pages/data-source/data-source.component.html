@@ -25,7 +25,9 @@
     </td>
   </tr>
 </table>
-
+<div class="filter" *ngFor="let filter of filters | async" class="filter">
+  <app-filter-item [filter]="filter"> </app-filter-item>
+</div>
 <!--
 <div class="container">
   <div class="column" *ngFor="let column of objectKeys((dataSource | async).columns)">
