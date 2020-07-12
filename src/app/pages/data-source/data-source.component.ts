@@ -24,25 +24,28 @@ export class DataSourceComponent implements AfterViewInit {
 
   ): void {}
 
-
+ 
 
   onCellUpdate(columnId, cellIndex, cellValue) {
-
-
-
-      let tableId;
-      this.dataSource.pipe(first()).subscribe((value) => {
-        tableId = value.id;
-        this.store.dispatch(
-          updateCell({
-            data: {
-              tableId,
-              columnId,
-              cellIndex,
-              cellValue,
-            },
-          })
-        );
+    console.log("cellValue",cellValue)
+    let tableId;
+    this.dataSource.pipe(first()).subscribe((value) => {
+      let old = value.columns[columnId].cells[cellIndex];
+      console.log('inside');￼
+      if (old.value != cellValue){
+          console.log('OldValue',old.value);
+          tableId = value.id;
+          this.store.dispatch(
+            updateCell({
+              data: {
+                tableId,
+                columnId,
+                cellIndex, 
+                cellValue,
+              },
+            })
+          );
+        }
       });
   }
 
