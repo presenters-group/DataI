@@ -66,13 +66,13 @@ class DataController():
         return VisualizationsController.updateVisualizerById(self.data, visio, id)
 
     def insertInVisioFilter(self, filter: Dict, visioId: int):
-        VisualizationsController.insertInVisioFilter(self.data, filter, visioId)
+        return VisualizationsController.insertInVisioFilter(self.data, filter, visioId)
 
     def updateInVisioFilter(self, filter: Dict, visioId: int, filterId: int):
-        VisualizationsController.updateInVisioFilter(self.data, filter, visioId, filterId)
+        return VisualizationsController.updateInVisioFilter(self.data, filter, visioId, filterId)
 
     def removeInVisioFilter(self, visioId: int, filterId: int):
-        VisualizationsController.removeInVisioFilter(self.data, visioId, filterId)
+        return VisualizationsController.removeInVisioFilter(self.data, visioId, filterId)
 
     def deleteVisualizer(self, id):
         return VisualizationsController.deleteVisualizer(self.data, id)

@@ -271,6 +271,7 @@ def visualizerModifier(request, id):
 def insertInVisioFilter(request, visioId):
     if request.method == 'PUT':
         filter = json.loads(request.body.decode())
+        print(filter)
         returnFilter = dataController.insertInVisioFilter(filter, visioId)
         return HttpResponse(json.dumps(returnFilter, indent=4, cls=ObjectEncoder, ensure_ascii=False))
     else:

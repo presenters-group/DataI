@@ -21,10 +21,11 @@
   <component name="ChangeListManager">
     <list default="true" id="64fee853-01dd-4b64-bc35-3e73b57c88d3" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.png" beforeDir="false" afterPath="$PROJECT_DIR$/.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.svg" beforeDir="false" afterPath="$PROJECT_DIR$/.svg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DataI/Controllers/DataControllers/DataController.py" beforeDir="false" afterPath="$PROJECT_DIR$/DataI/Controllers/DataControllers/DataController.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataI/Controllers/DataControllers/DataSourcesController.py" beforeDir="false" afterPath="$PROJECT_DIR$/DataI/Controllers/DataControllers/DataSourcesController.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataI/Controllers/DataControllers/VisualizationsController.py" beforeDir="false" afterPath="$PROJECT_DIR$/DataI/Controllers/DataControllers/VisualizationsController.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DataI/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/DataI/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/pages/data-source/data-source.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/pages/data-source/data-source.component.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

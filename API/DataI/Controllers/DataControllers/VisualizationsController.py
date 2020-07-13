@@ -43,8 +43,8 @@ class VisualizationsController():
     @classmethod
     def updateInVisioFilter(cls, data: DataModel, filter: Dict, visioId: int, filterId: int):
         targetVisioIndex = DataController.getElementIndexById(data.visualizations, visioId)
-        inFilterIndex = DataController.getElementIndexFromDictById(data.visualizations[targetVisioIndex].filters,
-                                                                   filterId)
+        inFilterIndex = DataController.getElementIndexFromDictById(data.visualizations[targetVisioIndex].filters, filterId)
+        print(inFilterIndex)
         if inFilterIndex == -1:
             return -1
         data.visualizations[targetVisioIndex].filters[inFilterIndex] = filter
