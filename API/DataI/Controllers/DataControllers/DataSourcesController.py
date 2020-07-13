@@ -1,5 +1,5 @@
 import json
-from typing import List
+from typing import List, Dict
 
 from DataI import enums
 from DataI.Controllers.DataControllers import DataController
@@ -88,13 +88,13 @@ class DataSourcesController():
             column.cells.pop(rowIndex)
 
     @classmethod
-    def insertInDataSourceFilter(cls, data: DataModel, filter, tableId: int):
+    def insertInDataSourceFilter(cls, data: DataModel, filter: Dict, tableId: int):
         targetTableIndex = DataController.getElementIndexById(data.dataSources, tableId)
         data.dataSources[targetTableIndex].filters.append(filter)
         return FiltersController.getFilteredTable(data, tableId)
 
     @classmethod
-    def updateInDataSourceFilter(cls, data: DataModel, filter, tableId: int, filterId: int):
+    def updateInDataSourceFilter(cls, data: DataModel, filter: Dict, tableId: int, filterId: int):
         targetTableIndex = DataController.getElementIndexById(data.dataSources, tableId)
         inFilterIndex = DataController.getElementIndexFromDictById(data.dataSources[targetTableIndex].filters, filterId)
         if inFilterIndex == -1:

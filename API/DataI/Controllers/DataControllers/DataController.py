@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Dict
 
 from DataI import enums
 from DataI.Controllers.DataControllers.DashboardsController import DashboardsController
@@ -50,10 +50,10 @@ class DataController():
     def updateRowColorById(self, color: str, tableId: int, columnId: int):
         return DataSourcesController.updateRowColorById(self.data, color, tableId, columnId)
 
-    def insertInDataSourceFilter(self, filter, tableId: int):
+    def insertInDataSourceFilter(self, filter: Dict, tableId: int):
         return DataSourcesController.insertInDataSourceFilter(self.data, filter, tableId)
 
-    def updateInDataSourceFilter(self, filter, tableId, filterId):
+    def updateInDataSourceFilter(self, filter: Dict, tableId, filterId):
         return DataSourcesController.updateInDataSourceFilter(self.data, filter, tableId, filterId)
 
     def removeInDataSourceFilter(self, tableId, filterId):
@@ -64,6 +64,15 @@ class DataController():
 
     def updateVisualizerById(self, visio: VisualizationModel, id: int):
         return VisualizationsController.updateVisualizerById(self.data, visio, id)
+
+    def insertInVisioFilter(self, filter: Dict, visioId: int):
+        VisualizationsController.insertInVisioFilter(self.data, filter, visioId)
+
+    def updateInVisioFilter(self, filter: Dict, visioId: int, filterId: int):
+        VisualizationsController.updateInVisioFilter(self.data, filter, visioId, filterId)
+
+    def removeInVisioFilter(self, visioId: int, filterId: int):
+        VisualizationsController.removeInVisioFilter(self.data, visioId, filterId)
 
     def deleteVisualizer(self, id):
         return VisualizationsController.deleteVisualizer(self.data, id)

@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Dict
 
 from DataI.Controllers.DataControllers import DataController
 from DataI.Controllers.Filters.FilterController import FiltersController
@@ -30,10 +30,36 @@ class VisualizationsController():
         return None
 
     @classmethod
-    def getFinalTable(cls, data: DataModel, visioId) -> TableModel:
+    def getFinalTable(cls, data: DataModel, visioId: int) -> TableModel:
         # Aggregation should be added here.
         return cls.__getFilteredTable(data, visioId)
 
     @classmethod
-    def __getFilteredTable(cls, data: DataModel, visioId) -> TableModel:
+    def insertInVisioFilter(cls, data: DataModel, filter: Dict, visioId: int):
+        targetVisioIndex = DataController.getElementIndexById(data.visualizations, visioId)
+        data.visualizations[targetVisioIndex].filters.append(filter)
+        return filter
+
+    @classmethod
+    def updateInVisioFilter(cls, data: DataModel, filter: Dict, visioId: int, filterId: int):
+        targetVisioIndex = DataController.getElementIndexById(data.visualizations, visioId)
+        inFilterIndex = DataController.getElementIndexFromDictById(data.visualizations[targetVisioIndex].filters,
+                                                                   filterId)
+        if inFilterIndex == -1:
+            return -1
+        data.visualizations[targetVisioIndex].filters[inFilterIndex] = filter
+        return filter
+
+    @classmethod
+    def removeInVisioFilter(cls, data: DataModel, visioId: int, filterId: int):
+        targetVisioIndex = DataController.getElementIndexById(data.visualizations, visioId)
+        inFilterIndex = DataController.getElementIndexFromDictById(data.visualizations[targetVisioIndex].filters,
+                                                                   filterId)
+        if inFilterIndex == -1:
+            return -1
+        data.visualizations[targetVisioIndex].filters.pop(inFilterIndex)
+        return 1
+
+    @classmethod
+    def __getFilteredTable(cls, data: DataModel, visioId: int) -> TableModel:
         return FiltersController.getFilteredVisioTable(data, visioId)

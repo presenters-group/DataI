@@ -268,6 +268,41 @@ def visualizerModifier(request, id):
 
 
 @csrf_exempt
+def insertInVisioFilter(request, visioId):
+    if request.method == 'PUT':
+        filter = json.loads(request.body.decode())
+        returnFilter = dataController.insertInVisioFilter(filter, visioId)
+        return HttpResponse(json.dumps(returnFilter, indent=4, cls=ObjectEncoder, ensure_ascii=False))
+    else:
+        return HttpResponseNotFound('No such request({} <{}>) is available'.format(request.path, request.method))
+
+
+@csrf_exempt
+def updateInVisioFilter(request, visioId, filterId):
+    if request.method == 'PUT':
+        filter = json.loads(request.body.decode())
+        returnFilter = dataController.updateInVisioFilter(filter, visioId, filterId)
+        if returnFilter == -1:
+            return HttpResponseNotFound('Filter not found.')
+        return HttpResponse(json.dumps(returnFilter, indent=4, cls=ObjectEncoder, ensure_ascii=False))
+    else:
+        return HttpResponseNotFound('No such request({} <{}>) is available'.format(request.path, request.method))
+
+
+@csrf_exempt
+def removeInVisioFilter(request, visioId, filterId):
+    if request.method == 'PUT':
+        returnValue = dataController.removeInVisioFilter(visioId, filterId)
+        if returnValue == -1:
+            return HttpResponseNotFound('Filter not found.')
+        return HttpResponse(json.dumps(returnValue, indent=4, cls=ObjectEncoder, ensure_ascii=False))
+    else:
+        return HttpResponseNotFound('No such request({} <{}>) is available'.format(request.path, request.method))
+
+
+
+
+@csrf_exempt
 def getChartsNames(request):
     if request.method == 'GET':
         chartsNames = dataController.getChartsNames()
