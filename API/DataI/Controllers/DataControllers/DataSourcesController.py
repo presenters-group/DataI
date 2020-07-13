@@ -88,30 +88,6 @@ class DataSourcesController():
             column.cells.pop(rowIndex)
 
     @classmethod
-    def insertInDataSourceFilter(cls, data: DataModel, filter: Dict, tableId: int):
-        targetTableIndex = DataController.getElementIndexById(data.dataSources, tableId)
-        data.dataSources[targetTableIndex].filters.append(filter)
-        return FiltersController.getFilteredTable(data, tableId)
-
-    @classmethod
-    def updateInDataSourceFilter(cls, data: DataModel, filter: Dict, tableId: int, filterId: int):
-        targetTableIndex = DataController.getElementIndexById(data.dataSources, tableId)
-        inFilterIndex = DataController.getElementIndexFromDictById(data.dataSources[targetTableIndex].filters, filterId)
-        if inFilterIndex == -1:
-            return -1
-        data.dataSources[targetTableIndex].filters[inFilterIndex] = filter
-        return FiltersController.getFilteredTable(data, tableId)
-
-    @classmethod
-    def removeInDataSourceFilter(cls, data: DataModel, tableId: int, filterId: int):
-        targetTableIndex = DataController.getElementIndexById(data.dataSources, tableId)
-        inFilterIndex = DataController.getElementIndexFromDictById(data.dataSources[targetTableIndex].filters, filterId)
-        if inFilterIndex == -1:
-            return -1
-        data.dataSources[targetTableIndex].filters.pop(inFilterIndex)
-        return FiltersController.getFilteredTable(data, tableId)
-
-    @classmethod
     def __getCellType(cls, cell):
         isDigit = str(cell).replace('.', '').isdigit()
         if isDigit:

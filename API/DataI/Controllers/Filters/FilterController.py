@@ -106,15 +106,8 @@ class FiltersController():
 
         filteredTable = deepcopy(table)
 
-        # for column in table.columns:
-        #     for cell in column.cells:
-        #         print(cell)
-        #     print('_________________________')
-
-        print(len(visio.filters))
 
         for visioFilter in visio.filters:
-            print('here')
             filterModelIndex = DataController.getElementIndexById(data.filters, visioFilter['id'])
             filterModel = data.filters[filterModelIndex]
 

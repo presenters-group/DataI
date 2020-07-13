@@ -35,31 +35,5 @@ class VisualizationsController():
         return cls.__getFilteredTable(data, visioId)
 
     @classmethod
-    def insertInVisioFilter(cls, data: DataModel, filter: Dict, visioId: int):
-        targetVisioIndex = DataController.getElementIndexById(data.visualizations, visioId)
-        data.visualizations[targetVisioIndex].filters.append(filter)
-        return filter
-
-    @classmethod
-    def updateInVisioFilter(cls, data: DataModel, filter: Dict, visioId: int, filterId: int):
-        targetVisioIndex = DataController.getElementIndexById(data.visualizations, visioId)
-        inFilterIndex = DataController.getElementIndexFromDictById(data.visualizations[targetVisioIndex].filters, filterId)
-        print(inFilterIndex)
-        if inFilterIndex == -1:
-            return -1
-        data.visualizations[targetVisioIndex].filters[inFilterIndex] = filter
-        return filter
-
-    @classmethod
-    def removeInVisioFilter(cls, data: DataModel, visioId: int, filterId: int):
-        targetVisioIndex = DataController.getElementIndexById(data.visualizations, visioId)
-        inFilterIndex = DataController.getElementIndexFromDictById(data.visualizations[targetVisioIndex].filters,
-                                                                   filterId)
-        if inFilterIndex == -1:
-            return -1
-        data.visualizations[targetVisioIndex].filters.pop(inFilterIndex)
-        return 1
-
-    @classmethod
     def __getFilteredTable(cls, data: DataModel, visioId: int) -> TableModel:
         return FiltersController.getFilteredVisioTable(data, visioId)

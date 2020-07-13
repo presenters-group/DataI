@@ -31,7 +31,6 @@ export class DataSourceComponent implements AfterViewInit {
     let tableId;
     this.dataSource.pipe(first()).subscribe((value) => {
       let old = value.columns[columnId].cells[cellIndex];
-      console.log('inside');￼
       if (old.value != cellValue){
           console.log('OldValue',old.value);
           tableId = value.id;

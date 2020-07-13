@@ -1,3 +1,5 @@
+from typing import Dict
+
 from DataI.Controllers.DataControllers import DataController
 from DataI.Models.DataModel import DataModel
 from DataI.Models.DashboardModel import DashboardModel
@@ -5,7 +7,7 @@ from DataI.Models.DashboardModel import DashboardModel
 
 class DashboardsController():
     @classmethod
-    def inserNewDashboard(cls, data: DataModel, dashboard: DashboardModel):
+    def insertNewDashboard(cls, data: DataModel, dashboard: DashboardModel):
         id = DataController.getMaxIdInList(data.dashboards)
         dashboard.id = id + 1
         data.dashboards.append(dashboard)
@@ -17,9 +19,10 @@ class DashboardsController():
         return data.dashboards[oldDashboardIndex]
 
     @classmethod
-    def deleteDashBoard(cls, data, id):
+    def deleteDashBoard(cls, data: DataModel, id):
         dashBoardIndex = DataController.getElementById(data.dashboards, id)
         if dashBoardIndex != -1:
             data.dashboards[dashBoardIndex].isDeleted = True
             return data.dashboards[dashBoardIndex]
         return None
+

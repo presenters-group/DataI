@@ -1,5 +1,4 @@
 from typing import List, Dict
-
 from DataI import enums
 from DataI.Controllers.DataControllers.DashboardsController import DashboardsController
 from DataI.Controllers.DataControllers.DataSourcesController import DataSourcesController
@@ -8,6 +7,7 @@ from DataI.Controllers.DataControllers.FiltersModelController import FiltersMode
 from DataI.Controllers.DataControllers.VisualizationsController import VisualizationsController
 from DataI.Controllers.FileLoaders.CSVFileLoader import CSVFileLoader
 from DataI.Controllers.FileLoaders.ExcelFileLoader import ExcelFileLoader
+from DataI.Models.BasicInfo import BasicDataModelInfo
 from DataI.Models.DashboardModel import DashboardModel
 from DataI.Models.DataModel import DataModel
 from DataI.Models.FilterModel import FilterModel
@@ -51,31 +51,37 @@ class DataController():
         return DataSourcesController.updateRowColorById(self.data, color, tableId, columnId)
 
     def insertInDataSourceFilter(self, filter: Dict, tableId: int):
-        return DataSourcesController.insertInDataSourceFilter(self.data, filter, tableId)
+        targetTableIndex = DataController.getElementIndexById(self.data.dataSources, tableId)
+        return self.__insertInDataModelFilter(self.data.dataSources[targetTableIndex], filter)
 
     def updateInDataSourceFilter(self, filter: Dict, tableId, filterId):
-        return DataSourcesController.updateInDataSourceFilter(self.data, filter, tableId, filterId)
+        targetTableIndex = DataController.getElementIndexById(self.data.dataSources, tableId)
+        return self.__updateInDataModelFilter(self.data.dataSources[targetTableIndex], filter, filterId)
 
     def removeInDataSourceFilter(self, tableId, filterId):
-        return DataSourcesController.removeInDataSourceFilter(self.data, tableId, filterId)
+        targetTableIndex = DataController.getElementIndexById(self.data.dataSources, tableId)
+        return self.__removeInDataModelFilter(self.data.dataSources[targetTableIndex], filterId)
 
     def insertNewVisualizer(self, table: VisualizationModel):
-        VisualizationsController.insertNewVisualizer(self.data, table)
+        return VisualizationsController.insertNewVisualizer(self.data, table)
 
     def updateVisualizerById(self, visio: VisualizationModel, id: int):
         return VisualizationsController.updateVisualizerById(self.data, visio, id)
 
-    def insertInVisioFilter(self, filter: Dict, visioId: int):
-        return VisualizationsController.insertInVisioFilter(self.data, filter, visioId)
-
-    def updateInVisioFilter(self, filter: Dict, visioId: int, filterId: int):
-        return VisualizationsController.updateInVisioFilter(self.data, filter, visioId, filterId)
-
-    def removeInVisioFilter(self, visioId: int, filterId: int):
-        return VisualizationsController.removeInVisioFilter(self.data, visioId, filterId)
-
     def deleteVisualizer(self, id):
         return VisualizationsController.deleteVisualizer(self.data, id)
+
+    def insertInVisioFilter(self, filter: Dict, visioId: int):
+        targetVisioIndex = DataController.getElementIndexById(self.data.visualizations, visioId)
+        return self.__insertInDataModelFilter(self.data.visualizations[targetVisioIndex], filter)
+
+    def updateInVisioFilter(self, filter: Dict, visioId: int, filterId: int):
+        targetVisioIndex = DataController.getElementIndexById(self.data.visualizations, visioId)
+        return self.__updateInDataModelFilter(self.data.visualizations[targetVisioIndex], filter, filterId)
+
+    def removeInVisioFilter(self, visioId: int, filterId: int):
+        targetVisioIndex = DataController.getElementIndexById(self.data.visualizations, visioId)
+        return self.__removeInDataModelFilter(self.data.visualizations[targetVisioIndex], filterId)
 
     def getChartsNames(self):
         names = [enums.ChartTypes.VerticalBarChart.value, enums.ChartTypes.BoundaryLineChart.value,
@@ -88,13 +94,25 @@ class DataController():
         return DrawController.getSVGString(self.data, visioId, width, height)
 
     def insertNewDashboard(self, dashBoard: DashboardModel):
-        DashboardsController.inserNewDashboard(self.data, dashBoard)
+        DashboardsController.insertNewDashboard(self.data, dashBoard)
 
     def updateDashboardById(self, dashboard: DashboardModel, id: int):
         return DashboardsController.updateDashboardById(self.data, dashboard, id)
 
-    def deleteDashBoard(self, id):
+    def deleteDashboard(self, id):
         return DashboardsController.deleteDashBoard(self.data, id)
+
+    def insertInDashboardFilter(self, filter: Dict, dashboardId: int):
+        targetDashboardIndex = DataController.getElementIndexById(self.data.dashboards, dashboardId)
+        return self.__insertInDataModelFilter(self.data.dashboards[targetDashboardIndex], filter)
+
+    def updateInDashboardFilter(self, filter: Dict, dashboardId: int, filterId: int):
+        targetDashboardIndex = DataController.getElementIndexById(self.data.dashboards, dashboardId)
+        return self.__updateInDataModelFilter(self.data.dashboards[targetDashboardIndex], filter, filterId)
+
+    def removeInDashboardFilter(self, dashboardId: int, filterId):
+        targetDashboardIndex = DataController.getElementIndexById(self.data.dashboards, dashboardId)
+        return self.__removeInDataModelFilter(self.data.dashboards[targetDashboardIndex], filterId)
 
     def insertNewFilter(self, filter: FilterModel):
         FiltersModelController.insertNewFilter(self.data, filter)
@@ -121,6 +139,26 @@ class DataController():
     def elementExists(cls, list: List, id: int) -> bool:
         return elementExists(list, id)
 
+    @classmethod
+    def __insertInDataModelFilter(cls, model: BasicDataModelInfo, filter: Dict):
+        model.filters.append(filter)
+        return filter
+
+    @classmethod
+    def __updateInDataModelFilter(cls, model: BasicDataModelInfo, filter: Dict, filterId: int):
+        inFilterIndex = DataController.getElementIndexFromDictById(model.filters, filterId)
+        if inFilterIndex == -1:
+            return -1
+        model.filters[inFilterIndex] = filter
+        return filter
+
+    @classmethod
+    def __removeInDataModelFilter(cls, model: BasicDataModelInfo, filterId: int):
+        inFilterIndex = DataController.getElementIndexFromDictById(model.filters, filterId)
+        if inFilterIndex == -1:
+            return -1
+        model.filters.pop(inFilterIndex)
+        return 1
 
 def getMaxIdInList(idList):
     max = 0
