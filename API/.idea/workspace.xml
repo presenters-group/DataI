@@ -20,17 +20,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="64fee853-01dd-4b64-bc35-3e73b57c88d3" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/DataI/Controllers/Aggregation/Aggregation.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DataI/Controllers/Aggregation/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DataI/RegExTester.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/DataIBackend.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/DataIBackend.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataI/Controllers/DataControllers/DataSourcesController.py" beforeDir="false" afterPath="$PROJECT_DIR$/DataI/Controllers/DataControllers/DataSourcesController.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataI/Controllers/DataControllers/VisualizationsController.py" beforeDir="false" afterPath="$PROJECT_DIR$/DataI/Controllers/DataControllers/VisualizationsController.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataI/Controllers/DrawControllers/DrawController.py" beforeDir="false" afterPath="$PROJECT_DIR$/DataI/Controllers/DrawControllers/DrawController.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DataI/Controllers/Filters/FilterController.py" beforeDir="false" afterPath="$PROJECT_DIR$/DataI/Controllers/Filters/FilterController.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../angular.json" beforeDir="false" afterPath="$PROJECT_DIR$/../angular.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/pages/data-source/data-source.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/pages/data-source/data-source.component.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

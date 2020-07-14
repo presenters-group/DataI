@@ -6,6 +6,8 @@ import { AppState } from "src/store";
 import { updateCell } from "src/store/data-sources";
 import { first, take } from 'rxjs/operators';
 import { selectCurrentDataSourceFilters } from 'src/store/filters/filters.selectors';
+import { stringify } from 'querystring';
+
 
 @Component({
   selector: "app-data-source",
@@ -24,28 +26,30 @@ export class DataSourceComponent implements AfterViewInit {
 
   ): void {}
 
- 
+
 
   onCellUpdate(columnId, cellIndex, cellValue) {
-    console.log("cellValue",cellValue)
     let tableId;
+    let acceptedValue;
     this.dataSource.pipe(first()).subscribe((value) => {
       let old = value.columns[columnId].cells[cellIndex];
-      console.log('inside');￼
+
       if (old.value != cellValue){
-          console.log('OldValue',old.value);
-          tableId = value.id;
-          this.store.dispatch(
-            updateCell({
-              data: {
-                tableId,
-                columnId,
-                cellIndex, 
-                cellValue,
-              },
-            })
-          );
-        }
+        console.log(columnId)
+        console.log('OldValue',old.value);
+
+        tableId = value.id;
+        this.store.dispatch(
+          updateCell({
+            data: {
+              tableId,
+              columnId,
+              cellIndex,
+              cellValue,
+            },
+          })
+        );
+      }
       });
   }
 

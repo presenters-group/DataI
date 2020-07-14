@@ -31,6 +31,10 @@ class NumericFilter():
 
         rowCounter = 1
         for cell in column.cells[1:]:
+            print(cell.value)
+            print(type(cell.value))
+            print(value)
+            print(type(value))
             if not operators[self.operator](cell.value, value):
                 DataSourcesController.removeRowFromTable(filteredTable, rowCounter)
                 filteredTable.rowsColors.pop(rowCounter - 1)
