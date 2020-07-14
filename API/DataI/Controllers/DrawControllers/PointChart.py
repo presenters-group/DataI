@@ -44,7 +44,7 @@ class PointChart(Chart):
         self.drawSideLable()
         self.d.setPixelScale(1)  # Set number of pixels per geometry unit
         # self.d.setRenderSize(400,200)
-        self.d.saveSvg(nameFile + '.svg')
+        #self.d.saveSvg(nameFile + '.svg')
         #    self.d.savePng(nameFile+'.png')
         self.SVG = self.d.asSvg()
 
@@ -134,7 +134,7 @@ class PointChart(Chart):
     def drawYLineLevels(self):
         y = self.heightOfXLabels
         for i in range(0, int(self.quality)):
-            p = draw.Path(stroke_width=self.yUnit / 75, stroke='lightgray', fill='gray', fill_opacity=0)
+            p = draw.Path(stroke_width=self.heightOfCoordinatePlane / 250, stroke='lightgray', fill='gray', fill_opacity=0)
             p.M(self.widthOfYLabels, self.convertY(self.listOfLevelXValue[i]))
             p.h(self.widthOfCoordinatePlane)
             self.d.append(p)

@@ -15,8 +15,8 @@ filename = os.path.join(dir, '/home/kareem/University/Project1/web/API/Test.xlsx
 dataController.loadTablesFromExcelFile(filename, 0)
 
 dataSource = dataController.data.dataSources[0]
-Xcolomn = dataSource.columns[1]
-dataSource.columns.pop(1)
+Xcolomn = dataSource.columns[0]
+dataSource.columns.pop(0)
 for column in dataSource.columns:
   print(column.columnType)
 chart = PointChart(dataSource, double(100), double(100), Xcolomn, 8, "point")

@@ -20,7 +20,7 @@ class BarChart(PointChart):
         self.drawColumns(dataSourceTableWithoutXcolumn.columnsColors)
         # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         print(nameFile)
-        self.d.saveSvg(nameFile + '.svg')
+        #self.d.saveSvg(nameFile + '.svg')
 
     def calculatWidthOfColumn(self) -> double:
       count = len(self.xColumn.cells)
@@ -40,12 +40,11 @@ class BarChart(PointChart):
           if column.columnType == enums.ColumnDataType.Measures.value:
             if column != self.xColumn:
                 add = self.widthOfYLabels+self.xUnit + self.widthOfSingleColumn * (len(self.dataSourceTableWithoutXcolumn.columns)/2)
-                name = str(column.name)
-                self.metaData.append(name)
-                self.Index += 1
                 if (column != self.xColumn):
                     for cell, i in zip(column.cells, range(0, len(self.xColumn.cells))):
                         if (i != 0):
+                            name = str(column.name)
+                            self.metaData.append(name+' = '+ str(cell.value))
                             p = draw.Path(stroke_width=self.xUnit / 50, stroke=colors[columnCounter],
                                         fill=colors[columnCounter], fill_opacity=0.5, id=str(self.Index))
                             p.M(add+self.FindYofLeftEdgeOFCoulumn(j), self.convertY(self.findZeroInSVG()))
@@ -53,6 +52,7 @@ class BarChart(PointChart):
                             p.H(add+self.FindYofRightEdgeOFCoulumn(j))
                             p.L(add+self.FindYofRightEdgeOFCoulumn(j), self.convertY(self.findZeroInSVG()))
                             self.d.append(p)
+                            self.Index += 1
                             add += self.xUnit
             columnCounter += 1
           else:

@@ -14,8 +14,8 @@ class LineChart(PointChart):
                  nameFile):
         super().__init__(dataSource, width, height, Xcolomn, quality, nameFile)
         self.drawLines(dataSource.columnsColors)
-        self.d.saveSvg(nameFile + '.svg')
-        self.d.savePng(nameFile + '.png')
+        #self.d.saveSvg(nameFile + '.svg')
+        #self.d.savePng(nameFile + '.png')
         self.SVG = self.d.asSvg()
 
     def drawLines(self, colors: List[str]):
