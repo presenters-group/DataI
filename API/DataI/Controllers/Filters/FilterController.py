@@ -5,6 +5,7 @@ from typing import List
 from DataI.Controllers.DataControllers import DataController
 from DataI.Controllers.DataControllers import DataSourcesController
 from DataI.Models.ColumnModel import ColumnModel
+from DataI.Models.DashboardModel import DashboardModel
 from DataI.Models.DataModel import DataModel
 from DataI.Models.TableModel import TableModel
 
@@ -106,7 +107,6 @@ class FiltersController():
 
         filteredTable = deepcopy(table)
 
-
         for visioFilter in visio.filters:
             filterModelIndex = DataController.getElementIndexById(data.filters, visioFilter['id'])
             filterModel = data.filters[filterModelIndex]
@@ -117,23 +117,22 @@ class FiltersController():
 
         return filteredTable
 
+    @classmethod
+    def getFilteredDashboardVisio(cls, data: DataModel, dashboardId: int, visioId: int):
+        pass
+
+
+
 
     @classmethod
-    def __appendNonFilteredColumns(cls, columnsList: List[ColumnModel], table: TableModel):
-        # getting filtered columns IDs in a list for comparison.
-        filteredColumnsIDs = list()
-        for column in columnsList:
-            filteredColumnsIDs.append(column.id)
+    def __getVisioIndexFromDashboard(cls, dashboard: DashboardModel, visioId: int):
+        indexCounter = 0
+        for inVisioModel in dashboard.visualizers:
+            if inVisioModel.visualizationId == visioId:
+                return indexCounter
+            indexCounter += 1
+        return -1
 
-        tableColumnsIDs = list()
-        for column in table.columns:
-            tableColumnsIDs.append(column.id)
-
-        for id in tableColumnsIDs:
-            if id not in filteredColumnsIDs:
-                columnIndex = DataController.getElementIndexById(table.columns, id)
-                column = table.columns[columnIndex]
-                columnsList.append(column)
 
 
 class FiltersFactory():
@@ -143,3 +142,21 @@ class FiltersFactory():
             return MultipleEqualityFilter()
         else:
             return NumericFilter(filterType)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

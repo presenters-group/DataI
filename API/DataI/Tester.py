@@ -12,7 +12,7 @@ from DataI.Controllers.DrawControllers.DrawController import DrawController
 from DataI.Controllers.Filters.FilterController import NumericFilter, MultipleEqualityFilter, FiltersController
 from DataI.JSONSerializer import ObjectEncoder
 from DataI.Models.ColumnModel import CellModel
-from DataI.Models.DashboardModel import DashboardModel
+from DataI.Models.DashboardModel import DashboardModel, InDashboardFilterModel, Measurements, InDashboardVisioModel
 from DataI.Models.FilterModel import FilterModel
 import os
 
@@ -92,6 +92,51 @@ jsonVisio = '''
             "isDeleted": false
         }
 '''
+jsonDashboard = '''
+{
+    "name": "dashboard1",
+    "id": 0,
+    "isDeleted": false,
+    "visualizers": [
+        {
+            "visualizationId": 0,
+            "measurements": {
+                "width": 100.0,
+                "height": 100.0,
+                "x": 50.0,
+                "y": 60.0
+            }
+        }
+    ],
+    "filters": [
+        {
+            "filterId": 0,
+            "inVisioIndex": 0,
+            "value": 50,
+            "isActive": true,
+            "measurements": {
+                "width": 20.0,
+                "height": 60.0,
+                "x": 10.0,
+                "y": 20.0
+            }
+        },
+        {
+            "filterId": 1,
+            "inVisioIndex": 0,
+            "value": 50,
+            "isActive": true,
+            "measurements": {
+                "width": 20.0,
+                "height": 60.0,
+                "x": 10.0,
+                "y": 20.0
+            }
+        }
+    ]
+}
+'''
+
 
 loadedJsonFilters = json.loads(jsonFilters)
 for filter in loadedJsonFilters:
@@ -114,6 +159,7 @@ filter3 = {
 }
 
 dataController.data.visualizations.append(VisualizationModel.from_json(json.loads(jsonVisio)))
+dataController.data.dashboards.append(DashboardModel.from_json(json.loads(jsonDashboard)))
 dataController.data.dataSources[0].filters = [filter1, filter2]
 dataController.data.dataSources[1].filters = [filter3]
 dataController.data.visualizations[0].filters = [filter1]
@@ -127,15 +173,15 @@ dataController.data.visualizations[0].filters = [filter1]
 # print(len(filteredTable.columns[0].cells))
 # filteredTables = DataSourcesController.getFinalTables(dataController.data)
 
-for table in dataController.data.dataSources:
-    for column in table.columns:
-        print('Column Type: {}'.format(column.columnType))
-        for cell in column.cells:
-            print(cell)
-        print('_________________')
-    print('==================================')
-    print('__________________________________')
-    print('==================================')
+# for table in dataController.data.dataSources:
+#     for column in table.columns:
+#         print('Column Type: {}'.format(column.columnType))
+#         for cell in column.cells:
+#             print(cell)
+#         print('_________________')
+#     print('==================================')
+#     print('__________________________________')
+#     print('==================================')
 
 
 # for column in dataController.data.dataSources[0].columns:
@@ -344,7 +390,17 @@ for table in dataController.data.dataSources:
 
 
 
-
+# measure = Measurements(20.0, 60.0, 10.0, 20.0)
+# inDashFilter1 = InDashboardFilterModel(0, 0, 50, True, measure)
+# inDashFilter2 = InDashboardFilterModel(1, 0, 50, True, measure)
+# measure = Measurements(100.0, 100.0, 50.0, 60.0)
+# inVisio = InDashboardVisioModel(0, measure)
+#
+# dashboard = DashboardModel([inVisio], 'dashboard1', 0, [inDashFilter1, inDashFilter2], False)
+#
+# jsonDash = json.dumps(dashboard, indent=4, cls=ObjectEncoder, ensure_ascii=False)
+#
+# print(jsonDash)
 
 
 

@@ -90,8 +90,8 @@ class DataController():
                  enums.ChartTypes.SmartPieChart.value]
         return names
 
-    def getChartSVGString(self, visioId, width, height):
-        return DrawController.getSVGString(self.data, visioId, width, height)
+    def getChart(self, visioId, width, height):
+        return DrawController.getChart(self.data, visioId, width, height)
 
     def insertNewDashboard(self, dashBoard: DashboardModel):
         DashboardsController.insertNewDashboard(self.data, dashBoard)
