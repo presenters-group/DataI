@@ -24,7 +24,7 @@ class LineChart(PointChart):
             if column.columnType == enums.ColumnDataType.Measures.value:
                 add = self.widthOfYLabels
                 p = draw.Path(stroke_width=self.xUnit / 50, stroke=colors[columnCounter],
-                              fill=colors[columnCounter], fill_opacity=0, id=str(self.Index))
+                              fill=colors[columnCounter], fill_opacity=0.5, id=str(self.Index))
                 name = str(column.name)
                 self.listOfIndexing.append(name)
                 self.Index += 1
