@@ -13,7 +13,6 @@ class PointChart(Chart):
     def __init__(self, dataSourceTableWithoutXcolumn: TableModel, widthView: double, heightView: double,
                  xcolumon: ColumnModel, quality: double, nameFile):
         super().__init__(dataSourceTableWithoutXcolumn, widthView, heightView, xcolumon)
-        self.Index = 0
         self.widthOfYLabels = widthView / 8
         self.heightOfXLabels = heightView / 8
         print("FontSize:::::", self.heightOfXLabels)
@@ -42,8 +41,7 @@ class PointChart(Chart):
         self.drawColmunsColorList(dataSourceTableWithoutXcolumn.columnsColors)
         print("list:",dataSourceTableWithoutXcolumn.columnsColors)
         self.drawSideLable()
-        self.d.setPixelScale(1)  # Set number of pixels per geometry unit
-        # self.d.setRenderSize(400,200)
+        #self.d.setPixelScale(100000)  # Set number of pixels per geometry unit
         #self.d.saveSvg(nameFile + '.svg')
         #    self.d.savePng(nameFile+'.png')
         self.SVG = self.d.asSvg()

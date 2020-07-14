@@ -3,7 +3,7 @@ from numpy import double
 from DataI import enums
 from DataI.Controllers.DrawControllers.BarChart import BarChart
 from DataI.Controllers.DrawControllers.BoundaryLineChart import BoundaryLineChart
-from DataI.Controllers.DrawControllers.HumanChart import HumanChart
+from DataI.Controllers.DrawControllers.InfChart import InfChart
 from DataI.Controllers.DrawControllers.MultiplePieChart import MultiplePieChart
 from DataI.Controllers.DrawControllers.PieChart import PieChart
 from DataI.Controllers.DrawControllers.PointChart import PointChart
@@ -29,7 +29,7 @@ class ChartsFactory():
             return BarChart(table, width, height, xColomn, quality, '')
 
         if chartType == enums.ChartTypes.HumanChart.value:
-            return HumanChart(table.columns[0], xColomn, 'testerrr')
+            return InfChart(table.columns[0], xColomn, 'testerrr')
 
         if chartType == enums.ChartTypes.MultiplePieChart.value:
             return MultiplePieChart(table, xColomn, width, height, 'testerrr')
