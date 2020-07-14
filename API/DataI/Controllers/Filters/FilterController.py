@@ -32,10 +32,6 @@ class NumericFilter():
 
         rowCounter = 1
         for cell in column.cells[1:]:
-            print(cell.value)
-            print(type(cell.value))
-            print(value)
-            print(type(value))
             if not operators[self.operator](cell.value, value):
                 DataSourcesController.removeRowFromTable(filteredTable, rowCounter)
                 filteredTable.rowsColors.pop(rowCounter - 1)
@@ -122,8 +118,44 @@ class FiltersController():
         return filteredTable
 
     @classmethod
-    def getFilteredDashboardVisio(cls, data: DataModel, dashboardId: int, visioId: int):
-        pass
+    def getFilteredDashboardVisio(cls, data: DataModel, dashboardId: int, visioId: int) -> TableModel:
+        dashboardIndex = DataController.getElementIndexById(data.dashboards, dashboardId)
+        dashboard = data.dashboards[dashboardIndex]
+
+        inVisioModel = cls.__getInDashboardVisioModel(data, dashboardId, visioId)
+
+        visioIndex = DataController.getElementIndexById(data.visualizations, inVisioModel.visualizationId)
+        visio = data.visualizations[visioIndex]
+
+        tableIndex = DataController.getElementIndexById(data.dataSources, visio.data)
+        table = data.dataSources[tableIndex]
+
+        filteredTable = deepcopy(table)
+
+        for dashboardFilter in dashboard.filters:
+            filterModelIndex = DataController.getElementIndexById(data.filters, dashboardFilter['filterId'])
+            filterModel = data.filters[filterModelIndex]
+
+            print(dashboardFilter)
+
+            if dashboardFilter['visioId'] == visioId:
+                if dashboardFilter['isActive'] and not filterModel.isDeleted:
+                    filterObj = FiltersFactory.getFilter(filterModel.type)
+                    filteredTable = filterObj.implementFilter(filteredTable,
+                                                              filterModel.filteredColumn, dashboardFilter['value'])
+
+
+        return filteredTable
+
+
+    @classmethod
+    def __getInDashboardVisioModel(cls, data: DataModel, dashboardId: int, visioId: int):
+        dashboardIndex = DataController.getElementIndexById(data.dashboards, dashboardId)
+        dashboard = data.dashboards[dashboardIndex]
+        for inVisioModel in dashboard.visualizers:
+            if inVisioModel.visualizationId == visioId:
+                return inVisioModel
+        return -1
 
 
 

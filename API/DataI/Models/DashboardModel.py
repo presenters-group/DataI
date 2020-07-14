@@ -18,9 +18,9 @@ class Measurements(ObjectDeserializer):
 
 
 class InDashboardFilterModel(ObjectDeserializer):
-    def __init__(self, filterId: int, inVisioIndex: int, value, isActive: bool, measurements: Measurements):
+    def __init__(self, filterId: int, visioId: int, value, isActive: bool, measurements: Measurements):
         self.filterId = filterId
-        self.inVisioIndex = inVisioIndex
+        self.visioId = visioId
         self.value = value
         self.isActive = isActive
         self.measurements = measurements
@@ -40,7 +40,7 @@ class InDashboardVisioModel(ObjectDeserializer):
 
 class DashboardModel(BasicDataModelInfo):
     def __init__(self, visualizers: List[InDashboardVisioModel], name: str, id: int,
-                 filters: List[InDashboardFilterModel], isDeleted: bool):
+                 filters: List, isDeleted: bool):
         super(DashboardModel, self).__init__(name, id, filters, isDeleted)
         self.visualizers = visualizers
 

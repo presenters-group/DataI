@@ -110,8 +110,8 @@ jsonDashboard = '''
     ],
     "filters": [
         {
-            "filterId": 0,
-            "inVisioIndex": 0,
+            "filterId": 1,
+            "visioId": 0,
             "value": 50,
             "isActive": true,
             "measurements": {
@@ -122,7 +122,7 @@ jsonDashboard = '''
             }
         },
         {
-            "filterId": 1,
+            "filterId": 2,
             "inVisioIndex": 0,
             "value": 50,
             "isActive": true,
@@ -164,6 +164,14 @@ dataController.data.dataSources[0].filters = [filter1, filter2]
 dataController.data.dataSources[1].filters = [filter3]
 dataController.data.visualizations[0].filters = [filter1]
 
+
+filteredTable = FiltersController.getFilteredDashboardVisio(dataController.data, 0, 0)
+
+
+for column in filteredTable.columns:
+    for cell in column.cells:
+        print(cell)
+    print('__________________________')
 
 # for color in dataController.data.dataSources[0].rowsColors:
 
