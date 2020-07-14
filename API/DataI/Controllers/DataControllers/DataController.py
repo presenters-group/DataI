@@ -76,15 +76,23 @@ class DataController():
 
     def insertInVisioFilter(self, filter: Dict, visioId: int):
         targetVisioIndex = DataController.getElementIndexById(self.data.visualizations, visioId)
-        return self.__insertInDataModelFilter(self.data.visualizations[targetVisioIndex], filter)
+        returnDict = self.__insertInDataModelFilter(self.data.visualizations[targetVisioIndex], filter)
+        returnDict['visioId'] = visioId
+        return returnDict
 
     def updateInVisioFilter(self, filter: Dict, visioId: int, filterId: int):
         targetVisioIndex = DataController.getElementIndexById(self.data.visualizations, visioId)
-        return self.__updateInDataModelFilter(self.data.visualizations[targetVisioIndex], filter, filterId)
+        returnDict = self.__updateInDataModelFilter(self.data.visualizations[targetVisioIndex], filter, filterId)
+        returnDict['visioId'] = visioId
+        return returnDict
 
     def removeInVisioFilter(self, visioId: int, filterId: int):
         targetVisioIndex = DataController.getElementIndexById(self.data.visualizations, visioId)
-        return self.__removeInDataModelFilter(self.data.visualizations[targetVisioIndex], filterId)
+        returnDict = dict()
+        returnDict['state'] = self.__removeInDataModelFilter(self.data.visualizations[targetVisioIndex], filterId)
+        returnDict['visioId'] = visioId
+        return returnDict
+
 
     def getChartsNames(self):
         names = [enums.ChartTypes.VerticalBarChart.value, enums.ChartTypes.BoundaryLineChart.value,
@@ -107,15 +115,23 @@ class DataController():
 
     def insertInDashboardFilter(self, filter: Dict, dashboardId: int):
         targetDashboardIndex = DataController.getElementIndexById(self.data.dashboards, dashboardId)
-        return self.__insertInDataModelFilter(self.data.dashboards[targetDashboardIndex], filter)
+        returnDict = self.__insertInDataModelFilter(self.data.dashboards[targetDashboardIndex], filter)
+        returnDict['dashboardId'] = dashboardId
+        return returnDict
 
     def updateInDashboardFilter(self, filter: Dict, dashboardId: int, filterId: int):
         targetDashboardIndex = DataController.getElementIndexById(self.data.dashboards, dashboardId)
-        return self.__updateInDataModelFilter(self.data.dashboards[targetDashboardIndex], filter, filterId)
+        returnDict = self.__updateInDataModelFilter(self.data.dashboards[targetDashboardIndex], filter, filterId)
+        returnDict['dashboardId'] = dashboardId
+        return returnDict
 
     def removeInDashboardFilter(self, dashboardId: int, filterId):
         targetDashboardIndex = DataController.getElementIndexById(self.data.dashboards, dashboardId)
-        return self.__removeInDataModelFilter(self.data.dashboards[targetDashboardIndex], filterId)
+        returnDict = dict()
+        returnDict['state'] = self.__removeInDataModelFilter(self.data.dashboards[targetDashboardIndex], filterId)
+        returnDict['dashboardId'] = dashboardId
+        return returnDict
+
 
     def insertNewFilter(self, filter: FilterModel):
         FiltersModelController.insertNewFilter(self.data, filter)
@@ -151,17 +167,22 @@ class DataController():
     def __updateInDataModelFilter(cls, model: BasicDataModelInfo, filter: Dict, filterId: int):
         inFilterIndex = DataController.getElementIndexFromDictById(model.filters, filterId)
         if inFilterIndex == -1:
-            return -1
+            returnDict = dict()
+            returnDict['state'] = -1
+            return returnDict
         model.filters[inFilterIndex] = filter
+        filter['state'] = 1
         return filter
 
     @classmethod
     def __removeInDataModelFilter(cls, model: BasicDataModelInfo, filterId: int):
         inFilterIndex = DataController.getElementIndexFromDictById(model.filters, filterId)
+        print(inFilterIndex)
         if inFilterIndex == -1:
             return -1
         model.filters.pop(inFilterIndex)
         return 1
+
 
 def getMaxIdInList(idList):
     max = 0

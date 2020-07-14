@@ -56,20 +56,8 @@ jsonDashboard = '''
     ],
     "filters": [
         {
-            "filterId": 1,
+            "id": 1,
             "visioId": 0,
-            "value": 50,
-            "isActive": true,
-            "measurements": {
-                "width": 20.0,
-                "height": 60.0,
-                "x": 10.0,
-                "y": 20.0
-            }
-        },
-        {
-            "filterId": 2,
-            "inVisioIndex": 0,
             "value": 50,
             "isActive": true,
             "measurements": {
@@ -239,10 +227,10 @@ def updateInDataSourceFilter(request, tableId, filterId):
 @csrf_exempt
 def removeInDataSourceFilter(request, tableId, filterId):
     if request.method == 'PUT':
-        returnTable = dataController.removeInDataSourceFilter(tableId, filterId)
-        if returnTable == -1:
+        returnValue = dataController.removeInDataSourceFilter(tableId, filterId)
+        if returnValue == -1:
             return HttpResponseNotFound('Filter not found.')
-        return HttpResponse(json.dumps(returnTable, indent=4, cls=ObjectEncoder, ensure_ascii=False))
+        return HttpResponse(json.dumps(returnValue, indent=4, cls=ObjectEncoder, ensure_ascii=False))
     else:
         return HttpResponseNotFound('No such request({} <{}>) is available'.format(request.path, request.method))
 
@@ -288,7 +276,8 @@ def updateInVisioFilter(request, visioId, filterId):
     if request.method == 'PUT':
         filter = json.loads(request.body.decode())
         returnFilter = dataController.updateInVisioFilter(filter, visioId, filterId)
-        if returnFilter == -1:
+        print(returnFilter['state'])
+        if returnFilter['state'] == -1:
             return HttpResponseNotFound('Filter not found.')
         return HttpResponse(json.dumps(returnFilter, indent=4, cls=ObjectEncoder, ensure_ascii=False))
     else:
@@ -299,7 +288,7 @@ def updateInVisioFilter(request, visioId, filterId):
 def removeInVisioFilter(request, visioId, filterId):
     if request.method == 'PUT':
         returnValue = dataController.removeInVisioFilter(visioId, filterId)
-        if returnValue == -1:
+        if returnValue['state'] == -1:
             return HttpResponseNotFound('Filter not found.')
         return HttpResponse(json.dumps(returnValue, indent=4, cls=ObjectEncoder, ensure_ascii=False))
     else:
@@ -369,9 +358,10 @@ def insertInDashboardFilter(request, dashboardId):
 def updateInDashboardFilter(request, dashboardId, filterId):
     if request.method == 'PUT':
         filter = json.loads(request.body.decode())
-        returnFilter = dataController.updateInDataSourceFilter(filter, dashboardId, filterId)
-        if returnFilter == -1:
+        returnFilter = dataController.updateInDashboardFilter(filter, dashboardId, filterId)
+        if returnFilter['state'] == -1:
             return HttpResponseNotFound('Filter not found.')
+        print(dataController.data.dashboards[0].filters[0])
         return HttpResponse(json.dumps(returnFilter, indent=4, cls=ObjectEncoder, ensure_ascii=False))
     else:
         return HttpResponseNotFound('No such request({} <{}>) is available'.format(request.path, request.method))
@@ -381,12 +371,11 @@ def updateInDashboardFilter(request, dashboardId, filterId):
 def removeInDashboardFilter(request, dashboardId, filterId):
     if request.method == 'PUT':
         returnValue = dataController.removeInDashboardFilter(dashboardId, filterId)
-        if returnValue == -1:
+        if returnValue['state'] == -1:
             return HttpResponseNotFound('Filter not found.')
         return HttpResponse(json.dumps(returnValue, indent=4, cls=ObjectEncoder, ensure_ascii=False))
     else:
         return HttpResponseNotFound('No such request({} <{}>) is available'.format(request.path, request.method))
-
 
 
 @csrf_exempt

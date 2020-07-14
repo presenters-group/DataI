@@ -133,10 +133,8 @@ class FiltersController():
         filteredTable = deepcopy(table)
 
         for dashboardFilter in dashboard.filters:
-            filterModelIndex = DataController.getElementIndexById(data.filters, dashboardFilter['filterId'])
+            filterModelIndex = DataController.getElementIndexById(data.filters, dashboardFilter['id'])
             filterModel = data.filters[filterModelIndex]
-
-            print(dashboardFilter)
 
             if dashboardFilter['visioId'] == visioId:
                 if dashboardFilter['isActive'] and not filterModel.isDeleted:

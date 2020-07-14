@@ -23,6 +23,9 @@ urlpatterns = [
 
     path('dashboards/', views.dashBoardsHandler),
     path('dashboards/<int:id>/', views.dashboardModifier),
+    path('dashboards/insert-filter/<int:dashboardId>/', views.insertInDashboardFilter),
+    path('dashboards/update-filter/<int:dashboardId>/<int:filterId>/', views.updateInDashboardFilter),
+    path('dashboards/remove-filter/<int:dashboardId>/<int:filterId>/', views.removeInDashboardFilter),
 
     path('filters/', views.filtersHandler),
     path('filters/<int:id>/', views.filterModifier),

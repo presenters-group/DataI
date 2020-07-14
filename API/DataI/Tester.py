@@ -110,7 +110,7 @@ jsonDashboard = '''
     ],
     "filters": [
         {
-            "filterId": 1,
+            "id": 1,
             "visioId": 0,
             "value": 50,
             "isActive": true,
@@ -122,8 +122,8 @@ jsonDashboard = '''
             }
         },
         {
-            "filterId": 2,
-            "inVisioIndex": 0,
+            "id": 2,
+            "visioId": 0,
             "value": 50,
             "isActive": true,
             "measurements": {
