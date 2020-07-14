@@ -86,7 +86,7 @@ class DataController():
     def getChartsNames(self):
         names = [enums.ChartTypes.VerticalBarChart.value, enums.ChartTypes.BoundaryLineChart.value,
                  enums.ChartTypes.PointChart.value, enums.ChartTypes.MultiplePieChart.value,
-                 enums.ChartTypes.HumanChart.value, enums.ChartTypes.PyramidalChart.value,
+                 enums.ChartTypes.InfChart.value, enums.ChartTypes.PyramidalChart.value,
                  enums.ChartTypes.SmartPieChart.value]
         return names
 
