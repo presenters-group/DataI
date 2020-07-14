@@ -73,6 +73,8 @@ jsonDashboard = '''
                     ]
                 }
             ],
+            "filters": [
+            ],
             "isDeleted": false
         }
 '''
@@ -81,7 +83,7 @@ jsonFilters = '''
         {
             "name": "filter1",
             "id": 0,
-            "dataSource": 0,
+            "dataSource": 1,
             "filteredColumn": 0,
             "initValue": "A",
             "type": "MultipleEquality",
@@ -271,7 +273,6 @@ def visualizerModifier(request, id):
 def insertInVisioFilter(request, visioId):
     if request.method == 'PUT':
         filter = json.loads(request.body.decode())
-        print(filter)
         returnFilter = dataController.insertInVisioFilter(filter, visioId)
         return HttpResponse(json.dumps(returnFilter, indent=4, cls=ObjectEncoder, ensure_ascii=False))
     else:
@@ -299,8 +300,6 @@ def removeInVisioFilter(request, visioId, filterId):
         return HttpResponse(json.dumps(returnValue, indent=4, cls=ObjectEncoder, ensure_ascii=False))
     else:
         return HttpResponseNotFound('No such request({} <{}>) is available'.format(request.path, request.method))
-
-
 
 
 @csrf_exempt
@@ -351,10 +350,44 @@ def dashboardModifier(request, id):
         newDashboard = dataController.updateDashboardById(newDashboard, id)
         return HttpResponse(json.dumps(newDashboard, indent=4, cls=ObjectEncoder, ensure_ascii=False))
     if request.method == 'DELETE':
-        dashBoard = dataController.deleteDashBoard(id)
+        dashBoard = dataController.deleteDashboard(id)
         return HttpResponse(json.dumps(dashBoard, indent=4, cls=ObjectEncoder, ensure_ascii=False))
     else:
         return HttpResponseNotFound('No such request({} <{}>) is available'.format(request.path, request.method))
+
+
+@csrf_exempt
+def insertInDashboardFilter(request, dashboardId):
+    if request.method == 'PUT':
+        filter = json.loads(request.body.decode())
+        returnFilter = dataController.insertInDashboardFilter(filter, dashboardId)
+        return HttpResponse(json.dumps(returnFilter, indent=4, cls=ObjectEncoder, ensure_ascii=False))
+    else:
+        return HttpResponseNotFound('No such request({} <{}>) is available'.format(request.path, request.method))
+
+
+@csrf_exempt
+def updateInDashboardFilter(request, dashboardId, filterId):
+    if request.method == 'PUT':
+        filter = json.loads(request.body.decode())
+        returnFilter = dataController.updateInDataSourceFilter(filter, dashboardId, filterId)
+        if returnFilter == -1:
+            return HttpResponseNotFound('Filter not found.')
+        return HttpResponse(json.dumps(returnFilter, indent=4, cls=ObjectEncoder, ensure_ascii=False))
+    else:
+        return HttpResponseNotFound('No such request({} <{}>) is available'.format(request.path, request.method))
+
+
+@csrf_exempt
+def removeInDashboardFilter(request, dashboardId, filterId):
+    if request.method == 'PUT':
+        returnValue = dataController.removeInDashboardFilter(dashboardId, filterId)
+        if returnValue == -1:
+            return HttpResponseNotFound('Filter not found.')
+        return HttpResponse(json.dumps(returnValue, indent=4, cls=ObjectEncoder, ensure_ascii=False))
+    else:
+        return HttpResponseNotFound('No such request({} <{}>) is available'.format(request.path, request.method))
+
 
 
 @csrf_exempt

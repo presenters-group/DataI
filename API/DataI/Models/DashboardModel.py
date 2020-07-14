@@ -1,6 +1,6 @@
 from typing import List
 from DataI.JSONSerializer import ObjectDeserializer
-from DataI.Models.BasicInfo import BasicInfo
+from DataI.Models.BasicInfo import BasicInfo, BasicDataModelInfo
 
 
 class Measurements(ObjectDeserializer):
@@ -35,11 +35,10 @@ class InDashboardVisioModel(ObjectDeserializer):
             .format(self.visualizationIndex, self.measurements, self.displayedFilters)
 
 
-class DashboardModel(BasicInfo):
-    def __init__(self, visualizers: List[InDashboardVisioModel], name: str, id: int, isDeleted: bool):
-        super(DashboardModel, self).__init__(name, id)
+class DashboardModel(BasicDataModelInfo):
+    def __init__(self, visualizers: List[InDashboardVisioModel], name: str, id: int, filters: List, isDeleted: bool):
+        super(DashboardModel, self).__init__(name, id, filters, isDeleted)
         self.visualizers = visualizers
-        self.isDeleted = isDeleted
 
     def __str__(self):
         return 'name: {}, ID: {}\nvisualizers:\n{}'.format(self.name, self.id, self.visualizers)
@@ -52,5 +51,6 @@ class DashboardModel(BasicInfo):
             visualizers.append(InDashboardVisioModel.from_json(element))
         name = data['name']
         id = data['id']
+        filters = data['filters']
         isDeleted = data['isDeleted']
-        return cls(visualizers, name, id, isDeleted)
+        return cls(visualizers, name, id, filters, isDeleted)

@@ -1,6 +1,6 @@
 from typing import List
 from DataI.JSONSerializer import ObjectDeserializer
-from DataI.Models.BasicInfo import BasicInfo
+from DataI.Models.BasicInfo import BasicDataModelInfo
 from DataI.Models.ColumnModel import ColumnModel
 
 
@@ -35,10 +35,10 @@ class AggregationModel():
         return cls(aggregatedTable, aggregationColumn, isActive)
 
 
-class TableModel(BasicInfo):
+class TableModel(BasicDataModelInfo):
     def __init__(self, columns: List[ColumnModel], name: str, id: int, properties: PropertiesModel,
                  aggregator: AggregationModel, filters: List, isDeleted: bool):
-        super().__init__(name, id)
+        super().__init__(name, id, filters, isDeleted)
         self.columns = columns
 
         bufferColumnsList = list()
@@ -57,7 +57,6 @@ class TableModel(BasicInfo):
 
         self.properties = properties
         self.aggregator = aggregator
-        self.filters = filters
         self.isDeleted = isDeleted
 
     @classmethod

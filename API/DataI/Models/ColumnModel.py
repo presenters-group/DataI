@@ -36,11 +36,10 @@ class ColumnStyleModel(ObjectDeserializer):
 
 class ColumnModel(BasicInfo):
     def __init__(self, cells: List[CellModel], name: str, id: int, isDeleted: bool):
-        super(ColumnModel, self).__init__(name, id)
+        super(ColumnModel, self).__init__(name, id, isDeleted)
         self.cells = cells
         self.columnType = self.__getColumnType(cells[1:])
         self.valueCategories = list()
-        self.isDeleted = isDeleted
 
         for cell in cells[1:]:
             if not self.__cellInList(cell, self.valueCategories):
