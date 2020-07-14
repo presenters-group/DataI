@@ -13,7 +13,7 @@ class PointChart(Chart):
     def __init__(self, dataSourceTableWithoutXcolumn: TableModel, widthView: double, heightView: double,
                  xcolumon: ColumnModel, quality: double, nameFile):
         super().__init__(dataSourceTableWithoutXcolumn, widthView, heightView, xcolumon)
-        self.listOfIndexing = list()
+        self.metaData = list()
         self.Index = 0
         self.widthOfYLabels = widthView / 8
         self.heightOfXLabels = heightView / 8
@@ -151,7 +151,7 @@ class PointChart(Chart):
                 for cell, i in zip(column.cells, range(0, len(self.xColumn.cells))):
                     if (i != 0):
                         add += self.xUnit
-                        self.listOfIndexing.append("(" + str(self.xColumn.cells[i].value) + "," + str(cell.value) + ")")
+                        self.metaData.append("(" + str(self.xColumn.cells[i].value) + "," + str(cell.value) + ")")
                         self.d.append(draw.Circle(add, self.convertY(double(cell.value)), self.xUnit / 30,
                                                   fill=colors[columnCounter],
                                                   stroke_width=0,
@@ -166,7 +166,7 @@ class PointChart(Chart):
         for cell, i in zip(self.xColumn.cells[0:], range(1, len(self.xColumn.cells))):
             add += self.xUnit
             num = self.xColumn.cells[i].value
-            self.listOfIndexing.append(str(num))
+            self.metaData.append(str(num))
             if (len(str(num)) > 10):
                 num = num[0:8] + "..."
             self.d.append(
@@ -187,7 +187,7 @@ class PointChart(Chart):
         num = "X:" + str(self.xColumn.name)
         if (len(str(num)) > 10):
             num = num[0:8] + "..."
-        self.listOfIndexing.append("X:" + str(self.xColumn.name))
+        self.metaData.append("X:" + str(self.xColumn.name))
         self.Index += 1
         self.d.append(draw.Circle(add, self.heightOfXLabels / 4 +(fontSize / 2), fontSize / 2, fill="black", stroke_width=0,
                                   stroke='black',fill_opacity=1))
@@ -205,7 +205,7 @@ class PointChart(Chart):
                 num = column.name
                 if (len(str(num)) > 10):
                     num = num[0:8] + "..."
-                self.listOfIndexing.append(num)
+                self.metaData.append(num)
                 self.d.append(
                     draw.Circle(add, self.heightOfXLabels / 4 + (fontSize / 2), fontSize / 2, fill=colors[columnCounter],
                                 stroke_width=0,
@@ -225,7 +225,7 @@ class PointChart(Chart):
         x = self.widthOfYLabels / 10
         for i in range(0, int(self.quality)):
             num = str(self.listOfLevelXValue[i])
-            self.listOfIndexing.append(num)
+            self.metaData.append(num)
             if (len(num) > 10):
                 num = num[0:8] + "..."
             self.d.append(

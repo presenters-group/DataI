@@ -9,23 +9,25 @@ from DataI.Models.TableModel import TableModel
 
 
 class MultiplePieChart:
-    def __init__(self, dataSource: TableModel, XColumn: ColumnModel, width: double, height: double, nameFile):
+    def __init__(self, dataSource: TableModel, XColumn: ColumnModel, width: double, height: double, nameFile: str):
         self.widthView = width
         self.heightView = height
+        width -= width/4
         self.data = dataSource
         self.xColumn = XColumn
-        self.r = min(width, height) / 2
-        self.d = draw.Drawing(self.widthView + 500, self.heightView + 100)
+        self.r = (min(width, height) / 2)/1.1
+        self.stroke = self.r /50
+        self.d = draw.Drawing(self.widthView , self.heightView )
         self.total = self.sumColumn(XColumn)
-        self.xCenter = min(width + 100, height + 100) / 2
-        self.yCenter = - min(width + 100, height + 100) / 2
+        self.xCenter = width/ 2
+        self.yCenter = - height/ 2
         self.drawlayOut()
         self.drawCircle()
-        # self.d.saveSvg(nameFile + '.svg')
+        #self.d.saveSvg(nameFile + '.svg')
         self.SVG = self.d.asSvg()
 
     def drawlayOut(self):
-        self.d.append(draw.Rectangle(0, 0, self.widthView + 500, self.heightView + 100, fill='#ffffff'))
+        self.d.append(draw.Rectangle(0, 0, self.widthView, self.heightView, fill='#ffffff'))
 
     def sumColumn(self, column: ColumnModel) -> double:
         sum = 0.0
@@ -54,7 +56,7 @@ class MultiplePieChart:
         return colorsList
 
     def drawCircle(self):
-        colorList = self.generateRandomColorsList(int(len(self.xColumn.cells)))
+        colorList = self.data.rowsColors
         xCenter = self.xCenter
         yCenter = self.yCenter
         # ========================================================================
@@ -74,7 +76,7 @@ class MultiplePieChart:
                 for cell, cell2, i in zip(self.xColumn.cells, column.cells, range(0, len(self.xColumn.cells))):
                     if (i != 0):
 
-                        length += 1
+                        length += self.heightView /len(self.xColumn.cells)
                         startangle = oldEndangle
                         endAngle += self.getAngle(double(cell2.value), column)
                         oldEndangle = endAngle
@@ -88,17 +90,14 @@ class MultiplePieChart:
                         M = ("M %s %s" % (xstartpoint, ystartpoint))
                         a = ("A %s %s 0 %s 0 %s %s" % (r, r, large_arc_flag, xendpoint, yendpoint))
                         L = ("L %s %s" % (xCenter, yCenter))
-                        p = draw.Path(stroke_width=10, stroke="white", fill=colorList[i - 1], fill_opacity=1,
+                        p = draw.Path(stroke_width=self.stroke, stroke="white", fill=colorList[i - 1], fill_opacity=1,
                                       d=M + a + L)
                         p.Z()
                         self.d.append(p)
                         if (b == 0):
                             text = str(cell.value)
-                            self.d.append(draw.Circle(self.widthView + 100, length * 80, 20, fill=colorList[i - 1],
-                                                      fill_opacity=1,
-                                                      stroke_width=0))
-                            self.d.append(
-                                draw.Text(text=str(text), fontSize=30, x=self.widthView + 150, y=length * 80 - 10))
+                            self.d.append(draw.Circle(self.widthView - self.widthView/4.5, length , self.stroke*2, fill=colorList[i - 1],fill_opacity=1,stroke_width=0))
+                            self.d.append(draw.Text(text=str(text), fontSize=self.stroke*4, x=self.widthView - self.widthView/6, y=length-length/50))
                         print("Before:", r)
 
                 b += 1

@@ -41,7 +41,7 @@ class BarChart(PointChart):
             if column != self.xColumn:
                 add = self.widthOfYLabels+self.xUnit + self.widthOfSingleColumn * (len(self.dataSourceTableWithoutXcolumn.columns)/2)
                 name = str(column.name)
-                self.listOfIndexing.append(name)
+                self.metaData.append(name)
                 self.Index += 1
                 if (column != self.xColumn):
                     for cell, i in zip(column.cells, range(0, len(self.xColumn.cells))):
