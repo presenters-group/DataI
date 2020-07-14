@@ -1,5 +1,5 @@
 import json
-from typing import List
+from typing import List, Dict
 
 from DataI import enums
 from DataI.Controllers.DataControllers import DataController
@@ -35,6 +35,14 @@ class DataSourcesController():
         return data.dataSources[oldTableIndex]
 
     @classmethod
+    def deleteTable(cls, data: DataModel, id: int):
+        elementIndex = DataController.getElementById(data.dataSources, id)
+        if elementIndex != -1:
+            data.dataSources[elementIndex].isDeleted = True
+            return data.dataSources[elementIndex]
+        return None
+
+    @classmethod
     def updateCellByCords(cls, data: DataModel, cell, tableId: int, columnId: int, cellIndex):
         targetTableIndex = DataController.getElementIndexById(data.dataSources, tableId)
         targetColumnIndex = DataController.getElementIndexById(data.dataSources[targetTableIndex].columns, columnId)
@@ -62,14 +70,6 @@ class DataSourcesController():
         return data.dataSources[targetTableIndex]
 
     @classmethod
-    def deleteTable(cls, data: DataModel, id: int):
-        elementIndex = DataController.getElementById(data.dataSources, id)
-        if elementIndex != -1:
-            data.dataSources[elementIndex].isDeleted = True
-            return data.dataSources[elementIndex]
-        return None
-
-    @classmethod
     def getRowFromTable(cls, table: TableModel, rowIndex: int) -> List[CellModel]:
         row = list()
         for column in table.columns:
@@ -86,30 +86,6 @@ class DataSourcesController():
     def removeRowFromTable(cls, table: TableModel, rowIndex: int):
         for column in table.columns:
             column.cells.pop(rowIndex)
-
-    @classmethod
-    def insertInDataSourceFilter(cls, data: DataModel, filter, tableId: int):
-        targetTableIndex = DataController.getElementIndexById(data.dataSources, tableId)
-        data.dataSources[targetTableIndex].filters.append(filter)
-        return FiltersController.getFilteredTable(data, tableId)
-
-    @classmethod
-    def updateInDataSourceFilter(cls, data: DataModel, filter, tableId: int, filterId: int):
-        targetTableIndex = DataController.getElementIndexById(data.dataSources, tableId)
-        inFilterIndex = DataController.getElementIndexFromDictById(data.dataSources[targetTableIndex].filters, filterId)
-        if inFilterIndex == -1:
-            return -1
-        data.dataSources[targetTableIndex].filters[inFilterIndex] = filter
-        return FiltersController.getFilteredTable(data, tableId)
-
-    @classmethod
-    def removeInDataSourceFilter(cls, data: DataModel, tableId: int, filterId: int):
-        targetTableIndex = DataController.getElementIndexById(data.dataSources, tableId)
-        inFilterIndex = DataController.getElementIndexFromDictById(data.dataSources[targetTableIndex].filters, filterId)
-        if inFilterIndex == -1:
-            return -1
-        data.dataSources[targetTableIndex].filters.pop(inFilterIndex)
-        return FiltersController.getFilteredTable(data, tableId)
 
     @classmethod
     def __getCellType(cls, cell):

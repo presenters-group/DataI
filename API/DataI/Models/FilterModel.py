@@ -5,12 +5,11 @@ from DataI.Models.BasicInfo import BasicInfo
 class FilterModel(ObjectDeserializer, BasicInfo):
     def __init__(self, name: str, id: int, dataSource: int, filteredColumn: int, initValue: object,
                  type: str, isDeleted: bool):
-        super(FilterModel, self).__init__(name, id)
+        super(FilterModel, self).__init__(name, id, isDeleted)
         self.dataSource = dataSource
         self.filteredColumn = filteredColumn
         self.initValue = initValue
         self.type = type
-        self.isDeleted = isDeleted
 
     def __str__(self):
         return 'name: {}, ID: {}, dataSourceTableWithoutXcolumn source: {},' \

@@ -13,14 +13,15 @@ class PointChart(Chart):
     def __init__(self, dataSourceTableWithoutXcolumn: TableModel, widthView: double, heightView: double,
                  xcolumon: ColumnModel, quality: double, nameFile):
         super().__init__(dataSourceTableWithoutXcolumn, widthView, heightView, xcolumon)
-        self.listOfIndexing = list()
         self.Index = 0
-        self.widthOfYLabels = self.widthView / 8
-        self.heightOfXLabels = self.heightView / 5
-        self.widthOfCoordinatePlane = self.widthView
-        self.heightOfCoordinatePlane = self.heightView
-        self.widthView += self.widthOfYLabels
-        self.heightView += self.heightOfXLabels
+        self.widthOfYLabels = widthView / 8
+        self.heightOfXLabels = heightView / 8
+        print("FontSize:::::", self.heightOfXLabels)
+        self.widthOfCoordinatePlane = self.widthView - self.widthOfYLabels
+        self.heightOfCoordinatePlane = self.heightView - self.heightOfXLabels
+        self.widthView -= self.widthOfYLabels/2
+        self.heightView -= self.heightOfXLabels/2
+        print("heightView:::::", self.heightView)
         self.quality = quality
         self.d = draw.Drawing(self.widthView, self.heightView)
         self.listOfLevelXValue = list()
@@ -35,13 +36,15 @@ class PointChart(Chart):
         self.getYLevelsValue()
         self.startValue = self.listOfLevelXValue[0]
         self.drawYLineLevels()
-        self.drawPointsOfValuesInDataSourceTableWithoutXColumn(dataSourceTableWithoutXcolumn.columnsColors)
         self.drawXPointsWithXValueSteps()
+        self.drawPointsOfValuesInDataSourceTableWithoutXColumn(dataSourceTableWithoutXcolumn.columnsColors)
+        print("list:",dataSourceTableWithoutXcolumn.columnsColors)
         self.drawColmunsColorList(dataSourceTableWithoutXcolumn.columnsColors)
+        print("list:",dataSourceTableWithoutXcolumn.columnsColors)
         self.drawSideLable()
         self.d.setPixelScale(1)  # Set number of pixels per geometry unit
         # self.d.setRenderSize(400,200)
-        # self.d.saveSvg(nameFile + '.svg')
+        #self.d.saveSvg(nameFile + '.svg')
         #    self.d.savePng(nameFile+'.png')
         self.SVG = self.d.asSvg()
 
@@ -131,7 +134,7 @@ class PointChart(Chart):
     def drawYLineLevels(self):
         y = self.heightOfXLabels
         for i in range(0, int(self.quality)):
-            p = draw.Path(stroke_width=self.yUnit / 75, stroke='lightgray', fill='gray', fill_opacity=0)
+            p = draw.Path(stroke_width=self.heightOfCoordinatePlane / 250, stroke='lightgray', fill='gray', fill_opacity=0)
             p.M(self.widthOfYLabels, self.convertY(self.listOfLevelXValue[i]))
             p.h(self.widthOfCoordinatePlane)
             self.d.append(p)
@@ -140,78 +143,92 @@ class PointChart(Chart):
     def drawPointsOfValuesInDataSourceTableWithoutXColumn(self, colors: List[str]):
         columnCounter = 0
         for column in self.dataSourceTableWithoutXcolumn.columns:
-            if column.columnType == enums.ColumnDataType.Measures.value:
+          if column.columnType == enums.ColumnDataType.Measures.value:
+            if (column != self.xColumn):
                 print(column.columnType)
                 add = self.widthOfYLabels
                 for cell, i in zip(column.cells, range(0, len(self.xColumn.cells))):
                     if (i != 0):
                         add += self.xUnit
-                        self.listOfIndexing.append("(" + str(self.xColumn.cells[i].value) + "," + str(cell.value) + ")")
-                        self.d.append(draw.Circle(add, self.convertY(double(cell.value)), self.xUnit / 20,
+                        self.metaData.append("(" + str(self.xColumn.cells[i].value) + "," + str(cell.value) + ")")
+                        self.d.append(draw.Circle(add, self.convertY(double(cell.value)), self.xUnit / 30,
                                                   fill=colors[columnCounter],
                                                   stroke_width=0,
                                                   stroke='black', id=(self.Index)))
+                        mask = draw.Mask(id="mymak")
                         self.Index += 1
 
             columnCounter += 1
 
     def drawXPointsWithXValueSteps(self):
         add = self.widthOfYLabels
-        for cell, i in zip(self.xColumn.cells[1:], range(0, len(self.xColumn.cells))):
+        for cell, i in zip(self.xColumn.cells[0:], range(1, len(self.xColumn.cells))):
             add += self.xUnit
             num = self.xColumn.cells[i].value
-            self.listOfIndexing.append(str(num))
+            self.metaData.append(str(num))
             if (len(str(num)) > 10):
                 num = num[0:8] + "..."
             self.d.append(
-                draw.Circle(add, self.heightOfXLabels, self.xUnit / 25, fill="black", stroke_width=0, stroke='black'))
+                draw.Circle(add, self.heightOfXLabels, self.xUnit / 35, fill="black", stroke_width=0, stroke='black'))
             self.d.append(
-                draw.Text(text=str(num), fontSize=self.heightOfXLabels / 15, x=add - (self.heightOfXLabels / 10),
-                          y=self.heightOfXLabels / 1.3 - (self.xUnit / 5) / 5,
+                draw.Text(text=str(num), fontSize=self.heightOfXLabels / 20, x=add ,
+                          y=self.heightOfXLabels /1.29,
                           id=str(self.Index),
-                          transform="rotate(90," + str(add - 1) + "," + str(-self.heightOfXLabels / 1.3) + ")"))
+                          transform="rotate(90," + str(add ) + "," + str(-self.heightOfXLabels / 1.29) + ")"))
             self.Index += 1
 
     def drawColmunsColorList(self, colors: List[str]):
-        fontSize = (self.widthView / (len(self.dataSourceTableWithoutXcolumn.columns) + 1)) / 10
+        if((self.widthView / (len(self.dataSourceTableWithoutXcolumn.columns) + 1)) / 15 <(self.heightView / (len(self.dataSourceTableWithoutXcolumn.columns) + 1)) / 15):
+          fontSize = (self.widthView / (len(self.dataSourceTableWithoutXcolumn.columns) + 1)) / 15
+        else:
+          fontSize = (self.heightView / (len(self.dataSourceTableWithoutXcolumn.columns) + 1)) / 15
         add = self.widthView / 50
         num = "X:" + str(self.xColumn.name)
         if (len(str(num)) > 10):
             num = num[0:8] + "..."
-        self.d.append(draw.Circle(add, self.heightOfXLabels / 4 + 8, fontSize / 2, fill="black", stroke_width=0,
-                                  stroke='black'))
+        self.metaData.append("X:" + str(self.xColumn.name))
+        self.Index += 1
+        self.d.append(draw.Circle(add, self.heightOfXLabels / 4 +(fontSize / 2), fontSize / 2, fill="black", stroke_width=0,
+                                  stroke='black',fill_opacity=1))
         self.d.append(
             draw.Text(text=str(num), fontSize=fontSize, x=add + (fontSize * 2),
-                      y=self.heightOfXLabels / 4 + (fontSize / 2),
+                      y=self.heightOfXLabels / 4 + (fontSize / 3),
                       id=str(self.Index)))
         add += self.widthView / (len(self.dataSourceTableWithoutXcolumn.columns) + 3)
 
+
         columnCounter = 0
         for column in self.dataSourceTableWithoutXcolumn.columns:
+          if column !=self.xColumn:
             if column.columnType == enums.ColumnDataType.Measures.value:
                 num = column.name
                 if (len(str(num)) > 10):
                     num = num[0:8] + "..."
+                self.metaData.append(num)
                 self.d.append(
-                    draw.Circle(add, self.heightOfXLabels / 4 + 8, fontSize / 2, fill=colors[columnCounter],
+                    draw.Circle(add, self.heightOfXLabels / 4 + (fontSize / 2), fontSize / 2, fill=colors[columnCounter],
                                 stroke_width=0,
                                 stroke='black'))
                 self.d.append(draw.Text(text=str(num), fontSize=fontSize, x=add + (fontSize * 2),
-                                        y=self.heightOfXLabels / 4 + (fontSize / 2),
+                                        y=self.heightOfXLabels / 4 + (fontSize / 3),
                                         id=str(self.Index)))
                 add += self.widthView / (len(self.dataSourceTableWithoutXcolumn.columns) + 3)
-            columnCounter += 1
+                self.Index += 1
+          columnCounter += 1
 
     def drawSideLable(self):
+        fontSize = self.widthOfYLabels/8
+        if( self.widthOfYLabels/8 > (self.heightOfCoordinatePlane/self.quality)/8):
+          fontSize =  (self.heightOfCoordinatePlane/self.quality)/8
         y = self.heightOfXLabels
         x = self.widthOfYLabels / 10
         for i in range(0, int(self.quality)):
             num = str(self.listOfLevelXValue[i])
-            self.listOfIndexing.append(num)
+            self.metaData.append(num)
             if (len(num) > 10):
                 num = num[0:8] + "..."
             self.d.append(
-                draw.Text(text=str(num), fontSize=self.widthOfYLabels / 8, x=x,
+                draw.Text(text=str(num), fontSize=fontSize, x=x,
                           y=self.convertY(self.listOfLevelXValue[i]),
                           id=str(self.Index)))
             self.Index += 1

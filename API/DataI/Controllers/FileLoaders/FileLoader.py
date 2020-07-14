@@ -36,7 +36,7 @@ class FileLoader():
         columnCells = [CellModel(name, enums.CellType.string.value)]
         for cell in cells.values():
             # get cell type
-            isDigit = str(cell).replace('.', '').isdigit() or str(cell).replace('-', '').isdigit()
+            isDigit = str(cell).replace('-', '').replace('.', '').isdigit()
             # cell = str(cell)
             if isDigit:
                 type = enums.CellType.numeric.value

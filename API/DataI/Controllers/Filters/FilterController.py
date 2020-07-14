@@ -61,9 +61,6 @@ class MultipleEqualityFilter():
         rowCounter = 1
         for cell in column.cells[1:]:
             if cell.value not in values:
-                print('rows: ' + str(len(filteredTable.columns[0].cells)))
-                print('rows colors: ' + str(len(filteredTable.rowsColors)))
-                print('row counter: ' + str(rowCounter))
                 DataSourcesController.removeRowFromTable(filteredTable, rowCounter)
                 filteredTable.rowsColors.pop(rowCounter - 1)
                 filteredTable.rowsVisibility.pop(rowCounter - 1)
@@ -110,7 +107,9 @@ class FiltersController():
         visio = data.visualizations[visioIndex]
         tableIndex = DataController.getElementIndexById(data.dataSources, visio.data)
         table = data.dataSources[tableIndex]
+
         filteredTable = deepcopy(table)
+
 
         for visioFilter in visio.filters:
             filterModelIndex = DataController.getElementIndexById(data.filters, visioFilter['id'])

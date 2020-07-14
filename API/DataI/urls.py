@@ -11,16 +11,23 @@ urlpatterns = [
     path('data-sources/insert-filter/<int:tableId>/', views.insertInDataSourceFilter),
     path('data-sources/update-filter/<int:tableId>/<int:filterId>/', views.updateInDataSourceFilter),
     path('data-sources/remove-filter/<int:tableId>/<int:filterId>/', views.removeInDataSourceFilter),
+
     path('visualizers/', views.visualizersHandler),
     path('visualizers/<int:id>/', views.visualizerModifier),
-    path('dashboards/', views.dashBoardsHandler),
-    path('dashboards/<int:id>/', views.dashboardModifier),
-    path('filters/', views.filtersHandler),
-    path('filters/<int:id>/', views.filterModifier),
+    path('visualizers/insert-filter/<int:visioId>/', views.insertInVisioFilter),
+    path('visualizers/update-filter/<int:visioId>/<int:filterId>/', views.updateInVisioFilter),
+    path('visualizers/remove-filter/<int:visioId>/<int:filterId>/', views.removeInVisioFilter),
+
     path('chartsNames/', views.getChartsNames),
     path('chart/', views.getChartSVG),
+
+    path('dashboards/', views.dashBoardsHandler),
+    path('dashboards/<int:id>/', views.dashboardModifier),
+
+    path('filters/', views.filtersHandler),
+    path('filters/<int:id>/', views.filterModifier),
+
     path('excel-upload/', views.excelUpload),
     path('csv-upload/', views.csvUpload),
     path('', views.fullDataHandler),
-
 ]

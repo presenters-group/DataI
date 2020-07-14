@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Dict
 
 from DataI.Controllers.DataControllers import DataController
 from DataI.Controllers.Filters.FilterController import FiltersController
@@ -30,10 +30,10 @@ class VisualizationsController():
         return None
 
     @classmethod
-    def getFinalTable(cls, data: DataModel, visioId) -> TableModel:
+    def getFinalTable(cls, data: DataModel, visioId: int) -> TableModel:
         # Aggregation should be added here.
         return cls.__getFilteredTable(data, visioId)
 
     @classmethod
-    def __getFilteredTable(cls, data: DataModel, visioId) -> TableModel:
+    def __getFilteredTable(cls, data: DataModel, visioId: int) -> TableModel:
         return FiltersController.getFilteredVisioTable(data, visioId)
