@@ -34,6 +34,7 @@ export class DataSourceComponent implements AfterViewInit {
 
     // return;
     let tableId;
+    let acceptedValue;
     this.dataSource.pipe(first()).subscribe((value) => {
       let old = value.columns[columnId].cells[cellIndex];
       console.log("cell value in subscribe",cellValue, !(!cellValue))

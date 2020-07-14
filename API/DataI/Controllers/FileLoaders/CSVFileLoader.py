@@ -11,5 +11,11 @@ class CSVFileLoader(FileLoader):
         csvFile = pandas.read_csv(self.filePath)
         FileLoader._fillNaNs(csvFile)
         csvDict = csvFile.to_dict()
-        randomColors = FileLoader._generateRandomColorsList(len(csvDict.keys()))
-        return FileLoader._generateTableFromDict(csvDict, ntpath.basename(self.filePath), id, randomColors)
+        # generate random colors list with the length of the columns number.
+        randomColumnsColors = FileLoader._generateRandomColorsList(len(csvDict.keys()))
+        # generate random colors list with the length of the rows number.
+        csvDictValues = csvDict.values()
+        csvDictIterator = iter(csvDictValues)
+        firstVaule = next(csvDictIterator)
+        randomRowsColors = FileLoader._generateRandomColorsList(len(firstVaule))
+        return FileLoader._generateTableFromDict(csvDict, ntpath.basename(self.filePath), id, randomColumnsColors, randomRowsColors)

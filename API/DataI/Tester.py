@@ -1,6 +1,7 @@
 import json
 import os
 import re
+import drawSvg as draw
 
 from numpy import double
 
@@ -33,7 +34,7 @@ jsonFilters = '''
         {
             "name": "filter1",
             "id": 0,
-            "dataSource": 0,
+            "dataSource": 1,
             "filteredColumn": 0,
             "initValue": "A",
             "type": "MultipleEquality",
@@ -113,13 +114,10 @@ filter3 = {
 }
 
 dataController.data.visualizations.append(VisualizationModel.from_json(json.loads(jsonVisio)))
-dataController.data.dataSources[0].filters = [filter1, filter2, filter3]
+dataController.data.dataSources[0].filters = [filter1, filter2]
 dataController.data.dataSources[1].filters = [filter3]
 dataController.data.visualizations[0].filters = [filter1]
 
-index = DataController.getElementIndexFromDictById(dataController.data.dataSources[0].filters, 0)
-
-print(dataController.data.dataSources[0].filters[index])
 
 # for color in dataController.data.dataSources[0].rowsColors:
 
@@ -128,15 +126,16 @@ print(dataController.data.dataSources[0].filters[index])
 # print(len(filteredTable.rowsColors))
 # print(len(filteredTable.columns[0].cells))
 # filteredTables = DataSourcesController.getFinalTables(dataController.data)
-#
-# for table in filteredTables:
-#     for column in table.columns:
-#         for cell in column.cells:
-#             print(cell)
-#         print('_________________')
-#     print('==================================')
-#     print('__________________________________')
-#     print('==================================')
+
+for table in dataController.data.dataSources:
+    for column in table.columns:
+        print('Column Type: {}'.format(column.columnType))
+        for cell in column.cells:
+            print(cell)
+        print('_________________')
+    print('==================================')
+    print('__________________________________')
+    print('==================================')
 
 
 # for column in dataController.data.dataSources[0].columns:
@@ -318,6 +317,25 @@ print(dataController.data.dataSources[0].filters[index])
 # print(str(data).replace('-', ''))
 # print(data)
 # print(type(data))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

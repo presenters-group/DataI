@@ -38,7 +38,7 @@ class ChartTypes(enum.Enum):
     MultiplePieChart = 'MultiplePieChart'
     SmartPieChart = 'SmartPieChart'
     PyramidalChart = 'PyramidalChart'
-    HumanChart = 'HumanChart'
+    InfChart = 'InfChart'
 
 
 

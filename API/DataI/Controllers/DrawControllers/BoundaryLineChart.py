@@ -26,7 +26,7 @@ class BoundaryLineChart(LineChart):
                 p = draw.Path(stroke_width=self.xUnit / 50, stroke=colors[columnCounter],
                               fill=colors[columnCounter], fill_opacity=0.05, id=str(self.Index))
                 name = str(column.name)
-                self.listOfIndexing.append(name)
+                self.metaData.append(name)
                 self.Index += 1
                 p.M(add, self.convertY(self.findZeroInSVG()))
                 if (column != self.xColumn):
