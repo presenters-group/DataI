@@ -21,6 +21,9 @@
   <component name="ChangeListManager">
     <list default="true" id="64fee853-01dd-4b64-bc35-3e73b57c88d3" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+<<<<<<< HEAD
+      <change beforePath="$PROJECT_DIR$/DataI/Controllers/Filters/FilterController.py" beforeDir="false" afterPath="$PROJECT_DIR$/DataI/Controllers/Filters/FilterController.py" afterDir="false" />
+=======
       <change beforePath="$PROJECT_DIR$/DataI/Controllers/DataControllers/DashboardsController.py" beforeDir="false" afterPath="$PROJECT_DIR$/DataI/Controllers/DataControllers/DashboardsController.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DataI/Controllers/DataControllers/DataController.py" beforeDir="false" afterPath="$PROJECT_DIR$/DataI/Controllers/DataControllers/DataController.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DataI/Controllers/DataControllers/DataSourcesController.py" beforeDir="false" afterPath="$PROJECT_DIR$/DataI/Controllers/DataControllers/DataSourcesController.py" afterDir="false" />
@@ -36,6 +39,7 @@
       <change beforePath="$PROJECT_DIR$/DataI/Models/VisualizationModel.py" beforeDir="false" afterPath="$PROJECT_DIR$/DataI/Models/VisualizationModel.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DataI/Tester.py" beforeDir="false" afterPath="$PROJECT_DIR$/DataI/Tester.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DataI/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/DataI/views.py" afterDir="false" />
+>>>>>>> 80b9b27d3fadd5ea6feec0699bbe6d3eb2fa3c75
       <change beforePath="$PROJECT_DIR$/../src/app/pages/data-source/data-source.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/pages/data-source/data-source.component.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
