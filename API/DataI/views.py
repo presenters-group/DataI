@@ -40,43 +40,47 @@ jsonVisio = '''
 '''
 jsonDashboard = '''
 {
-            "name": "dashboard1",
-            "id": 0,
-            "visualizers": [
-                {
-                    "visualizationIndex": 0,
-                    "measurements": {
-                        "width": 100,
-                        "height": 100,
-                        "x": 50,
-                        "y": 50
-                    },
-                    "displayedFilters": [
-                        {
-                            "filterIndex": 0,
-                            "measurements": {
-                                "width": 50,
-                                "height": 50,
-                                "x": 30,
-                                "y": 30
-                            }
-                        },
-                        {
-                            "filterIndex": 1,
-                            "measurements": {
-                                "width": 50,
-                                "height": 50,
-                                "x": 40,
-                                "y": 40
-                            }
-                        }
-                    ]
-                }
-            ],
-            "filters": [
-            ],
-            "isDeleted": false
+    "name": "dashboard1",
+    "id": 0,
+    "isDeleted": false,
+    "visualizers": [
+        {
+            "visualizationId": 0,
+            "measurements": {
+                "width": 100.0,
+                "height": 100.0,
+                "x": 50.0,
+                "y": 60.0
+            }
         }
+    ],
+    "filters": [
+        {
+            "filterId": 1,
+            "visioId": 0,
+            "value": 50,
+            "isActive": true,
+            "measurements": {
+                "width": 20.0,
+                "height": 60.0,
+                "x": 10.0,
+                "y": 20.0
+            }
+        },
+        {
+            "filterId": 2,
+            "inVisioIndex": 0,
+            "value": 50,
+            "isActive": true,
+            "measurements": {
+                "width": 20.0,
+                "height": 60.0,
+                "x": 10.0,
+                "y": 20.0
+            }
+        }
+    ]
+}
 '''
 jsonFilters = '''
 [
@@ -132,8 +136,8 @@ loadedJsonFilters = json.loads(jsonFilters)
 for filter in loadedJsonFilters:
     dataController.data.filters.append(FilterModel.from_json(filter))
 
-dataController.data.dataSources[0].filters = [filter1, filter2]
-dataController.data.dataSources[1].filters = [filter3]
+# dataController.data.dataSources[0].filters = [filter1, filter2]
+# dataController.data.dataSources[1].filters = [filter3]
 # dataController.data.visualizations[0].filters = [filter1]
 
 
@@ -320,13 +324,8 @@ def getChartSVG(request):
         visualizerId = visioInfo.get('visualizerId')
         width = visioInfo.get('width')
         height = visioInfo.get('height')
-        svgString = dataController.getChartSVGString(visualizerId, width, height)
-        # print(svgString)
-        returnDict = dict()
-        returnDict['svg'] = svgString
-        returnDict['metaData'] = ""
-        returnDict['visualizerId'] = visualizerId
-        return HttpResponse(json.dumps(returnDict, indent=4, cls=ObjectEncoder, ensure_ascii=False))
+        chart = dataController.getChart(visualizerId, width, height)
+        return HttpResponse(json.dumps(chart, indent=4, cls=ObjectEncoder, ensure_ascii=False))
     else:
         return HttpResponseNotFound('No such request({} <{}>) is available'.format(request.path, request.method))
 

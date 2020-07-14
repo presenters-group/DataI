@@ -1,10 +1,13 @@
 from typing import List
+
+from numpy import double
+
 from DataI.JSONSerializer import ObjectDeserializer
 from DataI.Models.BasicInfo import BasicInfo, BasicDataModelInfo
 
 
 class Measurements(ObjectDeserializer):
-    def __init__(self, w: float, h: float, x: float, y: float):
+    def __init__(self, w: double, h: double, x: double, y: double):
         self.width = w
         self.height = h
         self.x = x
@@ -15,33 +18,36 @@ class Measurements(ObjectDeserializer):
 
 
 class InDashboardFilterModel(ObjectDeserializer):
-    def __init__(self, filterIndex: int, measurements: Measurements):
-        self.filterIndex = filterIndex
+    def __init__(self, filterId: int, visioId: int, value, isActive: bool, measurements: Measurements):
+        self.filterId = filterId
+        self.visioId = visioId
+        self.value = value
+        self.isActive = isActive
         self.measurements = measurements
 
     def __str__(self):
-        return 'filter index: {}, measurements:\n{}\n'.format(self.filterIndex, self.measurements)
+        return 'filter index: {}, measurements:\n{}\n'.format(self.filterId, self.measurements)
 
 
 class InDashboardVisioModel(ObjectDeserializer):
-    def __init__(self, visualizationIndex: int, displayedFilters: List[InDashboardFilterModel],
-                 measurements: Measurements):
-        self.visualizationIndex = visualizationIndex
+    def __init__(self, visualizationId: int, measurements: Measurements):
+        self.visualizationId = visualizationId
         self.measurements = measurements
-        self.displayedFilters = displayedFilters
 
     def __str__(self):
-        return 'visualization index: {}\nmeasurements:\n{}\ndisplayed filters:\n{}\n' \
-            .format(self.visualizationIndex, self.measurements, self.displayedFilters)
+        return 'visualization index: {}\nmeasurements:\n{}\n'.format(self.visualizationId, self.measurements)
 
 
 class DashboardModel(BasicDataModelInfo):
-    def __init__(self, visualizers: List[InDashboardVisioModel], name: str, id: int, filters: List, isDeleted: bool):
+    def __init__(self, visualizers: List[InDashboardVisioModel], name: str, id: int,
+                 filters: List, isDeleted: bool):
         super(DashboardModel, self).__init__(name, id, filters, isDeleted)
         self.visualizers = visualizers
 
+
     def __str__(self):
-        return 'name: {}, ID: {}\nvisualizers:\n{}'.format(self.name, self.id, self.visualizers)
+        return 'name: {}, ID: {}\nvisualizers:\n{}\nfilters:\n{}\n'\
+            .format(self.name, self.id, self.visualizers, self.filters)
 
     @classmethod
     def from_json(cls, data):

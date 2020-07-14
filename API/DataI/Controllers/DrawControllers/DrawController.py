@@ -1,7 +1,10 @@
+from typing import Dict, List
+
 from numpy import double
 
 from DataI.Controllers.DataControllers.VisualizationsController import VisualizationsController
 from DataI.Controllers.DrawControllers.ChartsFactory import ChartsFactory
+from DataI.Models.DashboardModel import DashboardModel
 from DataI.Models.DataModel import DataModel
 from DataI.Models.TableModel import TableModel
 from DataI.Controllers.DataControllers import DataController
@@ -40,15 +43,16 @@ class DrawController():
         return returnTable
 
     @classmethod
-    def getSVGString(cls, data: DataModel, visioID: int, width: double, height: double) -> str:
-        visioIndex = DataController.getElementIndexById(data.visualizations, visioID)
+    def getChart(cls, data: DataModel, visioId: int, width: double, height: double) -> Dict:
+
+        visioIndex = DataController.getElementIndexById(data.visualizations, visioId)
         visualizer = data.visualizations[visioIndex]
 
-        drawTable = cls.generateVisualizerTable(data, visioID)
+        drawTable = cls.generateVisualizerTable(data, visioId)
         cls.__removeXColumnIfExists(drawTable, visualizer.xColumn)
 
         # implement visualization filters.
-        drawTable = VisualizationsController.getFinalTable(data, visioID)
+        drawTable = VisualizationsController.getFinalTable(data, visioId)
 
         xColumnIndex = DataController.getElementIndexById(data.dataSources, visualizer.xColumn)
         xColumn = drawTable.columns[xColumnIndex]
@@ -59,7 +63,12 @@ class DrawController():
         #     print('_________________________')
 
         drawer = ChartsFactory.generateCharts(visualizer.chart, drawTable, width, height, xColumn, double(8.0))
-        return drawer.SVG
+        chartDict = dict()
+        chartDict['visualizerId'] = visioId
+        chartDict['svg'] = drawer.SVG
+        chartDict['metaData'] = drawer.metaData
+
+        return chartDict
 
     @classmethod
     def __removeXColumnIfExists(ctablels, drawTable: TableModel, xColumnId: int):
@@ -67,3 +76,59 @@ class DrawController():
             if column.id == xColumnId:
                 drawTable.columns.pop(DataController.getElementIndexById(drawTable.columns, xColumnId))
                 return
+
+
+    @classmethod
+    def getDashboardVisio(cls, data: DataModel, dashboardId: int, visioId: int) -> Dict:
+        targetDashboardIndex = DataController.getElementIndexById(data.dashboards, dashboardId)
+        dashboard = data.dashboards[targetDashboardIndex]
+        targetInVisioIndex = cls.__getVisioIdFromDashboard(dashboard, visioId)
+        inVisio = dashboard.visualizers[targetInVisioIndex]
+        chart = cls.getChart(data, inVisio.visualizationId, inVisio.measurements.width, inVisio.measurements.height)
+        return chart
+
+    @classmethod
+    def getAllDashboardCharts(cls, data: DataModel, dashboardId: int) -> List[Dict]:
+        charts = list()
+        targetDashboardIndex = DataController.getElementIndexById(data.dashboards, dashboardId)
+        dashboard = data.dashboards[targetDashboardIndex]
+        for inVisioModel in dashboard.visualizers:
+            charts.append(cls.getDashboardVisio(data, dashboardId, inVisioModel.visualizationId))
+        return charts
+
+
+    @classmethod
+    def __getVisioIdFromDashboard(cls, dashboard: DashboardModel, visioId: int):
+        indexCounter = 0
+        for inVisioModel in dashboard.visualizers:
+            if inVisioModel.visualizationId == visioId:
+                return indexCounter
+            indexCounter += 1
+        return -1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

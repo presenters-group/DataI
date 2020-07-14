@@ -41,6 +41,7 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { FilterItemComponent } from './pages/filter/components/filter-item/filter-item.component';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { VisualizerItemComponent } from './components/visualizer-item/visualizer-item.component';
+import { InsertFilterComponent } from './pages/filter/dialogs/insert-filter/insert-filter.component';
 
 @NgModule({
   declarations: [
@@ -60,6 +61,7 @@ import { VisualizerItemComponent } from './components/visualizer-item/visualizer
     AddFilterComponent,
     FilterItemComponent,
     VisualizerItemComponent,
+    InsertFilterComponent,
   ],
   imports: [
     BrowserModule,

@@ -7,6 +7,7 @@ from DataI.Controllers.DataControllers.FiltersModelController import FiltersMode
 from DataI.Controllers.DataControllers.VisualizationsController import VisualizationsController
 from DataI.Controllers.FileLoaders.CSVFileLoader import CSVFileLoader
 from DataI.Controllers.FileLoaders.ExcelFileLoader import ExcelFileLoader
+from DataI.Controllers.Filters.FilterController import FiltersController
 from DataI.Models.BasicInfo import BasicDataModelInfo
 from DataI.Models.DashboardModel import DashboardModel
 from DataI.Models.DataModel import DataModel
@@ -52,11 +53,13 @@ class DataController():
 
     def insertInDataSourceFilter(self, filter: Dict, tableId: int):
         targetTableIndex = DataController.getElementIndexById(self.data.dataSources, tableId)
-        return self.__insertInDataModelFilter(self.data.dataSources[targetTableIndex], filter)
+        self.__insertInDataModelFilter(self.data.dataSources[targetTableIndex], filter)
+        return FiltersController.getFilteredTable(self.data, tableId)
 
     def updateInDataSourceFilter(self, filter: Dict, tableId, filterId):
         targetTableIndex = DataController.getElementIndexById(self.data.dataSources, tableId)
-        return self.__updateInDataModelFilter(self.data.dataSources[targetTableIndex], filter, filterId)
+        self.__updateInDataModelFilter(self.data.dataSources[targetTableIndex], filter, filterId)
+        return FiltersController.getFilteredTable(self.data, tableId)
 
     def removeInDataSourceFilter(self, tableId, filterId):
         targetTableIndex = DataController.getElementIndexById(self.data.dataSources, tableId)
@@ -86,12 +89,12 @@ class DataController():
     def getChartsNames(self):
         names = [enums.ChartTypes.VerticalBarChart.value, enums.ChartTypes.BoundaryLineChart.value,
                  enums.ChartTypes.PointChart.value, enums.ChartTypes.MultiplePieChart.value,
-                 enums.ChartTypes.HumanChart.value, enums.ChartTypes.PyramidalChart.value,
+                 enums.ChartTypes.InfChart.value, enums.ChartTypes.PyramidalChart.value,
                  enums.ChartTypes.SmartPieChart.value]
         return names
 
-    def getChartSVGString(self, visioId, width, height):
-        return DrawController.getSVGString(self.data, visioId, width, height)
+    def getChart(self, visioId, width, height):
+        return DrawController.getChart(self.data, visioId, width, height)
 
     def insertNewDashboard(self, dashBoard: DashboardModel):
         DashboardsController.insertNewDashboard(self.data, dashBoard)

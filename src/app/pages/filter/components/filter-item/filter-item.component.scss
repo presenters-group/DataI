@@ -3,6 +3,7 @@
   flex-direction: column;
   background-color: white;
   padding: 15px;
+  height: fit-content;
 }
 
 .name{
@@ -60,4 +61,8 @@ input{
 
 mat-checkbox{
   margin-left: 10px;
+}
+
+img{
+  margin: 5px;
 }
