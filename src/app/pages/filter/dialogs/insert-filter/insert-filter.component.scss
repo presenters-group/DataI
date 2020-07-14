@@ -1,0 +1,18 @@
+.dialog-container{
+  background-color: var(--white);
+}
+form{
+  display: flex;
+  flex-direction: column;
+}
+
+.example-additional-selection {
+  opacity: 0.75;
+  font-size: 0.75em;
+}
+
+.buttons{
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+}

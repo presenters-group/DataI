@@ -21,14 +21,22 @@
   <component name="ChangeListManager">
     <list default="true" id="64fee853-01dd-4b64-bc35-3e73b57c88d3" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+<<<<<<< HEAD
       <change beforePath="$PROJECT_DIR$/.png" beforeDir="false" afterPath="$PROJECT_DIR$/.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.svg" beforeDir="false" afterPath="$PROJECT_DIR$/.svg" afterDir="false" />
+=======
+<<<<<<< HEAD
+      <change beforePath="$PROJECT_DIR$/DataI/Controllers/Filters/FilterController.py" beforeDir="false" afterPath="$PROJECT_DIR$/DataI/Controllers/Filters/FilterController.py" afterDir="false" />
+=======
+      <change beforePath="$PROJECT_DIR$/DataI/Controllers/DataControllers/DashboardsController.py" beforeDir="false" afterPath="$PROJECT_DIR$/DataI/Controllers/DataControllers/DashboardsController.py" afterDir="false" />
+>>>>>>> 7733d146bf534dd190f3be3c31aa0485188827da
       <change beforePath="$PROJECT_DIR$/DataI/Controllers/DataControllers/DataController.py" beforeDir="false" afterPath="$PROJECT_DIR$/DataI/Controllers/DataControllers/DataController.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DataI/Controllers/DrawControllers/DrawController.py" beforeDir="false" afterPath="$PROJECT_DIR$/DataI/Controllers/DrawControllers/DrawController.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DataI/Controllers/Filters/FilterController.py" beforeDir="false" afterPath="$PROJECT_DIR$/DataI/Controllers/Filters/FilterController.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DataI/Models/DashboardModel.py" beforeDir="false" afterPath="$PROJECT_DIR$/DataI/Models/DashboardModel.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DataI/Tester.py" beforeDir="false" afterPath="$PROJECT_DIR$/DataI/Tester.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DataI/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/DataI/views.py" afterDir="false" />
+<<<<<<< HEAD
       <change beforePath="$PROJECT_DIR$/Test.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/Test.xlsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/media/uploads/Test.csv" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/media/uploads/Test.xlsx" beforeDir="false" />
@@ -63,6 +71,10 @@
       <change beforePath="$PROJECT_DIR$/media/uploads/total_cases_C5hZeV0.csv" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/media/uploads/total_cases_XhwV9GT.csv" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/media/uploads/total_cases_fGQya1I.csv" beforeDir="false" />
+=======
+>>>>>>> 80b9b27d3fadd5ea6feec0699bbe6d3eb2fa3c75
+      <change beforePath="$PROJECT_DIR$/../src/app/pages/data-source/data-source.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/pages/data-source/data-source.component.ts" afterDir="false" />
+>>>>>>> 7733d146bf534dd190f3be3c31aa0485188827da
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

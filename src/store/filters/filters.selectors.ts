@@ -112,10 +112,28 @@ export const selectCurrentDataSourceFilters = createSelector(
   selectFiltersEntities,
   (dataSource,allFilters) => {
     let filters = [];
-
-    for (let filter of dataSource.filters)
-      filters.push(allFilters[filter.id])
+    for (let filter of dataSource.filters){
+      console.log({...allFilters[filter.id] ,value: filter.value, active : filter.isActive})
+        filters.push({...allFilters[filter.id] ,value: filter.value, active : filter.isActive})
+    }
     return filters;
   }
 );
 
+
+export const selectAllCurrentDataSourceFilters = createSelector(
+
+  selectCurrentDataSource,
+  selectFiltersEntities,
+  (dataSource,allFilters)=>{
+    let filters = [];
+
+    for(let filter of Object.keys(allFilters))
+      {
+        if(allFilters[filter].dataSource == dataSource.id )
+        filters.push(allFilters[filter]);
+      }
+      return filters;
+  }
+
+)

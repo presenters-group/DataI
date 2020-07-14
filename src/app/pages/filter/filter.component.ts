@@ -8,6 +8,7 @@ import { FormBuilder } from "@angular/forms";
 import { first } from "rxjs/operators";
 import { Validators } from "@angular/forms";
 import { NotificationService } from "src/store/notifications/notifications.service";
+import { fetchDataSources } from 'src/store/data-sources';
 
 @Component({
   selector: "app-filter",
@@ -51,6 +52,7 @@ export class FilterComponent implements OnInit {
         );
         this.formBuild();
       });
+      this.store.dispatch(fetchDataSources());
     } else {
       this.swal.fail("Please Complete The Form With Valid Information Before Saving");
     }

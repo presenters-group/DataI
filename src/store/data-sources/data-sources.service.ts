@@ -1,8 +1,8 @@
 import { Injectable } from "@angular/core";
 import { IDataSource } from "./data-sources.models";
 import { HttpClient } from "@angular/common/http";
-import { BASE_URL } from 'src/utils/url.util';
-import { first } from 'rxjs/operators';
+import { BASE_URL } from "src/utils/url.util";
+import { first } from "rxjs/operators";
 @Injectable({
   providedIn: "root",
 })
@@ -11,13 +11,13 @@ export class DataSourcesService {
 
   constructor(private httpClient: HttpClient) {}
 
-  create(data: {file ,type}) {
-    let testData:FormData = new FormData();
-    testData.append('file_upload', data.file, data.file.name);
-    if(data.type == 'excel')
-      return this.httpClient.post(BASE_URL+'excel-upload/', testData)
-    else if(data.type == 'csv')
-      return this.httpClient.post(BASE_URL+'csv-upload/', testData)
+  create(data: { file; type }) {
+    let testData: FormData = new FormData();
+    testData.append("file_upload", data.file, data.file.name);
+    if (data.type == "excel")
+      return this.httpClient.post(BASE_URL + "excel-upload/", testData);
+    else if (data.type == "csv")
+      return this.httpClient.post(BASE_URL + "csv-upload/", testData);
   }
 
   update(data: IDataSource) {
@@ -32,12 +32,39 @@ export class DataSourcesService {
     return this.httpClient.delete(`${this.URL}/${id}/`);
   }
 
-  updateCell(data){
-    this.httpClient.put(`${this.URL}/cell/${data.tableId}/${data.columnId}/${data.cellIndex}/`,{
-      cellValue: data.cellValue
-    }).subscribe((value)=> {console.log(value)})
-    return this.httpClient.put(`${this.URL}/cell/${data.tableId}/${data.columnId}/${data.cellIndex}/`,{
-      cellValue: data.cellValue
-    })
+  updateCell(data) {
+    return this.httpClient.put(
+      `${this.URL}/cell/${data.tableId}/${data.columnId}/${data.cellIndex}/`,
+      {
+        cellValue: data.cellValue,
+      }
+    );
+  }
+
+  updateFilterInDataSource(data) {
+    return this.httpClient.put(
+      `${this.URL}/update-filter/${data.tableId}/${data.id}/`,
+      {
+        id: data.id,
+        value: data.value,
+        isActive: data.active,
+      }
+    );
+  }
+
+  addFilterToDataSource(data) {
+    console.log(data);
+    return this.httpClient.put(`${this.URL}/insert-filter/${data.tableId}/`, {
+      id: data.id,
+      value: data.value,
+      isActive: data.isActive,
+    });
+  }
+
+  removeFilterFromDataSource(data) {
+    return this.httpClient.put(
+      `${this.URL}/remove-filter/${data.tableId}/${data.id}/`,
+      {}
+    );
   }
 }

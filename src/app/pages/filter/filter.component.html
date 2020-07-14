@@ -86,8 +86,8 @@
                   let type of (dataSources | async)[form.value.dataSource]
                     .columns[form.value.filteredColumn].columnType ==
                   'Dimensions'
-                    ? ['Equality']
-                    : ['MoreThan', 'LessThan', 'Equality']
+                    ? ['MultipleEquality']
+                    : ['>', '<', '=' ,'<=','>=']
                 "
                 [value]="type"
               >

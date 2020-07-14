@@ -5,6 +5,7 @@ import numpy as np
 from typing import List
 from numpy import double
 
+from DataI import enums
 from DataI.Controllers.DrawControllers.chart import Chart
 from DataI.Models.ColumnModel import ColumnModel
 from DataI.Models.TableModel import TableModel
@@ -22,7 +23,7 @@ class MultiplePieChart(Chart):
         self.yCenter = - height/ 2
         self.drawlayOut()
         self.drawCircle()
-        self.d.saveSvg(nameFile + '.svg')
+        #self.d.saveSvg(nameFile + '.svg')
         self.SVG = self.d.asSvg()
 
     def drawlayOut(self):
@@ -63,6 +64,7 @@ class MultiplePieChart(Chart):
         r = self.r + x
         # ================================================================
         for column in self.dataSourceTableWithoutXcolumn.columns:
+          if column.columnType == enums.ColumnDataType.Measures.value:
             if (column != self.xColumn):
                 print("Before:", r)
                 r -= (x)
@@ -71,10 +73,8 @@ class MultiplePieChart(Chart):
                 endAngle = 0
                 length = 0
                 b = 0
-                # self.d.append(draw.Circle(-self.yCenter, self.xCenter, lngth, fill="white", fill_opacity=1, stroke_width=0,stroke="black"))
                 for cell, cell2, i in zip(self.xColumn.cells, column.cells, range(0, len(self.xColumn.cells))):
                     if (i != 0):
-
                         length += self.heightView /len(self.xColumn.cells)
                         startangle = oldEndangle
                         endAngle += self.getAngle(double(cell2.value), column)

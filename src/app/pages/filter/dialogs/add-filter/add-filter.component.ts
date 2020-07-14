@@ -31,7 +31,7 @@ export class AddFilterComponent implements OnInit {
       dataSource: ["", Validators.required],
       filteredColumn: ["", Validators.required],
       type: ["", Validators.required],
-      initValue: [""],
+      initValue: [0,[Validators.required,Validators.pattern("^[0-9]*$")]],
     });
   }
 
@@ -52,4 +52,9 @@ export class AddFilterComponent implements OnInit {
     this.form.controls["filteredColumn"].setValue("");
     this.form.controls["type"].setValue("");
   }
+  onChangeColumn() {
+    this.form.controls['initValue'].setValue(0)
+    this.form.controls['type'].setValue("");
+  }
+
 }
