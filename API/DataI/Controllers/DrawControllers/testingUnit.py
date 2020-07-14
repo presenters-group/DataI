@@ -19,7 +19,7 @@ Xcolomn = dataSource.columns[1]
 dataSource.columns.pop(1)
 for column in dataSource.columns:
   print(column.columnType)
-#chart = PointChart(dataSource, double(100), double(100), Xcolomn, 8, "point")
-#chart2 = BarChart(dataSource, double(100), double(100), Xcolomn, 8, "BarChart")
+chart = PointChart(dataSource, double(100), double(100), Xcolomn, 8, "point")
+chart2 = BarChart(dataSource, double(100), double(100), Xcolomn, 8, "BarChart")
 chart4 = MultiplePieChart(dataSource,Xcolomn ,double(100), double(100), "pie")
-#chart3 = BoundaryLineChart(dataSource, double(1000), double(1000), Xcolomn, 8, "BoundaryLineChart")
+chart3 = BoundaryLineChart(dataSource, double(1000), double(1000), Xcolomn, 8, "BoundaryLineChart")

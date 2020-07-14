@@ -13,7 +13,6 @@ class PointChart(Chart):
     def __init__(self, dataSourceTableWithoutXcolumn: TableModel, widthView: double, heightView: double,
                  xcolumon: ColumnModel, quality: double, nameFile):
         super().__init__(dataSourceTableWithoutXcolumn, widthView, heightView, xcolumon)
-        self.metaData = list()
         self.Index = 0
         self.widthOfYLabels = widthView / 8
         self.heightOfXLabels = heightView / 8

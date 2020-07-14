@@ -4,17 +4,16 @@ import numpy as np
 
 from typing import List
 from numpy import double
+
+from DataI.Controllers.DrawControllers.chart import Chart
 from DataI.Models.ColumnModel import ColumnModel
 from DataI.Models.TableModel import TableModel
 
 
-class MultiplePieChart:
+class MultiplePieChart(Chart):
     def __init__(self, dataSource: TableModel, XColumn: ColumnModel, width: double, height: double, nameFile: str):
-        self.widthView = width
-        self.heightView = height
+        super().__init__(dataSource, width, height, XColumn)
         width -= width/4
-        self.data = dataSource
-        self.xColumn = XColumn
         self.r = (min(width, height) / 2)/1.1
         self.stroke = self.r /50
         self.d = draw.Drawing(self.widthView , self.heightView )
@@ -23,7 +22,7 @@ class MultiplePieChart:
         self.yCenter = - height/ 2
         self.drawlayOut()
         self.drawCircle()
-        #self.d.saveSvg(nameFile + '.svg')
+        self.d.saveSvg(nameFile + '.svg')
         self.SVG = self.d.asSvg()
 
     def drawlayOut(self):
@@ -56,14 +55,14 @@ class MultiplePieChart:
         return colorsList
 
     def drawCircle(self):
-        colorList = self.data.rowsColors
+        colorList = self.dataSourceTableWithoutXcolumn.rowsColors
         xCenter = self.xCenter
         yCenter = self.yCenter
         # ========================================================================
-        x = self.r / (len(self.data.columns))
+        x = self.r / (len(self.dataSourceTableWithoutXcolumn.columns))
         r = self.r + x
         # ================================================================
-        for column in self.data.columns:
+        for column in self.dataSourceTableWithoutXcolumn.columns:
             if (column != self.xColumn):
                 print("Before:", r)
                 r -= (x)
