@@ -22,16 +22,17 @@ table tr td {
   // height: 10px;
 }
 
-
+.table{
+  overflow: auto;
+}
 
 
 
 /**Try flex instead of table*/
 .container{
   display: flex;
-  flex-direction: column;
-  justify-content: stretch;
-  align-items: stretch;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 .column{
@@ -60,7 +61,8 @@ table tr td {
   padding: 10px;
   flex: 0.1;
   display: flex;
-  flex-wrap: wrap;
+  overflow: auto;
+  min-width: max-content;
   flex-direction: column;
   background-color: var(--gray3);
 }
@@ -68,4 +70,7 @@ table tr td {
 .filters-title {
   text-align: center;
   font-size: large;
+}
+.add-filter{
+  width: 100%;
 }

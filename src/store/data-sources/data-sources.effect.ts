@@ -57,16 +57,14 @@ export class DataSourcesEffects {
         this.dataSourcesService.fetch().pipe(
           map((data) => fromActions.fetchDataSourcesSuccess({ data })),
 
-          catchError((error) =>
-            [
-              fromActions.fetchDataSourcesFailed({ error }),
-              showError({message : FETCH_FAILED})
-            ]
-            )
-          )
+          catchError((error) => [
+            fromActions.fetchDataSourcesFailed({ error }),
+            showError({ message: FETCH_FAILED }),
+          ])
         )
       )
-    );
+    )
+  );
 
   updateDataSource$ = createEffect(() =>
     this.actions$.pipe(
@@ -129,6 +127,27 @@ export class DataSourcesEffects {
           ]),
 
           catchError((error) => [
+            fromActions.updateCellField({ error }),
+            showError({ message: UPDATE_FAILED }),
+          ])
+        )
+      )
+    )
+  );
+
+  updateFilterInDataSource$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(fromActions.updateFilterInDataSource),
+      debounceTime(100),
+
+      switchMap(({ data }) =>
+        this.dataSourcesService.updateFilterInDataSource(data).pipe(
+          switchMap((data) => [
+            fromActions.updateDataSourceSuccess({ data }),
+            showSuccess({ message: UPDATE_SUCCESSFUL }),
+          ]),
+
+          catchError((error) => [
             fromActions.updateDataSourceFailed({ error }),
             showError({ message: UPDATE_FAILED }),
           ])
@@ -136,4 +155,50 @@ export class DataSourcesEffects {
       )
     )
   );
+
+  addFilterToDataSource$ = createEffect(()=>
+  this.actions$.pipe(
+    ofType(fromActions.addFilterToDataSource),
+    debounceTime(100),
+
+    switchMap(({ data }) =>
+      this.dataSourcesService.addFilterToDataSource(data).pipe(
+        switchMap((data) => [
+          fromActions.updateDataSourceSuccess({ data }),
+          showSuccess({ message: UPDATE_SUCCESSFUL }),
+        ]),
+
+        catchError((error) => [
+          fromActions.updateDataSourceFailed({ error }),
+          showError({ message: UPDATE_FAILED }),
+        ])
+      )
+    )
+  )
+  );
+
+
+
+
+
+  removeFilterFromDataSource$ = createEffect(()=>
+  this.actions$.pipe(
+    ofType(fromActions.removeFilterFromDataSource),
+    debounceTime(100),
+
+    switchMap(({ data }) =>
+      this.dataSourcesService.removeFilterFromDataSource(data).pipe(
+        switchMap((data) => [
+          fromActions.updateDataSourceSuccess({ data }),
+          showSuccess({ message: UPDATE_SUCCESSFUL }),
+        ]),
+
+        catchError((error) => [
+          fromActions.updateDataSourceFailed({ error }),
+          showError({ message: UPDATE_FAILED }),
+        ])
+      )
+    )
+  )
+  )
 }

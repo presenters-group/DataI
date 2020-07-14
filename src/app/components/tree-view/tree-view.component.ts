@@ -5,22 +5,19 @@ import {
   ViewChild,
   ElementRef,
   Renderer2,
-  ChangeDetectionStrategy,
 } from "@angular/core";
 import { Store } from "@ngrx/store";
 import { selectCurrentTree } from "src/store/core/selectors/core.selector";
 import { AppState } from "src/store";
 import { TreeService } from "./tree.service";
-import { addToTapes, closeTapFromTree } from "src/store/core/actions/core.actions";
-import { ConditionalExpr } from "@angular/compiler";
+import { addToTapes } from "src/store/core/actions/core.actions";
 import { first } from "rxjs/operators";
-import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
+import { MatDialog } from "@angular/material/dialog";
 import { AddVisualizerComponent } from "src/app/pages/visualizer/dialogs/add-visualizer/add-visualizer.component";
 import { createVisualizer, deleteVisualizer } from "src/store/visualizers";
 import { AddDataSourceComponent } from "src/app/pages/data-source/dialogs/add-data-source/add-data-source.component";
 import { AddFilterComponent } from "src/app/pages/filter/dialogs/add-filter/add-filter.component";
 import { createFilter, deleteFilter } from "src/store/filters";
-import { element } from "protractor";
 import { deleteDataSource } from "src/store/data-sources";
 import { deleteDashboard, createDashboard } from "src/store/dashboards";
 import { NotificationService } from 'src/store/notifications/notifications.service';
@@ -178,7 +175,7 @@ export class TreeViewComponent implements OnInit, AfterViewInit {
             dialogRefFilter.afterClosed().subscribe((result) => {
               this.store.dispatch(
                 createFilter({
-                  data: { ...result.value, id: 0, isDeleted: false },
+                  data: { ...result.value,initValue : Number.parseInt(result.value.initValue), id: 0, isDeleted: false },
                 })
               );
             });

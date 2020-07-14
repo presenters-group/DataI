@@ -79,3 +79,21 @@ export const updateCellField = createAction(
   "[DataSourceEffect] update cell Field",
   props<{ error }>()
 );
+
+export const updateFilterInDataSource = createAction(
+  "[DataSourceComponent] update filter value in data source",
+  props<{ data }>()
+)
+
+
+export const addFilterToDataSource = createAction(
+  "[DataSourceComponent] add filter to dataSource",
+  props<{ data }>()
+)
+
+
+export const removeFilterFromDataSource = createAction(
+  "[DataSourceComponent] remove filter from dataSource",
+  props<{ data }>()
+)
+

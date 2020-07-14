@@ -1,3 +1,7 @@
+<div *ngIf="showOptions" class="options">
+  <img (click)="onMinusClick()" src="/assets/icons/minus.svg" alt="">
+  <img (click)="onEditClick()" src="/assets/icons/edit.svg" alt="">
+</div>
 <div class="container">
   <div class="header">
     <div class="name-container">
@@ -17,6 +21,7 @@
     </div>
     <div class="enable">
       <mat-checkbox
+
         color="primary"
         [checked]="enabled"
         (change)="onEnableClicked()"
@@ -35,15 +40,9 @@
     >
       <div class="property">
         <div class="property-title" matPrefix>
-          {{
-            filter.type == "Equality"
-              ? "="
-              : filter.type == "LessThan"
-              ? "<"
-              : ">"
-          }}
+          {{filter.type}}
         </div>
-        <input matInput [value]="filter.initValue" />
+        <input matInput [value]="this.value" (change)="onChangeMeasure($event)"/>
       </div>
     </div>
 

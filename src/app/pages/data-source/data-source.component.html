@@ -1,77 +1,56 @@
-<table>
-  <tr>
-    <td>
-      {{(dataSource | async).name}}
-    </td>
-    <td class="color-cell" *ngFor="let color of (dataSource | async).columnsColors">
-      <input type="color" [value]="color" />
-      &nbsp;
-      <!-- {{ color }} -->
-    </td>
-  </tr>
-  <tr *ngFor="let cell of (dataSource | async).columns[0].cells; let i = index">
-    <td *ngIf="!i"> Colors </td>
-    <td class="color-cell" *ngIf="i">
-      <input type="color" [value]="(dataSource | async).rowsColors[i - 1]" />
-      &nbsp;
-      <!-- {{ (dataSource | async).rowsColors[i - 1] }} -->
-    </td>
-    <td
-      contenteditable="true"
-      (blur)="onCellUpdate(column, i, $event.target.innerText)"
-      *ngFor="let column of objectKeys((dataSource | async).columns)"
-    >
-      {{ (dataSource | async).columns[column].cells[i].value }}
-    </td>
-  </tr>
-</table>
-<div class="filter" *ngFor="let filter of filters | async" class="filter">
-  <app-filter-item [filter]="filter"> </app-filter-item>
-</div>
-<!--
 <div class="container">
-  <div class="column" *ngFor="let column of objectKeys((dataSource | async).columns)">
-    <div class="cell" *ngFor="let cell of (dataSource | async).columns[column].cells">
-      {{cell.value}}
+  <div class="table">
+    <table>
+      <tr>
+        <td>
+          {{(dataSource | async).name}}
+        </td>
+        <td class="color-cell" *ngFor="let color of (dataSource | async).columnsColors">
+          <input type="color" [value]="color" />
+          &nbsp;
+          <!-- {{ color }} -->
+        </td>
+      </tr>
+      <tr *ngFor="let cell of (dataSource | async).columns[0].cells; let i = index">
+        <td *ngIf="!i"> Colors </td>
+        <td class="color-cell" *ngIf="i">
+          <input type="color" [value]="(dataSource | async).rowsColors[i - 1]" />
+          &nbsp;
+          <!-- {{ (dataSource | async).rowsColors[i - 1] }} -->
+        </td>
+        <td
+          contenteditable="true"
+          (blur)="onCellUpdate(column, i, $event.target.innerText,$event)"
+          *ngFor="let column of objectKeys((dataSource | async).columns)"
+        >
+          {{ (dataSource | async).columns[column].cells[i].value }}
+        </td>
+      </tr>
+    </table>
+  </div>
+  <div class="filters">
+    <button class="add-filter" *ngIf="!insertFilter" (click)="insertFilter = true" mat-raised-button>Add Filter</button>
+      <mat-form-field *ngIf="insertFilter">
+      <mat-label >Select Filter</mat-label>
+      <mat-select   required [(ngModel)]="insertedFilter">
+          <mat-select-trigger>
+            {{
+              insertedFilter?.name
+            }}
+          </mat-select-trigger>
+          <mat-option
+            [disabled]="disableAddedFilter(filter,filters | async)"
+            *ngFor="let filter of (addableFilters | async)"
+            [value]="filter"
+            >{{ filter.name }}</mat-option
+          >
+        </mat-select>
+      </mat-form-field>
+    <button class="add-filter" *ngIf="insertFilter" (click)="onAddFilter()" mat-raised-button>ADD</button>
+
+
+        <div class="filter" *ngFor="let filter of filters | async" class="filter">
+      <app-filter-item (onMinus)="onDeleteFilter($event)" [showOptions]="true" [filter]="filter"[enabled]="filter.active" [value]="filter.value" (onChange)="onFilterChangeValue($event)"> </app-filter-item>
     </div>
   </div>
-</div> -->
-
-<!-- <table>
-  <tr>
-    <td class="color-cell">
-      {{ (dataSource | async).name }}
-    </td>
-    <td class="color-cell">
-      {{ (dataSource | async).name }}
-    </td>
-    <td
-      class="color-cell"
-      *ngFor="let rowColor of (dataSource | async).rowsColors"
-    >
-      <input type="color" [value]="rowColor" /> &nbsp; {{ rowColor }}
-    </td>
-  </tr>
-  <tr
-    *ngFor="
-      let columnId of objectKeys((dataSource | async).columns);
-      let i = index
-    "
-  >
-    <td class="color-cell">
-      <input type="color" [value]="(dataSource | async).columnsColors[i]" />
-      &nbsp;
-      {{ (dataSource | async).columnsColors[i] }}
-    </td>
-    <td
-      contenteditable="true"
-      (blur)="onCellUpdate(columnId, i, $event.target.innerText)"
-      *ngFor="
-        let cell of (dataSource | async).columns[columnId].cells;
-        let i = index
-      "
-    >
-      {{ cell.value }}
-    </td>
-  </tr>
-</table> -->
+</div>
