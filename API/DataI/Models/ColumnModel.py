@@ -30,8 +30,8 @@ class ColumnStyleModel(ObjectDeserializer):
         self.font = font
 
     def __str__(self):
-        return 'color: {}, line weight: {}, point weight: {}, font: {}'\
-            .format(self.color, self.lineWeight, self.pointWeight,self.font)
+        return 'color: {}, line weight: {}, point weight: {}, font: {}' \
+            .format(self.color, self.lineWeight, self.pointWeight, self.font)
 
 
 class ColumnModel(BasicInfo):
@@ -46,7 +46,7 @@ class ColumnModel(BasicInfo):
                 self.valueCategories.append(cell)
 
     def __str__(self):
-        return 'name: {}, ID: {}\ncells: {}\n<<type: {}>>\ncategories: {}\nisDeleted: {}\n'\
+        return 'name: {}, ID: {}\ncells: {}\n<<type: {}>>\ncategories: {}\nisDeleted: {}\n' \
             .format(self.name, self.id, self.cells, self.columnType, self.valueCategories, self.isDeleted)
 
     def __add__(self, other):
@@ -54,7 +54,6 @@ class ColumnModel(BasicInfo):
         for cell, i in zip(self.cells, range(len(self.cells))):
             cells.append(CellModel(cell + other.cells[i], cell.type))
         return ColumnModel(cells, self.name, self.id, self.isDeleted)
-
 
     def __cellInList(self, cell, list):
         for item in list:
@@ -64,11 +63,12 @@ class ColumnModel(BasicInfo):
 
     def __getColumnType(self, column: List[CellModel]):
         for cell in column:
-          isDigit = str(cell.value).replace('.', '').isdigit() or str(cell.value).replace('-', '').isdigit()
-          if not isDigit:
+            isDigit = str(cell.value).replace('-', '').replace('.', '').isdigit()
+            if not isDigit:
                 return enums.ColumnDataType.Dimensions.value
 
         return enums.ColumnDataType.Measures.value
+
 
     @classmethod
     def from_json(cls, data):
@@ -77,19 +77,3 @@ class ColumnModel(BasicInfo):
         id = data['id']
         isDeleted = data['isDeleted']
         return cls(cells, name, id, isDeleted)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -125,10 +125,11 @@ dataController.data.visualizations[0].filters = [filter1]
 
 # print(len(filteredTable.rowsColors))
 # print(len(filteredTable.columns[0].cells))
-filteredTables = DataSourcesController.getFinalTables(dataController.data)
+# filteredTables = DataSourcesController.getFinalTables(dataController.data)
 
-for table in filteredTables:
+for table in dataController.data.dataSources:
     for column in table.columns:
+        print('Column Type: {}'.format(column.columnType))
         for cell in column.cells:
             print(cell)
         print('_________________')
