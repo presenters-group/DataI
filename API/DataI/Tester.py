@@ -1,27 +1,13 @@
 import json
 import os
-import re
-import drawSvg as draw
 
-from numpy import double
-
-from DataI import enums
 from DataI.Controllers.DataControllers.DataController import DataController
-from DataI.Controllers.DataControllers.DataSourcesController import DataSourcesController
 from DataI.Controllers.DrawControllers.DrawController import DrawController
-from DataI.Controllers.Filters.FilterController import NumericFilter, MultipleEqualityFilter, FiltersController
+from DataI.Controllers.Filters.FiltersController import FiltersController
 from DataI.JSONSerializer import ObjectEncoder
-from DataI.Models.ColumnModel import CellModel
-from DataI.Models.DashboardModel import DashboardModel, InDashboardFilterModel, Measurements, InDashboardVisioModel
-from DataI.Models.FilterModel import FilterModel
-import os
-
-from DataI.Controllers.DataControllers.DataController import DataController
-from DataI.Controllers.DrawControllers.DrawController import DrawController
 from DataI.Models.DashboardModel import DashboardModel
 from DataI.Models.FilterModel import FilterModel
 from DataI.Models.VisualizationModel import VisualizationModel
-
 
 dataController = DataController()
 dirName = os.path.dirname(__file__)
@@ -60,7 +46,7 @@ jsonFilters = '''
         }
     ]
 '''
-jsonVisio = '''
+jsonVisio1 = '''
 {
             "name": "visualization1",
             "id": 0,
@@ -71,57 +57,66 @@ jsonVisio = '''
                 2
             ],
             "xColumn": 0,
-            "chart": "VerticalBarChart",
+            "chart": "BoundaryLineChart",
             "filters": [
-                {
-                    "id": 1,
-                    "value": 5,
-                    "isActive": true
-                },
-                {
-                    "id": 0,
-                    "value": "testerValue",
-                    "isActive": true
-                },
-                {
-                    "id": 2,
-                    "value": 2142,
-                    "isActive": false
-                }
             ],
             "isDeleted": false
-        }
+}
 '''
+jsonVisio2 = '''
+{
+            "name": "visualization2",
+            "id": 1,
+            "data": 0,
+            "usedColumns": [
+                0,
+                1,
+                2
+            ],
+            "xColumn": 0,
+            "chart": "VerticalBarChart",
+            "filters": [
+            ],
+            "isDeleted": false
+}
+'''
+
 jsonDashboard = '''
 {
-    "name": "dashboard1",
-    "id": 0,
-    "isDeleted": false,
-    "visualizers": [
-        {
-            "visualizationId": 0,
-            "measurements": {
-                "width": 100.0,
-                "height": 100.0,
-                "x": 50.0,
-                "y": 60.0
-            }
-        }
-    ],
-    "filters": [
-        {
-            "id": 1,
-            "visioId": 0,
-            "value": 60,
-            "isActive": true,
-            "measurements": {
-                "width": 20.0,
-                "height": 60.0,
-                "x": 10.0,
-                "y": 20.0
-            }
-        }
-    ]
+	"name": "dashboard1",
+	"id": 0,
+	"isDeleted": false,
+	"visualizers": [{
+			"visualizationId": 0,
+			"measurements": {
+				"width": 100.0,
+				"height": 100.0,
+				"x": 50.0,
+				"y": 60.0
+			}
+		},
+		{
+			"visualizationId": 1,
+			"measurements": {
+				"width": 100.0,
+				"height": 100.0,
+				"x": 50.0,
+				"y": 60.0
+			}
+		}
+	],
+	"filters": [{
+		"id": 1,
+		"visioId": 0,
+		"value": 50,
+		"isActive": true,
+		"measurements": {
+			"width": 20.0,
+			"height": 60.0,
+			"x": 10.0,
+			"y": 20.0
+		}
+	}]
 }
 '''
 
@@ -146,7 +141,8 @@ filter3 = {
     "isActive": True
 }
 
-dataController.data.visualizations.append(VisualizationModel.from_json(json.loads(jsonVisio)))
+dataController.data.visualizations.append(VisualizationModel.from_json(json.loads(jsonVisio1)))
+dataController.data.visualizations.append(VisualizationModel.from_json(json.loads(jsonVisio2)))
 dataController.data.dashboards.append(DashboardModel.from_json(json.loads(jsonDashboard)))
 dataController.data.dataSources[0].filters = [filter1, filter2]
 dataController.data.dataSources[1].filters = [filter3]
@@ -156,10 +152,15 @@ dataController.data.visualizations[0].filters = [filter1]
 filteredTable = FiltersController.getFilteredDashboardVisio(dataController.data, 0, 0)
 
 
-for column in filteredTable.columns:
-    for cell in column.cells:
-        print(cell)
-    print('__________________________')
+#result = DrawController.getAllDashboardCharts(dataController.data, 0)
+
+
+
+# for column in filteredTable.columns:
+#     for cell in column.cells:
+#         print(cell)
+#     print('__________________________')
+
 
 # for color in dataController.data.dataSources[0].rowsColors:
 

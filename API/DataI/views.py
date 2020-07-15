@@ -21,7 +21,7 @@ dataController.loadTablesFromExcelFile(filename, 0)
 # ================================ load static data ================================:
 
 
-jsonVisio = '''
+jsonVisio1 = '''
 {
             "name": "visualization1",
             "id": 0,
@@ -32,12 +32,30 @@ jsonVisio = '''
                 2
             ],
             "xColumn": 0,
-            "chart": "BoundaryLineChart",
+            "chart": "BoundaryLineChart
             "filters": [
             ],
             "isDeleted": false
-        }
+}
 '''
+jsonVisio2 = '''
+{
+            "name": "visualization2",
+            "id": 1,
+            "data": 0,
+            "usedColumns": [
+                0,
+                1,
+                2
+            ],
+            "xColumn": 0,
+            "chart": "VerticalBarChart",
+            "filters": [
+            ],
+            "isDeleted": false
+}
+'''
+
 jsonDashboard = '''
 {
     "name": "dashboard1",
@@ -46,6 +64,15 @@ jsonDashboard = '''
     "visualizers": [
         {
             "visualizationId": 0,
+            "measurements": {
+                "width": 100.0,
+                "height": 100.0,
+                "x": 50.0,
+                "y": 60.0
+            }
+        }
+        {
+            "visualizationId": 1,
             "measurements": {
                 "width": 100.0,
                 "height": 100.0,
@@ -118,7 +145,8 @@ filter3 = {
     "isActive": True
 }
 
-dataController.data.visualizations.append(VisualizationModel.from_json(json.loads(jsonVisio)))
+dataController.data.visualizations.append(VisualizationModel.from_json(json.loads(jsonVisio1)))
+dataController.data.visualizations.append(VisualizationModel.from_json(json.loads(jsonVisio2)))
 dataController.data.dashboards.append(DashboardModel.from_json(json.loads(jsonDashboard)))
 loadedJsonFilters = json.loads(jsonFilters)
 for filter in loadedJsonFilters:

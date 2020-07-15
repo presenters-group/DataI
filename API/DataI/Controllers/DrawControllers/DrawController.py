@@ -2,6 +2,7 @@ from typing import Dict, List
 
 from numpy import double
 
+from DataI.Controllers.DataControllers.DashboardsController import DashboardsController
 from DataI.Controllers.DataControllers.VisualizationsController import VisualizationsController
 from DataI.Controllers.DrawControllers.ChartsFactory import ChartsFactory
 from DataI.Models.DashboardModel import DashboardModel
@@ -43,8 +44,8 @@ class DrawController():
         return returnTable
 
     @classmethod
-    def getChart(cls, data: DataModel, visioId: int, width: double, height: double) -> Dict:
-
+    def getChart(cls, data: DataModel, visioId: int, width: double, height: double,
+                 tableFinalizer, dashboardId: int) -> Dict:
         visioIndex = DataController.getElementIndexById(data.visualizations, visioId)
         visualizer = data.visualizations[visioIndex]
 
@@ -52,7 +53,7 @@ class DrawController():
         cls.__removeXColumnIfExists(drawTable, visualizer.xColumn)
 
         # implement visualization filters.
-        drawTable = VisualizationsController.getFinalTable(data, visioId)
+        drawTable = tableFinalizer(data, dashboardId, visioId)
 
         xColumnIndex = DataController.getElementIndexById(data.dataSources, visualizer.xColumn)
         xColumn = drawTable.columns[xColumnIndex]
@@ -79,13 +80,17 @@ class DrawController():
 
 
     @classmethod
-    def getDashboardVisio(cls, data: DataModel, dashboardId: int, visioId: int) -> Dict:
-        targetDashboardIndex = DataController.getElementIndexById(data.dashboards, dashboardId)
-        dashboard = data.dashboards[targetDashboardIndex]
-        targetInVisioIndex = cls.__getVisioIdFromDashboard(dashboard, visioId)
-        inVisio = dashboard.visualizers[targetInVisioIndex]
-        chart = cls.getChart(data, inVisio.visualizationId, inVisio.measurements.width, inVisio.measurements.height)
-        return chart
+    def getDashboardVisioChart(cls, data: DataModel, dashboardId: int, visioId: int) -> Dict:
+        dashboardIndex = DataController.getElementIndexById(data.dashboards, dashboardId)
+        dashboard = data.dashboards[dashboardIndex]
+        inVisioIndex = cls.__getVisioIndexFromDashboard(dashboard, visioId)
+        inVisio = dashboard.visualizers[inVisioIndex]
+
+        return cls.getChart(data, inVisio.visualizationId,
+                            inVisio.measurements['width'],
+                            inVisio.measurements['height'],
+                            DashboardsController.getFinaleChartTable, dashboardId)
+
 
     @classmethod
     def getAllDashboardCharts(cls, data: DataModel, dashboardId: int) -> List[Dict]:
@@ -93,12 +98,11 @@ class DrawController():
         targetDashboardIndex = DataController.getElementIndexById(data.dashboards, dashboardId)
         dashboard = data.dashboards[targetDashboardIndex]
         for inVisioModel in dashboard.visualizers:
-            charts.append(cls.getDashboardVisio(data, dashboardId, inVisioModel.visualizationId))
+            charts.append(cls.getDashboardVisioChart(data, dashboardId, inVisioModel.visualizationId))
         return charts
 
-
     @classmethod
-    def __getVisioIdFromDashboard(cls, dashboard: DashboardModel, visioId: int):
+    def __getVisioIndexFromDashboard(cls, dashboard: DashboardModel, visioId: int):
         indexCounter = 0
         for inVisioModel in dashboard.visualizers:
             if inVisioModel.visualizationId == visioId:

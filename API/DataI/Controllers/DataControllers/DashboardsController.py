@@ -1,9 +1,11 @@
 from typing import Dict
 
 from DataI.Controllers.DataControllers import DataController
+from DataI.Controllers.Filters.FiltersController import FiltersController
 from DataI.Models.BasicInfo import BasicDataModelInfo
 from DataI.Models.DataModel import DataModel
 from DataI.Models.DashboardModel import DashboardModel
+from DataI.Models.TableModel import TableModel
 
 
 class DashboardsController():
@@ -35,6 +37,18 @@ class DashboardsController():
                 return indexCounter
             indexCounter += 1
         return -1
+
+    @classmethod
+    def getFinaleChartTable(cls, data: DataModel, dasboardId: int, visioId: int) -> TableModel:
+        # Implement Aggregation Here.
+        return cls.__getFilteredChartTable(data, dasboardId, visioId)
+
+    @classmethod
+    def __getFilteredChartTable(cls, data: DataModel, dasboardId: int, visioId: int) -> TableModel:
+        return FiltersController.getFilteredDashboardVisio(data, dasboardId, visioId)
+
+
+
 
 
 

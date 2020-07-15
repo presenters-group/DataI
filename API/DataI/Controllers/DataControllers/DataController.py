@@ -7,7 +7,7 @@ from DataI.Controllers.DataControllers.FiltersModelController import FiltersMode
 from DataI.Controllers.DataControllers.VisualizationsController import VisualizationsController
 from DataI.Controllers.FileLoaders.CSVFileLoader import CSVFileLoader
 from DataI.Controllers.FileLoaders.ExcelFileLoader import ExcelFileLoader
-from DataI.Controllers.Filters.FilterController import FiltersController
+from DataI.Controllers.Filters.FiltersController import FiltersController
 from DataI.Models.BasicInfo import BasicDataModelInfo
 from DataI.Models.DashboardModel import DashboardModel
 from DataI.Models.DataModel import DataModel
@@ -98,11 +98,17 @@ class DataController():
         names = [enums.ChartTypes.VerticalBarChart.value, enums.ChartTypes.BoundaryLineChart.value,
                  enums.ChartTypes.PointChart.value, enums.ChartTypes.MultiplePieChart.value,
                  enums.ChartTypes.InfChart.value, enums.ChartTypes.PyramidalChart.value,
-                 enums.ChartTypes.SmartPieChart.value]
+                 enums.ChartTypes.SmartPieChart.value, enums.ChartTypes.HealthyFoodChart.value,
+                 enums.ChartTypes.FemaleInfChart.value, enums.ChartTypes.FemaleAndMaleChart.value,
+                 enums.ChartTypes.LineChart.value]
         return names
 
     def getChart(self, visioId, width, height):
-        return DrawController.getChart(self.data, visioId, width, height)
+        return DrawController.getChart(self.data, visioId, width, height, VisualizationsController.getFinalTable, 0)
+
+    def getSingleDashboardChart(self, dashboardId: int, visioId, width, height):
+        return DrawController.getChart(self.data, visioId, width, height,
+                                       DashboardsController.getFinaleChartTable, dashboardId)
 
     def insertNewDashboard(self, dashBoard: DashboardModel):
         DashboardsController.insertNewDashboard(self.data, dashBoard)
@@ -159,12 +165,12 @@ class DataController():
         return getElementIndexFromDictById(list, id)
 
     @classmethod
-    def __getFilterIndexFromDashboard(cls, data: BasicDataModelInfo, visioId, filterId: int) -> int:
-        return DashboardsController.getFilterIndex(data, visioId, filterId)
-
-    @classmethod
     def elementExists(cls, list: List, id: int) -> bool:
         return elementExists(list, id)
+
+    @classmethod
+    def __getFilterIndexFromDashboard(cls, data: BasicDataModelInfo, visioId, filterId: int) -> int:
+        return DashboardsController.getFilterIndex(data, visioId, filterId)
 
     @classmethod
     def __insertInDataModelFilter(cls, model: BasicDataModelInfo, filter: Dict):

@@ -33,12 +33,17 @@ class ChartTypes(enum.Enum):
     BasicLineChart = 'BasicLineChart'
     PointChart = 'PointChart'
     BoundaryLineChart = 'BoundaryLineChart'
+    LineChart = 'LineChart'
     DoughnutChart = 'DoughnutChart'
     PieChart = 'PieChart'
     MultiplePieChart = 'MultiplePieChart'
     SmartPieChart = 'SmartPieChart'
     PyramidalChart = 'PyramidalChart'
     InfChart = 'InfChart'
+    FemaleAndMaleChart = 'FemaleAndMaleChart'
+    FemaleInfChart = 'FemaleInfChart'
+    HealthyFoodChart = 'HealthyFoodChart'
+
 
 
 
