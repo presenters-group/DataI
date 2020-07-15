@@ -27,19 +27,22 @@ export class AddVisualizerComponent {
     public dialogRef: MatDialogRef<AddVisualizerComponent>,
     private store:Store<AppState>,
     private formBuilder : FormBuilder,
-    private swal: NotificationService) {
+    private swal: NotificationService,
+    @Inject(MAT_DIALOG_DATA) public data: any
+    ) {
+      // console.log(this.data,this.data.data)
       this.formBuild();
       this.filters = this.store.select(selectFiltersForDataSource,{dataSource : this.form.value.data})
     }
 
   formBuild(){
     this.form = this.formBuilder.group({
-      data: ['',Validators.required],
-      usedColumns: [[],Validators.minLength(1)],
-      xColumn: ['',Validators.required],
-      chart: ['',Validators.required],
-      name: ['',Validators.required],
-      filters: [[]],
+      data: [this.data ? this.data.data.toString() : '',Validators.required],
+      usedColumns: [this.data ? this.data.usedColumns.map(x=>x.toString()) : [],Validators.minLength(1)],
+      xColumn: [this.data ? this.data.xColumn.toString() : '',Validators.required],
+      chart: [this. data ?this.data.chart.toString() : '',Validators.required],
+      name: [this.data ? this.data.name.toString() : '',Validators.required],
+      filters: [this.data ? this.data.filters.map(x=>x.toString()) : []],
     })
   }
   onNoClick(): void {

@@ -1,4 +1,4 @@
-<h2 mat-dialog-title>Add Visualizer</h2>
+<h2 mat-dialog-title>{{this.data ? 'Edit Visualizer' : 'Add Visualizer'}}</h2>
 
 <mat-dialog-content>
   <form [formGroup]="form">
@@ -163,6 +163,6 @@
     color="primary"
     cdkFocusInitial
   >
-    Add
+    {{this.data ? 'Save' : 'Add'}}
   </button>
 </div>

@@ -3,7 +3,7 @@ import { Observable } from "rxjs";
 import { selectCurrentDataSource } from "src/store/data-sources/data-sources.selectors";
 import { Store } from "@ngrx/store";
 import { AppState } from "src/store";
-import { updateCell, updateFilterInDataSource,addFilterToDataSource, removeFilterFromDataSource } from "src/store/data-sources";
+import { updateCell, updateFilterInDataSource,addFilterToDataSource, removeFilterFromDataSource, updateDataSourceColumnColor, updateDataSourceRowColor } from "src/store/data-sources";
 import { first } from 'rxjs/operators';
 import { selectCurrentDataSourceFilters,  selectAllCurrentDataSourceFilters } from 'src/store/filters/filters.selectors';
 import { NotificationService } from 'src/store/notifications/notifications.service';
@@ -106,6 +106,19 @@ export class DataSourceComponent implements AfterViewInit {
       id: $event.id,
     }}))
     })
+  }
+
+
+  onColumnColorChange(columnId,$event){
+    this.dataSource.pipe(first()).subscribe((value)=>{
+      this.store.dispatch(updateDataSourceColumnColor({ data : {color : $event.target.value, columnId,tableId: value.id}}))
+    })
+  }
+
+  onRowColorChange(rowId,$event){
+    this.dataSource.pipe(first()).subscribe((value)=>{
+    this.store.dispatch(updateDataSourceRowColor({ data : {color : $event.target.value,rowId , tableId : value.id}}))
+  })
   }
 }
 

@@ -2,7 +2,6 @@ import { Injectable } from "@angular/core";
 import { IDataSource } from "./data-sources.models";
 import { HttpClient } from "@angular/common/http";
 import { BASE_URL } from "src/utils/url.util";
-import { first } from "rxjs/operators";
 @Injectable({
   providedIn: "root",
 })
@@ -66,5 +65,20 @@ export class DataSourcesService {
       `${this.URL}/remove-filter/${data.tableId}/${data.id}/`,
       {}
     );
+  }
+
+
+  updateDataSourceColumnColor(data){
+    return this.httpClient.put(
+      `${this.URL}/column-color/${data.tableId}/${data.columnId}/`,
+      { color : data.color}
+    )
+  }
+
+  updateDataSourceRowColor(data){
+    return this.httpClient.put(
+      `${this.URL}/row-color/${data.tableId}/${data.rowId}/`,
+      { color : data.color}
+    )
   }
 }

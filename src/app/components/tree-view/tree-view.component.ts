@@ -14,7 +14,7 @@ import { addToTapes } from "src/store/core/actions/core.actions";
 import { first } from "rxjs/operators";
 import { MatDialog } from "@angular/material/dialog";
 import { AddVisualizerComponent } from "src/app/pages/visualizer/dialogs/add-visualizer/add-visualizer.component";
-import { createVisualizer, deleteVisualizer } from "src/store/visualizers";
+import { createVisualizer, deleteVisualizer, updateVisualizer } from "src/store/visualizers";
 import { AddDataSourceComponent } from "src/app/pages/data-source/dialogs/add-data-source/add-data-source.component";
 import { AddFilterComponent } from "src/app/pages/filter/dialogs/add-filter/add-filter.component";
 import { createFilter, deleteFilter } from "src/store/filters";
@@ -22,6 +22,7 @@ import { deleteDataSource } from "src/store/data-sources";
 import { deleteDashboard, createDashboard } from "src/store/dashboards";
 import { NotificationService } from "src/store/notifications/notifications.service";
 import { AddDashboardComponent } from "src/app/pages/dashboard/dialogs/add-dashboard/add-dashboard.component";
+import { selectVisualizersEntities } from 'src/store/visualizers/visualizers.selectors';
 @Component({
   selector: "app-tree-view",
   templateUrl: "./tree-view.component.html",
@@ -256,8 +257,21 @@ export class TreeViewComponent implements OnInit, AfterViewInit {
 
           switch (content.type) {
             case "visualizer":
-              this.store.dispatch(deleteVisualizer({ id: content.id }));
-              break;
+              let editVisualizerDialog
+            this.store.select(selectVisualizersEntities).pipe(first()).subscribe((entities)=>{
+                editVisualizerDialog = this.dialog.open(AddVisualizerComponent,{
+                  data: entities[content.id]
+                })
+              })
+            editVisualizerDialog.afterClosed().subscribe((result) => {
+              this.store.dispatch(
+                updateVisualizer({
+                  data: { ...result.value, id: content.id, isDeleted: false },
+                })
+              );
+            });
+
+            break;
             case "filter":
               this.store.dispatch(
                 addToTapes({

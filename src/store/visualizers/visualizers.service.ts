@@ -14,14 +14,19 @@ export class VisualizersService {
   create(data) {
     return this.httpClient.post(`${this.URL}/`, {
       ...data,
-      usedColumns: data.usedColumns.map(x => Number.parseInt(x)),
+      usedColumns: data.usedColumns.map((x) => Number.parseInt(x)),
       xColumn: Number.parseInt(data.xColumn),
-      data: Number.parseInt(data.data)
+      data: Number.parseInt(data.data),
     });
   }
 
-  update(data: IVisualizer) {
-    return this.httpClient.put(this.URL, { ...data });
+  update(data) {
+    return this.httpClient.put(`${this.URL}/${data.id}/`, {
+      ...data,
+      usedColumns: data.usedColumns.map((x) => Number.parseInt(x)),
+      xColumn: Number.parseInt(data.xColumn),
+      data: Number.parseInt(data.data),
+    });
   }
 
   fetch() {
@@ -33,14 +38,13 @@ export class VisualizersService {
   }
 
   fetchVisualizerChart(data) {
-    console.log({...data})
+    console.log({ ...data });
     return this.httpClient.put(`http://127.0.0.1:8000/data/chart/`, {
       ...data,
     });
   }
 
-
-  updateFilterInVisualizer(data){
+  updateFilterInVisualizer(data) {
     return this.httpClient.put(
       `${this.URL}/update-filter/${data.visualizerId}/${data.id}/`,
       {
@@ -50,18 +54,21 @@ export class VisualizersService {
       }
     );
   }
-addFilterToVisualizer(data){
-  console.log(data);
-  return this.httpClient.put(`${this.URL}/insert-filter/${data.visualizerId}/`, {
-    id: data.id,
-    value: data.value,
-    isActive: data.isActive,
-  });
-}
-removeFilterFromVisualizer(data){
-  return this.httpClient.put(
-    `${this.URL}/remove-filter/${data.visualizerId}/${data.id}/`,
-    {}
-  );
-}
+  addFilterToVisualizer(data) {
+    console.log(data);
+    return this.httpClient.put(
+      `${this.URL}/insert-filter/${data.visualizerId}/`,
+      {
+        id: data.id,
+        value: data.value,
+        isActive: data.isActive,
+      }
+    );
+  }
+  removeFilterFromVisualizer(data) {
+    return this.httpClient.put(
+      `${this.URL}/remove-filter/${data.visualizerId}/${data.id}/`,
+      {}
+    );
+  }
 }

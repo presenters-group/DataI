@@ -59,7 +59,7 @@ export const selectVisualizersTree = createSelector(
       });
 
       let filters = { name: "Filters", children: [] };
-      entity.filters.forEach(({id: value}, key) => {
+      entity.filters.forEach((value, key) => {
         let filter = filtersEntities[value];
         filters.children.push({
           name: filter.name,
@@ -124,4 +124,3 @@ export const selectCurrentVisualizerFilters = createSelector(
     return filters;
   }
 );
-

@@ -97,3 +97,13 @@ export const removeFilterFromDataSource = createAction(
   props<{ data }>()
 )
 
+
+export const updateDataSourceRowColor = createAction(
+  "[DataSourceComponent] update data source row color",
+  props<{ data }>()
+)
+
+export const updateDataSourceColumnColor = createAction(
+  "[DataSourceComponent] update data source column color",
+  props<{ data }>()
+)

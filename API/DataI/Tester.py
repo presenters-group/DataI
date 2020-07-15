@@ -3,7 +3,7 @@ import os
 
 from DataI.Controllers.DataControllers.DataController import DataController
 from DataI.Controllers.DrawControllers.DrawController import DrawController
-from DataI.Controllers.Filters.FiltersController import FiltersController
+from DataI.Controllers.Filters import FiltersController
 from DataI.JSONSerializer import ObjectEncoder
 from DataI.Models.DashboardModel import DashboardModel
 from DataI.Models.FilterModel import FilterModel
