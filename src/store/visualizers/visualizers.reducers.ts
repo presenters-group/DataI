@@ -123,10 +123,11 @@ const visualizersReducer = createReducer(
   }),
 
   on(fromActions.removeFilterFromVisualizerSuccess, (state, { data }) => {
+    console.log(data)
     let filters = state.entities[data.visioId].filters;
     let newFilters = [];
     for (let filter of filters) {
-      if (filter.id != data.id) {
+      if (filter.id != data.filterId) {
         newFilters.push(filter);
       }
     }

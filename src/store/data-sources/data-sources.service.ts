@@ -67,4 +67,19 @@ export class DataSourcesService {
       {}
     );
   }
+
+
+  updateDataSourceColumnColor(data){
+    return this.httpClient.put(
+      `${this.URL}/column-color/${data.tableId}/${data.columnId}/`,
+      { color : data.color}
+    )
+  }
+
+  updateDataSourceRowColor(data){
+    return this.httpClient.put(
+      `${this.URL}/row-color/${data.tableId}/${data.rowId}/`,
+      { color : data.color}
+    )
+  }
 }

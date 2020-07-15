@@ -1,5 +1,5 @@
-import { Component, OnInit } from "@angular/core";
-import { MatDialogRef } from "@angular/material/dialog";
+import { Component, OnInit, Inject } from "@angular/core";
+import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { Store } from "@ngrx/store";
 import { AppState } from "src/store";
 import { FormBuilder, Validators } from "@angular/forms";
@@ -20,7 +20,8 @@ export class AddFilterComponent implements OnInit {
     public dialogRef: MatDialogRef<AddFilterComponent>,
     private store: Store<AppState>,
     private formBuilder: FormBuilder,
-    private swal: NotificationService
+    private swal: NotificationService,
+    @Inject(MAT_DIALOG_DATA) public data: any
   ) {
     this.formBuild();
   }

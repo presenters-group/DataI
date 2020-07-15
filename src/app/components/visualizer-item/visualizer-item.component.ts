@@ -38,7 +38,15 @@ export class VisualizerItemComponent implements AfterViewInit {
 
   ngAfterViewInit(){
     this.onResize();
+
+
     this.svg = this.store.select(selectVisualizersChart,{visualizerId : this.id});
+
+    this.svg.subscribe(()=>{
+      this.onResize()
+    })
+
+
     this.done = true;
   }
   @HostListener('window:resize', ['$event'])

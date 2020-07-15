@@ -4,8 +4,8 @@
       <tr>
         <td>
         </td>
-        <td class="color-cell" *ngFor="let color of (dataSource | async).columnsColors">
-          <input type="color" [value]="color" />
+        <td class="color-cell" *ngFor="let color of (dataSource | async).columnsColors;let i = index">
+          <input type="color" (change)="onColumnColorChange(i,$event)" [value]="color" />
           &nbsp;
           <!-- {{ color }} -->
         </td>
@@ -13,7 +13,7 @@
       <tr *ngFor="let cell of (dataSource | async).columns[0].cells; let i = index">
         <td *ngIf="!i"> Colors </td>
         <td class="color-cell" *ngIf="i">
-          <input type="color" [value]="(dataSource | async).rowsColors[i - 1]" />
+          <input type="color" (change)="onRowColorChange(i-1,$event)" [value]="(dataSource | async).rowsColors[i - 1]" />
           &nbsp;
           <!-- {{ (dataSource | async).rowsColors[i - 1] }} -->
         </td>

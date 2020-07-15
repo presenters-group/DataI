@@ -201,4 +201,54 @@ export class DataSourcesEffects {
     )
   )
   )
+
+
+
+
+
+  updateDataSourceRowColor$ = createEffect(()=>
+  this.actions$.pipe(
+    ofType(fromActions.updateDataSourceRowColor),
+    debounceTime(100),
+
+    switchMap(({ data }) =>
+      this.dataSourcesService.updateDataSourceRowColor(data).pipe(
+        switchMap((data) => [
+          fromActions.updateDataSourceSuccess({ data }),
+          showSuccess({ message: UPDATE_SUCCESSFUL }),
+        ]),
+
+        catchError((error) => [
+          fromActions.updateDataSourceFailed({ error }),
+          showError({ message: UPDATE_FAILED }),
+        ])
+      )
+    )
+  )
+  )
+
+
+
+
+
+  updateDataSourceColumnColor$ = createEffect(()=>
+  this.actions$.pipe(
+    ofType(fromActions.updateDataSourceColumnColor),
+    debounceTime(100),
+
+    switchMap(({ data }) =>
+      this.dataSourcesService.updateDataSourceColumnColor(data).pipe(
+        switchMap((data) => [
+          fromActions.updateDataSourceSuccess({ data }),
+          showSuccess({ message: UPDATE_SUCCESSFUL }),
+        ]),
+
+        catchError((error) => [
+          fromActions.updateDataSourceFailed({ error }),
+          showError({ message: UPDATE_FAILED }),
+        ])
+      )
+    )
+  )
+  )
 }
