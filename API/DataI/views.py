@@ -355,22 +355,21 @@ def insertInDashboardFilter(request, dashboardId):
 
 
 @csrf_exempt
-def updateInDashboardFilter(request, dashboardId, filterId):
+def updateInDashboardFilter(request, dashboardId, visioId, filterId):
     if request.method == 'PUT':
         filter = json.loads(request.body.decode())
-        returnFilter = dataController.updateInDashboardFilter(filter, dashboardId, filterId)
+        returnFilter = dataController.updateInDashboardFilter(filter, dashboardId, visioId, filterId)
         if returnFilter['state'] == -1:
             return HttpResponseNotFound('Filter not found.')
-        print(dataController.data.dashboards[0].filters[0])
         return HttpResponse(json.dumps(returnFilter, indent=4, cls=ObjectEncoder, ensure_ascii=False))
     else:
         return HttpResponseNotFound('No such request({} <{}>) is available'.format(request.path, request.method))
 
 
 @csrf_exempt
-def removeInDashboardFilter(request, dashboardId, filterId):
+def removeInDashboardFilter(request, dashboardId, visioId, filterId):
     if request.method == 'PUT':
-        returnValue = dataController.removeInDashboardFilter(dashboardId, filterId)
+        returnValue = dataController.removeInDashboardFilter(dashboardId, visioId, filterId)
         if returnValue['state'] == -1:
             return HttpResponseNotFound('Filter not found.')
         return HttpResponse(json.dumps(returnValue, indent=4, cls=ObjectEncoder, ensure_ascii=False))

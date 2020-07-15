@@ -1,6 +1,7 @@
 from typing import Dict
 
 from DataI.Controllers.DataControllers import DataController
+from DataI.Models.BasicInfo import BasicDataModelInfo
 from DataI.Models.DataModel import DataModel
 from DataI.Models.DashboardModel import DashboardModel
 
@@ -25,4 +26,32 @@ class DashboardsController():
             data.dashboards[dashBoardIndex].isDeleted = True
             return data.dashboards[dashBoardIndex]
         return None
+
+    @classmethod
+    def getFilterIndex(cls, data: BasicDataModelInfo, visioId, filterId: int) -> int:
+        indexCounter = 0
+        for filter in data.filters:
+            if filter['id'] == filterId and filter['visioId'] == visioId:
+                return indexCounter
+            indexCounter += 1
+        return -1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
