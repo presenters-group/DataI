@@ -21,9 +21,12 @@ class InfChart(Chart):
         self.d = draw.Drawing(self.widthView , self.heightView)
         self.total = self.sumColumn(self.secondColumn)
         self.drawlayOut()
-        self.drawStack()
-        self.drawHuman()
-        self.drawText()
+        if self.secondColumn.columnType == enums.ColumnDataType.Measures:
+          self.drawStack()
+          self.drawHuman()
+          self.drawText()
+        else:
+          self.d.append(draw.Text(text="Error: Xcolumn is not Measured", fontSize=60, x=50, y=self.heightView/2))
         self.d.setPixelScale(min(width,height)/1000)  # Set number of pixels per geometry unit
         #self.d.saveSvg(nameFile+'.svg')
         self.SVG = self.d.asSvg()

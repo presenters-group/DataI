@@ -4,20 +4,24 @@ import numpy as np
 from numpy import double
 from DataI.Controllers.DrawControllers.PieChart import PieChart
 from DataI.Models.ColumnModel import ColumnModel
+from DataI.Models.TableModel import TableModel
 
 
 class SmartPieChart(PieChart):
-    def __init__(self, firstcColumon: ColumnModel, XColumn: ColumnModel, nameFile):
-        self.widthView = ColumnModel
-        super().__init__(firstcColumon, XColumn, 1000, 1000, nameFile)
+    def __init__(self, dataSource: TableModel, XColumn: ColumnModel, width: double, height: double, nameFile: str):
+      self.Index = 0
+      self.metaData = list()
+      self.colorList = dataSource.rowsColors
+      super().__init__(dataSource.columns[0], XColumn, double(1000), double(1000), nameFile)
+      self.d.setPixelScale(min(width, height) / 1000)  # Set number of pixels per geometry unit
+      self.SVG = self.d.asSvg()
+      #self.d.saveSvg(nameFile + '.svg')
 
     def drawCircle(self):
-        colorList = self.generateRandomColorsList(len(self.firstColumn.cells))
+
         xcenter = self.xCenter
         ycenter = self.yCenter
         r = self.r
-        add = 50
-        oldEndangle = 0
         Y = -self.yCenter
         length = 0
         for cell, cell2, i in zip(self.firstColumn.cells, self.secondColumn.cells,
@@ -37,19 +41,21 @@ class SmartPieChart(PieChart):
                     M = ("M %s %s" % (xstartpoint, ystartpoint))
                     a = ("A %s %s 0 %s 0 %s %s" % (r, r, large_arc_flag, xendpoint, yendpoint))
                     L = ("L %s %s" % (xcenter, ycenter))
-                    p = draw.Path(stroke_width=10, stroke="white", fill=colorList[i - 1], fill_opacity=0.51,
-                                  d=M + a + L)
+                    p = draw.Path(stroke_width=10, stroke="white", fill=self.colorList[i - 1], fill_opacity=1,
+                                  d=M + a + L,id=self.Index)
+
 
                     p.Z()
                     self.d.append(p)
                     text = str(self.firstColumn.cells[i - len(self.firstColumn.cells)].value) + ": " + str(
                         self.percentageOfValue(cell2.value))[0:4] + "%"
-
+                    self.metaData.append(text)
                     r -= self.r / len(self.firstColumn.cells)
                     self.d.append(
                         draw.Circle(-ycenter, xcenter, r, fill="white", fill_opacity=1,
                                     stroke="white", stroke_width=10))
-                    self.d.append(draw.Text(text=str(text), fontSize=50, x=str((length * 55 + 8) - 50), y=Y - 5,
+                    self.d.append(draw.Text(text=str(text), fontSize=50, x=str((length * 55 + 8) - 50), y=Y - 5, style="font-size : "+str(50),
                                             transform="rotate(90," + str(self.xCenter - 40) + "," + str(
-                                                -length * 55 + 8) + ")"))
+                                                -length * 55 + 8) + ")",id=self.Index))
+                    self.Index += 1
                     Y -= (self.r / len(self.firstColumn.cells)) / 8

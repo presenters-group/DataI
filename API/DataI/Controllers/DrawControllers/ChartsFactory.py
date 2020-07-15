@@ -35,7 +35,7 @@ class ChartsFactory():
             return MultiplePieChart(table, xColomn, width, height, 'testerrr')
 
         if chartType == enums.ChartTypes.PyramidalChart.value:
-            return PyramidalChart(table.columns[0], xColomn, width, height, 'testerrr')
+            return PyramidalChart(table, xColomn, width, height, 'testerrr')
 
         if chartType == enums.ChartTypes.SmartPieChart.value:
-            return SmartPieChart(table.columns[0], xColomn, 'testerrr')
+            return SmartPieChart(table, xColomn, width, height, 'testerrr')
