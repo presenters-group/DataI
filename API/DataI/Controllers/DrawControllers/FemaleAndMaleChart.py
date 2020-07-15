@@ -19,7 +19,7 @@ class FemaleAndMaleChart(InfChart):
       self.drawHuman()
       self.drawText()
       self.d.setPixelScale(min(width, height) / 1000)  # Set number of pixels per geometry unit
-      #self.d.saveSvg(nameFile + '.svg')
+      self.d.saveSvg(nameFile + '.svg')
       self.SVG = self.d.asSvg()
 
 
@@ -61,7 +61,7 @@ class FemaleAndMaleChart(InfChart):
                     self.d.append(
                         draw.Rectangle(0, startX+800, self.widthView + 50, height, fill=self.colorList[i-1], fill_opacity=0.5,
                                        stroke="white",
-                                       stroke_width=2,transform="translate(400,-100) scale(0.30 0.30)" ,id= self.Index))
+                                       stroke_width=2,transform="translate(380,-100) scale(0.30 0.30)" ,id= self.Index))
                     self.metaData.append(text)
                     self.Index += 1
 
