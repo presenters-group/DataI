@@ -91,8 +91,8 @@ class DataController():
         returnDict = dict()
         returnDict['state'] = self.__removeInDataModelFilter(self.data.visualizations[targetVisioIndex], filterId)
         returnDict['visioId'] = visioId
+        returnDict['filterId'] = filterId
         return returnDict
-
 
     def getChartsNames(self):
         names = [enums.ChartTypes.VerticalBarChart.value, enums.ChartTypes.BoundaryLineChart.value,
@@ -130,8 +130,8 @@ class DataController():
         returnDict = dict()
         returnDict['state'] = self.__removeInDataModelFilter(self.data.dashboards[targetDashboardIndex], filterId)
         returnDict['dashboardId'] = dashboardId
+        returnDict['filterId'] = filterId
         return returnDict
-
 
     def insertNewFilter(self, filter: FilterModel):
         FiltersModelController.insertNewFilter(self.data, filter)
