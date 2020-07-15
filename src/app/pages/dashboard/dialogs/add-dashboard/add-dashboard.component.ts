@@ -45,7 +45,7 @@ export class AddDashboardComponent implements OnInit {
           this.filters.push(data)
         break;
       case 'visualizer':
-
+        this.visualizers.push(data)
         break;
     }
   }
