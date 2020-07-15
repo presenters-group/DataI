@@ -26,6 +26,8 @@ urlpatterns = [
     path('dashboards/insert-filter/<int:dashboardId>/', views.insertInDashboardFilter),
     path('dashboards/update-filter/<int:dashboardId>/<int:visioId>/<int:filterId>/', views.updateInDashboardFilter),
     path('dashboards/remove-filter/<int:dashboardId>/<int:visioId>/<int:filterId>/', views.removeInDashboardFilter),
+    path('dashboards/chart/<int:dashboardId>/<int:visioId>/', views.getDashboardVisioChart),
+    path('dashboards/charts/<int:dashboardId>/', views.getAllDashboardCharts),
 
     path('filters/', views.filtersHandler),
     path('filters/<int:id>/', views.filterModifier),

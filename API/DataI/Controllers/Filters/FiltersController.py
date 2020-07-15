@@ -177,7 +177,7 @@ def getFilteredVisioTable(cls, data: DataModel, visioId: int) -> TableModel:
     return FiltersController.getFilteredVisioTable(data, visioId)
 
 
-def getFilteredDashboardVisio(cls, data: DataModel, dashboardId: int, visioId: int) -> TableModel:
+def getFilteredDashboardVisio(data: DataModel, dashboardId: int, visioId: int) -> TableModel:
     return FiltersController.getFilteredDashboardVisio(data, dashboardId, visioId)
 
 

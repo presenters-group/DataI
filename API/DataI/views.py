@@ -32,7 +32,7 @@ jsonVisio1 = '''
                 2
             ],
             "xColumn": 0,
-            "chart": "BoundaryLineChart
+            "chart": "BoundaryLineChart",
             "filters": [
             ],
             "isDeleted": false
@@ -58,45 +58,43 @@ jsonVisio2 = '''
 
 jsonDashboard = '''
 {
-    "name": "dashboard1",
-    "id": 0,
-    "isDeleted": false,
-    "visualizers": [
-        {
-            "visualizationId": 0,
-            "measurements": {
-                "width": 100.0,
-                "height": 100.0,
-                "x": 50.0,
-                "y": 60.0
-            }
-        }
-        {
-            "visualizationId": 1,
-            "measurements": {
-                "width": 100.0,
-                "height": 100.0,
-                "x": 50.0,
-                "y": 60.0
-            }
-        }
-    ],
-    "filters": [
-        {
-            "id": 1,
-            "visioId": 0,
-            "value": 50,
-            "isActive": true,
-            "measurements": {
-                "width": 20.0,
-                "height": 60.0,
-                "x": 10.0,
-                "y": 20.0
-            }
-        }
-    ]
+	"name": "dashboard1",
+	"id": 0,
+	"isDeleted": false,
+	"visualizers": [{
+			"visualizationId": 0,
+			"measurements": {
+				"width": 100.0,
+				"height": 100.0,
+				"x": 50.0,
+				"y": 60.0
+			}
+		},
+		{
+			"visualizationId": 1,
+			"measurements": {
+				"width": 100.0,
+				"height": 100.0,
+				"x": 50.0,
+				"y": 60.0
+			}
+		}
+	],
+	"filters": [{
+		"id": 1,
+		"visioId": 0,
+		"value": 50,
+		"isActive": true,
+		"measurements": {
+			"width": 20.0,
+			"height": 60.0,
+			"x": 10.0,
+			"y": 20.0
+		}
+	}]
 }
 '''
+
 jsonFilters = '''
 [
         {
@@ -151,6 +149,7 @@ dataController.data.dashboards.append(DashboardModel.from_json(json.loads(jsonDa
 loadedJsonFilters = json.loads(jsonFilters)
 for filter in loadedJsonFilters:
     dataController.data.filters.append(FilterModel.from_json(filter))
+
 
 # dataController.data.dataSources[0].filters = [filter1, filter2]
 # dataController.data.dataSources[1].filters = [filter3]
@@ -336,7 +335,7 @@ def getChartsNames(request):
 
 @csrf_exempt
 def getChartSVG(request):
-    if request.method == 'PUT':
+    if request.method == 'GET':
         visioInfo = json.loads(request.body.decode())
         visualizerId = visioInfo.get('visualizerId')
         width = visioInfo.get('width')
@@ -401,6 +400,28 @@ def removeInDashboardFilter(request, dashboardId, visioId, filterId):
         if returnValue['state'] == -1:
             return HttpResponseNotFound('Filter not found.')
         return HttpResponse(json.dumps(returnValue, indent=4, cls=ObjectEncoder, ensure_ascii=False))
+    else:
+        return HttpResponseNotFound('No such request({} <{}>) is available'.format(request.path, request.method))
+
+
+@csrf_exempt
+def getDashboardVisioChart(request, dashboardId, visioId):
+    if request.method == 'GET':
+        chart = dataController.getDashboardVisioChart(dashboardId, visioId)
+        chart['dashboardId'] = dashboardId
+        return HttpResponse(json.dumps(chart, indent=4, cls=ObjectEncoder, ensure_ascii=False))
+    else:
+        return HttpResponseNotFound('No such request({} <{}>) is available'.format(request.path, request.method))
+
+
+@csrf_exempt
+def getAllDashboardCharts(request, dashboardId):
+    if request.method == 'GET':
+        charts = dataController.getAllDashboardCharts(dashboardId)
+        returnDict = dict()
+        returnDict['charts'] = charts
+        returnDict['dashboardId'] = dashboardId
+        return HttpResponse(json.dumps(returnDict, indent=4, cls=ObjectEncoder, ensure_ascii=False))
     else:
         return HttpResponseNotFound('No such request({} <{}>) is available'.format(request.path, request.method))
 

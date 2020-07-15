@@ -3,8 +3,7 @@ import os
 
 from DataI.Controllers.DataControllers.DataController import DataController
 from DataI.Controllers.DrawControllers.DrawController import DrawController
-from DataI.Controllers.Filters import FiltersController
-from DataI.JSONSerializer import ObjectEncoder
+from DataI.Controllers.Filters.FiltersController import FiltersController
 from DataI.Models.DashboardModel import DashboardModel
 from DataI.Models.FilterModel import FilterModel
 from DataI.Models.VisualizationModel import VisualizationModel
@@ -15,37 +14,7 @@ filename = os.path.join(dirName, '../Test.xlsx')
 
 dataController.loadTablesFromExcelFile(filename, 0)
 
-jsonFilters = '''
-[
-        {
-            "name": "filter1",
-            "id": 0,
-            "dataSource": 1,
-            "filteredColumn": 0,
-            "initValue": "A",
-            "type": "MultipleEquality",
-            "isDeleted": false
-        },
-        {
-            "name": "filter2",
-            "id": 1,
-            "dataSource": 0,
-            "filteredColumn": 2,
-            "initValue": 100,
-            "type": ">",
-            "isDeleted": false
-        },
-        {
-            "name": "filter3",
-            "id": 2,
-            "dataSource": 0,
-            "filteredColumn": 0,
-            "initValue": 11,
-            "type": "<",
-            "isDeleted": false
-        }
-    ]
-'''
+
 jsonVisio1 = '''
 {
             "name": "visualization1",
@@ -120,6 +89,37 @@ jsonDashboard = '''
 }
 '''
 
+jsonFilters = '''
+[
+        {
+            "name": "filter1",
+            "id": 0,
+            "dataSource": 1,
+            "filteredColumn": 0,
+            "initValue": "A",
+            "type": "MultipleEquality",
+            "isDeleted": false
+        },
+        {
+            "name": "filter2",
+            "id": 1,
+            "dataSource": 0,
+            "filteredColumn": 2,
+            "initValue": 100,
+            "type": ">",
+            "isDeleted": false
+        },
+        {
+            "name": "filter3",
+            "id": 2,
+            "dataSource": 0,
+            "filteredColumn": 0,
+            "initValue": 11,
+            "type": "<",
+            "isDeleted": false
+        }
+    ]
+'''
 
 loadedJsonFilters = json.loads(jsonFilters)
 for filter in loadedJsonFilters:
@@ -152,9 +152,7 @@ dataController.data.visualizations[0].filters = [filter1]
 filteredTable = FiltersController.getFilteredDashboardVisio(dataController.data, 0, 0)
 
 
-#result = DrawController.getAllDashboardCharts(dataController.data, 0)
-
-
+result = DrawController.getDashboardVisioChart(dataController.data, 0, 0)
 
 # for column in filteredTable.columns:
 #     for cell in column.cells:

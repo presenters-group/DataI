@@ -143,6 +143,12 @@ class DataController():
         returnDict['filterId'] = filterId
         return returnDict
 
+    def getDashboardVisioChart(self, dashboardId: int, visioId: int) -> Dict:
+        return DrawController.getDashboardVisioChart(self.data, dashboardId, visioId)
+
+    def getAllDashboardCharts(self, dashboardId: int) -> List[Dict]:
+        return DrawController.getAllDashboardCharts(self.data, dashboardId)
+
     def insertNewFilter(self, filter: FilterModel):
         FiltersModelController.insertNewFilter(self.data, filter)
 
