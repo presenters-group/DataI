@@ -4,7 +4,6 @@ from typing import List
 
 from DataI.Controllers.DataControllers import DataController
 from DataI.Controllers.DataControllers import DataSourcesController
-from DataI.Models.ColumnModel import ColumnModel
 from DataI.Models.DashboardModel import DashboardModel
 from DataI.Models.DataModel import DataModel
 from DataI.Models.TableModel import TableModel
@@ -40,9 +39,6 @@ class NumericFilter():
                 rowCounter -= 1
             rowCounter += 1
 
-        for column in filteredTable.columns:
-            DataSourcesController.updateCategorizedValues(column)
-
         return filteredTable
 
 
@@ -65,8 +61,6 @@ class MultipleEqualityFilter():
                 rowCounter -= 1
             rowCounter += 1
 
-        for column in filteredTable.columns:
-            DataSourcesController.updateCategorizedValues(column)
 
         return filteredTable
 
@@ -98,6 +92,7 @@ class FiltersController():
 
         return filteredTable
 
+
     @classmethod
     def getFilteredVisioTable(cls, data: DataModel, visioId: int) -> TableModel:
         visioIndex = DataController.getElementIndexById(data.visualizations, visioId)
@@ -116,6 +111,7 @@ class FiltersController():
                 filteredTable = filterObj.implementFilter(filteredTable, filterModel.filteredColumn, visioFilter['value'])
 
         return filteredTable
+
 
     @classmethod
     def getFilteredDashboardVisio(cls, data: DataModel, dashboardId: int, visioId: int) -> TableModel:
@@ -145,7 +141,6 @@ class FiltersController():
 
         return filteredTable
 
-
     @classmethod
     def __getInDashboardVisioModel(cls, data: DataModel, dashboardId: int, visioId: int):
         dashboardIndex = DataController.getElementIndexById(data.dashboards, dashboardId)
@@ -154,9 +149,6 @@ class FiltersController():
             if inVisioModel.visualizationId == visioId:
                 return inVisioModel
         return -1
-
-
-
 
     @classmethod
     def __getVisioIndexFromDashboard(cls, dashboard: DashboardModel, visioId: int):
@@ -168,7 +160,6 @@ class FiltersController():
         return -1
 
 
-
 class FiltersFactory():
     @classmethod
     def getFilter(cls, filterType: str):
@@ -176,6 +167,21 @@ class FiltersFactory():
             return MultipleEqualityFilter()
         else:
             return NumericFilter(filterType)
+
+
+def getFilteredTable(data: DataModel, tableId: int) -> TableModel:
+    return FiltersController.getFilteredTable(data, tableId)
+
+
+def getFilteredVisioTable(cls, data: DataModel, visioId: int) -> TableModel:
+    return FiltersController.getFilteredVisioTable(data, visioId)
+
+
+def getFilteredDashboardVisio(cls, data: DataModel, dashboardId: int, visioId: int) -> TableModel:
+    return FiltersController.getFilteredDashboardVisio(data, dashboardId, visioId)
+
+
+
 
 
 
