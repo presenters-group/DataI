@@ -3,7 +3,6 @@ import { AppState } from "..";
 import { FiltersState } from "./filters.reducers";
 import { selectDataSourcesEntities, selectCurrentDataSource } from "../data-sources/data-sources.selectors";
 import { selectCurrentTapObject } from '../core/selectors/core.selector';
-
 export const selectFiltersState = createFeatureSelector<AppState, FiltersState>(
   "filters"
 );
@@ -76,8 +75,10 @@ export const selectFiltersTree = createSelector(
 
 export const selectFiltersForDataSource = createSelector(
   selectUndeletedFiltersEntities,
-  (state,props) => props.dataSource != '' ? objectFilter(state,(value)=>value.dataSource != props.dataSource) : {}
-);
+  (state,props) => {
+      console.log(props.dataSource,)
+      return props.dataSource != '' ? objectFilter(state,(value)=>value.dataSource != props.dataSource) : {}
+  });
 
 export const selectCurrentFilter = createSelector(
   selectFiltersState,
@@ -96,6 +97,7 @@ export const selectCurrentFilterDataSource = createSelector(
 
 function objectFilter (obj, predicate){
     let result = {}, key;
+    console.log(obj,predicate)
 
     for (key in obj) {
         if (obj.hasOwnProperty(key) && !predicate(obj[key])) {
@@ -121,6 +123,8 @@ export const selectCurrentDataSourceFilters = createSelector(
 );
 
 
+
+
 export const selectAllCurrentDataSourceFilters = createSelector(
 
   selectCurrentDataSource,
@@ -137,3 +141,6 @@ export const selectAllCurrentDataSourceFilters = createSelector(
   }
 
 )
+
+
+

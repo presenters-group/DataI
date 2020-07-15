@@ -7,11 +7,12 @@ import { HttpClient } from '@angular/common/http';
 })
 export class CoreService {
 
-  URL : string = BASE_URL + "chartsNames"
+  URL : string = BASE_URL + "chartsNames/"
 
   constructor(private httpClient: HttpClient) {}
 
   fetch() {
+    console.log(this.URL)
       return this.httpClient.get(this.URL);
   }
 

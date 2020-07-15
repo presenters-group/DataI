@@ -35,23 +35,6 @@ table tr td {
   justify-content: space-between;
 }
 
-.column{
-  display: flex;
-  flex-direction: row;
-  justify-content: stretch;
-  align-items: stretch;
-}
-
-.cell{
-  height: 100%;
-  width: max-content;
-  min-width: 100%;
-  display: block;
-  border: 1px solid #dddddd;
-  text-align: left;
-  padding: 8px;
-}
-
 
 
 .filter {

@@ -3,7 +3,6 @@
     <table>
       <tr>
         <td>
-          {{(dataSource | async).name}}
         </td>
         <td class="color-cell" *ngFor="let color of (dataSource | async).columnsColors">
           <input type="color" [value]="color" />
@@ -49,7 +48,7 @@
     <button class="add-filter" *ngIf="insertFilter" (click)="onAddFilter()" mat-raised-button>ADD</button>
 
 
-        <div class="filter" *ngFor="let filter of filters | async" class="filter">
+        <div class="filter" *ngFor="let filter of (filters | async)" class="filter">
       <app-filter-item (onMinus)="onDeleteFilter($event)" [showOptions]="true" [filter]="filter"[enabled]="filter.active" [value]="filter.value" (onChange)="onFilterChangeValue($event)"> </app-filter-item>
     </div>
   </div>

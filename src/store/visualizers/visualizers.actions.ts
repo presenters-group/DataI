@@ -78,3 +78,56 @@ export const fetchChartAsSVGFiled = createAction(
 );
 
 
+
+export const addFilterToVisualizer = createAction(
+  "[VisualizerComponent] add filter to visualizer",
+  props<{ data }>()
+)
+
+
+export const updateFilterInVisualizer = createAction(
+  "[VisualizerComponent] update filter in visualizer",
+  props<{ data }>()
+)
+
+
+export const removeFilterFromVisualizer = createAction(
+  "[VisualizerComponent] remove filter from visualizer",
+  props<{ data }>()
+)
+
+
+export const addFilterToVisualizerSuccess = createAction(
+  "[VisualizerComponent] add filter to visualizer success",
+  props<{ data }>()
+)
+
+
+export const updateFilterInVisualizerSuccess = createAction(
+  "[VisualizerComponent] update filter in visualizer success",
+  props<{ data }>()
+)
+
+
+export const removeFilterFromVisualizerSuccess = createAction(
+  "[VisualizerComponent] remove filter from visualizer success",
+  props<{ data }>()
+)
+
+
+export const addFilterToVisualizerFailed = createAction(
+  "[VisualizerComponent] add filter to visualizer failed",
+  props<{ error }>()
+)
+
+
+export const updateFilterInVisualizerFailed = createAction(
+  "[VisualizerComponent] update filter in visualizer failed",
+  props<{ error }>()
+)
+
+
+export const removeFilterFromVisualizerFailed = createAction(
+  "[VisualizerComponent] remove filter from visualizer failed",
+  props<{ error }>()
+)

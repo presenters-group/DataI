@@ -1,8 +1,8 @@
-import { createFeatureSelector, createSelector, select } from "@ngrx/store";
+import { createFeatureSelector, createSelector } from "@ngrx/store";
 import { AppState } from "..";
 import { VisualizersState } from "./visualizers.reducers";
 import { selectFiltersEntities } from "../filters/filters.selectors";
-import { selectDataSourcesEntities, selectCurrentDataSource } from "../data-sources/data-sources.selectors";
+import { selectDataSourcesEntities } from "../data-sources/data-sources.selectors";
 import { selectCurrentTapObject } from '../core/selectors/core.selector';
 
 export const selectVisualizersState = createFeatureSelector<
@@ -93,6 +93,26 @@ export const selectVisualizersChart = createSelector(
   }
 );
 
+
+
+
+export const selectAllCurrentVisualizerFilters = createSelector(
+  selectCurrentVisualizer,
+  selectFiltersEntities,
+  (visualizer,allFilters)=>{
+    let filters = [];
+
+    for(let filter of Object.keys(allFilters))
+      {
+        if(allFilters[filter].dataSource == visualizer.data )
+        filters.push(allFilters[filter]);
+      }
+      return filters;
+  }
+
+)
+
+
 export const selectCurrentVisualizerFilters = createSelector(
   selectCurrentVisualizer,
   selectFiltersEntities,
@@ -100,9 +120,8 @@ export const selectCurrentVisualizerFilters = createSelector(
     let filters = [];
 
     for (let filter of visualizer.filters)
-      filters.push(AllFilters[filter.id])
+      filters.push({...AllFilters[filter.id],isActive: filter.isActive, value:filter.value})
     return filters;
   }
 );
-
 

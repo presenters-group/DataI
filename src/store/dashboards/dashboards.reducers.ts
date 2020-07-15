@@ -7,42 +7,7 @@ export interface DashboardsState {
 }
 
 export const initialState: DashboardsState = {
-  entities: [{
-    name: 'dashboard1',
-    id: 0,
-    isDeleted : false,
-    visualizers: [
-      {
-        visualizationIndex: 0,
-        measurements: {
-          width: 500.0,
-          height: 300.0,
-          x: 100.0,
-          y: 100.0,
-        },
-        displayedFilters: [
-          {
-            filterIndex: 0,
-            measurements: {
-              width: 100.0,
-              height: 100.0,
-              x: 100.0,
-              y: 200.0,
-            },
-          },
-          {
-            filterIndex: 1,
-            measurements: {
-              width: 100.0,
-              height: 100.0,
-              x: 300.0,
-              y: 150.0,
-            }
-          }
-        ]
-      }
-    ]
-  }],
+  entities: [],
 };
 const dashboardsReducer = createReducer(
   initialState,
