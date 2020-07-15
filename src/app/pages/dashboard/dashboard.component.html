@@ -21,7 +21,7 @@
     <app-visualizer-item
       *ngFor="let visualizer of (dashboard | async).visualizers"
       class="inner visualizer"
-      [visualizerId]="visualizer.visualizationIndex"
+      [visualizerId]="visualizer.visualizationId"
       [ngStyle]="{
         'width.px': visualizer.measurements.width,
         'height.px': visualizer.measurements.height,
@@ -30,14 +30,10 @@
       }"
     ></app-visualizer-item>
 
-    <div
-      *ngFor="let visualizer of (dashboard | async).visualizers"
-      class="inner"
-    >
       <app-filter-item
         class="inner"
-        *ngFor="let filter of visualizer.displayedFilters"
-        [filter]="(filters | async)[filter.filterIndex]"
+        *ngFor="let filter of (dashboard | async).filters"
+        [filter]="(filters | async)[filter.id]"
         [ngStyle]="{
           'width.px': filter.measurements.width,
           'height.px': filter.measurements.height,
@@ -47,7 +43,6 @@
       >
         <!-- filter -->
       </app-filter-item>
-    </div>
   </div>
 
   <div *ngIf="edit">
@@ -56,7 +51,7 @@
       id="visualizer"
       class="inner visualizer-shape"
       moving
-      [id]="'visualizer' + visualizer.visualizationIndex"
+      [id]="'visualizer' + visualizer.visualizationId"
       [ngStyle]="{
         'width.px': visualizer.measurements.width,
         'height.px': visualizer.measurements.height,
@@ -64,17 +59,13 @@
         'left.px': visualizer.measurements.x
       }"
     >
-      {{ (visualizers | async)[visualizer.visualizationIndex].name }}
+      {{ (visualizers | async)[visualizer.visualizationId].name }}
     </div>
 
-    <div
-      *ngFor="let visualizer of (dashboard | async).visualizers"
-      class="inner"
-    >
       <div
         class="inner filter-shape"
-        *ngFor="let filter of visualizer.displayedFilters"
-        [id]="'filter' + filter.filterIndex"
+        *ngFor="let filter of (dashboard | async).filters"
+        [id]="'filter' + filter.id"
         moving
 
         [ngStyle]="{
@@ -84,10 +75,9 @@
           'left.px': filter.measurements.x
         }"
       >
-        {{ (filters | async)[filter.filterIndex].name }}<br />{{
-          (visualizers | async)[visualizer.visualizationIndex].name
+        {{ (filters | async)[filter.id].name }}<br />{{
+          (visualizers | async)[filter.visioId].name
         }}
-      </div>
     </div>
   </div>
 </div>

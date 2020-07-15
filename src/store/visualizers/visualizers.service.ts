@@ -38,4 +38,30 @@ export class VisualizersService {
       ...data,
     });
   }
+
+
+  updateFilterInVisualizer(data){
+    return this.httpClient.put(
+      `${this.URL}/update-filter/${data.visualizerId}/${data.id}/`,
+      {
+        id: data.id,
+        value: data.value,
+        isActive: data.active,
+      }
+    );
+  }
+addFilterToVisualizer(data){
+  console.log(data);
+  return this.httpClient.put(`${this.URL}/insert-filter/${data.visualizerId}/`, {
+    id: data.id,
+    value: data.value,
+    isActive: data.isActive,
+  });
+}
+removeFilterFromVisualizer(data){
+  return this.httpClient.put(
+    `${this.URL}/remove-filter/${data.visualizerId}/${data.id}/`,
+    {}
+  );
+}
 }

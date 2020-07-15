@@ -49,15 +49,16 @@ export const selectDashboardsTree = createSelector(
       };
       let visualizers = [];
       entity.visualizers.forEach((value, key) => {
-        let visualizerEntity  = visualizersEntities[value.visualizationIndex]
+        let visualizerEntity  = visualizersEntities[value.visualizationId]
+        console.log(visualizersEntities,visualizerEntity)
         let visualizer = {
           name: visualizerEntity.name,
-          content: { type: "visualizer", id: value.visualizationIndex ,name: visualizerEntity.name},
+          content: { type: "visualizer", id: value.visualizationId ,name: visualizerEntity.name},
           children: [],
         };
         let filters = [];
-        value.displayedFilters.forEach((value, key) => {
-          let filterEntity = filtersEntities[value.filterIndex]
+        entity.filters.filter((filter)=>filter.visioId == value.visualizationId).forEach((value, key) => {
+          let filterEntity = filtersEntities[value.id]
           filters.push({
             name: filterEntity.name,
             content: { type: "filter", id: key ,name: filterEntity.name},
@@ -69,6 +70,7 @@ export const selectDashboardsTree = createSelector(
       dashboards.children.push(...visualizers);
       tree.children.push(dashboards);
     };
+    console.log('plaplapla: ',tree)
     return tree;
   }
 );

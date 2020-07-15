@@ -1,11 +1,52 @@
 <div class="container">
-  <app-visualizer-item class="chart-component" [visualizerId]="(visualizer | async).id"></app-visualizer-item>
-  <div class="filters" *ngIf="(filters | async).length">
-    <div class="filters-title">
+  <app-visualizer-item
+    class="chart-component"
+    [visualizerId]="(visualizer | async).id"
+  ></app-visualizer-item>
+  <!-- <div class="filters-title">
       Filters
-    </div>
+    </div> -->
+  <div class="filters">
+    <button
+      class="add-filter"
+      *ngIf="!insertFilter"
+      (click)="onAddClicked()"
+      mat-raised-button
+    >
+      Add Filter
+    </button>
+    <mat-form-field *ngIf="insertFilter">
+      <mat-label>Select Filter</mat-label>
+      <mat-select required [(ngModel)]="insertedFilter">
+        <mat-select-trigger>
+          {{ insertedFilter?.name }}
+        </mat-select-trigger>
+        <mat-option
+        *ngFor="let filter of (addableFilters | async)"
+        [disabled]="disableAddedFilter(filter, filters | async)"
+          [value]="filter"
+          >{{ filter.name }}</mat-option
+        >
+      </mat-select>
+    </mat-form-field>
+    <button
+      class="add-filter"
+      *ngIf="insertFilter"
+      (click)="onAddFilter()"
+      mat-raised-button
+    >
+      ADD
+    </button>
     <div class="filter" *ngFor="let filter of filters | async" class="filter">
-      <app-filter-item [filter]="filter"> </app-filter-item>
+      <app-filter-item
+        (onMinus)="onDeleteFilter($event)"
+        [showOptions]="true"
+        [filter]="filter"
+        [enabled]="filter.isActive"
+        [value]="filter.value"
+        (onChange)="onFilterChangeValue($event)"
+      >
+      </app-filter-item>
     </div>
   </div>
 </div>

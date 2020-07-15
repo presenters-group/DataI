@@ -61,7 +61,7 @@ export class DashboardComponent implements AfterViewInit {
       let newDashboard = { ...JSON.parse(JSON.stringify(value)) };
       for (let visualizer of newDashboard.visualizers) {
         let visElement = document.getElementById(
-          `visualizer${visualizer.visualizationIndex}`
+          `visualizer${visualizer.visualizationId}`
         );
         visualizer.measurements = {
           width: visElement.offsetWidth,
@@ -69,9 +69,10 @@ export class DashboardComponent implements AfterViewInit {
           x: visElement.offsetLeft,
           y: visElement.offsetTop,
         };
-        for (let filter of visualizer.displayedFilters) {
+      }
+        for (let filter of newDashboard.filters) {
           let filterElement = document.getElementById(
-            `filter${filter.filterIndex}`
+            `filter${filter.id}`
           );
           filter.measurements = {
             width: filterElement.offsetWidth,
@@ -80,7 +81,6 @@ export class DashboardComponent implements AfterViewInit {
             y: filterElement.offsetTop,
           };
         }
-      }
 
       this.store.dispatch(updateDashboard({ data: newDashboard }));
 

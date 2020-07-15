@@ -31,7 +31,7 @@ export class VisualizerItemComponent implements AfterViewInit {
     }
     this.id = id;
   };
-  svg: Observable<SafeHtml>
+  svg: Observable<SafeHtml>;
 
   constructor(private sanitizer : DomSanitizer,private store:Store<AppState>) { }
 

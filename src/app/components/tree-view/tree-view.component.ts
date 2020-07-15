@@ -20,8 +20,8 @@ import { AddFilterComponent } from "src/app/pages/filter/dialogs/add-filter/add-
 import { createFilter, deleteFilter } from "src/store/filters";
 import { deleteDataSource } from "src/store/data-sources";
 import { deleteDashboard, createDashboard } from "src/store/dashboards";
-import { NotificationService } from 'src/store/notifications/notifications.service';
-import { AddDashboardComponent } from 'src/app/pages/dashboard/dialogs/add-dashboard/add-dashboard.component';
+import { NotificationService } from "src/store/notifications/notifications.service";
+import { AddDashboardComponent } from "src/app/pages/dashboard/dialogs/add-dashboard/add-dashboard.component";
 @Component({
   selector: "app-tree-view",
   templateUrl: "./tree-view.component.html",
@@ -42,11 +42,11 @@ export class TreeViewComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {}
 
   ngAfterViewInit(): void {
-    this.onRefreshClick()
+    this.onRefreshClick();
   }
   initialTree() {
     this.tree.nativeElement.innerHTML = "";
-    for(let i = 0 ; i< this.items.children.length; i++)
+    for (let i = 0; i < this.items.children.length; i++)
       this.createTree(this.tree.nativeElement, this.items.children[i], 0);
   }
 
@@ -112,8 +112,21 @@ export class TreeViewComponent implements OnInit, AfterViewInit {
       this.renderer.setAttribute(minus, "src", "/assets/icons/minus.svg");
       this.renderer.appendChild(content, minus);
       this.renderer.addClass(minus, "minus");
+      if (
+        content.content.type == "filter" ||
+        content.content.type == "visualizer" ||
+        content.content.type == "dashboard"
+      ) {
+        let edit = this.renderer.createElement("img");
+        this.renderer.setAttribute(edit, "src", "/assets/icons/edit.svg");
+        this.renderer.addClass(edit, "edit");
+        this.renderer.appendChild(content, edit);
+        edit.addEventListener("click", ($event) => {
+          this.onEditClick($event);
+        });
+      }
       minus.addEventListener("click", ($event) => {
-        this.onDeleteClick($event, this.renderer);
+        this.onDeleteClick($event);
       });
     }
   }
@@ -175,7 +188,12 @@ export class TreeViewComponent implements OnInit, AfterViewInit {
             dialogRefFilter.afterClosed().subscribe((result) => {
               this.store.dispatch(
                 createFilter({
-                  data: { ...result.value,initValue : Number.parseInt(result.value.initValue), id: 0, isDeleted: false },
+                  data: {
+                    ...result.value,
+                    initValue: Number.parseInt(result.value.initValue),
+                    id: 0,
+                    isDeleted: false,
+                  },
                 })
               );
             });
@@ -194,7 +212,7 @@ export class TreeViewComponent implements OnInit, AfterViewInit {
       });
   }
 
-  onDeleteClick($event, renderer) {
+  onDeleteClick($event) {
     let element = $event.srcElement;
     let content = this.renderer.parentNode(element).content;
 
@@ -230,5 +248,33 @@ export class TreeViewComponent implements OnInit, AfterViewInit {
         this.initialTree();
       });
     });
+  }
+
+  onEditClick($event){
+    let element = $event.srcElement;
+    let content = this.renderer.parentNode(element).content;
+
+          switch (content.type) {
+            case "visualizer":
+              this.store.dispatch(deleteVisualizer({ id: content.id }));
+              break;
+            case "filter":
+              this.store.dispatch(
+                addToTapes({
+                  tap: {
+                    name: content.name,
+                    type: content.type,
+                    id: content.id,
+                  },
+                }));
+              break;
+            // case "data-source":
+            //   this.store.dispatch(deleteDataSource({ id: content.id }));
+            //   break;
+            case "dashboard":
+              this.store.dispatch(deleteDashboard({ id: content.id }));
+              break;
+          }
+          this.onRefreshClick();
   }
 }

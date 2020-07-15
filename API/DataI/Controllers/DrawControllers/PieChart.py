@@ -4,6 +4,8 @@ import numpy as np
 
 from typing import List
 from numpy import double
+
+from DataI import enums
 from DataI.Models.ColumnModel import ColumnModel
 
 
@@ -14,17 +16,21 @@ class PieChart:
         self.firstColumn = firstColumn
         self.secondColumn = secondColumn
         self.r = min(width, height) / 2
-        self.d = draw.Drawing(self.widthView + 500, self.heightView + 100)
+        self.d = draw.Drawing(self.widthView + 100, self.heightView + 100)
         self.total = self.sumColumn(secondColumn)
         self.xCenter = min(width + 100, height + 100) / 2
         self.yCenter = - min(width + 100, height + 100) / 2
         self.drawlayOut()
-        self.drawCircle()
+        if self.secondColumn.columnType == enums.ColumnDataType.Measures:
+          self.drawCircle()
+        else:
+          self.d.append(draw.Text(text="Error: Xcolumn is not Measured", fontSize=60, x=50, y=self.heightView/2))
+
         # self.d.saveSvg(nameFile + '.svg')
         self.SVG = self.d.asSvg()
 
     def drawlayOut(self):
-        self.d.append(draw.Rectangle(0, 0, self.widthView + 500, self.heightView + 100, fill='#ffffff'))
+        self.d.append(draw.Rectangle(0, 0, self.widthView + 100, self.heightView + 100, fill='#ffffff'))
 
     def sumColumn(self, column: ColumnModel) -> double:
         sum = 0.0

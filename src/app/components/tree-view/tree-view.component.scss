@@ -27,9 +27,19 @@
   margin-left: auto;
   display: block;
 }
+.edit {
+  visibility: hidden;
+  margin-left: 10px;
+  display: block;
+}
 .content:hover .minus {
   visibility: visible;
 }
+
+.content:hover .edit {
+  visibility: visible;
+}
+
 .closed {
   display: none;
   overflow: hidden;

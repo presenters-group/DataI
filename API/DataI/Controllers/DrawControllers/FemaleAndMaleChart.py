@@ -15,11 +15,16 @@ class FemaleAndMaleChart(InfChart):
       super().__init__(dataSource, XColumn,width, height, nameFile)
       self.maleColumn = self.femaleColumn = XColumn
       self.getMaleAndFemaleColumns()
-      self.drawMaleAndFemaleStack()
-      self.drawHuman()
-      self.drawText()
+
+      if self.secondColumn.columnType == enums.ColumnDataType.Measures:
+        self.drawMaleAndFemaleStack()
+        self.drawHuman()
+        self.drawText()
+      else:
+        self.d.append(draw.Text(text="Error: Xcolumn is not Measured", fontSize=60, x=50, y=self.heightView / 2))
+
       self.d.setPixelScale(min(width, height) / 1000)  # Set number of pixels per geometry unit
-      self.d.saveSvg(nameFile + '.svg')
+      #self.d.saveSvg(nameFile + '.svg')
       self.SVG = self.d.asSvg()
 
 
