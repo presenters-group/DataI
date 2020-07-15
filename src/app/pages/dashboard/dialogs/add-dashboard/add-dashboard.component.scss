@@ -1,0 +1,46 @@
+.container{
+  display: flex;
+  flex-direction: row;
+  width: 80vw;
+  height: 80vh;
+}
+
+
+.form{
+  flex: 1;
+  border-right: solid 1px #00000044;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.preview{
+  flex: 3;
+  position: relative;
+  overflow: auto;
+}
+
+.visualizers{
+  display: flex;
+  flex-direction: column;
+}
+
+.visualizer{
+  width: 100%;
+  height: 25px;
+  padding-left: 10px;
+  line-height: 25px;
+
+}
+.filter{
+  width: 100%;
+  height: 25px;
+  padding-left: 10px;
+  line-height: 25px;
+  border-left: solid 1px #00000044;
+  margin-left: 25px;
+
+}
+
+.filter:hover, .visualizer:hover{
+  background-color: #00000044;
+}

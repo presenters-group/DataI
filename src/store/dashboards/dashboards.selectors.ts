@@ -1,9 +1,9 @@
 import { createFeatureSelector, createSelector } from "@ngrx/store";
 import { AppState } from "..";
 import { DashboardsState } from "./dashboards.reducers";
-import { selectVisualizersEntities } from "../visualizers/visualizers.selectors";
+import { selectVisualizersEntities, selectUndeletedVisualizersEntities } from "../visualizers/visualizers.selectors";
 import { selectDataSourcesEntities } from "../data-sources/data-sources.selectors";
-import { selectFiltersEntities } from "../filters/filters.selectors";
+import { selectFiltersEntities, selectUndeletedFiltersEntities } from "../filters/filters.selectors";
 import { selectCurrentTapObject } from '../core/selectors/core.selector';
 
 export const selectDashboardsState = createFeatureSelector<
@@ -81,3 +81,30 @@ export const selectCurrentDashboard = createSelector(
   selectCurrentTapObject,
   (state,current) => {return current && current.id != undefined ? state.entities[current.id] : null}
 );
+
+
+export const selectVisualizersFiltersTree = createSelector(
+  selectUndeletedVisualizersEntities,
+  selectUndeletedFiltersEntities,
+  (visualizers,filters) => {
+    let visualizersTree = []
+      for(let visualizer of Object.keys(visualizers))
+      {
+        let allFilters = visualizers[visualizer].filters
+        let filtersTree = []
+        for(let filter of allFilters){
+          console.log(filter)
+          filtersTree.push({id: filter.id,name: filters[filter.id].name, visioId : visualizer,type: 'filter'})
+        }
+        visualizersTree.push({id: visualizer,name: visualizers[visualizer].name, type: 'visualizer',filters:filtersTree})
+      }
+
+
+
+
+
+
+    return visualizersTree;
+
+  }
+)

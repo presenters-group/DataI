@@ -1,7 +1,7 @@
 import { createFeatureSelector, createSelector } from "@ngrx/store";
 import { AppState } from "..";
 import { VisualizersState } from "./visualizers.reducers";
-import { selectFiltersEntities } from "../filters/filters.selectors";
+import { selectFiltersEntities, selectUndeletedFiltersEntities } from "../filters/filters.selectors";
 import { selectDataSourcesEntities } from "../data-sources/data-sources.selectors";
 import { selectCurrentTapObject } from '../core/selectors/core.selector';
 
@@ -126,3 +126,11 @@ export const selectCurrentVisualizerFilters = createSelector(
     return filters;
   }
 );
+
+export const selectFiltersInVisualizer = createSelector(
+  selectVisualizersEntities,
+  selectUndeletedFiltersEntities,
+  (visualizers,filters,{visualizerId }) => {
+    return visualizers[visualizerId].filters.filter((value) => filters[value.id]).map((value) => filters[value.id]);
+  }
+)

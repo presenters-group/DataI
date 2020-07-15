@@ -1,167 +1,26 @@
-<!-- <h2 mat-dialog-title>Add Dashboard</h2>
-
-<mat-dialog-content>
-  <form [formGroup]="form">
-    <mat-form-field appearance="legacy">
-      <mat-label for="name">Name:</mat-label>
-      <input
-        ngDefaultControl
-        matInput
-        placeholder="Visualizer1"
-        id="name"
-        type="text"
-        formControlName="name"
-      />
-    </mat-form-field>
-
+<div class="container">
+  <div class="form">
     <mat-form-field>
-      <mat-label>Data Source</mat-label>
-      <mat-select (selectionChange)="onSelectDataSource()" formControlName="data">
-        <mat-select-trigger>
-          {{
-            form.value.data ? (dataSources | async)[form.value.data].name : ""
-          }}
-        </mat-select-trigger>
-        <mat-option
-          *ngFor="let data of objectKeys(dataSources | async)"
-          [value]="data"
-          >{{ (dataSources | async)[data].name }}</mat-option
-        >
-      </mat-select>
+      <mat-label>Dashboard Name</mat-label>
+      <input matInput type="text" />
     </mat-form-field>
 
-    <mat-form-field>
-      <mat-label>Columns</mat-label>
-      <mat-select  formControlName="usedColumns" [disabled]="form.value.data == ''" multiple>
-        <mat-select-trigger>
-          {{
-            form.value.usedColumns.length
-              ? (dataSources | async)[form.value.data].columns[
-                  form.value.usedColumns[0]
-                ].name
-              : ""
-          }}
-          <span
-            *ngIf="form.value.usedColumns?.length > 1"
-            class="example-additional-selection"
-          >
-            (+{{ form.value.usedColumns.length - 1 }}
-            {{ form.value.usedColumns?.length === 2 ? "other" : "others" }})
-          </span>
-        </mat-select-trigger>
-        <ng-container *ngIf="form.value.data != ''">
-          <mat-option
-            *ngFor="
-              let column of objectKeys((dataSources | async)[form.value.data].columns)
-            "
-            [value]="column"
-            >{{
-              (dataSources | async)[form.value.data].columns[column].name
-            }}</mat-option
-          >
-        </ng-container>
-      </mat-select>
-    </mat-form-field>
+    <div *ngFor="let visualizer of allVisualizers | async">
+      <div (dragstart)="drag($event,visualizer)" draggable="true" class="visualizer">
+        {{ visualizer.name }}
+      </div>
+      <div
+        draggable="true"
+        class="filter"
+        *ngFor="let filter of visualizer.filters"
+        (dragstart)="drag($event,filter)"
+      >
+        {{ filter.name }}
+      </div>
+    </div>
+  </div>
 
+  <div class="preview" (drop)="onDrop($event)" (dragover)="allowDrop($event)">
 
-
-    <mat-form-field>
-      <mat-label>X Column</mat-label>
-      <mat-select formControlName="xColumn" [disabled]="form.value.data == ''">
-        <mat-select-trigger>
-          {{
-            form.value.xColumn != ''
-              ? (dataSources | async)[form.value.data].columns[
-                  form.value.xColumn
-                ].name
-              : ""
-          }}
-        </mat-select-trigger>
-        <ng-container *ngIf="form.value.data != ''">
-          <mat-option
-            *ngFor="
-              let column of objectKeys((dataSources | async)[form.value.data].columns)
-            "
-            [value]="column"
-            >{{
-              (dataSources | async)[form.value.data].columns[column].name
-            }}</mat-option
-          >
-        </ng-container>
-      </mat-select>
-    </mat-form-field>
-
-
-
-
-
-
-
-
-    <mat-form-field>
-      <mat-label>Filters</mat-label>
-      <mat-select formControlName="filters" [disabled]="form.value.data == ''" multiple>
-        <mat-select-trigger>
-          {{
-            form.value.filters.length
-              ? (filters | async)[
-                form.value.filters[0]
-              ].name
-              : ""
-          }}
-          <span
-            *ngIf="form.value.filters?.length > 1"
-            class="example-additional-selection"
-          >
-            (+{{ form.value.filters.length - 1 }}
-            {{ form.value.filters?.length === 2 ? "other" : "others" }})
-          </span>
-        </mat-select-trigger>
-        <ng-container *ngIf="form.value.data != ''">
-          <mat-option
-            *ngFor="
-              let filter of objectKeys((filters | async))
-            "
-            [value]="filter"
-            >{{
-              (filters | async)[filter].name
-            }}</mat-option
-          >
-        </ng-container>
-      </mat-select>
-    </mat-form-field>
-
-
-
-
-    <mat-form-field>
-      <mat-label>Charts</mat-label>
-      <mat-select  formControlName="chart">
-        <mat-select-trigger>
-          {{
-            form.value.chart ? form.value.chart : ""
-          }}
-        </mat-select-trigger>
-        <mat-option
-          *ngFor="let chart of (charts | async)"
-          [value]="chart"
-          >{{ chart }}</mat-option
-        >
-      </mat-select>
-    </mat-form-field>
-
-
-  </form>
-</mat-dialog-content>
-
-<div mat-dialog-actions>
-  <button mat-flat-button (click)="onNoClick()">Cancel</button>
-  <button
-    mat-flat-button
-    color="primary"
-    [mat-dialog-close]="form"
-    cdkFocusInitial
-  >
-    Add
-  </button>
-</div> -->
+  </div>
+</div>
