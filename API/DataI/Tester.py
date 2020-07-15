@@ -9,7 +9,7 @@ from DataI import enums
 from DataI.Controllers.DataControllers.DataController import DataController
 from DataI.Controllers.DataControllers.DataSourcesController import DataSourcesController
 from DataI.Controllers.DrawControllers.DrawController import DrawController
-from DataI.Controllers.Filters.FilterController import NumericFilter, MultipleEqualityFilter, FiltersController
+from DataI.Controllers.Filters.FiltersController import NumericFilter, MultipleEqualityFilter, FiltersController
 from DataI.JSONSerializer import ObjectEncoder
 from DataI.Models.ColumnModel import CellModel
 from DataI.Models.DashboardModel import DashboardModel, InDashboardFilterModel, Measurements, InDashboardVisioModel

@@ -1,7 +1,7 @@
 from typing import List, Dict
 
 from DataI.Controllers.DataControllers import DataController
-from DataI.Controllers.Filters.FilterController import FiltersController
+from DataI.Controllers.Filters.FiltersController import FiltersController
 from DataI.Models.DataModel import DataModel
 from DataI.Models.TableModel import TableModel
 from DataI.Models.VisualizationModel import VisualizationModel

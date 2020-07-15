@@ -7,7 +7,7 @@ from DataI.Controllers.DataControllers.FiltersModelController import FiltersMode
 from DataI.Controllers.DataControllers.VisualizationsController import VisualizationsController
 from DataI.Controllers.FileLoaders.CSVFileLoader import CSVFileLoader
 from DataI.Controllers.FileLoaders.ExcelFileLoader import ExcelFileLoader
-from DataI.Controllers.Filters.FilterController import FiltersController
+from DataI.Controllers.Filters.FiltersController import FiltersController
 from DataI.Models.BasicInfo import BasicDataModelInfo
 from DataI.Models.DashboardModel import DashboardModel
 from DataI.Models.DataModel import DataModel

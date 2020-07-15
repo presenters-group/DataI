@@ -42,7 +42,6 @@ import { FilterItemComponent } from './pages/filter/components/filter-item/filte
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { VisualizerItemComponent } from './components/visualizer-item/visualizer-item.component';
 import { InsertFilterComponent } from './pages/filter/dialogs/insert-filter/insert-filter.component';
-import { AngularResizedEventModule } from 'angular-resize-event';
 @NgModule({
   declarations: [
     AppComponent,
@@ -92,7 +91,6 @@ import { AngularResizedEventModule } from 'angular-resize-event';
     MatSidenavModule,
     SweetAlert2Module,
     MatCheckboxModule,
-    AngularResizedEventModule
     ],
   providers: [],
   bootstrap: [AppComponent],
