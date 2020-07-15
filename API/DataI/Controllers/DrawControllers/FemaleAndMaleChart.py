@@ -13,15 +13,20 @@ from DataI.Models.TableModel import TableModel
 class FemaleAndMaleChart(InfChart):
     def __init__(self, dataSource: TableModel, XColumn: ColumnModel, width: double, height: double, nameFile: str):
       super().__init__(dataSource, XColumn,width, height, nameFile)
-      self.maleColumn = self.femaleColumn = XColumn
+      self.Check = False
       self.getMaleAndFemaleColumns()
-
-      if self.secondColumn.columnType == enums.ColumnDataType.Measures:
-        self.drawMaleAndFemaleStack()
-        self.drawHuman()
-        self.drawText()
+      if self.Check:
+        if self.firstColumn.columnType == enums.ColumnDataType.Measures.value:
+          self.drawMaleAndFemaleStack()
+          self.drawHuman()
+          self.drawText()
+        else:
+          self.drawlayOut()
+          self.d.append(draw.Text(text="Error: Xcolumn is not Measured", fontSize=60, x=50, y=self.heightView / 2))
       else:
-        self.d.append(draw.Text(text="Error: Xcolumn is not Measured", fontSize=60, x=50, y=self.heightView / 2))
+        self.drawlayOut()
+        self.d.append(draw.Text(text="Error: we can't found male or Female column \n. . . Try to check column name", fontSize=40, x=0, y=self.heightView / 2))
+
 
       self.d.setPixelScale(min(width, height) / 1000)  # Set number of pixels per geometry unit
       #self.d.saveSvg(nameFile + '.svg')
@@ -31,9 +36,11 @@ class FemaleAndMaleChart(InfChart):
     def getMaleAndFemaleColumns(self):
         for column in self.dataSourceTableWithoutXcolumn.columns:
           if column.name == "male" or column.name == "Male" or column.name == "MALE":
+            self.Check = True
             self.maleColumn = column
           elif  column.name == "female" or column.name == "Female" or column.name == "FEMALE":
             self.femaleColumn = column
+            self.Check = True
 
 
     def drawHuman(self):

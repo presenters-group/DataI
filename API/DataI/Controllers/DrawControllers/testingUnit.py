@@ -24,7 +24,9 @@ Xcolomn = dataSource.columns[0]
 dataSource.columns.pop(0)
 for column in dataSource.columns:
   print(column.columnType)
-chart = PointChart(dataSource, double(1), double(1), Xcolomn, 8, "point")
+char = PointChart(dataSource, double(1000), double(1000), Xcolomn, 8, "point")
+chart = LineChart(dataSource, double(1000), double(1000), Xcolomn, 8, "line")
+chart0 = MultiplePieChart(dataSource, Xcolomn, double(1000), double(1000), "pie")
 chart1 = SmartPieChart(dataSource, Xcolomn, double(1000000), double(100), "smart")
 chart2 = BarChart(dataSource, double(100), double(100), Xcolomn, 8, "BarChart")
 chart4 = InfChart(dataSource, Xcolomn, double(1000000), double(100), "Human")

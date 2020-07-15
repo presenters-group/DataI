@@ -34,13 +34,14 @@ class PointChart(Chart):
         self.yUnit = self.correctingUnit()
         self.getYLevelsValue()
         self.startValue = self.listOfLevelXValue[0]
-        self.drawYLineLevels()
-        self.drawXPointsWithXValueSteps()
-        self.drawPointsOfValuesInDataSourceTableWithoutXColumn(dataSourceTableWithoutXcolumn.columnsColors)
-        print("list:",dataSourceTableWithoutXcolumn.columnsColors)
-        self.drawColmunsColorList(dataSourceTableWithoutXcolumn.columnsColors)
-        print("list:",dataSourceTableWithoutXcolumn.columnsColors)
-        self.drawSideLable()
+        if self.xColumn.columnType == enums.ColumnDataType.Measures.value:
+          self.drawYLineLevels()
+          self.drawXPointsWithXValueSteps()
+          self.drawPointsOfValuesInDataSourceTableWithoutXColumn(dataSourceTableWithoutXcolumn.columnsColors)
+          self.drawColmunsColorList(dataSourceTableWithoutXcolumn.columnsColors)
+          self.drawSideLable()
+        else:
+          self.d.append(draw.Text(text="Error: Xcolumn is not Measured", fontSize=60, x=50, y=self.heightView/2))
         #self.d.setPixelScale(100000)  # Set number of pixels per geometry unit
         #self.d.saveSvg(nameFile + '.svg')
         #    self.d.savePng(nameFile+'.png')

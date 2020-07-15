@@ -21,7 +21,7 @@ class PieChart:
         self.xCenter = min(width + 100, height + 100) / 2
         self.yCenter = - min(width + 100, height + 100) / 2
         self.drawlayOut()
-        if self.secondColumn.columnType == enums.ColumnDataType.Measures:
+        if self.secondColumn.columnType == enums.ColumnDataType.Measures.value:
           self.drawCircle()
         else:
           self.d.append(draw.Text(text="Error: Xcolumn is not Measured", fontSize=60, x=50, y=self.heightView/2))
