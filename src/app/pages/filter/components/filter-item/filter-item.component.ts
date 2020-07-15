@@ -5,6 +5,7 @@ import { Store } from "@ngrx/store";
 import { selectDataSourcesEntities } from "src/store/data-sources/data-sources.selectors";
 import { initialState } from 'src/store/core';
 import { setCurrentTap, addToTapes } from 'src/store/core/actions/core.actions';
+import { isArray } from 'util';
 
 @Component({
   selector: "app-filter-item",
@@ -34,10 +35,11 @@ export class FilterItemComponent implements OnInit {
   }
 
   onDimChangeValue(value) {
-    if (this.value == undefined || this.value.length == undefined) this.value = [];
+    console.log()
+    if (!Array.isArray(this.value)) this.value = [];
     if (this.value.includes(value))
       this.value = this.value.filter((v) => v != value);
-    else this.value.push(value);
+    else this.value = [...this.value , value];
     this.onChangeValue();
   }
 

@@ -60,7 +60,9 @@ export const selectVisualizersTree = createSelector(
 
       let filters = { name: "Filters", children: [] };
       entity.filters.forEach((value, key) => {
-        let filter = filtersEntities[value];
+
+        let filter = filtersEntities[value.id];
+        console.log(value.id,filtersEntities,filter)
         filters.children.push({
           name: filter.name,
           content: {id : value , type : 'filter' , name : filter.name}

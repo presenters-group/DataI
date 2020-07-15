@@ -46,21 +46,6 @@ export class VisualizerItemComponent implements AfterViewInit, OnDestroy {
         })
       );
 
-      this.update$
-        .pipe(
-          ofType(
-            updateFilterInVisualizerSuccess,
-            addFilterToVisualizerSuccess,
-            removeFilterFromVisualizerSuccess,
-            updateVisualizerSuccess
-          ),
-          takeUntil(this.destroyed$)
-        )
-        .subscribe(() => {
-          console.log('blablabla')
-          this.onResize();
-        });
-
       this.svg = this.store.select(selectVisualizersChart, {
         visualizerId: id,
       });
@@ -93,6 +78,21 @@ export class VisualizerItemComponent implements AfterViewInit, OnDestroy {
     });
 
     this.done = true;
+
+
+    this.update$
+    .pipe(
+      ofType(
+        updateFilterInVisualizerSuccess,
+        addFilterToVisualizerSuccess,
+        removeFilterFromVisualizerSuccess,
+        updateVisualizerSuccess
+      ),
+      takeUntil(this.destroyed$)
+    )
+    .subscribe(() => {
+      this.onResize();
+    });
   }
   @HostListener("window:resize", ["$event"])
   onResize() {
