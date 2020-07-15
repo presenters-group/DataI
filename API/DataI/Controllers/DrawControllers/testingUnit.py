@@ -11,6 +11,7 @@ from DataI.Controllers.DrawControllers.LineChart import LineChart
 from DataI.Controllers.DrawControllers.MultiplePieChart import MultiplePieChart
 from DataI.Controllers.DrawControllers.PieChart import PieChart
 from DataI.Controllers.DrawControllers.PointChart import PointChart
+from DataI.Controllers.DrawControllers.SmatPieChart import SmartPieChart
 
 dataController = DataController()
 dir = os.path.dirname(__file__)
@@ -24,6 +25,7 @@ dataSource.columns.pop(0)
 for column in dataSource.columns:
   print(column.columnType)
 chart = PointChart(dataSource, double(1), double(1), Xcolomn, 8, "point")
+chart1 = SmartPieChart(dataSource, Xcolomn, double(1000000), double(100), "smart")
 chart2 = BarChart(dataSource, double(100), double(100), Xcolomn, 8, "BarChart")
 chart4 = InfChart(dataSource, Xcolomn, double(1000000), double(100), "Human")
 chart5 = FemaleInfChart(dataSource, Xcolomn, double(10), double(100), "femaInf")

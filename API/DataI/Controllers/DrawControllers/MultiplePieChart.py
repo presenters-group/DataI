@@ -23,7 +23,7 @@ class MultiplePieChart(Chart):
         self.yCenter = - height/ 2
         self.drawlayOut()
         self.drawCircle()
-        #self.d.saveSvg(nameFile + '.svg')
+        self.d.saveSvg(nameFile + '.svg')
         self.SVG = self.d.asSvg()
 
     def drawlayOut(self):
