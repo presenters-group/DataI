@@ -112,19 +112,7 @@ jsonDashboard = '''
         {
             "id": 1,
             "visioId": 0,
-            "value": 50,
-            "isActive": true,
-            "measurements": {
-                "width": 20.0,
-                "height": 60.0,
-                "x": 10.0,
-                "y": 20.0
-            }
-        },
-        {
-            "id": 2,
-            "visioId": 0,
-            "value": 50,
+            "value": 60,
             "isActive": true,
             "measurements": {
                 "width": 20.0,
