@@ -119,17 +119,21 @@ class DataController():
         returnDict['dashboardId'] = dashboardId
         return returnDict
 
-    def updateInDashboardFilter(self, filter: Dict, dashboardId: int, filterId: int):
+    def updateInDashboardFilter(self, filter: Dict, dashboardId: int, visioId: int, filterId: int):
         targetDashboardIndex = DataController.getElementIndexById(self.data.dashboards, dashboardId)
-        returnDict = self.__updateInDataModelFilter(self.data.dashboards[targetDashboardIndex], filter, filterId)
+        returnDict = self.__updateInDashboardModelFilter(self.data.dashboards[targetDashboardIndex], filter,
+                                                         visioId, filterId)
         returnDict['dashboardId'] = dashboardId
+        returnDict['filterId'] = filterId
         return returnDict
 
-    def removeInDashboardFilter(self, dashboardId: int, filterId):
+    def removeInDashboardFilter(self, dashboardId: int, visioId: int, filterId):
         targetDashboardIndex = DataController.getElementIndexById(self.data.dashboards, dashboardId)
         returnDict = dict()
-        returnDict['state'] = self.__removeInDataModelFilter(self.data.dashboards[targetDashboardIndex], filterId)
+        returnDict['state'] = self.__removeInDashboardModelFilter(self.data.dashboards[targetDashboardIndex],
+                                                                  visioId, filterId)
         returnDict['dashboardId'] = dashboardId
+        returnDict['visioId'] = visioId
         returnDict['filterId'] = filterId
         return returnDict
 
@@ -155,6 +159,10 @@ class DataController():
         return getElementIndexFromDictById(list, id)
 
     @classmethod
+    def __getFilterIndexFromDashboard(cls, data: BasicDataModelInfo, visioId, filterId: int) -> int:
+        return DashboardsController.getFilterIndex(data, visioId, filterId)
+
+    @classmethod
     def elementExists(cls, list: List, id: int) -> bool:
         return elementExists(list, id)
 
@@ -175,12 +183,30 @@ class DataController():
         return filter
 
     @classmethod
+    def __updateInDashboardModelFilter(cls, dashboard: BasicDataModelInfo, filter: Dict, visioId: int, filterId: int):
+        inFilterIndex = cls.__getFilterIndexFromDashboard(dashboard, visioId, filterId)
+        if inFilterIndex == -1:
+            returnDict = dict()
+            returnDict['state'] = -1
+            return returnDict
+        dashboard.filters[inFilterIndex] = filter
+        filter['state'] = 1
+        return filter
+
+    @classmethod
     def __removeInDataModelFilter(cls, model: BasicDataModelInfo, filterId: int):
         inFilterIndex = DataController.getElementIndexFromDictById(model.filters, filterId)
-        print(inFilterIndex)
         if inFilterIndex == -1:
             return -1
         model.filters.pop(inFilterIndex)
+        return 1
+
+    @classmethod
+    def __removeInDashboardModelFilter(cls, dashboard: BasicDataModelInfo, visioId: int, filterId: int):
+        inFilterIndex = cls.__getFilterIndexFromDashboard(dashboard, visioId, filterId)
+        if inFilterIndex == -1:
+            return -1
+        dashboard.filters.pop(inFilterIndex)
         return 1
 
 
