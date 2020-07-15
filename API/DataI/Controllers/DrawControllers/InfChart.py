@@ -21,7 +21,7 @@ class InfChart(Chart):
         self.d = draw.Drawing(self.widthView , self.heightView)
         self.total = self.sumColumn(self.secondColumn)
         self.drawlayOut()
-        if self.secondColumn.columnType == enums.ColumnDataType.Measures:
+        if self.firstColumn.columnType == enums.ColumnDataType.Measures.value:
           self.drawStack()
           self.drawHuman()
           self.drawText()
