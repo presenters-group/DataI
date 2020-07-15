@@ -335,7 +335,8 @@ def getChartsNames(request):
 
 @csrf_exempt
 def getChartSVG(request):
-    if request.method == 'GET':
+    if request.method == 'PUT':
+        print('Body: ', request.body.decode())
         visioInfo = json.loads(request.body.decode())
         visualizerId = visioInfo.get('visualizerId')
         width = visioInfo.get('width')
