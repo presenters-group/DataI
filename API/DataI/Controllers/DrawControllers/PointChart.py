@@ -169,9 +169,10 @@ class PointChart(Chart):
             self.d.append(
                 draw.Circle(add, self.heightOfXLabels, self.xUnit / 35, fill="black", stroke_width=0, stroke='black'))
             self.d.append(
-                draw.Text(text=str(num), fontSize=self.heightOfXLabels / 20, x=add ,
+                draw.Text(text=str(num), fontSize=self.heightOfXLabels /10, x=add ,
                           y=self.heightOfXLabels /1.29,
                           id=str(self.Index),
+                          style="font-size : " + str(self.heightOfXLabels / 10),
                           transform="rotate(90," + str(add ) + "," + str(-self.heightOfXLabels / 1.29) + ")"))
             self.Index += 1
 
@@ -190,7 +191,7 @@ class PointChart(Chart):
                                   stroke='black',fill_opacity=1))
         self.d.append(
             draw.Text(text=str(num), fontSize=fontSize, x=add + (fontSize * 2),
-                      y=self.heightOfXLabels / 4 + (fontSize / 3),
+                      y=self.heightOfXLabels / 4 + (fontSize / 3),style="font-size : " + str(fontSize),
                       id=str(self.Index)))
         add += self.widthView / (len(self.dataSourceTableWithoutXcolumn.columns) + 3)
 
@@ -208,7 +209,7 @@ class PointChart(Chart):
                                 stroke_width=0,
                                 stroke='black'))
                 self.d.append(draw.Text(text=str(num), fontSize=fontSize, x=add + (fontSize * 2),
-                                        y=self.heightOfXLabels / 4 + (fontSize / 3),
+                                        y=self.heightOfXLabels / 4 + (fontSize / 3),style="font-size : " +str(fontSize),
                                         id=str(self.Index)))
                 add += self.widthView / (len(self.dataSourceTableWithoutXcolumn.columns) + 3)
                 self.Index += 1
@@ -227,7 +228,7 @@ class PointChart(Chart):
                 num = num[0:8] + "..."
             self.d.append(
                 draw.Text(text=str(num), fontSize=fontSize, x=x,
-                          y=self.convertY(self.listOfLevelXValue[i]),
+                          y=self.convertY(self.listOfLevelXValue[i]),style="font-size : "+str(fontSize),
                           id=str(self.Index)))
             self.Index += 1
 
@@ -248,5 +249,4 @@ class PointChart(Chart):
             if (long(value) == 0):
                 return double(0)
         return self.listOfLevelXValue[0]
-
     #######################################################################################################
