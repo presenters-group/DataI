@@ -53,8 +53,15 @@ class PointChart(Chart):
     def findStartYvalue(self):
         for column in self.dataSourceTableWithoutXcolumn.columns:
             if column.columnType == enums.ColumnDataType.Measures.value and column != self.xColumn:
-                for cell in column.cells[1:]:
-                    return double(cell.value)
+              print(column.cells[1].value)
+              return double( column.cells[1].value)
+            else:
+              print("erorrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr")
+              for column in self.dataSourceTableWithoutXcolumn.columns:
+                print(column.name)
+              print("name:",column.name)
+              print("column.columnType == enums.ColumnDataType.Measures.value:",column.columnType == enums.ColumnDataType.Measures.value)
+              print("column != self.xColumn:",column != self.xColumn)
         return 0
 
     def getStartvalue(self) -> double:
@@ -80,8 +87,7 @@ class PointChart(Chart):
         min = self.findStartYvalue()
         for column in self.dataSourceTableWithoutXcolumn.columns:
             if column.columnType == enums.ColumnDataType.Measures.value and column != self.xColumn:
-                for cell in column.cells:
-                    if (cell.type == enums.CellType.numeric.value):
+                for cell in column.cells[1:]:
                         if (double(cell.value) < min):
                             min = double(cell.value)
         return min
