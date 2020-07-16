@@ -1,6 +1,7 @@
 from numpy import double
 
 from DataI import enums
+from DataI.Controllers.DrawControllers.AnimatedVerticalBarChart import AnimatedVerticalBarChart
 from DataI.Controllers.DrawControllers.BarChart import BarChart
 from DataI.Controllers.DrawControllers.BoundaryLineChart import BoundaryLineChart
 from DataI.Controllers.DrawControllers.FemaleAndMaleChart import FemaleAndMaleChart
@@ -34,6 +35,9 @@ class ChartsFactory():
 
         if chartType == enums.ChartTypes.VerticalBarChart.value:
             return BarChart(table, width, height, xColomn, quality, 'testerrr')
+
+        if chartType == enums.ChartTypes.AnimatedVerticalBarChart.value:
+            return AnimatedVerticalBarChart(table, width, height, xColomn, quality, 'testerrr')
 
         if chartType == enums.ChartTypes.InfChart.value:
             return InfChart(table, xColomn, width, height, 'testerrr')
