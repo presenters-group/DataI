@@ -22,14 +22,14 @@ dataController.loadTablesFromExcelFile(filename, 0)
 dataSource = dataController.data.dataSources[0]
 Xcolomn = dataSource.columns[0]
 dataSource.columns.pop(0)
-for column in dataSource.columns:
-  print(column.columnType)
+# for column in dataSource.columns:
+#   print(column.columnType)
 # char = PointChart(dataSource, double(1000), double(1000), Xcolomn, 8, "point")
 # chart = LineChart(dataSource, double(1000), double(1000), Xcolomn, 8, "line")
 # chart0 = MultiplePieChart(dataSource, Xcolomn, double(1000), double(1000), "pie")
 # chart1 = SmartPieChart(dataSource, Xcolomn, double(1000000), double(100), "smart")
-chart2 = BarChart(dataSource, double(1000), double(1000), Xcolomn, 8, "BarChart")
-# chart4 = InfChart(dataSource, Xcolomn, double(1000000), double(100), "Human")
+# chart2 = BarChart(dataSource, double(1000), double(1000), Xcolomn, 8, "BarChart")
+chart4 = InfChart(dataSource, Xcolomn, double(1000000), double(100), "Human")
 # chart5 = FemaleInfChart(dataSource, Xcolomn, double(10), double(100), "femaInf")
 # chart6 = HealthyFoodChart(dataSource, Xcolomn, double(1000000), double(100), "HealthyFoodChart")
 # chart7 = FemaleAndMaleChart(dataSource, Xcolomn, double(1000000), double(50), "FemaleAndMaleChart")

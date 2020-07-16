@@ -57,7 +57,7 @@ class InfChart(Chart):
 
     def drawStack(self):
         oldstartPoint = 0
-        height = 0
+        timer = 1
         startX = 0
         length = 0
         for cell, cell2, i in zip(self.firstColumn.cells, self.secondColumn.cells,
@@ -69,11 +69,11 @@ class InfChart(Chart):
                     height = self.getLength(double(cell2.value))
                     oldstartPoint = height
                     text = str(cell.value) + ": " + str(self.percentageOfValue(double(cell2.value)))[0:4] + "%"
-                    self.d.append(
-                        draw.Rectangle(0, startX+800, self.widthView + 50, height, fill=self.colorList[i-1], fill_opacity=0.5,
-                                       stroke="white",
-                                       stroke_width=2,transform="translate(0,+200) scale(0.6 0.55)" ,id= self.Index))
+                    t =draw.Rectangle(0, startX+800, self.widthView + 50, height, fill=self.colorList[i-1], fill_opacity=0.5,stroke="white",stroke_width=2,transform="translate(0,+200) scale(0.6 0.55)" ,id= self.Index)
+                    t.appendAnim(draw.Animate('width', str(timer)+'s', from_or_values=0, to=self.widthView + 50 ,repeatCount='1'))
+                    self.d.append(t)
                     self.metaData.append(text)
+                    timer += 0.05
                     self.Index += 1
 
     def drawText(self):
