@@ -13,7 +13,7 @@ export class DashboardsService {
   constructor(private httpClient: HttpClient) {}
 
   create(data : IDashboard) {
-    return this.httpClient.post(this.URL, { ...data });
+    return this.httpClient.post(`${this.URL}/`, { ...data });
   }
 
   update(data : IDashboard) {

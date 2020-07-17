@@ -161,11 +161,13 @@ export class MovingDirective implements AfterViewInit {
   }
 
   moveTop(oldEvent, newEvent) {
+    if(oldEvent.oldTop + (newEvent.pageY - oldEvent.pageY) > 0)
     this.el.nativeElement.style.top = `${
       oldEvent.oldTop + (newEvent.pageY - oldEvent.pageY)
     }px`;
   }
   moveLeft(oldEvent, newEvent) {
+    if(oldEvent.oldLeft + (newEvent.pageX - oldEvent.pageX) > 0)
     this.el.nativeElement.style.left = `${
       oldEvent.oldLeft + (newEvent.pageX - oldEvent.pageX)
     }px`;
@@ -214,6 +216,9 @@ export class MovingDirective implements AfterViewInit {
 
   @HostListener("document:mouseup", ["$event"]) onMouseUp($event) {
     this.state = MoveState.none;
+    console.log("top",this.el.nativeElement.style.top)
+    console.log("left",this.el.nativeElement.style.left)
+
   }
 }
 
