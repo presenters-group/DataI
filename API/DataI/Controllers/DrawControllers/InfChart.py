@@ -14,21 +14,21 @@ class InfChart(Chart):
         super().__init__(dataSource, width, height, XColumn)
         self.widthView = 1000
         self.heightView = 1000
-        self.firstColumn = XColumn
-        self.secondColumn = dataSource.columns[0]
+        self.LabelColumn = dataSource.columns[0]
+        self.xColumn = XColumn
         self.colorList = self.dataSourceTableWithoutXcolumn.rowsColors
         self.listOfLength = list()
         self.d = draw.Drawing(self.widthView , self.heightView)
-        self.total = self.sumColumn(self.secondColumn)
+        self.total = self.sumColumn(self.xColumn)
         self.drawlayOut()
-        if self.firstColumn.columnType == enums.ColumnDataType.Measures.value:
+        if self.xColumn.columnType == enums.ColumnDataType.Measures.value:
           self.drawStack()
           self.drawHuman()
           self.drawText()
         else:
           self.d.append(draw.Text(text="Error: Xcolumn is not Measured", fontSize=60, x=50, y=self.heightView/2))
         self.d.setPixelScale(min(width,height)/1000)  # Set number of pixels per geometry unit
-        #self.d.saveSvg(nameFile+'.svg')
+        # self.d.saveSvg(nameFile+'.svg')
         self.SVG = self.d.asSvg()
 
     def drawHuman(self):
@@ -60,8 +60,8 @@ class InfChart(Chart):
         timer = 1
         startX = 0
         length = 0
-        for cell, cell2, i in zip(self.firstColumn.cells, self.secondColumn.cells,
-                                  range(0, len(self.secondColumn.cells))):
+        for cell, cell2, i in zip(self.LabelColumn.cells, self.xColumn.cells,
+                                  range(0, len(self.xColumn.cells))):
             if (type(cell2.value) != str):
                 if (i != 0):
                     length += 1
@@ -80,9 +80,9 @@ class InfChart(Chart):
         oldstartPoint = 0
         startX = 0
         length = 0
-        if  self.secondColumn.columnType == enums.ColumnDataType.Measures.value:
-          for cell, cell2, i in zip(self.firstColumn.cells, self.secondColumn.cells,
-                                  range(0, len(self.firstColumn.cells))):
+        if  self.xColumn.columnType == enums.ColumnDataType.Measures.value:
+          for cell, cell2, i in zip(self.LabelColumn.cells, self.xColumn.cells,
+                                    range(0, len(self.LabelColumn.cells))):
             if (type(cell2.value) != str):
                 if (i != 0):
                     length += 1

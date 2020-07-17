@@ -16,7 +16,7 @@ class FemaleAndMaleChart(InfChart):
       self.Check = False
       self.getMaleAndFemaleColumns()
       if self.Check:
-        if self.firstColumn.columnType == enums.ColumnDataType.Measures.value:
+        if self.LabelColumn.columnType == enums.ColumnDataType.Measures.value:
           self.drawMaleAndFemaleStack()
           self.drawHuman()
           self.drawText()
@@ -61,8 +61,8 @@ class FemaleAndMaleChart(InfChart):
         height = 0
         startX = 0
         length = 0
-        for cell, cell2, i in zip(self.firstColumn.cells, self.femaleColumn.cells,
-                                  range(0, len(self.secondColumn.cells))):
+        for cell, cell2, i in zip(self.LabelColumn.cells, self.femaleColumn.cells,
+                                  range(0, len(self.xColumn.cells))):
             if (type(cell2.value) != str):
                 if (i != 0):
                     length += 1
@@ -81,8 +81,8 @@ class FemaleAndMaleChart(InfChart):
         height = 0
         startX = 0
         length = 0
-        for cell, cell2, i in zip(self.firstColumn.cells, self.maleColumn.cells,
-                                  range(0, len(self.secondColumn.cells))):
+        for cell, cell2, i in zip(self.LabelColumn.cells, self.maleColumn.cells,
+                                  range(0, len(self.xColumn.cells))):
             if (type(cell2.value) != str):
                 if (i != 0):
                     length += 1
@@ -101,9 +101,9 @@ class FemaleAndMaleChart(InfChart):
       oldstartPoint = 0
       startX = 0
       length = 0
-      if self.secondColumn.columnType == enums.ColumnDataType.Measures.value:
-        for cell, cell2, i in zip(self.firstColumn.cells, self.secondColumn.cells,
-                                  range(0, len(self.firstColumn.cells))):
+      if self.xColumn.columnType == enums.ColumnDataType.Measures.value:
+        for cell, cell2, i in zip(self.LabelColumn.cells, self.xColumn.cells,
+                                  range(0, len(self.LabelColumn.cells))):
           if (type(cell2.value) != str):
             if (i != 0):
               length += 1
