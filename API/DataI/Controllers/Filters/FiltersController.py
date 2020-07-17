@@ -32,7 +32,7 @@ class NumericFilter():
         rowCounter = 1
         for cell in column.cells[1:]:
             if not operators[self.operator](cell.value, value):
-                DataSourcesController.removeRowFromTable(filteredTable, rowCounter)
+                DataSourcesController.removeRowFromTable(filteredTable.columns, rowCounter)
                 filteredTable.rowsColors.pop(rowCounter - 1)
                 filteredTable.rowsVisibility.pop(rowCounter - 1)
                 # refresh row counter after deleting
@@ -54,7 +54,7 @@ class MultipleEqualityFilter():
         rowCounter = 1
         for cell in column.cells[1:]:
             if cell.value not in values:
-                DataSourcesController.removeRowFromTable(filteredTable, rowCounter)
+                DataSourcesController.removeRowFromTable(filteredTable.columns, rowCounter)
                 filteredTable.rowsColors.pop(rowCounter - 1)
                 filteredTable.rowsVisibility.pop(rowCounter - 1)
                 # refresh row counter after deleting
