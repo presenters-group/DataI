@@ -28,7 +28,7 @@ class InfChart(Chart):
         else:
           self.d.append(draw.Text(text="Error: Xcolumn is not Measured", fontSize=60, x=50, y=self.heightView/2))
         self.d.setPixelScale(min(width,height)/1000)  # Set number of pixels per geometry unit
-        # self.d.saveSvg(nameFile+'.svg')
+        #self.d.saveSvg(nameFile+'.svg')
         self.SVG = self.d.asSvg()
 
     def drawHuman(self):
