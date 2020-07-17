@@ -454,7 +454,7 @@ def filterModifier(request, id):
 
 @csrf_exempt
 def excelUpload(request):
-    if request.method != 'PUT':
+    if request.method != 'POST':
         return HttpResponseNotFound('No such request({} <{}>) is available'.format(request.path, request.method))
 
     newdoc = Document(docfile=request.FILES['file_upload'])
@@ -474,7 +474,7 @@ def excelUpload(request):
 
 @csrf_exempt
 def csvUpload(request):
-    if request.method != 'PUT':
+    if request.method != 'POST':
         return HttpResponseNotFound('No such request({} <{}>) is available'.format(request.path, request.method))
 
     newdoc = Document(docfile=request.FILES['file_upload'])

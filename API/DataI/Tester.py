@@ -1,6 +1,7 @@
 import json
 import os
 
+from DataI.Controllers.Aggregation.Aggregation import BasicAggregationController
 from DataI.Controllers.DataControllers.DataController import DataController
 from DataI.Controllers.DrawControllers.DrawController import DrawController
 from DataI.Controllers.Filters.FiltersController import FiltersController
@@ -149,10 +150,24 @@ dataController.data.dataSources[1].filters = [filter3]
 dataController.data.visualizations[0].filters = [filter1]
 
 
-filteredTable = FiltersController.getFilteredDashboardVisio(dataController.data, 0, 0)
+# for column in dataController.data.dataSources[0].columns:
+#     print('column type: ', column.columnType)
+#     for c in column.cells:
+#         print(c)
+#     print('_____________________________')
+#
+# print('===================================')
+#
+# for column in dataController.data.dataSources[0].columns:
+#     for c in column.valueCategories:
+#         print(c)
+#     print('_____________________________')
+
+BasicAggregationController.implementAggregation(dataController.data.dataSources[0], 0)
 
 
-result = DrawController.getDashboardVisioChart(dataController.data, 0, 0)
+
+
 
 # for column in filteredTable.columns:
 #     for cell in column.cells:
