@@ -15,10 +15,30 @@
   <div class="actions">
     <button mat-button>Open</button>
     <button mat-button>Save</button>
-    <button mat-button>Save as</button>
+    <!-- <button mat-button>Save as</button> -->
     <hr>
-    <button mat-button>import</button>
-    <button mat-button>Export As</button>
+    <!-- <button mat-button >import</button> -->
+    <div class="export-as-container">
+      <button class="export-as-trigger" mat-button>
+        <div class="export-as-title">
+          <div >
+            Export As
+          </div>
+          <div>
+            >
+          </div>
+        </div>
+      </button>
+          <div class="export-as-menu">
+            <button mat-button>Excel</button>
+            <button mat-button>CSV</button>
+          </div>
+
+    </div>
+    <!-- <div class="export-as-menu">
+      <button mat-button>Excel</button>
+      <button mat-button>CSV</button>
+    </div> -->
     <hr>
     <button mat-button>Help</button>
     <button mat-button>About</button>

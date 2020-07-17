@@ -1,4 +1,5 @@
 export interface IVisualizer {
+  id: number;
   data: number;
   usedColumns: number[];
   xColumn: number;

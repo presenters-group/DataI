@@ -14,7 +14,7 @@ export class AddDataSourceComponent {
   file
   constructor(private store : Store<AppState>,
     public dialogRef: MatDialogRef<AddDataSourceComponent>,
-    private swal: NotificationService
+    private notifications: NotificationService
     ) { }
 
   onExcelClick($event){
@@ -24,7 +24,7 @@ export class AddDataSourceComponent {
       this.dialogRef.close();
     }
     else
-      this.swal.fail('Please Add a Valid File');
+      this.notifications.fail('Please Add a Valid File');
   }
 
   onCsvClick($event){
@@ -34,7 +34,7 @@ export class AddDataSourceComponent {
       this.dialogRef.close();
     }
     else
-    this.swal.fail('Please Add a Valid File');
+    this.notifications.fail('Please Add a Valid File');
   }
 
 }

@@ -109,4 +109,31 @@ export class DashboardsEffects {
       )
     )
   );
+
+
+
+  fetchDashboardSVGs$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(fromActions.fetchDashboardSVGs),
+
+      debounceTime(100),
+
+      switchMap(({ data }) =>
+        this.dashboardsService.fetchDashboardSVGs(data).pipe(
+
+
+          switchMap((data) => [
+            fromActions.fetchDashboardSVGsSuccess({ data }),
+            showSuccess({ message: DELETE_SUCCESSFUL }),
+            closeTapFromTree({tap :{type : 'dashboard',id : (data as any).id}})
+          ]),
+
+          catchError((error) => [
+            fromActions.fetchDashboardSVGsFailed({ error }),
+            showError({ message: DELETE_FAILED }),
+          ])
+        )
+      )
+    )
+  );
 }

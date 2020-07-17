@@ -21,7 +21,7 @@
     <app-visualizer-item
       *ngFor="let visualizer of (dashboard | async).visualizers"
       class="inner visualizer"
-      [visualizerId]="visualizer.visualizationId"
+      [svg]="visualizer.chart"
       [ngStyle]="{
         'width.px': visualizer.measurements.width,
         'height.px': visualizer.measurements.height,
