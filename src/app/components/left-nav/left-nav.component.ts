@@ -3,14 +3,26 @@ import { AppState } from "src/store";
 import { selectCurrentTree } from "src/store/core/selectors/core.selector";
 import { Store } from "@ngrx/store";
 import { updateCurrentTree } from "src/store/core/actions/core.actions";
+import { trigger, state, style, transition, animate } from '@angular/animations';
 
 @Component({
   selector: "app-left-nav",
   templateUrl: "./left-nav.component.html",
   styleUrls: ["./left-nav.component.scss"],
+  animations: [
+    trigger('menu',[
+      state('void',style({
+        left: '-200px'
+      })),
+      transition('* <=> void',[
+        animate('0.5s')
+      ])
+    ])
+  ],
 })
 export class LeftNavComponent implements OnInit {
   showFiller = false;
+  showMenu;
   icons = [
     {
       name: "data-sources",

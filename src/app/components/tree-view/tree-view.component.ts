@@ -14,15 +14,24 @@ import { addToTapes } from "src/store/core/actions/core.actions";
 import { first } from "rxjs/operators";
 import { MatDialog } from "@angular/material/dialog";
 import { AddVisualizerComponent } from "src/app/pages/visualizer/dialogs/add-visualizer/add-visualizer.component";
-import { createVisualizer, deleteVisualizer, updateVisualizer } from "src/store/visualizers";
+import {
+  createVisualizer,
+  deleteVisualizer,
+  updateVisualizer,
+} from "src/store/visualizers";
 import { AddDataSourceComponent } from "src/app/pages/data-source/dialogs/add-data-source/add-data-source.component";
 import { AddFilterComponent } from "src/app/pages/filter/dialogs/add-filter/add-filter.component";
 import { createFilter, deleteFilter } from "src/store/filters";
 import { deleteDataSource } from "src/store/data-sources";
-import { deleteDashboard, createDashboard } from "src/store/dashboards";
+import {
+  deleteDashboard,
+  createDashboard,
+  updateDashboard,
+} from "src/store/dashboards";
 import { NotificationService } from "src/store/notifications/notifications.service";
 import { AddDashboardComponent } from "src/app/pages/dashboard/dialogs/add-dashboard/add-dashboard.component";
-import { selectVisualizersEntities } from 'src/store/visualizers/visualizers.selectors';
+import { selectVisualizersEntities } from "src/store/visualizers/visualizers.selectors";
+import { selectDashboardById } from "src/store/dashboards/dashboards.selectors";
 @Component({
   selector: "app-tree-view",
   templateUrl: "./tree-view.component.html",
@@ -177,11 +186,13 @@ export class TreeViewComponent implements OnInit, AfterViewInit {
           case "visualizers":
             let dialogRefVisualizer = this.dialog.open(AddVisualizerComponent);
             dialogRefVisualizer.afterClosed().subscribe((result) => {
-              this.store.dispatch(
-                createVisualizer({
-                  data: { ...result.value, id: 0, isDeleted: false },
-                })
-              );
+              if (result) {
+                this.store.dispatch(
+                  createVisualizer({
+                    data: { ...result.value, id: 0, isDeleted: false },
+                  })
+                );
+              }
             });
             break;
           case "filters":
@@ -202,11 +213,13 @@ export class TreeViewComponent implements OnInit, AfterViewInit {
           case "dashboards":
             let dialogRefDashboard = this.dialog.open(AddDashboardComponent);
             dialogRefDashboard.afterClosed().subscribe((result) => {
-              this.store.dispatch(
-                createDashboard({
-                  data: { ...result.value, id: 0, isDeleted: false },
-                })
-              );
+              if (result) {
+                this.store.dispatch(
+                  createDashboard({
+                    data: { ...result, id: 0, isDeleted: false },
+                  })
+                );
+              }
             });
             break;
         }
@@ -251,44 +264,66 @@ export class TreeViewComponent implements OnInit, AfterViewInit {
     });
   }
 
-  onEditClick($event){
+  onEditClick($event) {
     let element = $event.srcElement;
     let content = this.renderer.parentNode(element).content;
 
-          switch (content.type) {
-            case "visualizer":
-              let editVisualizerDialog
-            this.store.select(selectVisualizersEntities).pipe(first()).subscribe((entities)=>{
-                editVisualizerDialog = this.dialog.open(AddVisualizerComponent,{
-                  data: entities[content.id]
-                })
-              })
-            editVisualizerDialog.afterClosed().subscribe((result) => {
-              this.store.dispatch(
-                updateVisualizer({
-                  data: { ...result.value, id: content.id, isDeleted: false },
-                })
-              );
+    switch (content.type) {
+      case "visualizer":
+        let editVisualizerDialog;
+        this.store
+          .select(selectVisualizersEntities)
+          .pipe(first())
+          .subscribe((entities) => {
+            editVisualizerDialog = this.dialog.open(AddVisualizerComponent, {
+              data: entities[content.id],
             });
-
-            break;
-            case "filter":
-              this.store.dispatch(
-                addToTapes({
-                  tap: {
-                    name: content.name,
-                    type: content.type,
-                    id: content.id,
-                  },
-                }));
-              break;
-            // case "data-source":
-            //   this.store.dispatch(deleteDataSource({ id: content.id }));
-            //   break;
-            case "dashboard":
-              this.store.dispatch(deleteDashboard({ id: content.id }));
-              break;
+          });
+        editVisualizerDialog.afterClosed().subscribe((result) => {
+          if (result) {
+            this.store.dispatch(
+              updateVisualizer({
+                data: { ...result.value, id: content.id, isDeleted: false },
+              })
+            );
           }
-          this.onRefreshClick();
+        });
+
+        break;
+      case "filter":
+        this.store.dispatch(
+          addToTapes({
+            tap: {
+              name: content.name,
+              type: content.type,
+              id: content.id,
+            },
+          })
+        );
+        break;
+      // case "data-source":
+      //   this.store.dispatch(deleteDataSource({ id: content.id }));
+      //   break;
+      case "dashboard":
+        this.store
+          .select(selectDashboardById, { dashboardId: content.id })
+          .pipe(first())
+          .subscribe((value) => {
+            let dialogRefDashboard = this.dialog.open(AddDashboardComponent, {
+              data: { ...value },
+            });
+            dialogRefDashboard.afterClosed().subscribe((result) => {
+              if (result) {
+                this.store.dispatch(
+                  updateDashboard({
+                    data: { ...result, id: 0, isDeleted: false },
+                  })
+                );
+              }
+            });
+          });
+        break;
+    }
+    this.onRefreshClick();
   }
 }

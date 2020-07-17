@@ -1,7 +1,6 @@
 <div class="container">
-  <button mat-button [matMenuTriggerFor]="something" ><img src="/assets/icons/menu.svg" alt=""></button>
-
-  <mat-menu #something="matMenu">
+  <button (click)="showMenu = !showMenu" ><img [ngStyle]="showMenu ? {'transform' : 'rotate(90deg)'} : {}" class="menu-trigger" src="/assets/icons/menu.svg" alt=""></button>
+  <!-- <mat-menu #something="matMenu">
     <div mat-meun-item class="container" style="flex-direction: row;" >
       <img src="/assets/images/logo.svg" alt="" style="width: 150px; height: 150px;">
       <div>
@@ -23,19 +22,21 @@
     <button mat-menu-item>Help</button>
     <button mat-menu-item>About</button>
     <button mat-menu-item>Contact Us</button>
-  </mat-menu>
+  </mat-menu> -->
 
   <div class="item" *ngFor="let icon of icons; let i = index" (click)="onIconClick(i)">
     <button
-      (mouseenter)="onIconEnter(i)"
-      (mouseleave)="onIconLeave(i)"
-      [ngStyle]="
-        icon.current || icon.hover
-          ? { 'background-color': icon.color, 'border-radius': '20%' }
-          : null
-      "
+    (mouseenter)="onIconEnter(i)"
+    (mouseleave)="onIconLeave(i)"
+    [ngStyle]="
+    icon.current || icon.hover
+    ? { 'background-color': icon.color, 'border-radius': '20%' }
+    : null
+    "
     >
-      <img [src]="icon.src" />
-    </button>
-  </div>
+    <img [src]="icon.src" />
+  </button>
 </div>
+</div>
+
+<app-main-menu (onClose)="showMenu ? showMenu = !showMenu : null" @menu *ngIf="showMenu" class="main-menu"></app-main-menu>
