@@ -2,25 +2,79 @@
   <div class="form">
     <mat-form-field>
       <mat-label>Dashboard Name</mat-label>
-      <input matInput type="text" />
+      <input [(ngModel)]="name" matInput type="text" />
     </mat-form-field>
 
     <div *ngFor="let visualizer of allVisualizers | async">
-      <div (dragstart)="drag($event,visualizer)" draggable="true" class="visualizer">
+      <div
+        (dragstart)="drag($event, visualizer)"
+        (click)="onEntityClick($event, visualizer)"
+        [ngStyle]="(selectedEntity?.id == visualizer?.id && selectedEntity?.type == 'visualizer') ? {
+          'background-color' : '#00000044'
+        } : {}"
+        draggable="true"
+        class="visualizer"
+      >
         {{ visualizer.name }}
       </div>
       <div
+        (click)="onEntityClick($event, filter)"
+        [ngStyle]="(selectedEntity?.id == filter?.id && selectedEntity?.type == 'filter') ? {
+          'background-color' : '#00000044'
+        } : {}"
         draggable="true"
         class="filter"
         *ngFor="let filter of visualizer.filters"
-        (dragstart)="drag($event,filter)"
+        (dragstart)="drag($event, filter)"
       >
         {{ filter.name }}
       </div>
     </div>
   </div>
 
-  <div class="preview" (drop)="onDrop($event)" (dragover)="allowDrop($event)">
+  <div (click)="onPreviewClick($event)" class="preview" (drop)="onDrop($event)" (dragover)="allowDrop($event)">
+    <div
+      *ngFor="let visualizer of visualizers"
+      id="visualizer"
+      class="inner visualizer-shape"
+      moving
+      [id]="'visualizer' + visualizer.visualizationId"
+      [ngStyle]="{
+        'width.px': visualizer.measurements.width,
+        'height.px': visualizer.measurements.height,
+        'top.px': visualizer.measurements.y,
+        'left.px': visualizer.measurements.x
+      }"
+    >
+      {{ visualizer.name }}
+    </div>
 
+    <div
+      class="inner filter-shape"
+      *ngFor="let filter of filters"
+      [id]="'filter' + filter.id"
+      moving
+      [ngStyle]="{
+        'width.px': filter.measurements.width,
+        'height.px': filter.measurements.height,
+        'top.px': filter.measurements.y,
+        'left.px': filter.measurements.x
+      }"
+    >
+      {{ filter.name }}<br />{{
+        (visualizersEntities | async)[filter.visioId].name
+      }}
+    </div>
   </div>
+</div>
+<div class="buttons" mat-dialog-actions>
+  <button mat-flat-button (click)="onNoClick()">Cancel</button>
+  <button
+  (click)="onSave()"
+  mat-flat-button
+    color="primary"
+    cdkFocusInitial
+  >
+    Save
+  </button>
 </div>

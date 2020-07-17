@@ -2,6 +2,8 @@
   display: flex;
   flex-direction: column;
   background-color: var(--gray2);
+  position: relative;
+  z-index: 10;
 }
 .item{
   padding: 10px;
@@ -28,3 +30,18 @@ img{
   transition: 0.5s border-radius;
 }
 
+.main-menu{
+  z-index: 1;
+  position: fixed;
+  top: 0;
+  left: 64px;
+width: 235px;
+height: fit-content;
+}
+
+
+.menu-trigger{
+  width: 70%;
+  height: 70%;
+  transition: all 0.5s;
+}

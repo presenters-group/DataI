@@ -31,7 +31,6 @@ class LineChart(PointChart):
                 p.M(add, self.convertY(self.findZeroInSVG()))
                 if (column != self.xColumn):
                     for cell, i in zip(column.cells, range(0, len(self.xColumn.cells))):
-                        print(cell)
                         if (i != 0):
                             add += self.xUnit
                             p.L(add, self.convertY(double(cell.value)))

@@ -95,12 +95,12 @@ class DataController():
         return returnDict
 
     def getChartsNames(self):
-        names = [enums.ChartTypes.VerticalBarChart.value, enums.ChartTypes.BoundaryLineChart.value,
+        names = [enums.ChartTypes.AnimatedVerticalBarChart.value, enums.ChartTypes.VerticalBarChart.value, enums.ChartTypes.BoundaryLineChart.value,
                  enums.ChartTypes.PointChart.value, enums.ChartTypes.MultiplePieChart.value,
                  enums.ChartTypes.InfChart.value, enums.ChartTypes.PyramidalChart.value,
                  enums.ChartTypes.SmartPieChart.value, enums.ChartTypes.HealthyFoodChart.value,
                  enums.ChartTypes.FemaleInfChart.value, enums.ChartTypes.FemaleAndMaleChart.value,
-                 enums.ChartTypes.LineChart.value]
+                 enums.ChartTypes.MapChart.value,enums.ChartTypes.LineChart.value]
         return names
 
     def getChart(self, visioId, width, height):
