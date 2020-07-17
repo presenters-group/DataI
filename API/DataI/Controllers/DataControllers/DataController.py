@@ -100,7 +100,7 @@ class DataController():
                  enums.ChartTypes.InfChart.value, enums.ChartTypes.PyramidalChart.value,
                  enums.ChartTypes.SmartPieChart.value, enums.ChartTypes.HealthyFoodChart.value,
                  enums.ChartTypes.FemaleInfChart.value, enums.ChartTypes.FemaleAndMaleChart.value,
-                 enums.ChartTypes.LineChart.value]
+                 enums.ChartTypes.MapChart.value,enums.ChartTypes.LineChart.value]
         return names
 
     def getChart(self, visioId, width, height):

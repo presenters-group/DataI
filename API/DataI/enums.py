@@ -44,6 +44,7 @@ class ChartTypes(enum.Enum):
     FemaleInfChart = 'FemaleInfChart'
     HealthyFoodChart = 'HealthyFoodChart'
     AnimatedVerticalBarChart = 'AnimatedVerticalBarChart'
+    MapChart = 'MapChart'
 
 
 

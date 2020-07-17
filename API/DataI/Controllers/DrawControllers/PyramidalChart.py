@@ -18,4 +18,4 @@ class PyramidalChart(InfChart):
 
 #
 # class PyramidalChart:
-#     def __init__(self, firstcColumon: ColumnModel, secondColumn: ColumnModel, width: double, height: double, nameFile):
+#     def __init__(self, firstcColumon: ColumnModel, xColumn: ColumnModel, width: double, height: double, nameFile):

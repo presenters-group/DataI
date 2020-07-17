@@ -9,6 +9,7 @@ from DataI.Controllers.DrawControllers.FemaleInfChart import FemaleInfChart
 from DataI.Controllers.DrawControllers.HealthyFoodChart import HealthyFoodChart
 from DataI.Controllers.DrawControllers.InfChart import InfChart
 from DataI.Controllers.DrawControllers.LineChart import LineChart
+from DataI.Controllers.DrawControllers.MapChart import MapChart
 from DataI.Controllers.DrawControllers.MultiplePieChart import MultiplePieChart
 from DataI.Controllers.DrawControllers.PieChart import PieChart
 from DataI.Controllers.DrawControllers.PointChart import PointChart
@@ -59,6 +60,9 @@ class ChartsFactory():
 
         if chartType == enums.ChartTypes.HealthyFoodChart.value:
             return HealthyFoodChart(table, xColomn, width, height, 'testerrr')
+
+        if chartType == enums.ChartTypes.MapChart.value:
+            return MapChart(table, xColomn, width, height, 'testerrr')
 
 
 
