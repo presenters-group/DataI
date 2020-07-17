@@ -1,7 +1,10 @@
+import sys
+import traceback
 from typing import List
 from DataI.JSONSerializer import ObjectDeserializer
 from DataI.Models.BasicInfo import BasicInfo
 from DataI import enums
+from DataI.Models.Exceptions import DifferentTypesException, TwoStringsException
 
 
 class CellModel(ObjectDeserializer):
@@ -13,13 +16,57 @@ class CellModel(ObjectDeserializer):
         return 'value: {}, type: {}'.format(self.value, self.type)
 
     def __add__(self, other):
+        if type(other) != CellModel:
+            if self.type == enums.CellType.string.value and type(other) == str:
+                raise TwoStringsException('Can not add two strings as a mathematical operation.')
+
+            if self.type == enums.CellType.numeric.value and type(other) != type(str):
+                raise DifferentTypesException('Can not add type: {} to type: {}.'.format(self.type, type(other)))
+
+            if self.type == enums.CellType.string.value  and type(other) != type(str):
+                raise DifferentTypesException('Can not add type: {} to type: {}.'.format(self.type, type(other)))
+
+            return CellModel(self.value + other, self.type)
+
         if self.type != other.type:
-            print('Can not add type: {} to type: {}.'.format(self.type, other.type))
-            return None
+            raise DifferentTypesException('Can not add type: {} to type: {}.'.format(self.type, other.type))
+
         if (self.type and other.type) is enums.CellType.string.value:
-            print('Can not add two strings as a mathematical operation.')
-            return None
+            raise TwoStringsException('Can not add two strings as a mathematical operation.')
+
         return CellModel(self.value + other.value, self.type)
+
+    def __sub__(self, other):
+        if self.type != other.type:
+            raise DifferentTypesException('Can not subtract type: {} to type: {}.'.format(self.type, other.type))
+
+        if (self.type and other.type) is enums.CellType.string.value:
+            raise TwoStringsException('Can not subtract two strings as a mathematical operation.')
+
+        return CellModel(self.value - other.value, self.type)
+
+    def __mul__(self, other):
+        if self.type != other.type:
+            raise DifferentTypesException('Can not multiply type: {} to type: {}.'.format(self.type, other.type))
+
+        if (self.type and other.type) is enums.CellType.string.value:
+            raise TwoStringsException('Can not multiply two strings as a mathematical operation.')
+
+        return CellModel(self.value * other.value, self.type)
+
+    def __truediv__(self, other):
+        if self.type != other.type:
+            raise DifferentTypesException('Can not divide type: {} to type: {}.'.format(self.type, other.type))
+
+        if (self.type and other.type) is enums.CellType.string.value:
+            raise TwoStringsException('Can not divide two strings as a mathematical operation.')
+
+        try:
+            returnValue = self.value / other.value
+        except:
+            raise ZeroDivisionError('Can not divide by zero')
+
+        return CellModel(returnValue, self.type)
 
 
 class ColumnStyleModel(ObjectDeserializer):
@@ -51,9 +98,75 @@ class ColumnModel(BasicInfo):
 
     def __add__(self, other):
         cells = list()
-        for cell, i in zip(self.cells, range(len(self.cells))):
-            cells.append(CellModel(cell + other.cells[i], cell.type))
+        cells.append(CellModel(self.name, enums.CellType.string.value))
+        for cell, i in zip(self.cells[1:], range(1, len(self.cells))):
+            try:
+                newCell = cell + other.cells[i]
+
+            except DifferentTypesException:
+                raise DifferentTypesException('can not add two columns that have cells with different types.')
+
+            except TwoStringsException:
+                raise DifferentTypesException('can not add two columns that have cells that are of type string.')
+
+            cells.append(newCell)
+
         return ColumnModel(cells, self.name, self.id, self.isDeleted)
+
+    def __sub__(self, other):
+        cells = list()
+        cells.append(CellModel(self.name, enums.CellType.string.value))
+        for cell, i in zip(self.cells[1:], range(1, len(self.cells))):
+            try:
+                newCell = cell - other.cells[i]
+
+            except DifferentTypesException:
+                raise DifferentTypesException('can not subtract two columns that have cells with different types.')
+
+            except TwoStringsException:
+                raise DifferentTypesException('can not subtract two columns that have cells that are of type string.')
+
+            cells.append(newCell)
+
+        return ColumnModel(cells, self.name, self.id, self.isDeleted)
+
+    def __mul__(self, other):
+        cells = list()
+        cells.append(CellModel(self.name, enums.CellType.string.value))
+        for cell, i in zip(self.cells[1:], range(1, len(self.cells))):
+            try:
+                newCell = cell * other.cells[i]
+
+            except DifferentTypesException:
+                raise DifferentTypesException('can not multiply two columns that have cells with different types.')
+
+            except TwoStringsException:
+                raise DifferentTypesException('can not multiply two columns that have cells that are of type string.')
+
+            cells.append(newCell)
+
+        return ColumnModel(cells, self.name, self.id, self.isDeleted)
+
+    def __truediv__(self, other):
+        cells = list()
+        cells.append(CellModel(self.name, enums.CellType.string.value))
+        for cell, i in zip(self.cells[1:], range(1, len(self.cells))):
+            try:
+                newCell = cell / other.cells[i]
+
+            except DifferentTypesException:
+                raise DifferentTypesException('can not divide two columns that have cells with different types.')
+
+            except TwoStringsException:
+                raise DifferentTypesException('can not divide two columns that have cells that are of type string.')
+
+            except ZeroDivisionError:
+                raise ZeroDivisionError('can not divide two columns that have cells produce zero division error.')
+
+            cells.append(newCell)
+
+        return ColumnModel(cells, self.name, self.id, self.isDeleted)
+
 
     def __cellInList(self, cell, list):
         for item in list:
