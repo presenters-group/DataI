@@ -5,7 +5,8 @@ import { Store } from "@ngrx/store";
 import { selectVisualizersEntities } from "src/store/visualizers/visualizers.selectors";
 import { selectFiltersEntities } from "src/store/filters/filters.selectors";
 import { selectCurrentDashboard } from "src/store/dashboards/dashboards.selectors";
-import { updateDashboard } from "src/store/dashboards";
+import { updateDashboard, fetchDashboardSVGs } from "src/store/dashboards";
+import { first } from 'rxjs/operators';
 @Component({
   selector: "app-dashboard",
   templateUrl: "./dashboard.component.html",
@@ -16,40 +17,12 @@ export class DashboardComponent implements AfterViewInit {
   visualizers = this.store.select(selectVisualizersEntities);
   filters = this.store.select(selectFiltersEntities);
   dashboard = this.store.select(selectCurrentDashboard);
-  // dashboard = {
-  //   visualizers: [
-  //     {
-  //       visualizationIndex: 0,
-  //       measurements: {
-  //         width: 500.0,
-  //         height: 300.0,
-  //         x: 100.0,
-  //         y: 100.0,
-  //       },
-  //       displayedFilters: [
-  //         {
-  //           filterIndex: 0,
-  //           measurements: {
-  //             width: 100.0,
-  //             height: 100.0,
-  //             x: 100.0,
-  //             y: 200.0,
-  //           },
-  //         },
-  //         {
-  //           filterIndex: 1,
-  //           measurements: {
-  //             width: 100.0,
-  //             height: 100.0,
-  //             x: 300.0,
-  //             y: 150.0,
-  //           },
-  //         },
-  //       ],
-  //     },
-  //   ],
-  // };
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store<AppState>) {
+    this.dashboard.pipe(first()).subscribe((value)=>{
+      this.store.dispatch(fetchDashboardSVGs({data : {dashboardId : value.id}}))
+    });
+
+  }
   consol(data) {
     console.log(data);
     return data;

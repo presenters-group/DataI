@@ -15,9 +15,9 @@ from DataI.Controllers.DrawControllers.PointChart import PointChart
 from DataI.Controllers.DrawControllers.SmatPieChart import SmartPieChart
 
 # from svg.path import parse_path
-with open("/home/kareem/m.svg", "r") as myfile:
-  data = myfile.readlines()
-print(data)
+# with open("/home/kareem/m.svg", "r") as myfile:
+#   data = myfile.readlines()
+# print(data)
 
 from xml.dom import minidom
 doc = minidom.parse("/home/kareem/m.svg")
@@ -26,8 +26,10 @@ path_id = [path.getAttribute('id') for path
 path_data = [path.getAttribute('d') for path
                 in doc.getElementsByTagName('path')]
 doc.unlink()
-for path,id in zip(path_data,path_id):
-  print(id,":",path)
+i=0
+# for path,id in zip(path_data,path_id):
+#   i+=1
+#   print(i," ",id,":",path)
 
 # svg_dom = minidom.parseString("/home/kareem/m.svg")
 #
@@ -46,9 +48,9 @@ filename = os.path.join(dir, '/home/kareem/University/Project1/web/API/Test.xlsx
 dataController.loadTablesFromExcelFile(filename, 0)
 
 dataSource = dataController.data.dataSources[0]
-for column in dataSource.columns:
-  print(column.name)
-  print(column.columnType)
+# for column in dataSource.columns:
+#   print(column.name)
+#   print(column.columnType)
 Xcolomn = dataSource.columns[1]
 dataSource.columns.pop(1)
 # char = PointChart(dataSource, double(1000), double(1000), Xcolomn, 8, "point")

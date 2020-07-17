@@ -29,4 +29,8 @@ export class DashboardsService {
   delete(id : number) {
     return this.httpClient.delete(`${this.URL}/${id}/`);
   }
+
+  fetchDashboardSVGs(data){
+    return this.httpClient.get(`${this.URL}/charts/${data.dashboardId}/`);
+  }
 }

@@ -1,8 +1,8 @@
 <div class="container">
-  <app-visualizer-item
+  <app-visualizer-item id="svg"
     class="chart-component"
-    [visualizerId]="(visualizer | async).id"
-  ></app-visualizer-item>
+    [svg]="(visualizer | async).chartSvg"
+    ></app-visualizer-item>
   <!-- <div class="filters-title">
       Filters
     </div> -->

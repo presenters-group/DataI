@@ -60,3 +60,20 @@ export const updateDashboardFailed = createAction(
   "[DashboardsEffect] update Dashboard Failed",
   props<{ error }>()
 );
+
+
+export const fetchDashboardSVGs = createAction(
+  "[DashboardComponent] fetch dashboard svgs",
+  props<{ data }>()
+);
+
+
+export const fetchDashboardSVGsSuccess = createAction(
+  "[DashboardComponent] fetch dashboard svgs success",
+  props<{ data }>()
+);
+
+export const fetchDashboardSVGsFailed = createAction(
+  "[DashboardComponent] fetch dashboard svgs failed",
+  props<{ error }>()
+);
