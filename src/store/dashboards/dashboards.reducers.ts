@@ -61,7 +61,22 @@ const dashboardsReducer = createReducer(
     for(let chart of data.charts){
       newDashboard.visualizers.find(x => x.visualizationId == chart.visualizerId).chart = chart.svg;
       newDashboard.visualizers.find(x => x.visualizationId == chart.visualizerId).mettaData = chart.metaData;
+      newDashboard.visualizers.find(x => x.visualizationId == chart.visualizerId).zoom = 100;
     }
+
+    return {
+      ...state,
+      entities: {
+        ...state.entities,
+        [data.dashboardId]: { ...newDashboard },
+      },
+    };
+  }),
+
+
+  on(fromActions.changeVisualizerInDashboardZoom, (state, { data }) => {
+    let newDashboard = JSON.parse(JSON.stringify(state.entities[data.dashboardId]));
+      newDashboard.visualizers.find(x => x.visualizationId == data.visualizerId).zoom = data.zoom;
 
     return {
       ...state,

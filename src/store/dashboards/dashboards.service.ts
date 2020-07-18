@@ -13,12 +13,14 @@ export class DashboardsService {
   constructor(private httpClient: HttpClient) {}
 
   create(data : IDashboard) {
-    return this.httpClient.post(`${this.URL}/`, { ...data });
+    let visualizers = data.visualizers.map(x => ({visualizationId: Number.parseInt(x.visualizationId),measurements: x.measurements}))
+    return this.httpClient.post(`${this.URL}/`, { ...data, visualizers});
   }
 
   update(data : IDashboard) {
+    let visualizers = data.visualizers.map(x => ({visualizationId: x.visualizationId, measurements: x.measurements}))
     return this.httpClient.put(`${this.URL}/${data.id}/`,
-    data
+    {...data, visualizers}
     )
   }
 
@@ -31,6 +33,9 @@ export class DashboardsService {
   }
 
   fetchDashboardSVGs(data){
+    this.httpClient.get(`${this.URL}/charts/${data.dashboardId}/`).subscribe((data)=>{
+      console.log(data)
+    })
     return this.httpClient.get(`${this.URL}/charts/${data.dashboardId}/`);
   }
 }
