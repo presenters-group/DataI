@@ -1,8 +1,25 @@
 <div class="container">
-  <app-visualizer-item id="svg"
-    class="chart-component"
-    [svg]="(visualizer | async).chartSvg"
-    ></app-visualizer-item>
+  <div class="chart-zoom-container">
+    <div class="chart-component" id="svg">
+      <app-visualizer-item
+        [zoom]="zoom"
+        [svg]="(visualizer | async).chartSvg"
+      ></app-visualizer-item>
+    </div>
+    <div class="zoom-slider">
+      <div class="zoom-title">
+        Zoom: &nbsp;
+      </div>
+      <mat-slider
+        thumbLabel
+        tickInterval="100"
+        step="10"
+        min="20"
+        max="500"
+        [(ngModel)]="zoom"
+      ></mat-slider>
+    </div>
+  </div>
   <!-- <div class="filters-title">
       Filters
     </div> -->
@@ -22,8 +39,8 @@
           {{ insertedFilter?.name }}
         </mat-select-trigger>
         <mat-option
-        *ngFor="let filter of (addableFilters | async)"
-        [disabled]="disableAddedFilter(filter, filters | async)"
+          *ngFor="let filter of addableFilters | async"
+          [disabled]="disableAddedFilter(filter, filters | async)"
           [value]="filter"
           >{{ filter.name }}</mat-option
         >

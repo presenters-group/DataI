@@ -18,31 +18,56 @@
     </button>
   </div>
   <div *ngIf="!edit">
-    <app-visualizer-item
-      *ngFor="let visualizer of (dashboard | async).visualizers"
-      class="inner visualizer"
-      [svg]="visualizer.chart"
+    <div
       [ngStyle]="{
         'width.px': visualizer.measurements.width,
         'height.px': visualizer.measurements.height,
         'top.px': visualizer.measurements.y,
         'left.px': visualizer.measurements.x
       }"
-    ></app-visualizer-item>
+      class="chart-container"
+      *ngFor="let visualizer of (dashboard | async).visualizers"
+    >
+      <div class="tools">
+        <button mat-button (click)="goToVisualizer(visualizer.visualizationId)">
+          <img class="open-visualizer" src="/assets/icons/visualizers-black.svg" alt="" />
+        </button>
 
-      <app-filter-item
-        class="inner"
-        *ngFor="let filter of (dashboard | async).filters"
-        [filter]="(filters | async)[filter.id]"
-        [ngStyle]="{
-          'width.px': filter.measurements.width,
-          'height.px': filter.measurements.height,
-          'top.px': filter.measurements.y,
-          'left.px': filter.measurements.x
-        }"
-      >
-        <!-- filter -->
-      </app-filter-item>
+        <div class="zoom-slider">
+          <div class="zoom-title">
+            Zoom: &nbsp;
+          </div>
+          <mat-slider
+            thumbLabel
+            tickInterval="100"
+            step="10"
+            min="20"
+            max="500"
+            (change)="onZoomChange($event,visualizer.visualizationId)"
+            [value]="visualizer.zoom"
+          ></mat-slider>
+        </div>
+      </div>
+      <app-visualizer-item
+        class="inner visualizer"
+        [svg]="visualizer.chart"
+        [zoom]="visualizer.zoom"
+      ></app-visualizer-item>
+    </div>
+
+    <app-filter-item
+      class="inner filter"
+      *ngFor="let filter of (dashboard | async).filters"
+      [filter]="(filters | async)[filter.id]"
+      [ngStyle]="{
+        'width.px': filter.measurements.width,
+        'height.px': filter.measurements.height,
+        'top.px': filter.measurements.y,
+        'left.px': filter.measurements.x
+      }"
+    >
+      <!-- filter -->
+    </app-filter-item>
   </div>
 
   <div *ngIf="edit">
@@ -62,22 +87,21 @@
       {{ (visualizers | async)[visualizer.visualizationId].name }}
     </div>
 
-      <div
-        class="inner filter-shape"
-        *ngFor="let filter of (dashboard | async).filters"
-        [id]="'filter' + filter.id"
-        moving
-
-        [ngStyle]="{
-          'width.px': filter.measurements.width,
-          'height.px': filter.measurements.height,
-          'top.px': filter.measurements.y,
-          'left.px': filter.measurements.x
-        }"
-      >
-        {{ (filters | async)[filter.id].name }}<br />{{
-          (visualizers | async)[filter.visioId].name
-        }}
+    <div
+      class="inner filter-shape"
+      *ngFor="let filter of (dashboard | async).filters"
+      [id]="'filter' + filter.id"
+      moving
+      [ngStyle]="{
+        'width.px': filter.measurements.width,
+        'height.px': filter.measurements.height,
+        'top.px': filter.measurements.y,
+        'left.px': filter.measurements.x
+      }"
+    >
+      {{ (filters | async)[filter.id].name }}<br />{{
+        (visualizers | async)[filter.visioId].name
+      }}
     </div>
   </div>
 </div>

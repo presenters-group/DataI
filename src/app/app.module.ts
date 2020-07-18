@@ -43,6 +43,9 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import { VisualizerItemComponent } from './components/visualizer-item/visualizer-item.component';
 import { InsertFilterComponent } from './pages/filter/dialogs/insert-filter/insert-filter.component';
 import { MainMenuComponent } from './components/main-menu/main-menu.component';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatSliderModule} from '@angular/material/slider';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -63,6 +66,7 @@ import { MainMenuComponent } from './components/main-menu/main-menu.component';
     VisualizerItemComponent,
     InsertFilterComponent,
     MainMenuComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -93,6 +97,8 @@ import { MainMenuComponent } from './components/main-menu/main-menu.component';
     MatSidenavModule,
     SweetAlert2Module,
     MatCheckboxModule,
+    MatProgressSpinnerModule,
+    MatSliderModule,
     ],
   providers: [],
   bootstrap: [AppComponent],

@@ -70,21 +70,21 @@ class DataSourcesController():
         return data.dataSources[targetTableIndex]
 
     @classmethod
-    def getRowFromTable(cls, table: TableModel, rowIndex: int) -> List[CellModel]:
+    def getRowFromTable(cls, columns: List[ColumnModel], rowIndex: int) -> List[CellModel]:
         row = list()
-        for column in table.columns:
+        for column in columns:
             row.append(column.cells[rowIndex])
         return row
 
     @classmethod
-    def updateRowInTable(cls, table: TableModel, rowIndex: int, row: List[CellModel]):
-        for column, i in zip(table.columns, range(len(table.columns))):
+    def updateRowInTable(cls, columns: List[ColumnModel], rowIndex: int, row: List[CellModel]):
+        for column, i in zip(columns, range(len(columns))):
             column.cells[rowIndex].value = row[i].value
             column.cells[rowIndex].type = row[i].type
 
     @classmethod
-    def removeRowFromTable(cls, table: TableModel, rowIndex: int):
-        for column in table.columns:
+    def removeRowFromTable(cls, columns: List[ColumnModel], rowIndex: int):
+        for column in columns:
             column.cells.pop(rowIndex)
 
     @classmethod
@@ -111,22 +111,40 @@ class DataSourcesController():
 
 
 # was duplicated here to avoid circular import
-def removeRowFromTable(table: TableModel, rowIndex: int):
-    for column in table.columns:
-        column.cells.pop(rowIndex)
+
+def getRowFromTable(columns: List[ColumnModel], rowIndex: int) -> List[CellModel]:
+    return DataSourcesController.getRowFromTable(columns, rowIndex)
+
+def updateRowInTable(columns: List[ColumnModel], rowIndex: int, row: List[CellModel]):
+    DataSourcesController.updateRowInTable(columns, rowIndex, row)
+
+def removeRowFromTable(columns: List[ColumnModel], rowIndex: int):
+    DataSourcesController.removeRowFromTable(columns, rowIndex)
+
+#============================================================
 
 def updateCategorizedValues(column: ColumnModel):
     column.valueCategories.clear()
     for cell in column.cells[1:]:
         if not DataSourcesController.cellInList(cell, column.valueCategories):
             column.valueCategories.append(cell)
+
 ##############################################
 
 #util functions.
+
 def addTwoCellsLists(firstList: List[CellModel], secondList: List[CellModel]) -> List[CellModel]:
     resultList = list()
     for cell1, cell2 in zip(firstList, secondList):
-        resultList.append(CellModel(cell1.value + cell2.value, cell1.type))
+        if type(cell1) is str and type(cell2) is str:
+            resultList.append(CellModel(cell1.value, cell1.type))
+        else:
+            try:
+                resultValue = cell1 + cell2
+            except:
+                resultValue = cell1
+            resultList.append(resultValue)
+
     return resultList
 
 

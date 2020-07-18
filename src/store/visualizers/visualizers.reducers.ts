@@ -133,6 +133,21 @@ const visualizersReducer = createReducer(
       },
     };
     return newState;
+  }),
+
+  on(fromActions.removeSvgForVisualizer, (state, {data})=>{
+    let newState = {
+      ...state,
+      entities: {
+        ...state.entities,
+        [data.visualizerId]: {
+          ...state.entities[data.visualizerId],
+          chartSvg: undefined,
+          chartData: undefined
+        },
+      },
+    };
+    return { ...newState };
   })
 );
 

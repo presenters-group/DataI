@@ -122,12 +122,17 @@ export const addFilterToVisualizerFailed = createAction(
 
 
 export const updateFilterInVisualizerFailed = createAction(
-  "[VisualizerComponent] update filter in visualizer failed",
+  "[VisualizerEffect] update filter in visualizer failed",
   props<{ error }>()
 )
 
 
 export const removeFilterFromVisualizerFailed = createAction(
-  "[VisualizerComponent] remove filter from visualizer failed",
+  "[VisualizerEffect] remove filter from visualizer failed",
   props<{ error }>()
+)
+
+export const removeSvgForVisualizer = createAction(
+  "[VisualizerComponent] remove svg from visualizer",
+  props<{data : {visualizerId: number}}>()
 )
