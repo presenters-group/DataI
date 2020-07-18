@@ -124,13 +124,10 @@ export class DashboardsEffects {
 
           switchMap((data) => [
             fromActions.fetchDashboardSVGsSuccess({ data }),
-            showSuccess({ message: DELETE_SUCCESSFUL }),
-            closeTapFromTree({tap :{type : 'dashboard',id : (data as any).id}})
           ]),
 
           catchError((error) => [
             fromActions.fetchDashboardSVGsFailed({ error }),
-            showError({ message: DELETE_FAILED }),
           ])
         )
       )

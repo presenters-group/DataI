@@ -8,7 +8,7 @@ import {
   selectCurrentVisualizerFilters,
 } from "src/store/visualizers/visualizers.selectors";
 import { VisualizerItemComponent } from "src/app/components/visualizer-item/visualizer-item.component";
-import { first, takeUntil } from "rxjs/operators";
+import { first, takeUntil, delay } from "rxjs/operators";
 import { NotificationService } from "src/store/notifications/notifications.service";
 import {
   addFilterToVisualizer,
@@ -19,8 +19,10 @@ import {
   addFilterToVisualizerSuccess,
   removeFilterFromVisualizerSuccess,
   updateVisualizerSuccess,
+  removeSvgForVisualizer,
 } from "src/store/visualizers";
 import { Actions, ofType } from '@ngrx/effects';
+import { addToTapes, updateCurrentTree } from 'src/store/core/actions/core.actions';
 
 @Component({
   selector: "app-visualizer",
@@ -36,7 +38,7 @@ export class VisualizerComponent implements AfterViewInit, OnDestroy {
   objectKeys = Object.keys;
   visualizer = this.store.select(selectCurrentVisualizer);
   destroyed$ = new Subject<boolean>();
-
+  zoom : number = 100;
 
 
   @HostListener('window:resize')
@@ -53,21 +55,28 @@ export class VisualizerComponent implements AfterViewInit, OnDestroy {
 
   }
   ngAfterViewInit(): void {
-    this.fetchSvg();
-
+    this.removeSvg();
+    setTimeout(()=>{
+      this.fetchSvg();
+    },500)
     this.update$
     .pipe(
+      // delay(500),
       ofType(
         updateFilterInVisualizerSuccess,
         addFilterToVisualizerSuccess,
         removeFilterFromVisualizerSuccess,
-        updateVisualizerSuccess
-
+        updateVisualizerSuccess,
+        addToTapes,
+        updateCurrentTree
       ),
       takeUntil(this.destroyed$)
     )
     .subscribe(() => {
-      this.fetchSvg();
+      this.removeSvg();
+      setTimeout(()=>{
+        this.fetchSvg();
+      },500)
     });
   }
   disableAddedFilter(filter, filters) {
@@ -127,6 +136,7 @@ export class VisualizerComponent implements AfterViewInit, OnDestroy {
 
   fetchSvg(){
     let svg = document.getElementById('svg')
+    console.log(svg.offsetHeight,svg.offsetWidth)
     this.visualizer.pipe(first()).subscribe((value)=>{
       this.store.dispatch(fetchChartAsSVG({
         data : {
@@ -148,4 +158,12 @@ export class VisualizerComponent implements AfterViewInit, OnDestroy {
     this.destroyed$.next(false);
     this.destroyed$.complete();
   }
+
+  removeSvg(){
+
+    this.visualizer.pipe(first()).subscribe((value)=>{
+      this.store.dispatch(removeSvgForVisualizer({ data: {visualizerId: value.id}}))
+    })
+  }
+
 }

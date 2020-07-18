@@ -77,3 +77,9 @@ export const fetchDashboardSVGsFailed = createAction(
   "[DashboardComponent] fetch dashboard svgs failed",
   props<{ error }>()
 );
+
+
+export const changeVisualizerInDashboardZoom = createAction(
+  "[DashboardComponent] change visualizer in dashboard zoom",
+  props<{ data: {visualizerId : number, zoom : number, dashboardId : number} }>()
+);

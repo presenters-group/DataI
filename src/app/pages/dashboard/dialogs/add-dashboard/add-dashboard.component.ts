@@ -100,6 +100,7 @@ export class AddDashboardComponent implements OnInit {
         if (this.visualizers.map((x) => x.id).includes(data.id)) return;
         this.visualizers.push({
           ...data,
+          visualizationId: data.id,
           measurements: {
             width: 500,
             height: 300,
@@ -124,11 +125,12 @@ export class AddDashboardComponent implements OnInit {
     }
 
   onSave() {
-    if (this.checkValidation()) {
+    if (!this.checkValidation()) {
       this.notification.fail("Please set a valid information before save");
       return;
     }
 
+    console.log("visualizers : ",this.visualizers)
     for (let visualizer of this.visualizers) {
       let visElement = document.getElementById(
         `visualizer${visualizer.visualizationId}`
@@ -164,7 +166,7 @@ export class AddDashboardComponent implements OnInit {
   }
 
   checkValidation(): boolean {
-    if (name) return true;
+    if (this.name) return true;
     else return false;
   }
 }
