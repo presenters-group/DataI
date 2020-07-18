@@ -34,6 +34,7 @@ class DashboardsController():
         indexCounter = 0
         for filter in data.filters:
             if filter['id'] == filterId and filter['visioId'] == visioId:
+                print(filter)
                 return indexCounter
             indexCounter += 1
         return -1

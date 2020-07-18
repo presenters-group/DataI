@@ -149,6 +149,14 @@ dataController.data.dataSources[0].filters = [filter1, filter2]
 dataController.data.dataSources[1].filters = [filter3]
 dataController.data.visualizations[0].filters = [filter1]
 
+BasicAggregationController.implementAggregation(dataController.data.dataSources[0], 0)
+
+
+for col in dataController.data.dataSources[0].aggregator.aggregatedTable:
+    for c in col.cells:
+        print(c)
+    print('_________________________')
+
 
 # for column in dataController.data.dataSources[0].columns:
 #     print('column type: ', column.columnType)
@@ -163,7 +171,6 @@ dataController.data.visualizations[0].filters = [filter1]
 #         print(c)
 #     print('_____________________________')
 
-BasicAggregationController.implementAggregation(dataController.data.dataSources[0], 0)
 
 
 

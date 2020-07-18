@@ -7,6 +7,21 @@ from DataI.Models.ColumnModel import CellModel, ColumnModel
 from DataI.Models.TableModel import TableModel
 
 
+class AggregationController():
+    @classmethod
+    def clearAggregationTable(cls, table: TableModel):
+        table.aggregator.aggregatedTable.clear()
+
+    @classmethod
+    def setAggregationOn(cls, table: TableModel):
+        table.aggregator.isActive = True
+
+    @classmethod
+    def setAggregationOff(cls, table: TableModel):
+        table.aggregator.isActive = False
+
+
+
 class BasicAggregationController():
 
     @classmethod
@@ -32,32 +47,14 @@ class BasicAggregationController():
                                       range(1, len(table.columns[aggregationColumnIndex].cells))):
                 if cell.value == categorizedValue.value:
                     targetAggRow = DataSourcesController.getRowFromTable(aggregatedBufferColumns, aggRowIndex + 1)
-                    print('Agg:')
-                    for c in targetAggRow:
-                        print(c)
-                    print('==================================================')
-                    print('Original:')
                     targetRow = DataSourcesController.getRowFromTable(table.columns, rowIndex)
-                    for c in targetRow:
-                        print(c)
                     bufferRow = DataSourcesController.addTwoCellsLists(targetAggRow, targetRow)
-                    print('==================================================')
-                    print('After Addition:')
-                    for c in bufferRow:
-                        print(c)
-                    print('======================================================================')
-                    print('======================================================================')
                     DataSourcesController.updateRowInTable(aggregatedBufferColumns, aggRowIndex + 1, bufferRow)
-            print('<<>><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>')
 
 
+        table.aggregator.aggregatedTable = aggregatedBufferColumns
 
 
-        for column in aggregatedBufferColumns:
-            print('column name:', column.name)
-            for cell in column.cells:
-                print(cell)
-            print('____________________________')
 
 
     @classmethod

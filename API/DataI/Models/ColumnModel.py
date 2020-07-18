@@ -426,7 +426,7 @@ class ColumnModel(BasicInfo):
                 return True
         return False
 
-    def __getColumnType(self, column: List[CellModel]):
+    def __getColumnType(self, column: List[CellModel]) -> str:
         for cell in column:
             isDigit = str(cell.value).replace('-', '').replace('.', '').isdigit()
             if not isDigit:

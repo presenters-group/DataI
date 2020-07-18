@@ -130,7 +130,6 @@ class DataController():
         returnDict = self.__updateInDashboardModelFilter(self.data.dashboards[targetDashboardIndex], filter,
                                                          visioId, filterId)
         returnDict['dashboardId'] = dashboardId
-        returnDict['filterId'] = filterId
         return returnDict
 
     def removeInDashboardFilter(self, dashboardId: int, visioId: int, filterId):
