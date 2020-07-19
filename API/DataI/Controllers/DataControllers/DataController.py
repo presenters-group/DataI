@@ -6,6 +6,7 @@ from DataI.Controllers.DrawControllers.DrawController import DrawController
 from DataI.Controllers.DataControllers.FiltersModelController import FiltersModelController
 from DataI.Controllers.DataControllers.VisualizationsController import VisualizationsController
 from DataI.Controllers.FileLoaders.CSVFileLoader import CSVFileLoader
+from DataI.Controllers.FileLoaders.DataIFileLoader import DataIFileLoader
 from DataI.Controllers.FileLoaders.ExcelFileLoader import ExcelFileLoader
 from DataI.Controllers.Filters.FiltersController import FiltersController
 from DataI.Models.BasicInfo import BasicDataModelInfo
@@ -19,6 +20,10 @@ from DataI.Models.VisualizationModel import VisualizationModel
 class DataController():
     def __init__(self):
         self.data = DataModel([], [], [], [])
+
+    def loadDataIFile(self, filePath: str):
+        loader = DataIFileLoader(filePath)
+        self.data = loader.loadFile()
 
     # Don't add 1 to id here (it must be already added).
     def loadTablesFromExcelFile(self, filePath: str, greatestTableId: int):

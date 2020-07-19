@@ -1,0 +1,775 @@
+{
+    "dataSources": [
+        {
+            "name": "First",
+            "id": 0,
+            "isDeleted": false,
+            "filters": [],
+            "columns": [
+                {
+                    "name": "النوع",
+                    "id": 0,
+                    "isDeleted": false,
+                    "cells": [
+                        {
+                            "value": "النوع",
+                            "type": "string"
+                        },
+                        {
+                            "value": "Laptop",
+                            "type": "string"
+                        },
+                        {
+                            "value": "Mouse",
+                            "type": "string"
+                        },
+                        {
+                            "value": "Laptop",
+                            "type": "string"
+                        },
+                        {
+                            "value": "Keyboard",
+                            "type": "string"
+                        },
+                        {
+                            "value": "Laptop",
+                            "type": "string"
+                        },
+                        {
+                            "value": "Keyboard",
+                            "type": "string"
+                        },
+                        {
+                            "value": "Mouse",
+                            "type": "string"
+                        },
+                        {
+                            "value": "Laptop",
+                            "type": "string"
+                        },
+                        {
+                            "value": "Keyboard",
+                            "type": "string"
+                        },
+                        {
+                            "value": "Mouse",
+                            "type": "string"
+                        }
+                    ],
+                    "columnType": "Dimensions",
+                    "valueCategories": [
+                        {
+                            "value": "Laptop",
+                            "type": "string"
+                        },
+                        {
+                            "value": "Mouse",
+                            "type": "string"
+                        },
+                        {
+                            "value": "Keyboard",
+                            "type": "string"
+                        }
+                    ]
+                },
+                {
+                    "name": "التاريخ",
+                    "id": 1,
+                    "isDeleted": false,
+                    "cells": [
+                        {
+                            "value": "التاريخ",
+                            "type": "string"
+                        },
+                        {
+                            "value": "2000-01-22 00:00:00",
+                            "type": "DateTime"
+                        },
+                        {
+                            "value": "2000-01-22 00:00:00",
+                            "type": "DateTime"
+                        },
+                        {
+                            "value": "2000-01-23 00:00:00",
+                            "type": "DateTime"
+                        },
+                        {
+                            "value": "2000-01-23 00:00:00",
+                            "type": "DateTime"
+                        },
+                        {
+                            "value": "2000-10-22 00:00:00",
+                            "type": "DateTime"
+                        },
+                        {
+                            "value": "2000-10-22 00:00:00",
+                            "type": "DateTime"
+                        },
+                        {
+                            "value": "2000-10-23 00:00:00",
+                            "type": "DateTime"
+                        },
+                        {
+                            "value": "2001-03-22 00:00:00",
+                            "type": "DateTime"
+                        },
+                        {
+                            "value": "2001-04-22 00:00:00",
+                            "type": "DateTime"
+                        },
+                        {
+                            "value": "2003-01-22 00:00:00",
+                            "type": "DateTime"
+                        }
+                    ],
+                    "columnType": "DateTime",
+                    "valueCategories": [
+                        {
+                            "value": "2000-01-22 00:00:00",
+                            "type": "DateTime"
+                        },
+                        {
+                            "value": "2000-01-23 00:00:00",
+                            "type": "DateTime"
+                        },
+                        {
+                            "value": "2000-10-22 00:00:00",
+                            "type": "DateTime"
+                        },
+                        {
+                            "value": "2000-10-23 00:00:00",
+                            "type": "DateTime"
+                        },
+                        {
+                            "value": "2001-03-22 00:00:00",
+                            "type": "DateTime"
+                        },
+                        {
+                            "value": "2001-04-22 00:00:00",
+                            "type": "DateTime"
+                        },
+                        {
+                            "value": "2003-01-22 00:00:00",
+                            "type": "DateTime"
+                        }
+                    ]
+                },
+                {
+                    "name": "السعر",
+                    "id": 2,
+                    "isDeleted": false,
+                    "cells": [
+                        {
+                            "value": "السعر",
+                            "type": "string"
+                        },
+                        {
+                            "value": 0.0,
+                            "type": "numeric"
+                        },
+                        {
+                            "value": 15.0,
+                            "type": "numeric"
+                        },
+                        {
+                            "value": 0.0,
+                            "type": "numeric"
+                        },
+                        {
+                            "value": 33.0,
+                            "type": "numeric"
+                        },
+                        {
+                            "value": 2.0,
+                            "type": "numeric"
+                        },
+                        {
+                            "value": 111.0,
+                            "type": "numeric"
+                        },
+                        {
+                            "value": 22.0,
+                            "type": "numeric"
+                        },
+                        {
+                            "value": 300.0,
+                            "type": "numeric"
+                        },
+                        {
+                            "value": 10.0,
+                            "type": "numeric"
+                        },
+                        {
+                            "value": 50.0,
+                            "type": "numeric"
+                        }
+                    ],
+                    "columnType": "Measures",
+                    "valueCategories": [
+                        {
+                            "value": 0.0,
+                            "type": "numeric"
+                        },
+                        {
+                            "value": 15.0,
+                            "type": "numeric"
+                        },
+                        {
+                            "value": 33.0,
+                            "type": "numeric"
+                        },
+                        {
+                            "value": 2.0,
+                            "type": "numeric"
+                        },
+                        {
+                            "value": 111.0,
+                            "type": "numeric"
+                        },
+                        {
+                            "value": 22.0,
+                            "type": "numeric"
+                        },
+                        {
+                            "value": 300.0,
+                            "type": "numeric"
+                        },
+                        {
+                            "value": 10.0,
+                            "type": "numeric"
+                        },
+                        {
+                            "value": 50.0,
+                            "type": "numeric"
+                        }
+                    ]
+                },
+                {
+                    "name": "الحجم",
+                    "id": 3,
+                    "isDeleted": false,
+                    "cells": [
+                        {
+                            "value": "الحجم",
+                            "type": "string"
+                        },
+                        {
+                            "value": 12.0,
+                            "type": "numeric"
+                        },
+                        {
+                            "value": 22.0,
+                            "type": "numeric"
+                        },
+                        {
+                            "value": -12.0,
+                            "type": "numeric"
+                        },
+                        {
+                            "value": 54.0,
+                            "type": "numeric"
+                        },
+                        {
+                            "value": 98.0,
+                            "type": "numeric"
+                        },
+                        {
+                            "value": -65.0,
+                            "type": "numeric"
+                        },
+                        {
+                            "value": 45.0,
+                            "type": "numeric"
+                        },
+                        {
+                            "value": 101.0,
+                            "type": "numeric"
+                        },
+                        {
+                            "value": 40.0,
+                            "type": "numeric"
+                        },
+                        {
+                            "value": 10.0,
+                            "type": "numeric"
+                        }
+                    ],
+                    "columnType": "Measures",
+                    "valueCategories": [
+                        {
+                            "value": 12.0,
+                            "type": "numeric"
+                        },
+                        {
+                            "value": 22.0,
+                            "type": "numeric"
+                        },
+                        {
+                            "value": -12.0,
+                            "type": "numeric"
+                        },
+                        {
+                            "value": 54.0,
+                            "type": "numeric"
+                        },
+                        {
+                            "value": 98.0,
+                            "type": "numeric"
+                        },
+                        {
+                            "value": -65.0,
+                            "type": "numeric"
+                        },
+                        {
+                            "value": 45.0,
+                            "type": "numeric"
+                        },
+                        {
+                            "value": 101.0,
+                            "type": "numeric"
+                        },
+                        {
+                            "value": 40.0,
+                            "type": "numeric"
+                        },
+                        {
+                            "value": 10.0,
+                            "type": "numeric"
+                        }
+                    ]
+                },
+                {
+                    "name": "الكمية",
+                    "id": 4,
+                    "isDeleted": false,
+                    "cells": [
+                        {
+                            "value": "الكمية",
+                            "type": "string"
+                        },
+                        {
+                            "value": 44.0,
+                            "type": "numeric"
+                        },
+                        {
+                            "value": 51.0,
+                            "type": "numeric"
+                        },
+                        {
+                            "value": -54.0,
+                            "type": "numeric"
+                        },
+                        {
+                            "value": 32.0,
+                            "type": "numeric"
+                        },
+                        {
+                            "value": 98.0,
+                            "type": "numeric"
+                        },
+                        {
+                            "value": 65.0,
+                            "type": "numeric"
+                        },
+                        {
+                            "value": 0.0,
+                            "type": "numeric"
+                        },
+                        {
+                            "value": 7.0,
+                            "type": "numeric"
+                        },
+                        {
+                            "value": 8.0,
+                            "type": "numeric"
+                        },
+                        {
+                            "value": 15.0,
+                            "type": "numeric"
+                        }
+                    ],
+                    "columnType": "Measures",
+                    "valueCategories": [
+                        {
+                            "value": 44.0,
+                            "type": "numeric"
+                        },
+                        {
+                            "value": 51.0,
+                            "type": "numeric"
+                        },
+                        {
+                            "value": -54.0,
+                            "type": "numeric"
+                        },
+                        {
+                            "value": 32.0,
+                            "type": "numeric"
+                        },
+                        {
+                            "value": 98.0,
+                            "type": "numeric"
+                        },
+                        {
+                            "value": 65.0,
+                            "type": "numeric"
+                        },
+                        {
+                            "value": 0.0,
+                            "type": "numeric"
+                        },
+                        {
+                            "value": 7.0,
+                            "type": "numeric"
+                        },
+                        {
+                            "value": 8.0,
+                            "type": "numeric"
+                        },
+                        {
+                            "value": 15.0,
+                            "type": "numeric"
+                        }
+                    ]
+                }
+            ],
+            "columnsVisibility": [
+                true,
+                true,
+                true,
+                true,
+                true
+            ],
+            "rowsVisibility": [
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true
+            ],
+            "columnsColors": [
+                "#509b3e",
+                "#c82488",
+                "#e423d2",
+                "#1edf50",
+                "#e8f16"
+            ],
+            "rowsColors": [
+                "#28b1c9",
+                "#7daf34",
+                "#805fd0",
+                "#c813f3",
+                "#9e66b8",
+                "#a47082",
+                "#b51331",
+                "#e93d2f",
+                "#2c66ac",
+                "#a12829"
+            ],
+            "properties": {
+                "sourceFileType": "Excel",
+                "zoomValue": 50
+            },
+            "aggregator": {
+                "aggregatedTable": [],
+                "aggregationColumn": 0,
+                "isActive": false
+            }
+        },
+        {
+            "name": "Second",
+            "id": 1,
+            "isDeleted": false,
+            "filters": [],
+            "columns": [
+                {
+                    "name": "data col1",
+                    "id": 0,
+                    "isDeleted": false,
+                    "cells": [
+                        {
+                            "value": "data col1",
+                            "type": "string"
+                        },
+                        {
+                            "value": 0.0,
+                            "type": "numeric"
+                        },
+                        {
+                            "value": 0.0,
+                            "type": "numeric"
+                        },
+                        {
+                            "value": 98.0,
+                            "type": "numeric"
+                        },
+                        {
+                            "value": "log",
+                            "type": "string"
+                        },
+                        {
+                            "value": 44.0,
+                            "type": "numeric"
+                        },
+                        {
+                            "value": 15.0,
+                            "type": "numeric"
+                        },
+                        {
+                            "value": 22.0,
+                            "type": "numeric"
+                        }
+                    ],
+                    "columnType": "Dimensions",
+                    "valueCategories": [
+                        {
+                            "value": 0.0,
+                            "type": "numeric"
+                        },
+                        {
+                            "value": 98.0,
+                            "type": "numeric"
+                        },
+                        {
+                            "value": "log",
+                            "type": "string"
+                        },
+                        {
+                            "value": 44.0,
+                            "type": "numeric"
+                        },
+                        {
+                            "value": 15.0,
+                            "type": "numeric"
+                        },
+                        {
+                            "value": 22.0,
+                            "type": "numeric"
+                        }
+                    ]
+                },
+                {
+                    "name": "data col 1",
+                    "id": 1,
+                    "isDeleted": false,
+                    "cells": [
+                        {
+                            "value": "data col 1",
+                            "type": "string"
+                        },
+                        {
+                            "value": 98.0,
+                            "type": "numeric"
+                        },
+                        {
+                            "value": 66.0,
+                            "type": "numeric"
+                        },
+                        {
+                            "value": 35.0,
+                            "type": "numeric"
+                        },
+                        {
+                            "value": 78.0,
+                            "type": "numeric"
+                        },
+                        {
+                            "value": 55.0,
+                            "type": "numeric"
+                        },
+                        {
+                            "value": 96.0,
+                            "type": "numeric"
+                        },
+                        {
+                            "value": "ace",
+                            "type": "string"
+                        }
+                    ],
+                    "columnType": "Dimensions",
+                    "valueCategories": [
+                        {
+                            "value": 98.0,
+                            "type": "numeric"
+                        },
+                        {
+                            "value": 66.0,
+                            "type": "numeric"
+                        },
+                        {
+                            "value": 35.0,
+                            "type": "numeric"
+                        },
+                        {
+                            "value": 78.0,
+                            "type": "numeric"
+                        },
+                        {
+                            "value": 55.0,
+                            "type": "numeric"
+                        },
+                        {
+                            "value": 96.0,
+                            "type": "numeric"
+                        },
+                        {
+                            "value": "ace",
+                            "type": "string"
+                        }
+                    ]
+                }
+            ],
+            "columnsVisibility": [
+                true,
+                true
+            ],
+            "rowsVisibility": [
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true
+            ],
+            "columnsColors": [
+                "#70958b",
+                "#b81ec1"
+            ],
+            "rowsColors": [
+                "#956597",
+                "#8b1bf9",
+                "#4828c5",
+                "#3eebd3",
+                "#4954b3",
+                "#549433",
+                "#e60359"
+            ],
+            "properties": {
+                "sourceFileType": "Excel",
+                "zoomValue": 50
+            },
+            "aggregator": {
+                "aggregatedTable": [],
+                "aggregationColumn": 0,
+                "isActive": false
+            }
+        }
+    ],
+    "visualizations": [
+        {
+            "name": "visualization1",
+            "id": 0,
+            "isDeleted": false,
+            "filters": [],
+            "data": 0,
+            "usedColumns": [
+                0,
+                2,
+                3
+            ],
+            "xColumn": 0,
+            "chart": "BoundaryLineChart",
+            "animation": false
+        },
+        {
+            "name": "visualization2",
+            "id": 1,
+            "isDeleted": false,
+            "filters": [],
+            "data": 0,
+            "usedColumns": [
+                0,
+                2,
+                3
+            ],
+            "xColumn": 0,
+            "chart": "VerticalBarChart",
+            "animation": true
+        }
+    ],
+    "dashboards": [
+        {
+            "name": "dashboard1",
+            "id": 0,
+            "isDeleted": false,
+            "filters": [
+                {
+                    "id": 1,
+                    "visioId": 0,
+                    "value": 50,
+                    "isActive": true,
+                    "measurements": {
+                        "width": 20.0,
+                        "height": 60.0,
+                        "x": 10.0,
+                        "y": 20.0
+                    }
+                }
+            ],
+            "visualizers": [
+                {
+                    "visualizationId": 0,
+                    "measurements": {
+                        "width": 100.0,
+                        "height": 100.0,
+                        "x": 50.0,
+                        "y": 60.0
+                    }
+                },
+                {
+                    "visualizationId": 1,
+                    "measurements": {
+                        "width": 100.0,
+                        "height": 100.0,
+                        "x": 50.0,
+                        "y": 60.0
+                    }
+                }
+            ]
+        }
+    ],
+    "filters": [
+        {
+            "name": "filter1",
+            "id": 0,
+            "isDeleted": false,
+            "dataSource": 1,
+            "filteredColumn": 0,
+            "initValue": "A",
+            "type": "MultipleEquality"
+        },
+        {
+            "name": "filter2",
+            "id": 1,
+            "isDeleted": false,
+            "dataSource": 0,
+            "filteredColumn": 2,
+            "initValue": 100,
+            "type": ">"
+        },
+        {
+            "name": "filter3",
+            "id": 2,
+            "isDeleted": false,
+            "dataSource": 0,
+            "filteredColumn": 3,
+            "initValue": 11,
+            "type": "<"
+        },
+        {
+            "name": "dateTimeFilter",
+            "id": 3,
+            "isDeleted": false,
+            "dataSource": 0,
+            "filteredColumn": 1,
+            "initValue": "11/10/2000",
+            "type": ">"
+        }
+    ]
+}

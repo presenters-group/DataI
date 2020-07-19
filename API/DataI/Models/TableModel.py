@@ -80,8 +80,13 @@ class TableModel(BasicDataModelInfo):
         columns = list()
         for element in buffer:
             columns.append(ColumnModel.from_json(element))
+
         columnsVisibility = data['columnsVisibility']
         rowsVisibility = data['rowsVisibility']
+
+        columnsColors = data['columnsColors']
+        rowsColors = data['rowsColors']
+
         name = data['name']
         id = data['id']
         properties = PropertiesModel.from_json(data['properties'])
@@ -90,7 +95,10 @@ class TableModel(BasicDataModelInfo):
         isDeleted = data['isDeleted']
 
         returnTable = cls(columns, name, id, properties, aggregator, filters, isDeleted)
+
         returnTable.columnsVisibility = columnsVisibility
         returnTable.rowsVisibility = rowsVisibility
+        returnTable.columnsColors = columnsColors
+        returnTable.rowsColors = rowsColors
 
         return returnTable

@@ -6,165 +6,183 @@ from DataI.Controllers.Aggregation.Aggregation import BasicAggregationController
 from DataI.Controllers.DataControllers.DataController import DataController
 from DataI.Controllers.DrawControllers.DrawController import DrawController
 from DataI.Controllers.Filters.FiltersController import FiltersController
+from DataI.JSONSerializer import ObjectEncoder
 from DataI.Models.ColumnModel import ColumnModel, CellModel
 from DataI.Models.DashboardModel import DashboardModel
 from DataI.Models.FilterModel import FilterModel
 from DataI.Models.VisualizationModel import VisualizationModel
-
 dataController = DataController()
+# dirName = os.path.dirname(__file__)
+# filename = os.path.join(dirName, '../Aggregation-Test.xlsx')
+#
+# dataController.loadTablesFromExcelFile(filename, 0)
+#
+# # ================================ load static data ================================:
+#
+#
+# jsonVisio1 = '''
+# {
+#             "name": "visualization1",
+#             "id": 0,
+#             "data": 0,
+#             "usedColumns": [
+#                 0,
+#                 2,
+#                 3
+#             ],
+#             "xColumn": 0,
+#             "chart": "BoundaryLineChart",
+#             "filters": [
+#             ],
+#             "isDeleted": false,
+#             "animation": false
+# }
+# '''
+# jsonVisio2 = '''
+# {
+#             "name": "visualization2",
+#             "id": 1,
+#             "data": 0,
+#             "usedColumns": [
+#                 0,
+#                 2,
+#                 3
+#             ],
+#             "xColumn": 0,
+#             "chart": "VerticalBarChart",
+#             "filters": [
+#             ],
+#             "isDeleted": false,
+#             "animation": true
+# }
+# '''
+#
+# jsonDashboard = '''
+# {
+# 	"name": "dashboard1",
+# 	"id": 0,
+# 	"isDeleted": false,
+# 	"visualizers": [{
+# 			"visualizationId": 0,
+# 			"measurements": {
+# 				"width": 100.0,
+# 				"height": 100.0,
+# 				"x": 50.0,
+# 				"y": 60.0
+# 			}
+# 		},
+# 		{
+# 			"visualizationId": 1,
+# 			"measurements": {
+# 				"width": 100.0,
+# 				"height": 100.0,
+# 				"x": 50.0,
+# 				"y": 60.0
+# 			}
+# 		}
+# 	],
+# 	"filters": [{
+# 		"id": 1,
+# 		"visioId": 0,
+# 		"value": 50,
+# 		"isActive": true,
+# 		"measurements": {
+# 			"width": 20.0,
+# 			"height": 60.0,
+# 			"x": 10.0,
+# 			"y": 20.0
+# 		}
+# 	}]
+# }
+# '''
+#
+# jsonFilters = '''
+# [
+#         {
+#             "name": "filter1",
+#             "id": 0,
+#             "dataSource": 1,
+#             "filteredColumn": 0,
+#             "initValue": "A",
+#             "type": "MultipleEquality",
+#             "isDeleted": false
+#         },
+#         {
+#             "name": "filter2",
+#             "id": 1,
+#             "dataSource": 0,
+#             "filteredColumn": 2,
+#             "initValue": 100,
+#             "type": ">",
+#             "isDeleted": false
+#         },
+#         {
+#             "name": "filter3",
+#             "id": 2,
+#             "dataSource": 0,
+#             "filteredColumn": 3,
+#             "initValue": 11,
+#             "type": "<",
+#             "isDeleted": false
+#         },
+#         {
+#             "name": "dateTimeFilter",
+#             "id": 3,
+#             "dataSource": 0,
+#             "filteredColumn": 1,
+#             "initValue": "11/10/2000",
+#             "type": ">",
+#             "isDeleted": false
+#         }
+# ]
+# '''
+#
+# filter1 = {
+#     "id": 1,
+#     "value": 50,
+#     "isActive": True
+# }
+# filter2 = {
+#     "id": 2,
+#     "value": 60,
+#     "isActive": False
+# }
+# filter3 = {
+#     "id": 0,
+#     "value": ['log', '44', '15'],
+#     "isActive": True
+# }
+#
+# dateTimeFilter = {
+#     "id": 3,
+#     "value": '23/1/2000',
+#     "isActive": True
+# }
+#
+#
+# dataController.data.visualizations.append(VisualizationModel.from_json(json.loads(jsonVisio1)))
+# dataController.data.visualizations.append(VisualizationModel.from_json(json.loads(jsonVisio2)))
+# dataController.data.dashboards.append(DashboardModel.from_json(json.loads(jsonDashboard)))
+# loadedJsonFilters = json.loads(jsonFilters)
+# for filter in loadedJsonFilters:
+#     dataController.data.filters.append(FilterModel.from_json(filter))
+#
+# jsonString = json.dumps(dataController.data, indent=4, cls=ObjectEncoder, ensure_ascii=False)
+# file = open('test-file.datai', 'w')
+#
+# file.write(jsonString)
+
 dirName = os.path.dirname(__file__)
-filename = os.path.join(dirName, '../Aggregation-Test.xlsx')
+filename = os.path.join(dirName, 'test-file.datai')
+print(filename)
+dataController.loadDataIFile(filename)
 
-dataController.loadTablesFromExcelFile(filename, 0)
-
-# ================================ load static data ================================:
-
-
-jsonVisio1 = '''
-{
-            "name": "visualization1",
-            "id": 0,
-            "data": 0,
-            "usedColumns": [
-                0,
-                2,
-                3
-            ],
-            "xColumn": 0,
-            "chart": "BoundaryLineChart",
-            "filters": [
-            ],
-            "isDeleted": false,
-            "animation": false
-}
-'''
-jsonVisio2 = '''
-{
-            "name": "visualization2",
-            "id": 1,
-            "data": 0,
-            "usedColumns": [
-                0,
-                2,
-                3
-            ],
-            "xColumn": 0,
-            "chart": "VerticalBarChart",
-            "filters": [
-            ],
-            "isDeleted": false,
-            "animation": true
-}
-'''
-
-jsonDashboard = '''
-{
-	"name": "dashboard1",
-	"id": 0,
-	"isDeleted": false,
-	"visualizers": [{
-			"visualizationId": 0,
-			"measurements": {
-				"width": 100.0,
-				"height": 100.0,
-				"x": 50.0,
-				"y": 60.0
-			}
-		},
-		{
-			"visualizationId": 1,
-			"measurements": {
-				"width": 100.0,
-				"height": 100.0,
-				"x": 50.0,
-				"y": 60.0
-			}
-		}
-	],
-	"filters": [{
-		"id": 1,
-		"visioId": 0,
-		"value": 50,
-		"isActive": true,
-		"measurements": {
-			"width": 20.0,
-			"height": 60.0,
-			"x": 10.0,
-			"y": 20.0
-		}
-	}]
-}
-'''
-
-jsonFilters = '''
-[
-        {
-            "name": "filter1",
-            "id": 0,
-            "dataSource": 1,
-            "filteredColumn": 0,
-            "initValue": "A",
-            "type": "MultipleEquality",
-            "isDeleted": false
-        },
-        {
-            "name": "filter2",
-            "id": 1,
-            "dataSource": 0,
-            "filteredColumn": 2,
-            "initValue": 100,
-            "type": ">",
-            "isDeleted": false
-        },
-        {
-            "name": "filter3",
-            "id": 2,
-            "dataSource": 0,
-            "filteredColumn": 3,
-            "initValue": 11,
-            "type": "<",
-            "isDeleted": false
-        },
-        {
-            "name": "dateTimeFilter",
-            "id": 3,
-            "dataSource": 0,
-            "filteredColumn": 1,
-            "initValue": "11/10/2000",
-            "type": ">",
-            "isDeleted": false
-        }
-]
-'''
-
-filter1 = {
-    "id": 1,
-    "value": 50,
-    "isActive": True
-}
-filter2 = {
-    "id": 2,
-    "value": 60,
-    "isActive": False
-}
-filter3 = {
-    "id": 0,
-    "value": ['log', '44', '15'],
-    "isActive": True
-}
 
 dateTimeFilter = {
     "id": 3,
     "value": '23/1/2000',
     "isActive": True
 }
-
-dataController.data.visualizations.append(VisualizationModel.from_json(json.loads(jsonVisio1)))
-dataController.data.visualizations.append(VisualizationModel.from_json(json.loads(jsonVisio2)))
-dataController.data.dashboards.append(DashboardModel.from_json(json.loads(jsonDashboard)))
-loadedJsonFilters = json.loads(jsonFilters)
-for filter in loadedJsonFilters:
-    dataController.data.filters.append(FilterModel.from_json(filter))
 
 dataController.data.dataSources[0].filters.append(dateTimeFilter)
 
