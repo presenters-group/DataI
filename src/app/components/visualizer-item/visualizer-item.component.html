@@ -1,10 +1,4 @@
 <div class="container">
-  <div id="chartElement" *ngIf="chart" class="chart" [style.transform]="'scale(' + (zoom / 100) + ')'"> </div>
+  <div #chartElement  *ngIf="chart" class="chart" [style.transform]="'scale(' + (zoom / 100) + ')'"> </div>
   <mat-progress-spinner mode="indeterminate" *ngIf="!chart" class="spinner"></mat-progress-spinner>
-  <div class="toolTip" *ngIf="toolTip" [ngStyle]="{
-    'top.px' : toolTip.y,
-    'left.px' : toolTip.x
-  }">
-    {{toolTip.value}}
-  </div>
 </div>

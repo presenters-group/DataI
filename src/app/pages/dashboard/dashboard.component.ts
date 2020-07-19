@@ -43,7 +43,6 @@ export class DashboardComponent implements AfterViewInit, OnDestroy {
   }
 
   constructor(private store: Store<AppState>,private update$:Actions) {
-    this.fetchSvgs();
   }
 
   fetchSvgs(){
@@ -59,6 +58,8 @@ export class DashboardComponent implements AfterViewInit, OnDestroy {
     return data;
   }
   ngAfterViewInit(): void {
+    this.fetchSvgs();
+
     this.update$
     .pipe(
       // delay(500),
@@ -69,12 +70,12 @@ export class DashboardComponent implements AfterViewInit, OnDestroy {
         // updateVisualizerSuccess,
         addToTapes,
         updateDashboardSuccess,
-
         // updateCurrentTree
       ),
       takeUntil(this.destroyed$)
     )
     .subscribe(() => {
+      console.log('update')
       setTimeout(()=>{
         this.fetchSvgs();
       },500)
@@ -92,6 +93,7 @@ export class DashboardComponent implements AfterViewInit, OnDestroy {
         let visElement = document.getElementById(
           `visualizer${visualizer.visualizationId}`
         );
+        console.log(visualizer.visualizationId,visElement)
         visualizer.measurements = {
           width: visElement.offsetWidth,
           height: visElement.offsetHeight,

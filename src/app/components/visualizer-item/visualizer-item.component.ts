@@ -6,6 +6,7 @@ import {
   ViewChild,
   AfterViewChecked,
   Renderer2,
+  ElementRef,
 } from "@angular/core";
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { Store } from "@ngrx/store";
@@ -21,13 +22,19 @@ import { Actions } from "@ngrx/effects";
 
 //TODO Complete the tooltips user renderer.
 export class VisualizerItemComponent implements AfterViewChecked {
+  @ViewChild('chartElement') chartElement
   chart;
   change: boolean = false;
-  toolTip: { value: string; x: number; y: number };
   @Input() set svg(value) {
-    console.log("changed;");
-    this.chart = value;
-    this.change = true;
+    // if(value && this.chart != value){
+      this.chart = value;
+      this.change = true;
+      // console.log('changed!',value)
+    // }
+    // else{
+
+      // console.log(value);
+    // }
   }
   chartData;
   @Input() set metaData(value) {
@@ -37,12 +44,14 @@ export class VisualizerItemComponent implements AfterViewChecked {
   constructor(
     private sanitizer: DomSanitizer,
     private store: Store<AppState>,
-    private renderer: Renderer2
+    private renderer: Renderer2,
   ) {}
 
   ngAfterViewChecked() {
-    if (this.change && document.getElementById("chartElement")) {
-      document.getElementById("chartElement").innerHTML = this.chart;
+    // let el = document.getElementById("chartElement" + (this.visualizerId ? this.visualizerId : ''))
+    if (this.change && this.chartElement) {
+      console.log(this.chartElement)
+      this.chartElement.nativeElement.innerHTML = this.chart;
       setTimeout(() => {
         let parent = this.renderer.createElement("div");
         this.renderer.addClass(parent, "tipTool-container");
@@ -85,5 +94,9 @@ export class VisualizerItemComponent implements AfterViewChecked {
 
   safe(data) {
     return this.sanitizer.bypassSecurityTrustHtml(data);
+  }
+
+  consol(data){
+    console.log(data)
   }
 }
