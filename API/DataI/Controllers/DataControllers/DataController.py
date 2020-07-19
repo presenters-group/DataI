@@ -68,8 +68,10 @@ class DataController():
 
     def removeInDataSourceFilter(self, tableId, filterId):
         targetTableIndex = DataController.getElementIndexById(self.data.dataSources, tableId)
-
-        return self.__removeInDataModelFilter(self.data.dataSources[targetTableIndex], filterId)
+        value = self.__removeInDataModelFilter(self.data.dataSources[targetTableIndex], filterId)
+        if value == -1:
+            return -1
+        return DataSourcesController.getFinalTables(self.data)[targetTableIndex]
 
     def insertNewVisualizer(self, table: VisualizationModel):
         return VisualizationsController.insertNewVisualizer(self.data, table)
