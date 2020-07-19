@@ -25,8 +25,9 @@ export class FilterItemComponent implements OnInit {
   constructor(private store: Store<AppState>) {}
 
   ngOnInit(): void {
-    console.log(this.value);
-    if (this.value == undefined) this.value = this.filter.initValue;
+    if(this.filter.type == 'MultipleEquality' && !Array.isArray(this.value)) this.value = [];
+    else if (this.value == undefined) this.value = this.filter.initValue;
+    console.log(this.value)
   }
 
   onEnableClicked() {
