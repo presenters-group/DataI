@@ -125,8 +125,17 @@ jsonFilters = '''
             "initValue": 11,
             "type": "<",
             "isDeleted": false
+        },
+        {
+            "name": "dateTimeFilter",
+            "id": 3,
+            "dataSource": 0,
+            "filteredColumn": 1,
+            "initValue": "11/10/2000",
+            "type": ">",
+            "isDeleted": false
         }
-    ]
+]
 '''
 
 filter1 = {
@@ -144,6 +153,14 @@ filter3 = {
     "value": ['log', '44', '15'],
     "isActive": True
 }
+
+dateTimeFilter = {
+    "id": 3,
+    "value": '23/1/2000',
+    "isActive": True
+}
+
+dataController.data.dataSources[0].filters.append(dateTimeFilter)
 
 dataController.data.visualizations.append(VisualizationModel.from_json(json.loads(jsonVisio1)))
 dataController.data.visualizations.append(VisualizationModel.from_json(json.loads(jsonVisio2)))

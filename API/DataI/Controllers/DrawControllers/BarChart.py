@@ -11,7 +11,7 @@ import drawSvg as draw
 
 class BarChart(PointChart):
     def __init__(self,  dataSourceTableWithoutXcolumn: TableModel, widthView: double, heightView: double,
-                 xcolumon: ColumnModel, quality: double, nameFile, animation: bool):
+                 xcolumon: ColumnModel, quality: double, nameFile):
 
         # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         super().__init__( dataSourceTableWithoutXcolumn, widthView, heightView,xcolumon, quality, nameFile)

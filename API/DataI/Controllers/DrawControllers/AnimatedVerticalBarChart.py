@@ -11,8 +11,8 @@ import drawSvg as draw
 
 
 class AnimatedVerticalBarChart(BarChart):
-    def __init__(self,  dataSourceTableWithoutXcolumn: TableModel, widthView: double, heightView: double,
-                 xcolumon: ColumnModel, quality: double, nameFile):
+    def __init__(self, dataSourceTableWithoutXcolumn: TableModel, widthView: double, heightView: double,
+                 xcolumon: ColumnModel, quality: double, nameFile, animation: bool):
 
         # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         super().__init__( dataSourceTableWithoutXcolumn, widthView, heightView,xcolumon, quality, nameFile)
