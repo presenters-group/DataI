@@ -1,7 +1,8 @@
 import operator
+
 from copy import deepcopy
 from typing import List
-
+from dateutil.parser import parse
 from DataI.Controllers.DataControllers import DataController
 from DataI.Controllers.DataControllers import DataSourcesController
 from DataI.Models.DashboardModel import DashboardModel
@@ -25,13 +26,25 @@ class NumericFilter():
             '>': operator.gt,
         }
 
+        dateTimeHandlerFlag = False
+        #check if the value is a datetime value.
+        try:
+            value = parse(value, fuzzy=False)
+            dateTimeHandlerFlag = True
+        except:
+            pass
+
         filteredTable = deepcopy(table)
         columnIndex = DataController.getElementIndexById(table.columns,columnId)
         column = filteredTable.columns[columnIndex]
 
         rowCounter = 1
         for cell in column.cells[1:]:
-            if not operators[self.operator](cell.value, value):
+            if dateTimeHandlerFlag:
+                buffer = parse(cell.value, fuzzy=False)
+            else:
+                buffer = cell.value
+            if not operators[self.operator](buffer, value):
                 DataSourcesController.removeRowFromTable(filteredTable.columns, rowCounter)
                 filteredTable.rowsColors.pop(rowCounter - 1)
                 filteredTable.rowsVisibility.pop(rowCounter - 1)

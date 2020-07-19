@@ -38,20 +38,18 @@
 import datetime
 from dateutil.parser import parse
 
+from DataI import enums
+from DataI.Models.ColumnModel import CellModel, ColumnModel
 
-date = '22/1/2000 22:10:10'
+date1 = '22/1/2000'
+date2 = '23/1/2000'
 
 try:
-    dateObj = parse(date, fuzzy=False)
-    print(type(dateObj))
-    print(dateObj)
+    dateObj1 = parse(date1, fuzzy=False)
+    dateObj2 = parse(date1, fuzzy=False)
+    print(date1 < date2)
 except ValueError:
     print('not date')
-
-
-
-
-
 
 
 

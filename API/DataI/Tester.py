@@ -1,19 +1,23 @@
 import json
 import os
 
+from DataI import enums
 from DataI.Controllers.Aggregation.Aggregation import BasicAggregationController
 from DataI.Controllers.DataControllers.DataController import DataController
 from DataI.Controllers.DrawControllers.DrawController import DrawController
 from DataI.Controllers.Filters.FiltersController import FiltersController
+from DataI.Models.ColumnModel import ColumnModel, CellModel
 from DataI.Models.DashboardModel import DashboardModel
 from DataI.Models.FilterModel import FilterModel
 from DataI.Models.VisualizationModel import VisualizationModel
 
 dataController = DataController()
 dirName = os.path.dirname(__file__)
-filename = os.path.join(dirName, '../Test.xlsx')
+filename = os.path.join(dirName, '../Aggregation-Test.xlsx')
 
 dataController.loadTablesFromExcelFile(filename, 0)
+
+# ================================ load static data ================================:
 
 
 jsonVisio1 = '''
@@ -23,14 +27,15 @@ jsonVisio1 = '''
             "data": 0,
             "usedColumns": [
                 0,
-                1,
-                2
+                2,
+                3
             ],
             "xColumn": 0,
             "chart": "BoundaryLineChart",
             "filters": [
             ],
-            "isDeleted": false
+            "isDeleted": false,
+            "animation": false
 }
 '''
 jsonVisio2 = '''
@@ -40,14 +45,15 @@ jsonVisio2 = '''
             "data": 0,
             "usedColumns": [
                 0,
-                1,
-                2
+                2,
+                3
             ],
             "xColumn": 0,
             "chart": "VerticalBarChart",
             "filters": [
             ],
-            "isDeleted": false
+            "isDeleted": false,
+            "animation": true
 }
 '''
 
@@ -114,17 +120,22 @@ jsonFilters = '''
             "name": "filter3",
             "id": 2,
             "dataSource": 0,
-            "filteredColumn": 0,
+            "filteredColumn": 3,
             "initValue": 11,
             "type": "<",
             "isDeleted": false
+        },
+        {
+            "name": "dateTimeFilter",
+            "id": 3,
+            "dataSource": 0,
+            "filteredColumn": 1,
+            "initValue": "11/10/2000",
+            "type": ">",
+            "isDeleted": false
         }
-    ]
+]
 '''
-
-loadedJsonFilters = json.loads(jsonFilters)
-for filter in loadedJsonFilters:
-    dataController.data.filters.append(FilterModel.from_json(filter))
 
 filter1 = {
     "id": 1,
@@ -132,7 +143,7 @@ filter1 = {
     "isActive": True
 }
 filter2 = {
-    "id": 1,
+    "id": 2,
     "value": 60,
     "isActive": False
 }
@@ -142,20 +153,64 @@ filter3 = {
     "isActive": True
 }
 
+dateTimeFilter = {
+    "id": 3,
+    "value": '23/1/2000',
+    "isActive": True
+}
+
 dataController.data.visualizations.append(VisualizationModel.from_json(json.loads(jsonVisio1)))
 dataController.data.visualizations.append(VisualizationModel.from_json(json.loads(jsonVisio2)))
 dataController.data.dashboards.append(DashboardModel.from_json(json.loads(jsonDashboard)))
-dataController.data.dataSources[0].filters = [filter1, filter2]
-dataController.data.dataSources[1].filters = [filter3]
-dataController.data.visualizations[0].filters = [filter1]
+loadedJsonFilters = json.loads(jsonFilters)
+for filter in loadedJsonFilters:
+    dataController.data.filters.append(FilterModel.from_json(filter))
 
-BasicAggregationController.implementAggregation(dataController.data.dataSources[0], 0)
+dataController.data.dataSources[0].filters.append(dateTimeFilter)
+
+table = FiltersController.getFilteredTable(dataController.data, 0)
+
+# print(dataController.data.dataSources[0].columns[0].name + ':', dataController.data.dataSources[0].columns[0].columnType)
+# print(dataController.data.dataSources[0].columns[1].name + ':', dataController.data.dataSources[0].columns[1].columnType)
+# print(dataController.data.dataSources[0].columns[2].name + ':', dataController.data.dataSources[0].columns[2].columnType)
+# print(dataController.data.dataSources[0].columns[3].name + ':', dataController.data.dataSources[0].columns[3].columnType)
+# print(dataController.data.dataSources[0].columns[4].name + ':', dataController.data.dataSources[0].columns[4].columnType)
 
 
-for col in dataController.data.dataSources[0].aggregator.aggregatedTable:
+# for c in dataController.data.dataSources[0].columns[1].cells:
+#     print(c.value, c.type, type(c.value))
+
+for col in table.columns:
     for c in col.cells:
         print(c)
-    print('_________________________')
+    print('_________________________________________')
+
+# dateColumn = ColumnModel(
+#     [
+#         CellModel('Date', enums.CellType.string.value),
+#         CellModel('22/1/2000', enums.CellType.string.value),
+#         CellModel('10/2/2000', enums.CellType.string.value),
+#         CellModel('15/10/2001', enums.CellType.string.value),
+#         CellModel('17/10/2001', enums.CellType.string.value),
+#         CellModel('2/7/2002', enums.CellType.string.value),
+#         CellModel('4/8/2002', enums.CellType.string.value)
+#     ], 'Date', 0, False
+# )
+
+
+
+
+
+
+
+
+# BasicAggregationController.implementAggregation(dataController.data.dataSources[0], 0)
+#
+#
+# for col in dataController.data.dataSources[0].aggregator.aggregatedTable:
+#     for c in col.cells:
+#         print(c)
+#     print('_________________________')
 
 
 # for column in dataController.data.dataSources[0].columns:
