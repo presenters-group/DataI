@@ -3,6 +3,7 @@ import enum
 class ColumnDataType(enum.Enum):
     Dimensions = 'Dimensions'
     Measures = 'Measures'
+    DateTime = 'DateTime'
 
 
 class FileType(enum.Enum):
@@ -23,6 +24,7 @@ class FilterType(enum.Enum):
 class CellType(enum.Enum):
     string = 'string'
     numeric = 'numeric'
+    DateTime = 'DateTime'
 
 
 class ChartTypes(enum.Enum):

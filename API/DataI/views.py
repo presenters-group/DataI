@@ -14,7 +14,7 @@ from DataI.models import Document
 
 dataController = DataController()
 dirName = os.path.dirname(__file__)
-filename = os.path.join(dirName, '../Test.xlsx')
+filename = os.path.join(dirName, '../Aggregation-Test.xlsx')
 
 dataController.loadTablesFromExcelFile(filename, 0)
 
@@ -28,14 +28,15 @@ jsonVisio1 = '''
             "data": 0,
             "usedColumns": [
                 0,
-                1,
-                2
+                2,
+                3
             ],
             "xColumn": 0,
             "chart": "BoundaryLineChart",
             "filters": [
             ],
-            "isDeleted": false
+            "isDeleted": false,
+            "animation": false
 }
 '''
 jsonVisio2 = '''
@@ -45,14 +46,15 @@ jsonVisio2 = '''
             "data": 0,
             "usedColumns": [
                 0,
-                1,
-                2
+                2,
+                3
             ],
             "xColumn": 0,
             "chart": "VerticalBarChart",
             "filters": [
             ],
-            "isDeleted": false
+            "isDeleted": false,
+            "animation": true
 }
 '''
 
@@ -119,7 +121,7 @@ jsonFilters = '''
             "name": "filter3",
             "id": 2,
             "dataSource": 0,
-            "filteredColumn": 0,
+            "filteredColumn": 3,
             "initValue": 11,
             "type": "<",
             "isDeleted": false
@@ -490,3 +492,40 @@ def csvUpload(request):
     print(filePath)
     dataController.loadTableFromCSVFile(filePath, DataController.getMaxIdInList(dataController.data.dataSources) + 1)
     return HttpResponse()
+
+
+@csrf_exempt
+def svgUpload(request):
+    if request.method != 'POST':
+        return HttpResponseNotFound('No such request({} <{}>) is available'.format(request.path, request.method))
+
+    newdoc = Document(docfile=request.FILES['file_upload'])
+    try:
+        newdoc.save()
+    except:
+        pass
+
+    fileName = request.FILES['file_upload'].name
+    projectPath = os.path.dirname(__file__)
+    print('project path: ' + projectPath)
+    filePath = (os.path.join(projectPath.replace('/DataI', '')) + '/media/uploads/') + fileName
+    print(filePath)
+
+    return HttpResponse()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -23,7 +23,7 @@ class ChartsFactory():
 
     @classmethod
     def generateCharts(cls, chartType: str, table: TableModel,
-                       width: double, height: double, xColomn: ColumnModel, quality: double):
+                       width: double, height: double, xColomn: ColumnModel, quality: double, animation: bool):
 
         if chartType == enums.ChartTypes.BoundaryLineChart.value:
             return BoundaryLineChart(table, width, height, xColomn, quality, 'testerrr')
@@ -35,7 +35,7 @@ class ChartsFactory():
             return PointChart(table, width, height, xColomn, quality, 'testerrr')
 
         if chartType == enums.ChartTypes.VerticalBarChart.value:
-            return BarChart(table, width, height, xColomn, quality, 'testerrr')
+            return BarChart(table, width, height, xColomn, quality, 'testerrr', animation)
 
         if chartType == enums.ChartTypes.AnimatedVerticalBarChart.value:
             return AnimatedVerticalBarChart(table, width, height, xColomn, quality, 'testerrr')

@@ -63,7 +63,9 @@ class DrawController():
         #         print(cell)
         #     print('_________________________')
 
-        drawer = ChartsFactory.generateCharts(visualizer.chart, drawTable, width, height, xColumn, double(8.0))
+        drawer = ChartsFactory.generateCharts(visualizer.chart,
+                                              drawTable, width, height, xColumn, double(8.0), visualizer.animation)
+
         chartDict = dict()
         chartDict['visualizerId'] = visioId
         chartDict['svg'] = drawer.SVG
