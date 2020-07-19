@@ -42,7 +42,7 @@ export class AddVisualizerComponent {
       xColumn: [this.data ? this.data.xColumn.toString() : '',Validators.required],
       chart: [this. data ?this.data.chart.toString() : '',Validators.required],
       name: [this.data ? this.data.name.toString() : '',Validators.required],
-      filters: [this.data ? this.data.filters.map(x=>x.toString()) : []],
+      // filters: [this.data ? this.data.filters.map(x=>x.toString()) : []],
     })
   }
   onNoClick(): void {

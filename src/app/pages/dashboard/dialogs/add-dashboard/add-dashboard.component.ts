@@ -1,17 +1,12 @@
-import { Component, OnInit, Inject } from "@angular/core";
+import { Component, OnInit, Inject, HostListener } from "@angular/core";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { AppState } from "src/store";
-import { FormBuilder, Form, FormGroup } from "@angular/forms";
 import { Store } from "@ngrx/store";
-import {
-  selectVisualizersEntities,
-  selectUndeletedVisualizersEntities,
-  selectFiltersInVisualizer,
-} from "src/store/visualizers/visualizers.selectors";
+import { selectVisualizersEntities } from "src/store/visualizers/visualizers.selectors";
 import { selectVisualizersFiltersTree } from "src/store/dashboards/dashboards.selectors";
-import { filter, first } from "rxjs/operators";
+import { first } from "rxjs/operators";
 import { NotificationService } from "src/store/notifications/notifications.service";
-import { selectFiltersEntities } from 'src/store/filters/filters.selectors';
+import { selectFiltersEntities } from "src/store/filters/filters.selectors";
 
 @Component({
   selector: "app-add-dashboard",
@@ -27,6 +22,7 @@ export class AddDashboardComponent implements OnInit {
   selectedEntity;
   oldEvent;
   name;
+  selectedFromPreview;
   constructor(
     public dialogRef: MatDialogRef<AddDashboardComponent>,
     private store: Store<AppState>,
@@ -35,24 +31,34 @@ export class AddDashboardComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    if(this.data){
-      this.store.select(selectVisualizersEntities).pipe(first()).subscribe((value)=>{
-        this.visualizers = this.data.visualizers.map((x)=>({
-          id: x.visualizationId,
-          measurements: x.measurements,
-          name: value[x.visualizationId].name,
-        }));
-      });
-      this.store.select(selectFiltersEntities).pipe(first()).subscribe((value)=>{
-        this.filters = this.data.filters.map(x => ({
-          id: x.id,
-          measurements: x.measurements,
-          name: value[x.id].name,
-        }));
-
-      });
+    if (this.data) {
+      this.store
+        .select(selectVisualizersEntities)
+        .pipe(first())
+        .subscribe((value) => {
+          this.visualizers = this.data.visualizers.map((x) => ({
+            id: x.visualizationId,
+            measurements: x.measurements,
+            name: value[x.visualizationId].name,
+          }));
+        });
+      this.store
+        .select(selectFiltersEntities)
+        .pipe(first())
+        .subscribe((value) => {
+          this.filters = this.data.filters.map((x) => ({
+            id: x.id,
+            measurements: x.measurements,
+            name: value[x.id].name,
+          }));
+        });
       this.name = this.data.name;
     }
+
+    document.addEventListener("keypress", (event) => {
+      if(event.key == 'Delete')
+        this.delete();
+    });
   }
 
   drag($event, data) {
@@ -60,10 +66,12 @@ export class AddDashboardComponent implements OnInit {
   }
 
   onPreviewClick($event) {
-    $event.preventDefault();
-    let data = this.selectedEntity;
-    this.addToEntities(data, $event);
-    this.selectedEntity = null;
+    if (this.selectedEntity) {
+      $event.preventDefault();
+      let data = this.selectedEntity;
+      this.addToEntities(data, $event);
+      this.selectedEntity = null;
+    }
   }
   onDrop($event) {
     $event.preventDefault();
@@ -85,7 +93,14 @@ export class AddDashboardComponent implements OnInit {
               false
             )
         )
+        {
+          this.notification.warning("Can't add an already added filter")
           return;
+        }
+        if(!this.visualizers.find(x => x.visualizationId == data.visioId)){
+          this.notification.warning("Can't add filter without it's visualizer")
+          return;
+        }
         this.filters.push({
           ...data,
           measurements: {
@@ -97,7 +112,11 @@ export class AddDashboardComponent implements OnInit {
         });
         break;
       case "visualizer":
-        if (this.visualizers.map((x) => x.id).includes(data.id)) return;
+        if (this.visualizers.map((x) => x.id).includes(data.id))
+        {
+          this.notification.warning("Can't add an already added visualizer")
+          return;
+        }
         this.visualizers.push({
           ...data,
           visualizationId: data.id,
@@ -122,7 +141,7 @@ export class AddDashboardComponent implements OnInit {
 
   onNoClick() {
     this.dialogRef.close();
-    }
+  }
 
   onSave() {
     if (!this.checkValidation()) {
@@ -130,7 +149,7 @@ export class AddDashboardComponent implements OnInit {
       return;
     }
 
-    console.log("visualizers : ",this.visualizers)
+    console.log("visualizers : ", this.visualizers);
     for (let visualizer of this.visualizers) {
       let visElement = document.getElementById(
         `visualizer${visualizer.visualizationId}`
@@ -143,7 +162,6 @@ export class AddDashboardComponent implements OnInit {
       };
     }
 
-
     for (let filter of this.filters) {
       let filterElement = document.getElementById(`filter${filter.id}`);
       filter.measurements = {
@@ -153,7 +171,6 @@ export class AddDashboardComponent implements OnInit {
         y: filterElement.offsetTop,
       };
     }
-
 
     this.dialogRef.close({
       name: this.name,
@@ -168,5 +185,32 @@ export class AddDashboardComponent implements OnInit {
   checkValidation(): boolean {
     if (this.name) return true;
     else return false;
+  }
+
+  delete() {
+    if (this.selectedFromPreview) {
+      switch (this.selectedFromPreview.type) {
+        case "visualizer":
+          this.visualizers = this.visualizers.filter(
+            (x) => x.visualizationId != this.selectedFromPreview.visualizationId
+          );
+          this.filters = this.filters.filter(
+            x => x.visioId != this.selectedFromPreview.visualizationId
+          )
+          break;
+
+        case "filter":
+          this.filters = this.filters.filter(
+            (x) =>
+              x.id != this.selectedFromPreview.id ||
+              x.visioId != this.selectedFromPreview.visioId
+          );
+          break;
+      }
+    }
+  }
+
+  selectFromAdded(select) {
+    this.selectedFromPreview = select;
   }
 }

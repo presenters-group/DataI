@@ -8,4 +8,5 @@ export interface IVisualizer {
   filters: any[];
   isDeleted: boolean;
   chartSvg?: string;
+  chartData;
 }

@@ -76,7 +76,7 @@ export class VisualizerComponent implements AfterViewInit, OnDestroy {
       this.removeSvg();
       setTimeout(()=>{
         this.fetchSvg();
-      },500)
+      },100)
     });
   }
   disableAddedFilter(filter, filters) {

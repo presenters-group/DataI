@@ -12,11 +12,13 @@ export class VisualizersService {
   constructor(private httpClient: HttpClient) {}
 
   create(data) {
+    console.log(data)
     return this.httpClient.post(`${this.URL}/`, {
       ...data,
       usedColumns: data.usedColumns.map((x) => Number.parseInt(x)),
       xColumn: Number.parseInt(data.xColumn),
       data: Number.parseInt(data.data),
+      filters : [],
     });
   }
 

@@ -4,6 +4,7 @@
       <app-visualizer-item
         [zoom]="zoom"
         [svg]="(visualizer | async).chartSvg"
+        [metaData]="(visualizer | async).chartData"
       ></app-visualizer-item>
     </div>
     <div class="zoom-slider">

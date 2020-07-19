@@ -279,14 +279,17 @@ export class TreeViewComponent implements OnInit, AfterViewInit {
               data: entities[content.id],
             });
           });
+
         editVisualizerDialog.afterClosed().subscribe((result) => {
-          if (result) {
-            this.store.dispatch(
-              updateVisualizer({
-                data: { ...result.value, id: content.id, isDeleted: false },
-              })
-            );
-          }
+          this.store.select(selectVisualizersEntities).pipe(first()).subscribe((entities)=>{
+            if (result) {
+              this.store.dispatch(
+                updateVisualizer({
+                  data: { ...result.value, id: content.id, isDeleted: false ,filters: entities[content.id].filters},
+                })
+              );
+            }
+          })
         });
 
         break;

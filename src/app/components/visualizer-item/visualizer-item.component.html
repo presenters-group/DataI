@@ -1,4 +1,4 @@
-<div class="container" >
-  <div *ngIf="svg" [innerHTML]="safe(svg)" class="chart" [style.transform]="'scale(' + (zoom / 100) + ')'"> </div>
-  <mat-progress-spinner mode="indeterminate" *ngIf="!svg" class="spinner"></mat-progress-spinner>
+<div class="container">
+  <div #chartElement  *ngIf="chart" class="chart" [style.transform]="'scale(' + (zoom / 100) + ')'"> </div>
+  <mat-progress-spinner mode="indeterminate" *ngIf="!chart" class="spinner"></mat-progress-spinner>
 </div>

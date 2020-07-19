@@ -18,6 +18,7 @@ export class DashboardsService {
   }
 
   update(data : IDashboard) {
+    console.log(data)
     let visualizers = data.visualizers.map(x => ({visualizationId: x.visualizationId, measurements: x.measurements}))
     return this.httpClient.put(`${this.URL}/${data.id}/`,
     {...data, visualizers}
