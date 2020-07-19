@@ -68,6 +68,7 @@ class DataController():
 
     def removeInDataSourceFilter(self, tableId, filterId):
         targetTableIndex = DataController.getElementIndexById(self.data.dataSources, tableId)
+
         return self.__removeInDataModelFilter(self.data.dataSources[targetTableIndex], filterId)
 
     def insertNewVisualizer(self, table: VisualizationModel):
@@ -215,7 +216,7 @@ class DataController():
         if inFilterIndex == -1:
             return -1
         model.filters.pop(inFilterIndex)
-        return 1
+        return model
 
     @classmethod
     def __removeInDashboardModelFilter(cls, dashboard: BasicDataModelInfo, visioId: int, filterId: int):

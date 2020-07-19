@@ -6,7 +6,7 @@ from DataI.Models.DataModel import DataModel
 
 class DataIFileLoader(FileLoader):
     def loadFile(self) -> DataModel:
-        file = open(self.filePath, 'r')
+        file = open(self.filePath, 'rb')
         jsonString = file.read()
         return DataModel.from_json(json.loads(jsonString))
 
