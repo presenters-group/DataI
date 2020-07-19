@@ -22,10 +22,8 @@ class MultiplePieChart(Chart):
         self.xCenter = width/ 2
         self.yCenter = - height/ 2
         self.drawlayOut()
-        if self.xColumn.columnType == enums.ColumnDataType.Measures.value:
-          self.drawCircle()
-        else:
-          self.d.append(draw.Text(text="Error: Xcolumn is not Measured", fontSize=60, x=50, y=self.heightView/2))
+        self.drawCircle()
+
         #self.d.saveSvg(nameFile + '.svg')
         self.SVG = self.d.asSvg()
 

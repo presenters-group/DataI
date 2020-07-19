@@ -16,13 +16,9 @@ class FemaleAndMaleChart(InfChart):
       self.Check = False
       self.getMaleAndFemaleColumns()
       if self.Check:
-        if self.LabelColumn.columnType == enums.ColumnDataType.Measures.value:
           self.drawMaleAndFemaleStack()
           self.drawHuman()
           self.drawText()
-        else:
-          self.drawlayOut()
-          self.d.append(draw.Text(text="Error: Xcolumn is not Measured", fontSize=60, x=50, y=self.heightView / 2))
       else:
         self.drawlayOut()
         self.d.append(draw.Text(text="Error: we can't found male or Female column \n. . . Try to check column name", fontSize=40, x=0, y=self.heightView / 2))

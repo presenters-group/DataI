@@ -43,7 +43,7 @@ i=0
 
 dataController = DataController()
 dir = os.path.dirname(__file__)
-filename = os.path.join(dir, '/home/kareem/University/Project1/web/API/Test.xlsx')
+filename = os.path.join(dir, '/home/kareem/University/Project1/web/API/cases.xlsx')
 
 dataController.loadTablesFromExcelFile(filename, 0)
 
@@ -51,8 +51,8 @@ dataSource = dataController.data.dataSources[0]
 # for column in dataSource.columns:
 #   print(column.name)
 #   print(column.columnType)
-Xcolomn = dataSource.columns[1]
-dataSource.columns.pop(1)
+Xcolomn = dataSource.columns[4]
+dataSource.columns.pop(4)
 # char = PointChart(dataSource, double(1000), double(1000), Xcolomn, 8, "point")
 # chart = LineChart(dataSource, double(1000), double(1000), Xcolomn, 8, "line")
 # chart0 = MultiplePieChart(dataSource, Xcolomn, double(1000), double(1000), "pie")

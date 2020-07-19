@@ -15,12 +15,10 @@ class PointChart(Chart):
         super().__init__(dataSourceTableWithoutXcolumn, widthView, heightView, xcolumon)
         self.widthOfYLabels = widthView / 8
         self.heightOfXLabels = heightView / 8
-        print("FontSize:::::", self.heightOfXLabels)
         self.widthOfCoordinatePlane = self.widthView - self.widthOfYLabels
         self.heightOfCoordinatePlane = self.heightView - self.heightOfXLabels
         self.widthView -= self.widthOfYLabels/2
         self.heightView -= self.heightOfXLabels/2
-        print("heightView:::::", self.heightView)
         self.quality = quality
         self.d = draw.Drawing(self.widthView, self.heightView)
         self.listOfLevelXValue = list()
@@ -34,14 +32,11 @@ class PointChart(Chart):
         self.yUnit = self.correctingUnit()
         self.getYLevelsValue()
         self.startValue = self.listOfLevelXValue[0]
-        if self.xColumn.columnType == enums.ColumnDataType.Measures.value:
-          self.drawYLineLevels()
-          self.drawXPointsWithXValueSteps()
-          self.drawPointsOfValuesInDataSourceTableWithoutXColumn(dataSourceTableWithoutXcolumn.columnsColors)
-          self.drawColmunsColorList(dataSourceTableWithoutXcolumn.columnsColors)
-          self.drawSideLable()
-        else:
-          self.d.append(draw.Text(text="Error: Xcolumn is not Measured", fontSize=60, x=50, y=self.heightView/2))
+        self.drawYLineLevels()
+        self.drawXPointsWithXValueSteps()
+        self.drawPointsOfValuesInDataSourceTableWithoutXColumn(dataSourceTableWithoutXcolumn.columnsColors)
+        self.drawColmunsColorList(dataSourceTableWithoutXcolumn.columnsColors)
+        self.drawSideLable()
         #self.d.setPixelScale(100000)  # Set number of pixels per geometry unit
         #self.d.saveSvg(nameFile + '.svg')
         #    self.d.savePng(nameFile+'.png')
@@ -56,7 +51,6 @@ class PointChart(Chart):
               print(column.cells[1].value)
               return double( column.cells[1].value)
             else:
-              print("erorrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr")
               for column in self.dataSourceTableWithoutXcolumn.columns:
                 print(column.name)
               print("name:",column.name)
