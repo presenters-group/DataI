@@ -49,6 +49,13 @@ class ChartTypes(enum.Enum):
     MapChart = 'MapChart'
 
 
+class AggregationType(enum.Enum):
+    Basic = 'Basic'
+    DayBased = 'DayBased'
+    MonthBased = 'MonthBased'
+    YearBased = 'YearBased'
+
+
 
 
 

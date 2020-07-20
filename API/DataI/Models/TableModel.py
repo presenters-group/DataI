@@ -102,3 +102,16 @@ class TableModel(BasicDataModelInfo):
         returnTable.rowsColors = rowsColors
 
         return returnTable
+
+    def printTable(self):
+        for i in range(len(self.columns[0].cells)):
+            for j in range(len(self.columns)):
+                print('{:20}'.format(self.columns[j].cells[i].value), end='')
+            print()
+
+    @classmethod
+    def printColumns(cls, columns: List[ColumnModel]):
+        for i in range(len(columns[0].cells)):
+            for j in range(len(columns)):
+                print('{:20}'.format(columns[j].cells[i].value), end='')
+            print()

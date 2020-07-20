@@ -469,3 +469,14 @@ class ColumnModel(BasicInfo):
         id = data['id']
         isDeleted = data['isDeleted']
         return cls(cells, name, id, isDeleted)
+
+    def printColumn(self):
+        for c in self.cells:
+            print(c)
+        print('************************************')
+
+    @classmethod
+    def printCells(cls, cells: List[CellModel]):
+        for c in cells:
+            print(c)
+        print('************************************')
