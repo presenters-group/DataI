@@ -133,4 +133,26 @@ export class DashboardsEffects {
       )
     )
   );
+
+
+
+  updateFilterInDashboard$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(fromActions.updateFilterInDashboard),
+
+      debounceTime(100),
+
+      switchMap(({ data }) =>
+        this.dashboardsService.updateFilterInDashboard(data).pipe(
+          switchMap((data) => [
+            fromActions.updateFilterInDashboardSuccess({ data }),
+          ]),
+
+          catchError((error) => [
+            fromActions.updateFilterInDashboardFailed({ error }),
+          ])
+        )
+      )
+    )
+  );
 }

@@ -98,5 +98,5 @@ export const updateFilterInDashboardSuccess = createAction(
 
 export const updateFilterInDashboardFailed = createAction(
   "[DashboardComponent] update filter in dashboard failed",
-  props<{ data }>()
+  props<{ error }>()
 );

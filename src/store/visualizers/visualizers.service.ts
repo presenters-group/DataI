@@ -12,7 +12,6 @@ export class VisualizersService {
   constructor(private httpClient: HttpClient) {}
 
   create(data) {
-    console.log(data)
     return this.httpClient.post(`${this.URL}/`, {
       ...data,
       usedColumns: data.usedColumns.map((x) => Number.parseInt(x)),
@@ -40,7 +39,6 @@ export class VisualizersService {
   }
 
   fetchVisualizerChart(data) {
-    console.log(({ ...data }));
     return this.httpClient.put(`http://127.0.0.1:8000/data/chart/`, {
       ...data,
     });
@@ -57,7 +55,6 @@ export class VisualizersService {
     );
   }
   addFilterToVisualizer(data) {
-    console.log(data);
     return this.httpClient.put(
       `${this.URL}/insert-filter/${data.visualizerId}/`,
       {

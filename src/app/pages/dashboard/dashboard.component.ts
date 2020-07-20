@@ -10,6 +10,7 @@ import {
   fetchDashboardSVGs,
   changeVisualizerInDashboardZoom,
   updateDashboardSuccess,
+  updateFilterInDashboard,
 } from "src/store/dashboards";
 import { first, takeUntil } from "rxjs/operators";
 import { addToTapes } from 'src/store/core/actions/core.actions';
@@ -53,10 +54,6 @@ export class DashboardComponent implements AfterViewInit, OnDestroy {
     });
   }
 
-  consol(data) {
-    console.log(data);
-    return data;
-  }
   ngAfterViewInit(): void {
     this.fetchSvgs();
 
@@ -75,7 +72,6 @@ export class DashboardComponent implements AfterViewInit, OnDestroy {
       takeUntil(this.destroyed$)
     )
     .subscribe(() => {
-      console.log('update')
       setTimeout(()=>{
         this.fetchSvgs();
       },500)
@@ -93,7 +89,6 @@ export class DashboardComponent implements AfterViewInit, OnDestroy {
         let visElement = document.getElementById(
           `visualizer${visualizer.visualizationId}`
         );
-        console.log(visualizer.visualizationId,visElement)
         visualizer.measurements = {
           width: visElement.offsetWidth,
           height: visElement.offsetHeight,
@@ -131,5 +126,22 @@ export class DashboardComponent implements AfterViewInit, OnDestroy {
       );
 
     })
+  }
+
+
+  onFilterChangeValue($event,filter){
+    this.dashboard.pipe(first()).subscribe((dashboard)=>{
+      this.store.dispatch(updateFilterInDashboard({ data : {
+        ...filter,
+        dashboardId: dashboard.id,
+        visioId: filter.visioId,
+        id: filter.id,
+        value: $event.value,
+        isActive: $event.active,
+      }}))
+
+    })
+
+    this.fetchSvgs();
   }
 }

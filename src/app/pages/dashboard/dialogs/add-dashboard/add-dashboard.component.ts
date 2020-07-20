@@ -31,13 +31,14 @@ export class AddDashboardComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    console.log(this.data)
     if (this.data) {
       this.store
         .select(selectVisualizersEntities)
         .pipe(first())
         .subscribe((value) => {
           this.visualizers = this.data.visualizers.map((x) => ({
-            id: x.visualizationId,
+            visualizationId: x.visualizationId,
             measurements: x.measurements,
             name: value[x.visualizationId].name,
           }));
@@ -48,11 +49,13 @@ export class AddDashboardComponent implements OnInit {
         .subscribe((value) => {
           this.filters = this.data.filters.map((x) => ({
             id: x.id,
+            visioId: x.visioId,
             measurements: x.measurements,
             name: value[x.id].name,
           }));
         });
       this.name = this.data.name;
+      (this.visualizers,this.filters)
     }
 
     document.addEventListener("keypress", (event) => {
@@ -83,7 +86,6 @@ export class AddDashboardComponent implements OnInit {
   addToEntities(data, $event) {
     switch (data.type) {
       case "filter":
-        console.log(data.visioId, this.filters);
         if (
           this.filters
             .map((x) => ({ id: x.id, visioId: x.visioId }))
@@ -149,7 +151,6 @@ export class AddDashboardComponent implements OnInit {
       return;
     }
 
-    console.log("visualizers : ", this.visualizers);
     for (let visualizer of this.visualizers) {
       let visElement = document.getElementById(
         `visualizer${visualizer.visualizationId}`
@@ -175,7 +176,7 @@ export class AddDashboardComponent implements OnInit {
     this.dialogRef.close({
       name: this.name,
       visualizers: this.visualizers.map((x) => ({
-        visualizationId: x.id,
+        visualizationId: x.visualizationId,
         measurements: x.measurements,
       })),
       filters: this.filters,
@@ -212,5 +213,10 @@ export class AddDashboardComponent implements OnInit {
 
   selectFromAdded(select) {
     this.selectedFromPreview = select;
+  }
+
+  consol(data){
+    console.log(data);
+    return data;
   }
 }

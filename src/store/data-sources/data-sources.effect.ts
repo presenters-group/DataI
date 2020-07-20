@@ -47,7 +47,7 @@ export class DataSourcesEffects {
     )
   );
 
-  readeDataSource$ = createEffect(() =>
+  readDataSource$ = createEffect(() =>
     this.actions$.pipe(
       ofType(fromActions.fetchDataSources),
 

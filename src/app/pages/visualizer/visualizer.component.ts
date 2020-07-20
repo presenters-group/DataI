@@ -68,7 +68,7 @@ export class VisualizerComponent implements AfterViewInit, OnDestroy {
         removeFilterFromVisualizerSuccess,
         updateVisualizerSuccess,
         addToTapes,
-        updateCurrentTree
+        // updateCurrentTree
       ),
       takeUntil(this.destroyed$)
     )
@@ -129,14 +129,12 @@ export class VisualizerComponent implements AfterViewInit, OnDestroy {
   }
 
   consol(data,...rest) {
-    console.log(data,...rest);
     return data;
   }
 
 
   fetchSvg(){
     let svg = document.getElementById('svg')
-    console.log(svg.offsetHeight,svg.offsetWidth)
     this.visualizer.pipe(first()).subscribe((value)=>{
       this.store.dispatch(fetchChartAsSVG({
         data : {
@@ -164,6 +162,16 @@ export class VisualizerComponent implements AfterViewInit, OnDestroy {
     this.visualizer.pipe(first()).subscribe((value)=>{
       this.store.dispatch(removeSvgForVisualizer({ data: {visualizerId: value.id}}))
     })
+  }
+
+  download(as : string){
+    switch(as){
+      case 'svg':
+        //TODO: download as svg;
+      case 'png':
+          //TODO: download as png;
+
+    }
   }
 
 }

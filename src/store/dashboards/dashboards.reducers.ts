@@ -3,7 +3,7 @@ import { IDashboard } from "./dashboards.models";
 import * as fromActions from "./dashboards.actions";
 import { MapInterface } from "src/store/core/models/mapinterface";
 export interface DashboardsState {
-  entities: IDashboard[]
+  entities: IDashboard[];
 }
 
 export const initialState: DashboardsState = {
@@ -32,6 +32,7 @@ const dashboardsReducer = createReducer(
     fromActions.updateDashboardSuccess,
     fromActions.createDashboardSuccess,
     (state, { data }) => {
+      console.log(data)
       const entities = {
         ...state.entities,
         [data.id]: data,
@@ -55,13 +56,20 @@ const dashboardsReducer = createReducer(
     };
   }),
 
-
   on(fromActions.fetchDashboardSVGsSuccess, (state, { data }) => {
-    let newDashboard = JSON.parse(JSON.stringify(state.entities[data.dashboardId]));
-    for(let chart of data.charts){
-      newDashboard.visualizers.find(x => x.visualizationId == chart.visualizerId).chart = chart.svg;
-      newDashboard.visualizers.find(x => x.visualizationId == chart.visualizerId).mettaData = chart.metaData;
-      newDashboard.visualizers.find(x => x.visualizationId == chart.visualizerId).zoom = 100;
+    let newDashboard = JSON.parse(
+      JSON.stringify(state.entities[data.dashboardId])
+    );
+    for (let chart of data.charts) {
+      newDashboard.visualizers.find(
+        (x) => x.visualizationId == chart.visualizerId
+      ).chart = chart.svg;
+      newDashboard.visualizers.find(
+        (x) => x.visualizationId == chart.visualizerId
+      ).mettaData = chart.metaData;
+      newDashboard.visualizers.find(
+        (x) => x.visualizationId == chart.visualizerId
+      ).zoom = 100;
     }
 
     return {
@@ -73,11 +81,38 @@ const dashboardsReducer = createReducer(
     };
   }),
 
-
   on(fromActions.changeVisualizerInDashboardZoom, (state, { data }) => {
-    let newDashboard = JSON.parse(JSON.stringify(state.entities[data.dashboardId]));
-      newDashboard.visualizers.find(x => x.visualizationId == data.visualizerId).zoom = data.zoom;
+    let newDashboard = JSON.parse(
+      JSON.stringify(state.entities[data.dashboardId])
+    );
+    newDashboard.visualizers.find(
+      (x) => x.visualizationId == data.visualizerId
+    ).zoom = data.zoom;
 
+    return {
+      ...state,
+      entities: {
+        ...state.entities,
+        [data.dashboardId]: { ...newDashboard },
+      },
+    };
+  }),
+
+  on(fromActions.updateFilterInDashboardSuccess, (state, { data }) => {
+    let newDashboard = JSON.parse(
+      JSON.stringify(state.entities[data.dashboardId])
+    );
+    newDashboard.filters = newDashboard.filters.map((x) => {
+      if (x.id == data.id) {
+        return {
+          id: data.id,
+          visioId: data.visioId,
+          value: data.value,
+          isActive: data.isActive,
+          measurements: data.measurements
+        };
+      } else return x;
+    });
     return {
       ...state,
       entities: {

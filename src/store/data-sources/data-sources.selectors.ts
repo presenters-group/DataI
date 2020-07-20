@@ -47,40 +47,64 @@ export const selectDataSourcesTree = createSelector(
         content: { type: "data-source", id: key, name: entity.name },
         children: [],
       };
-      dataSources.children.push({ name: "Measures", children: [] });
-      dataSources.children.push({ name: "Dimensions", children: [] });
       let measuresColumns = [];
       let dimensionsColumns = [];
+      let dateTimeColumns = [];
       for (let columnKey in entity.columns) {
         let columnEntity = entity.columns[columnKey];
         if (columnEntity.columnType == "Measures")
-          measuresColumns.push({
-            name: columnEntity.name,
-            // content: {
+        measuresColumns.push({
+          name: columnEntity.name,
+          // content: {
             //   type: "column-measures",
             //   tableId: key,
             //   id: columnKey,
             //   name: columnEntity.name,
             // },
           });
-        if (columnEntity.columnType == "Dimensions")
+          if (columnEntity.columnType == "Dimensions")
           dimensionsColumns.push({
             name: columnEntity.name,
             // content: {
-            //   type: "column-dimensions",
-            //   tableId: key,
-            //   id: columnKey,
-            //   name: columnEntity.name,
-            // },
-          });
-      }
-      dataSources.children[0].children = measuresColumns;
-      dataSources.children[1].children = dimensionsColumns;
-      tree.children.push(dataSources);
-    }
-    return tree;
-  }
-);
+              //   type: "column-dimensions",
+              //   tableId: key,
+              //   id: columnKey,
+              //   name: columnEntity.name,
+              // },
+            });
+            if (columnEntity.columnType == "DateTime")
+            dateTimeColumns.push({
+              name: columnEntity.name,
+              // content: {
+                //   type: "column-dimensions",
+                //   tableId: key,
+                //   id: columnKey,
+                //   name: columnEntity.name,
+                // },
+              });
+            }
+            let index = 0
+            if(measuresColumns.length)
+            {
+                dataSources.children.push({ name: "Measures", children: [] });
+                dataSources.children[index].children = measuresColumns;
+                index++;
+            }
+            if(dimensionsColumns.length){
+              dataSources.children.push({ name: "Dimensions", children: [] });
+              dataSources.children[index].children = dimensionsColumns;
+              index++;
+            }
+            if(dateTimeColumns.length){
+              dataSources.children.push({ name: "DateTime", children: [] });
+              dataSources.children[index].children = dateTimeColumns;
+              index++;
+            }
+            tree.children.push(dataSources);
+          }
+          return tree;
+        }
+        );
 
 
 
