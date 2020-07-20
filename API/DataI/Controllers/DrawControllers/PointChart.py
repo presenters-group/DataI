@@ -11,8 +11,8 @@ from DataI.Models.TableModel import TableModel
 
 class PointChart(Chart):
     def __init__(self, dataSourceTableWithoutXcolumn: TableModel, widthView: double, heightView: double,
-                 xcolumon: ColumnModel, quality: double, nameFile):
-        super().__init__(dataSourceTableWithoutXcolumn, widthView, heightView, xcolumon)
+                 xcolumon: ColumnModel, quality: double, animation: bool, nameFile):
+        super().__init__(dataSourceTableWithoutXcolumn, widthView, heightView, xcolumon, animation)
         self.widthOfYLabels = widthView / 8
         self.heightOfXLabels = heightView / 8
         self.widthOfCoordinatePlane = self.widthView - self.widthOfYLabels
@@ -151,10 +151,9 @@ class PointChart(Chart):
                         add += self.xUnit
                         self.metaData.append("(" + str(self.xColumn.cells[i].value) + "," + str(cell.value) + ")")
                         self.d.append(draw.Circle(add, self.convertY(double(cell.value)), self.xUnit / 30,
-                                                  fill=colors[columnCounter],
-                                                  stroke_width=0,
+                                                  fill=colors[column.id],
+                                                  stroke_width=0,Class=str(self.Index),
                                                   stroke='black', id=(self.Index)))
-                        mask = draw.Mask(id="mymak")
                         self.Index += 1
 
             columnCounter += 1
@@ -172,7 +171,7 @@ class PointChart(Chart):
             self.d.append(
                 draw.Text(text=str(num), fontSize=self.heightOfXLabels /10, x=add ,
                           y=self.heightOfXLabels /1.29,
-                          id=str(self.Index),
+                          id=str(self.Index),Class=str(self.Index),
                           style="font-size : " + str(self.heightOfXLabels / 10),
                           transform="rotate(90," + str(add ) + "," + str(-self.heightOfXLabels / 1.29) + ")"))
             self.Index += 1
@@ -193,7 +192,7 @@ class PointChart(Chart):
         self.d.append(
             draw.Text(text=str(num), fontSize=fontSize, x=add + (fontSize * 2),
                       y=self.heightOfXLabels / 4 + (fontSize / 3),style="font-size : " + str(fontSize),
-                      id=str(self.Index)))
+                      Class=str(self.Index),id=str(self.Index)))
         add += self.widthView / (len(self.dataSourceTableWithoutXcolumn.columns) + 3)
 
 
@@ -211,7 +210,7 @@ class PointChart(Chart):
                                 stroke='black'))
                 self.d.append(draw.Text(text=str(num), fontSize=fontSize, x=add + (fontSize * 2),
                                         y=self.heightOfXLabels / 4 + (fontSize / 3),style="font-size : " +str(fontSize),
-                                        id=str(self.Index)))
+                                        Class=str(self.Index),id=str(self.Index)))
                 add += self.widthView / (len(self.dataSourceTableWithoutXcolumn.columns) + 3)
                 self.Index += 1
           columnCounter += 1
@@ -230,7 +229,7 @@ class PointChart(Chart):
             self.d.append(
                 draw.Text(text=str(num), fontSize=fontSize, x=x,
                           y=self.convertY(self.listOfLevelXValue[i]),style="font-size : "+str(fontSize),
-                          id=str(self.Index)))
+                          Class=str(self.Index),id=str(self.Index)))
             self.Index += 1
 
     def getXPointlInSVG(self, i: int) -> double:

@@ -10,7 +10,8 @@ from DataI.Models.TableModel import TableModel
 
 
 class MapChart():
-    def __init__(self, dataSource: TableModel, XColumn: ColumnModel, width: double, height: double, nameFile: str):
+    def __init__(self, dataSource: TableModel, XColumn: ColumnModel, width: double, height: double, animation: bool, nameFile: str):
+        self.animation = animation
         self.metaData = list()
         self.listOfPercentageValue =dict()
         self.widthView = 1000
@@ -47,10 +48,10 @@ class MapChart():
       doc.unlink()
       for path, id in zip(path_data, path_id):
         # print(id,"  ",self.getPercentageOfCountryKey(str(id)),"::: ",self.CorrectPercentageOfValue(self.getPercentageOfCountryKey(str(id))))
-        self.d.append(draw.Path(stroke_width=0,id=id, stroke="white", fill="blue",
+        self.d.append(draw.Path(stroke_width=0,Class=str(id),id=id, stroke="white", fill="blue",
                                 fill_opacity=self.getPercentageOfCountryKey(str(id))/80,d=path
                                 , transform="translate(-25,-700) scale(0.8 0.8)" ))
-        self.d.append(draw.Path(stroke_width=1, id=id, stroke="white", fill="gray",
+        self.d.append(draw.Path(stroke_width=1,Class=str(id), id=id, stroke="white", fill="gray",
                                 fill_opacity=0.2, d=path
                                 , transform="translate(-25,-700) scale(0.8 0.8)"))
 

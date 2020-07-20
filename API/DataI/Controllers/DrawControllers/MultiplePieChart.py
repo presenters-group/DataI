@@ -12,8 +12,8 @@ from DataI.Models.TableModel import TableModel
 
 
 class MultiplePieChart(Chart):
-    def __init__(self, dataSource: TableModel, XColumn: ColumnModel, width: double, height: double, nameFile: str):
-        super().__init__(dataSource, width, height, XColumn)
+    def __init__(self, dataSource: TableModel, XColumn: ColumnModel, width: double, height: double, animation: bool, nameFile: str):
+        super().__init__(dataSource, width, height, XColumn, animation)
         width -= width/4
         self.r = (min(width, height) / 2)/1.1
         self.stroke = self.r /50
