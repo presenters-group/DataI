@@ -21,7 +21,7 @@ export class TapsComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.select(selectCurrentTapLink).subscribe((value)=>{
-      this.router.navigate([value])
+        this.router.navigate([value])
     })
   }
   onClick(i: number): void {

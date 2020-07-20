@@ -97,7 +97,8 @@
         </mat-select-trigger>
         <ng-container *ngIf="form.value.dataSource != '' && form.value.filteredColumn != ''">
         <mat-option
-          *ngFor="let type of (dataSources | async)[form.value.dataSource].columns[form.value.filteredColumn].columnType == 'Dimensions' ? ['MultipleEquality'] : ['<','>','<=','>=','=']"
+          *ngFor="let type of (dataSources | async)[form.value.dataSource].columns[form.value.filteredColumn].columnType == 'Dimensions' ? ['MultipleEquality'] :
+          (dataSources | async)[form.value.dataSource].columns[form.value.filteredColumn].columnType == 'DateTime' ? ['<','>','<=','>=','=','MultipleEquality'] : ['<','>','<=','>=','=']"
           [value]="type"
           >
           {{type}}
@@ -119,15 +120,17 @@
 
     <mat-form-field *ngIf="['<','>','=','>=','<='].includes(form.value.type)" appearance="legacy">
       <mat-label for="initialValue">Initial Value</mat-label>
+
       <input
 
         ngDefaultControl
         matInput
         placeholder="Visualizer1"
         id="initialValue"
-        type="number"
+        [type]="(dataSources | async)[form.value.dataSource].columns[form.value.filteredColumn].columnType == 'DateTime' ? 'date' : 'number'"
         formControlName="initValue"
       />
+
     </mat-form-field>
 
 

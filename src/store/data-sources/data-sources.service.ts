@@ -41,6 +41,7 @@ export class DataSourcesService {
   }
 
   updateFilterInDataSource(data) {
+    console.log(data)
     return this.httpClient.put(
       `${this.URL}/update-filter/${data.tableId}/${data.id}/`,
       {

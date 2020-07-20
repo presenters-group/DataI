@@ -14,14 +14,17 @@ export class DashboardsService {
 
   create(data : IDashboard) {
     let visualizers = data.visualizers.map(x => ({visualizationId: Number.parseInt(x.visualizationId),measurements: x.measurements}))
-    return this.httpClient.post(`${this.URL}/`, { ...data, visualizers});
+    let filters = data.filters.map(x => ({...x, id: Number.parseInt(x.id),visioId : Number.parseInt(x.visioId)}))
+    return this.httpClient.post(`${this.URL}/`, { ...data, filters, visualizers});
   }
 
   update(data : IDashboard) {
-    console.log(data)
-    let visualizers = data.visualizers.map(x => ({visualizationId: x.visualizationId, measurements: x.measurements}))
+    let visualizers = data.visualizers.map(x => ({visualizationId: Number.parseInt(x.visualizationId), measurements: x.measurements}))
+    let filters = data.filters.map(x => ({...x, id: Number.parseInt(x.id),visioId : Number.parseInt(x.visioId)}))
+    console.log(data.id)
+
     return this.httpClient.put(`${this.URL}/${data.id}/`,
-    {...data, visualizers}
+    {...data, filters,visualizers}
     )
   }
 
@@ -34,9 +37,17 @@ export class DashboardsService {
   }
 
   fetchDashboardSVGs(data){
-    this.httpClient.get(`${this.URL}/charts/${data.dashboardId}/`).subscribe((data)=>{
-      console.log(data)
-    })
+
     return this.httpClient.get(`${this.URL}/charts/${data.dashboardId}/`);
+  }
+
+  updateFilterInDashboard(data){
+    return this.httpClient.put(`${this.URL}/update-filter/${data.dashboardId}/${data.visioId}/${data.id}/`,{
+        id: data.id,
+        visioId: data.visioId,
+        value: data.value,
+        isActive: data.isActive,
+        measurements: data.measurements
+    });
   }
 }

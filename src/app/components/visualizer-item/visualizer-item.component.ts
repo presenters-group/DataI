@@ -26,15 +26,8 @@ export class VisualizerItemComponent implements AfterViewChecked {
   chart;
   change: boolean = false;
   @Input() set svg(value) {
-    // if(value && this.chart != value){
       this.chart = value;
       this.change = true;
-      // console.log('changed!',value)
-    // }
-    // else{
-
-      // console.log(value);
-    // }
   }
   chartData;
   @Input() set metaData(value) {
@@ -50,7 +43,6 @@ export class VisualizerItemComponent implements AfterViewChecked {
   ngAfterViewChecked() {
     // let el = document.getElementById("chartElement" + (this.visualizerId ? this.visualizerId : ''))
     if (this.change && this.chartElement) {
-      console.log(this.chartElement)
       this.chartElement.nativeElement.innerHTML = this.chart;
       setTimeout(() => {
         let parent = this.renderer.createElement("div");
@@ -74,12 +66,6 @@ export class VisualizerItemComponent implements AfterViewChecked {
                 `${element.getBoundingClientRect().y + 30}px`
               );
               this.renderer.appendChild(parent, content);
-              // this.toolTip = {
-              //   value : this.chartData[i],
-              //   x: element.getBoundingClientRect().x,
-              //   y: element.getBoundingClientRect().y
-              // }
-              // console.log(this.toolTip)
             });
             element.addEventListener("mouseleave", () => {
               this.renderer.removeChild(document.body, parent);
@@ -96,7 +82,4 @@ export class VisualizerItemComponent implements AfterViewChecked {
     return this.sanitizer.bypassSecurityTrustHtml(data);
   }
 
-  consol(data){
-    console.log(data)
-  }
 }

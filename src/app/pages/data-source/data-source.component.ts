@@ -37,7 +37,6 @@ export class DataSourceComponent implements AfterViewInit {
     let acceptedValue;
     this.dataSource.pipe(first()).subscribe((value) => {
       let old = value.columns[columnId].cells[cellIndex];
-      console.log("cell value in subscribe",cellValue, !(!cellValue))
       if(value.columns[columnId].columnType == 'Measures' && cellIndex != 0){
         cellValue = Number.parseInt(cellValue)
         if(isNaN(cellValue)){
@@ -47,7 +46,6 @@ export class DataSourceComponent implements AfterViewInit {
         }
       }
       if (old.value != cellValue){
-          console.log('OldValue',old.value);
           tableId = value.id;
           this.store.dispatch(
             updateCell({
@@ -64,13 +62,11 @@ export class DataSourceComponent implements AfterViewInit {
   }
 
   consol(data){
-    console.log(data)
     return data
   }
 
 
   onFilterChangeValue($event){
-    console.log($event)
     this.dataSource.pipe(first()).subscribe((value)=>{
       this.store.dispatch(updateFilterInDataSource({data : {...$event,tableId : value.id}}))
     })

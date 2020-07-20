@@ -19,11 +19,11 @@ export class FiltersService {
   }
 
   update(data) {
-    console.log(JSON.stringify(data))
     return this.httpClient.put(`${this.URL}/${data.id}/`, {
+      ...data,
       dataSource: Number.parseInt(data.dataSource),
       filteredColumn : Number.parseInt(data.filteredColumn)
-      ,...data, isDeleted: false });
+      , isDeleted: false });
   }
 
   fetch() {

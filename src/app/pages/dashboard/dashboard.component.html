@@ -66,6 +66,9 @@
         class="inner filter"
         *ngFor="let filter of (dashboard | async).filters"
         [filter]="(filters | async)[filter.id]"
+        [value]="filter.value"
+        [enabled]="filter.isActive"
+        (onChange)="onFilterChangeValue($event,filter)"
         [ngStyle]="{
           'top.px': filter.measurements.y,
           'left.px': filter.measurements.x

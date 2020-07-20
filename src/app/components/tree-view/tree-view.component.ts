@@ -68,7 +68,7 @@ export class TreeViewComponent implements OnInit, AfterViewInit {
 
     this.renderer.addClass(content, "content");
     this.renderer.appendChild(itemElement, content);
-    if (items.children) {
+    if (items.children && items.children.length) {
       let arrow = this.renderer.createElement("img");
       this.renderer.setAttribute(arrow, "src", "/assets/icons/arrow.svg");
       this.renderer.appendChild(content, arrow);
@@ -202,7 +202,7 @@ export class TreeViewComponent implements OnInit, AfterViewInit {
                 createFilter({
                   data: {
                     ...result.value,
-                    initValue: Number.parseInt(result.value.initValue),
+                    initValue: result.value.initValue,
                     id: 0,
                     isDeleted: false,
                   },
@@ -257,10 +257,10 @@ export class TreeViewComponent implements OnInit, AfterViewInit {
 
   onRefreshClick() {
     this.store.select(selectCurrentTree).subscribe((value: any) => {
-      this.treeService.fillOut(value).subscribe((tree) => {
-        this.items = tree;
-        this.initialTree();
-      });
+        this.treeService.fillOut(value).subscribe((tree) => {
+          this.items = tree;
+          this.initialTree();
+        });
     });
   }
 
@@ -319,7 +319,7 @@ export class TreeViewComponent implements OnInit, AfterViewInit {
               if (result) {
                 this.store.dispatch(
                   updateDashboard({
-                    data: { ...result, id: 0, isDeleted: false },
+                    data: { ...result, id: content.id, isDeleted: false },
                   })
                 );
               }

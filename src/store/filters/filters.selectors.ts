@@ -76,7 +76,6 @@ export const selectFiltersTree = createSelector(
 export const selectFiltersForDataSource = createSelector(
   selectUndeletedFiltersEntities,
   (state,props) => {
-      console.log(props.dataSource,)
       return props.dataSource != '' ? objectFilter(state,(value)=>value.dataSource != props.dataSource) : {}
   });
 
@@ -97,7 +96,6 @@ export const selectCurrentFilterDataSource = createSelector(
 
 function objectFilter (obj, predicate){
     let result = {}, key;
-    console.log(obj,predicate)
 
     for (key in obj) {
         if (obj.hasOwnProperty(key) && !predicate(obj[key])) {
@@ -115,7 +113,6 @@ export const selectCurrentDataSourceFilters = createSelector(
   (dataSource,allFilters) => {
     let filters = [];
     for (let filter of dataSource.filters){
-      console.log({...allFilters[filter.id] ,value: filter.value, active : filter.isActive})
         filters.push({...allFilters[filter.id] ,value: filter.value, active : filter.isActive})
     }
     return filters;

@@ -12,7 +12,6 @@ export class CoreService {
   constructor(private httpClient: HttpClient) {}
 
   fetch() {
-    console.log(this.URL)
       return this.httpClient.get(this.URL);
   }
 

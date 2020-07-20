@@ -30,7 +30,6 @@ export class AddVisualizerComponent {
     private swal: NotificationService,
     @Inject(MAT_DIALOG_DATA) public data: any
     ) {
-      // console.log(this.data,this.data.data)
       this.formBuild();
       this.filters = this.store.select(selectFiltersForDataSource,{dataSource : this.form.value.data})
     }
@@ -42,7 +41,7 @@ export class AddVisualizerComponent {
       xColumn: [this.data ? this.data.xColumn.toString() : '',Validators.required],
       chart: [this. data ?this.data.chart.toString() : '',Validators.required],
       name: [this.data ? this.data.name.toString() : '',Validators.required],
-      // filters: [this.data ? this.data.filters.map(x=>x.toString()) : []],
+      animation: [this.data ? this.data.animation : false]
     })
   }
   onNoClick(): void {

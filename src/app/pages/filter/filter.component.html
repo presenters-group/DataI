@@ -7,7 +7,7 @@
         <mat-form-field appearance="legacy">
           <mat-label for="name">Name</mat-label>
           <input
-          required
+            required
             ngDefaultControl
             matInput
             placeholder="Visualizer1"
@@ -19,7 +19,11 @@
 
         <mat-form-field>
           <mat-label>Data Source</mat-label>
-          <mat-select required (selectionChange)="onChangeDataSource()" formControlName="dataSource">
+          <mat-select
+            required
+            (selectionChange)="onChangeDataSource()"
+            formControlName="dataSource"
+          >
             <mat-select-trigger>
               {{ (dataSources | async)[form.value.dataSource].name }}
             </mat-select-trigger>
@@ -34,7 +38,7 @@
         <mat-form-field>
           <mat-label>Filtered Column</mat-label>
           <mat-select
-          required
+            required
             formControlName="filteredColumn"
             [disabled]="form.value.dataSource == ''"
           >
@@ -67,7 +71,7 @@
         <mat-form-field>
           <mat-label>Type</mat-label>
           <mat-select
-          required
+            required
             formControlName="type"
             [disabled]="
               form.value.dataSource == '' || form.value.filteredColumn == ''
@@ -87,7 +91,11 @@
                     .columns[form.value.filteredColumn].columnType ==
                   'Dimensions'
                     ? ['MultipleEquality']
-                    : ['>', '<', '=' ,'<=','>=']
+                    : (dataSources | async)[form.value.dataSource].columns[
+                        form.value.filteredColumn
+                      ].columnType == 'DateTime'
+                    ? ['>', '<', '=', '<=', '>=', 'MultipleEquality']
+                    : ['>', '<', '=', '<=', '>=']
                 "
                 [value]="type"
               >
@@ -99,20 +107,18 @@
 
         <mat-form-field
           *ngIf="
-            form.value.filteredColumn != '' &&
-            (dataSources | async)[form.value.dataSource].columns[
-              form.value.filteredColumn
-            ].columnType == 'Measures'
+            form.value.type != 'MultipleEquality'
           "
           appearance="legacy"
         >
           <mat-label for="initialValue">Initial Value</mat-label>
           <input
+            id="initValueInput"
             ngDefaultControl
             matInput
             placeholder="Visualizer1"
             id="initialValue"
-            type="text"
+            [type]="(dataSources | async)[form.value.dataSource].columns[form.value.filteredColumn].columnType == 'DateTime' ? 'date' : 'number'"
             formControlName="initValue"
           />
         </mat-form-field>
@@ -126,8 +132,11 @@
     </div>
     <div class="preview">
       <div class="preview-title">Preview</div>
-      <app-filter-item *ngIf="form.valid" [filter]="this.form.value"> </app-filter-item>
-      <div class="form-not-valid" *ngIf="!form.valid">Please Complete the form to see the preview</div>
+      <app-filter-item *ngIf="form.valid" [filter]="this.form.value" value="this.form.value.initValue">
+      </app-filter-item>
+      <div class="form-not-valid" *ngIf="!form.valid">
+        Please Complete the form to see the preview
+      </div>
     </div>
   </div>
 </div>

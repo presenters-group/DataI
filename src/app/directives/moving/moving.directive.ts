@@ -92,7 +92,6 @@ export class MovingDirective implements AfterViewInit {
   }
   @HostListener("document:mousedown", ["$event"]) onClick($event) {
     if(this.scalable){
-      console.log($event);
       if (
         $event.target == this.el.nativeElement ||
         Object.values(this.points).includes($event.target)
@@ -216,9 +215,6 @@ export class MovingDirective implements AfterViewInit {
 
   @HostListener("document:mouseup", ["$event"]) onMouseUp($event) {
     this.state = MoveState.none;
-    console.log("top",this.el.nativeElement.style.top)
-    console.log("left",this.el.nativeElement.style.left)
-
   }
 }
 
