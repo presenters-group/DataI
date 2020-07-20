@@ -241,7 +241,6 @@ def getAggregatedTable(request, tableId, columnId):
 
 
 
-
 @csrf_exempt
 def cellModifier(request, tableId, columnId, cellIndex):
     if request.method == 'PUT':

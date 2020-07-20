@@ -125,10 +125,6 @@ class DataController():
     def getChart(self, visioId, width, height):
         return DrawController.getChart(self.data, visioId, width, height, VisualizationsController.getFinalTable, 0)
 
-    def getSingleDashboardChart(self, dashboardId: int, visioId, width, height):
-        return DrawController.getChart(self.data, visioId, width, height,
-                                       DashboardsController.getFinaleChartTable, dashboardId)
-
     def insertNewDashboard(self, dashBoard: DashboardModel):
         DashboardsController.insertNewDashboard(self.data, dashBoard)
 

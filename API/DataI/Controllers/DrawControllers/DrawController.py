@@ -45,7 +45,7 @@ class DrawController():
 
     @classmethod
     def getChart(cls, data: DataModel, visioId: int, width: double, height: double,
-                 tableFinalizer, dashboardId: int) -> Dict:
+                 tableFilter, dashboardId: int) -> Dict:
         visioIndex = DataController.getElementIndexById(data.visualizations, visioId)
         visualizer = data.visualizations[visioIndex]
 
@@ -53,7 +53,13 @@ class DrawController():
         cls.__removeXColumnIfExists(drawTable, visualizer.xColumn)
 
         # implement visualization filters.
-        drawTable = tableFinalizer(data, dashboardId, visioId)
+        drawTable = tableFilter(data, dashboardId, visioId)
+
+        if drawTable.aggregator.isActive:
+            drawTable.columns.clear()
+            drawTable.columns.extend(drawTable.aggregator.aggregatedTable)
+
+        drawTable.printTable()
 
         xColumnIndex = DataController.getElementIndexById(data.dataSources, visualizer.xColumn)
         xColumn = drawTable.columns[xColumnIndex]
