@@ -32,6 +32,14 @@ class DataSourcesController():
         return data.dataSources[targetTableIndex]
 
     @classmethod
+    def getFinalTables(cls, data: DataModel) -> List[TableModel]:
+        filteredTables = cls.getFilteredTables(data)
+        returnTables = deepcopy(filteredTables)
+        for table in returnTables:
+            table = DataSourcesController.sugreCoatAggregatedTable(table)
+        return returnTables
+
+    @classmethod
     def getFilteredTables(cls, data: DataModel) -> List[TableModel]:
         tables = list()
         for table in data.dataSources:
@@ -42,11 +50,11 @@ class DataSourcesController():
     def getAggregatedTable(cls, data: DataModel, tableId: int, aggColumnId: int, type: str) -> TableModel:
         targetTableIndex = DataController.getElementIndexById(data.dataSources, tableId)
         targetTable = data.dataSources[targetTableIndex]
+        targetTable.aggregator.type = type
         aggregator = Aggregation.getAggregator(type)
         Aggregation.clearAggregationTable(targetTable)
         aggregator.implementAggregation(data, targetTable, aggColumnId)
         returnTable = cls.sugreCoatAggregatedTable(deepcopy(targetTable))
-        returnTable.aggregator.type = type
         return returnTable
 
     @classmethod

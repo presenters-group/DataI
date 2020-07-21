@@ -193,7 +193,7 @@ def fullDataHandler(request):
 @csrf_exempt
 def dataSourcesHandler(request):
     if request.method == 'GET':
-        fullTables = dataController.getFilteredTables()
+        fullTables = dataController.getFinaleTables()
         return HttpResponse(
             json.dumps(fullTables, indent=4, cls=ObjectEncoder, ensure_ascii=False))
     elif request.method == 'POST':

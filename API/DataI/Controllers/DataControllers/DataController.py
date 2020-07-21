@@ -43,8 +43,8 @@ class DataController():
     def removeColumn(self, tableId: int, columnId: int) ->TableModel:
         return DataSourcesController.removeColumn(self.data, tableId, columnId)
 
-    def getFilteredTables(self) -> List[TableModel]:
-        return DataSourcesController.getFilteredTables(self.data)
+    def getFinaleTables(self) -> List[TableModel]:
+        return DataSourcesController.getFinalTables(self.data)
 
     def getAggregatedTable(self, tableId: int, aggColumnId: int, type: str) -> TableModel:
         return DataSourcesController.getAggregatedTable(self.data, tableId, aggColumnId, type)
