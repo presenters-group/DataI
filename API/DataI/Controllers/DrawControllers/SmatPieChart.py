@@ -8,11 +8,11 @@ from DataI.Models.TableModel import TableModel
 
 
 class SmartPieChart(PieChart):
-    def __init__(self, dataSource: TableModel, XColumn: ColumnModel, width: double, height: double, nameFile: str):
+    def __init__(self, dataSource: TableModel, XColumn: ColumnModel, width: double, height: double, animation: bool, nameFile: str):
       self.Index = 0
       self.metaData = list()
       self.colorList = dataSource.rowsColors
-      super().__init__(dataSource.columns[0], XColumn, double(1000), double(1000), nameFile)
+      super().__init__(dataSource.columns[0], XColumn, double(1000), double(1000), animation, nameFile)
       self.d.setPixelScale(min(width, height) / 1000)  # Set number of pixels per geometry unit
       self.SVG = self.d.asSvg()
       #self.d.saveSvg(nameFile + '.svg')
@@ -42,7 +42,7 @@ class SmartPieChart(PieChart):
                     a = ("A %s %s 0 %s 0 %s %s" % (r, r, large_arc_flag, xendpoint, yendpoint))
                     L = ("L %s %s" % (xcenter, ycenter))
                     p = draw.Path(stroke_width=10, stroke="white", fill=self.colorList[i - 1], fill_opacity=1,
-                                  d=M + a + L,id=self.Index)
+                                  d=M + a + L,Class=str(self.Index),id=self.Index)
 
 
                     p.Z()
@@ -56,6 +56,6 @@ class SmartPieChart(PieChart):
                                     stroke="white", stroke_width=10))
                     self.d.append(draw.Text(text=str(text), fontSize=50, x=str((length * 55 + 8) - 50), y=Y - 5, style="font-size : "+str(50),
                                             transform="rotate(90," + str(self.xCenter - 40) + "," + str(
-                                                -length * 55 + 8) + ")",id=self.Index))
+                                                -length * 55 + 8) + ")",Class=str(self.Index),id=self.Index))
                     self.Index += 1
                     Y -= (self.r / len(self.firstColumn.cells)) / 8

@@ -7,17 +7,21 @@ from django.views.decorators.csrf import csrf_exempt
 
 from DataI.Controllers.DataControllers.DataController import DataController
 from DataI.JSONSerializer import ObjectEncoder
+from DataI.Models.ColumnModel import ColumnModel
 from DataI.Models.DashboardModel import DashboardModel
 from DataI.Models.FilterModel import FilterModel
 from DataI.Models.TableModel import TableModel
 from DataI.Models.VisualizationModel import VisualizationModel
-from DataI.models import Document
+from DataI.models import Document, SVGDocument
 
 dataController = DataController()
 dirName = os.path.dirname(__file__)
-filename = os.path.join(dirName, '../Test.xlsx')
+filename = os.path.join(dirName, 'test-file.datai')
+dataController.loadDataIFile(filename)
+dirName = os.path.dirname(__file__)
+filename = os.path.join(dirName, '../Aggregation-Test.xlsx')
 
-dataController.loadTablesFromExcelFile(filename, 0)
+# dataController.loadTablesFromExcelFile(filename, 0)
 
 # ================================ load static data ================================:
 
@@ -29,14 +33,15 @@ jsonVisio1 = '''
             "data": 0,
             "usedColumns": [
                 0,
-                1,
-                2
+                2,
+                3
             ],
             "xColumn": 0,
             "chart": "BoundaryLineChart",
             "filters": [
             ],
-            "isDeleted": false
+            "isDeleted": false,
+            "animation": false
 }
 '''
 jsonVisio2 = '''
@@ -46,14 +51,15 @@ jsonVisio2 = '''
             "data": 0,
             "usedColumns": [
                 0,
-                1,
-                2
+                2,
+                3
             ],
             "xColumn": 0,
             "chart": "VerticalBarChart",
             "filters": [
             ],
-            "isDeleted": false
+            "isDeleted": false,
+            "animation": true
 }
 '''
 
@@ -120,12 +126,21 @@ jsonFilters = '''
             "name": "filter3",
             "id": 2,
             "dataSource": 0,
-            "filteredColumn": 0,
+            "filteredColumn": 3,
             "initValue": 11,
             "type": "<",
             "isDeleted": false
+        },
+        {
+            "name": "dateTimeFilter",
+            "id": 3,
+            "dataSource": 0,
+            "filteredColumn": 1,
+            "initValue": "11/10/2000",
+            "type": ">",
+            "isDeleted": false
         }
-    ]
+]
 '''
 
 filter1 = {
@@ -144,6 +159,12 @@ filter3 = {
     "isActive": True
 }
 
+dateTimeFilter = {
+    "id": 3,
+    "value": '23/1/2000',
+    "isActive": True
+}
+
 dataController.data.visualizations.append(VisualizationModel.from_json(json.loads(jsonVisio1)))
 dataController.data.visualizations.append(VisualizationModel.from_json(json.loads(jsonVisio2)))
 dataController.data.dashboards.append(DashboardModel.from_json(json.loads(jsonDashboard)))
@@ -152,6 +173,7 @@ for filter in loadedJsonFilters:
     dataController.data.filters.append(FilterModel.from_json(filter))
 
 
+# dataController.data.dataSources[0].filters.append(dateTimeFilter)
 # dataController.data.dataSources[0].filters = [filter1, filter2]
 # dataController.data.dataSources[1].filters = [filter3]
 # dataController.data.visualizations[0].filters = [filter1]
@@ -171,7 +193,7 @@ def fullDataHandler(request):
 @csrf_exempt
 def dataSourcesHandler(request):
     if request.method == 'GET':
-        fullTables = dataController.getFinalTables()
+        fullTables = dataController.getFinaleTables()
         return HttpResponse(
             json.dumps(fullTables, indent=4, cls=ObjectEncoder, ensure_ascii=False))
     elif request.method == 'POST':
@@ -191,6 +213,29 @@ def dataSourceModifier(request, id):
     elif request.method == 'DELETE':
         table = dataController.deleteTable(id)
         return HttpResponse(json.dumps(table, indent=4, cls=ObjectEncoder, ensure_ascii=False))
+    else:
+        return HttpResponseNotFound('No such request({} <{}>) is available'.format(request.path, request.method))
+
+
+@csrf_exempt
+def removeColumn(request, tableId, columnId):
+    if request.method == 'DELETE':
+        returnTable = dataController.removeColumn(tableId, columnId)
+        return HttpResponse(json.dumps(returnTable, indent=4, cls=ObjectEncoder, ensure_ascii=False))
+    else:
+        return HttpResponseNotFound('No such request({} <{}>) is available'.format(request.path, request.method))
+
+
+@csrf_exempt
+def getAggregatedTable(request, tableId, columnId):
+    if request.method == 'PUT':
+        aggregationProperties = json.loads(request.body.decode())
+        tableIndex = DataController.getElementIndexById(dataController.data.dataSources, tableId)
+        table = dataController.data.dataSources[tableIndex]
+        table.aggregator.aggregationColumn = columnId
+        table.aggregator.isActive = aggregationProperties['isActive']
+        returnTable = dataController.getAggregatedTable(tableId, columnId, aggregationProperties['type'])
+        return HttpResponse(json.dumps(returnTable, indent=4, cls=ObjectEncoder, ensure_ascii=False))
     else:
         return HttpResponseNotFound('No such request({} <{}>) is available'.format(request.path, request.method))
 
@@ -319,6 +364,17 @@ def removeInVisioFilter(request, visioId, filterId):
         if returnValue['state'] == -1:
             return HttpResponseNotFound('Filter not found.')
         return HttpResponse(json.dumps(returnValue, indent=4, cls=ObjectEncoder, ensure_ascii=False))
+    else:
+        return HttpResponseNotFound('No such request({} <{}>) is available'.format(request.path, request.method))
+
+
+@csrf_exempt
+def getAggregationTypes(request):
+    if request.method == 'GET':
+        types = dataController.getAggregationTypes()
+        typesDict = dict()
+        typesDict['aggregationTypes'] = types
+        return HttpResponse(json.dumps(typesDict, indent=4, cls=ObjectEncoder, ensure_ascii=False))
     else:
         return HttpResponseNotFound('No such request({} <{}>) is available'.format(request.path, request.method))
 
@@ -490,4 +546,47 @@ def csvUpload(request):
     filePath = (os.path.join(projectPath.replace('/DataI', '')) + '/media/uploads/') + fileName
     print(filePath)
     dataController.loadTableFromCSVFile(filePath, DataController.getMaxIdInList(dataController.data.dataSources) + 1)
+    return HttpResponse()
+
+
+@csrf_exempt
+def dataIUpload(request):
+    if request.method != 'POST':
+        return HttpResponseNotFound('No such request({} <{}>) is available'.format(request.path, request.method))
+
+    print(request.FILES)
+    newdoc = Document(docfile=request.FILES['file_upload'])
+    try:
+        newdoc.save()
+    except:
+        pass
+
+    fileName = request.FILES['file_upload'].name
+    projectPath = os.path.dirname(__file__)
+    print('project path: ' + projectPath)
+    filePath = projectPath.replace('/DataI', '') + '/media/uploads/' + fileName
+    print(filePath)
+    dataController.loadDataIFile(filePath)
+    return HttpResponse()
+
+
+@csrf_exempt
+def svgUpload(request):
+    if request.method != 'POST':
+        return HttpResponseNotFound('No such request({} <{}>) is available'.format(request.path, request.method))
+
+    newdoc = SVGDocument(docfile=request.FILES['file_upload'])
+    try:
+        newdoc.save()
+    except:
+        pass
+
+    fileName = request.FILES['file_upload'].name
+    newChartName = filename[:len(filename) - 1]
+    dataController.chartsNames.append(newChartName)
+    projectPath = os.path.dirname(__file__)
+    print('project path: ' + projectPath)
+    filePath = (os.path.join(projectPath.replace('/DataI', '')) + '/media/uploads/svg/') + fileName
+    print(filePath)
+
     return HttpResponse()

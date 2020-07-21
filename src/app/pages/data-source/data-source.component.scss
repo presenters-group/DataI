@@ -24,6 +24,8 @@ table tr td {
 
 .table{
   overflow: auto;
+  width: 100%;
+
 }
 
 
@@ -56,4 +58,19 @@ table tr td {
 }
 .add-filter{
   width: 100%;
+}
+
+.title{
+  display: flex;
+  flex-direction: row;
+  border-bottom: solid #00000044 1px;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+.checkbox{
+  margin-right: 10px;
+}
+.type{
+  margin-left : 10px;
 }

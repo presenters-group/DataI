@@ -33,8 +33,7 @@
   <div class="value-container">
     <div
       *ngIf="
-        (dataSources | async)[filter.dataSource].columns[filter.filteredColumn]
-          .columnType == 'Measures'
+        filter.type != 'MultipleEquality'
       "
       class="value-item"
     >
@@ -42,14 +41,16 @@
         <div class="property-title" matPrefix>
           {{filter.type}}
         </div>
-        <input matInput [value]="this.value" (change)="onChangeMeasure($event)"/>
+        <input mat-input [value]="this.value" (change)="onChangeMeasure($event)"
+          [type]="(dataSources | async)[filter.dataSource].columns[filter.filteredColumn]
+          .columnType == 'Measures' ? 'number' : 'date'"
+        />
       </div>
     </div>
 
     <div
       *ngIf="
-        (dataSources | async)[filter.dataSource].columns[filter.filteredColumn]
-          .columnType == 'Dimensions'
+        filter.type == 'MultipleEquality'
       "
       class="value-item"
     >

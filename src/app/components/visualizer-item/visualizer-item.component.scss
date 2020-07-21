@@ -3,6 +3,7 @@
   flex-direction: row;
   justify-content: center;
   overflow: auto;
+  position: relative;
 }
 .chart{
   width: 100%;
@@ -12,4 +13,11 @@
 }
 .spinner{
   align-self:  center;
+}
+.toolTip{
+  position: absolute;
+}
+
+*{
+  transition: all 0.5s;
 }

@@ -5,7 +5,8 @@ import { Store } from "@ngrx/store";
 import { selectDataSourcesEntities } from "src/store/data-sources/data-sources.selectors";
 import { initialState } from "src/store/core";
 import { setCurrentTap, addToTapes } from "src/store/core/actions/core.actions";
-import { isArray } from "util";
+import { isArray, isNumber } from "util";
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: "app-filter-item",
@@ -13,7 +14,14 @@ import { isArray } from "util";
   styleUrls: ["./filter-item.component.scss"],
 })
 export class FilterItemComponent implements OnInit {
-  @Input() filter: IFilter;
+  filter: IFilter;
+  @Input('filter') set filterSetter(value){
+    console.log('blablabla')
+
+    this.checkValue();
+
+    this.filter = value;
+  };
   @Input() visualizerName: string;
   @Input() enabled: boolean = false;
   @Input() value: any;
@@ -25,8 +33,16 @@ export class FilterItemComponent implements OnInit {
   constructor(private store: Store<AppState>) {}
 
   ngOnInit(): void {
-    console.log(this.value);
-    if (this.value == undefined) this.value = this.filter.initValue;
+    this.checkValue();
+  }
+
+  checkValue(){
+    this.dataSources.pipe(first()).subscribe((dataSources)=>{
+      let type = dataSources[this.filter.dataSource].columns[this.filter.filteredColumn].columnType;
+      if(type == 'Dimensions' && !Array.isArray(this.value)) {console.log('arrainaize'); this.value = []}
+      else if (type == 'Measures' && !(typeof this.value == 'number') ) this.value = this.filter.initValue;
+      else if (type == 'DateTime' ) this.value = this.value ?  new Date(this.value).toISOString().slice(0,10) : '1-1-2009';
+    });
   }
 
   onEnableClicked() {
@@ -35,7 +51,6 @@ export class FilterItemComponent implements OnInit {
   }
 
   onDimChangeValue(value) {
-    console.log();
     if (!Array.isArray(this.value)) this.value = [];
     if (this.value.includes(value))
       this.value = this.value.filter((v) => v != value);
@@ -44,12 +59,28 @@ export class FilterItemComponent implements OnInit {
   }
 
   onChangeMeasure($event) {
-    this.value = Number.parseInt($event.target.value);
+    console.log($event.target.value)
+    this.dataSources.pipe(first()).subscribe((dataSources)=>{
+      let type = dataSources[this.filter.dataSource].columns[this.filter.filteredColumn].columnType;
+      console.log(type)
+      if(type == 'DateTime'){
+        console.log('DateTime')
+        this.onChangeData($event);
+      }
+      else{
+        console.log("Mesueres")
+        this.value = Number.parseInt($event.target.value);
+        this.onChangeValue();
+      }
+    })
+  }
+
+  onChangeData($event){
+    this.value = $event.target.value;
     this.onChangeValue();
   }
 
   onChangeValue() {
-    console.log({ value: this.value, active: this.enabled });
     this.onChange.emit({
       value: this.value,
       active: this.enabled,
@@ -71,5 +102,10 @@ export class FilterItemComponent implements OnInit {
         },
       })
     );
+  }
+
+  consol(data){
+    console.log(data);
+    return data
   }
 }

@@ -17,6 +17,7 @@ export class VisualizersService {
       usedColumns: data.usedColumns.map((x) => Number.parseInt(x)),
       xColumn: Number.parseInt(data.xColumn),
       data: Number.parseInt(data.data),
+      filters : [],
     });
   }
 
@@ -38,7 +39,6 @@ export class VisualizersService {
   }
 
   fetchVisualizerChart(data) {
-    console.log(({ ...data }));
     return this.httpClient.put(`http://127.0.0.1:8000/data/chart/`, {
       ...data,
     });
@@ -55,7 +55,6 @@ export class VisualizersService {
     );
   }
   addFilterToVisualizer(data) {
-    console.log(data);
     return this.httpClient.put(
       `${this.URL}/insert-filter/${data.visualizerId}/`,
       {
@@ -71,4 +70,9 @@ export class VisualizersService {
       {}
     );
   }
+
+  addSVGChart(data){
+    let testData: FormData = new FormData();
+    testData.append("file_upload", data.file, data.file.name);
+    return this.httpClient.post(BASE_URL + "svg-upload/", testData);  }
 }

@@ -4,20 +4,28 @@
       <app-visualizer-item
         [zoom]="zoom"
         [svg]="(visualizer | async).chartSvg"
+        [metaData]="(visualizer | async).chartData"
       ></app-visualizer-item>
     </div>
-    <div class="zoom-slider">
-      <div class="zoom-title">
-        Zoom: &nbsp;
+    <div class="tools">
+      <div class="zoom-slider">
+        <div class="zoom-title">
+          Zoom: &nbsp;
+        </div>
+        <mat-slider
+          thumbLabel
+          tickInterval="100"
+          step="10"
+          min="20"
+          max="500"
+          [(ngModel)]="zoom"
+        ></mat-slider>
       </div>
-      <mat-slider
-        thumbLabel
-        tickInterval="100"
-        step="10"
-        min="20"
-        max="500"
-        [(ngModel)]="zoom"
-      ></mat-slider>
+      <div class="export">
+        <button mat-button (click)="download('png')">PNG</button>
+        <button mat-button (click)="download('svg')">SVG</button>
+
+      </div>
     </div>
   </div>
   <!-- <div class="filters-title">

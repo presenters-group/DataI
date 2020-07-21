@@ -9,6 +9,7 @@ import { first } from "rxjs/operators";
 import { Validators } from "@angular/forms";
 import { NotificationService } from "src/store/notifications/notifications.service";
 import { fetchDataSources } from 'src/store/data-sources';
+import { IfStmt } from '@angular/compiler';
 
 @Component({
   selector: "app-filter",
@@ -20,6 +21,7 @@ export class FilterComponent implements OnInit {
   objectKeys = Object.keys;
   dataSources = this.store.select(selectDataSourcesEntities);
   filter = this.store.select(selectCurrentFilter);
+  value = [];
   constructor(
     private swal: NotificationService,
     private store: Store<AppState>,
@@ -28,7 +30,6 @@ export class FilterComponent implements OnInit {
 
   formBuild() {
     this.filter.subscribe((value) => {
-      console.log(value);
       this.form = this.formBuilder.group({
         name: [value.name, Validators.required],
         dataSource: [value.dataSource.toString(), Validators.required],
@@ -36,16 +37,50 @@ export class FilterComponent implements OnInit {
         type: [value.type, Validators.required],
         initValue: [value.initValue],
       });
-      // this.form.get('dataSource').setValue(value.dataSource);
     });
   }
 
   ngOnInit(): void {
-    this.formBuild();
+    // this.initialize();
+    this.filter.subscribe((value)=>{
+      console.log('initialize')
+      this.initialize();
+    })
+  }
+
+  initialize(){
+    setTimeout(()=>{
+      this.formBuild();
+      this.dataSources.pipe(first()).subscribe((dataSources)=>{
+        let type = dataSources[this.form.value.dataSource].columns[this.form.value.filteredColumn].columnType;
+        if(type == 'DateTime')
+          this.form.controls['initValue'].setValue(new Date(this.form.value.initValue).toISOString().slice(0,10))
+        if(type == "Dimension")
+        this.form.controls['initValue'].setValue([]);
+          console.log(type,this.form.value.initValue)
+      })
+    },100)
   }
 
   onSaveClick() {
-    if (this.form.valid) {
+
+    if (this.form.valid)
+    this.dataSources.pipe(first()).subscribe((dataSources)=>{
+      let type = dataSources[this.form.value.dataSource].columns[this.form.value.filteredColumn].columnType
+      if(type == 'DateTime'){
+        console.log("DateTime")
+        this.form.controls['initValue'].setValue(new Date(this.form.value.initValue).toLocaleDateString())
+      }
+      else if (type == 'Measures'){
+        let num = Number.parseInt(this.form.value.initValue);
+        if(!num){
+          this.swal.fail(
+            "Init value cant have a character"
+          );
+          return;
+        }
+        this.form.controls['initValue'].setValue(Number.parseInt(this.form.value.initValue));
+      }
       this.filter.pipe(first()).subscribe((value) => {
         this.store.dispatch(
           updateFilter({ data: { ...this.form.value, id: value.id } })
@@ -53,13 +88,14 @@ export class FilterComponent implements OnInit {
         this.formBuild();
       });
       this.store.dispatch(fetchDataSources());
-    } else {
+
+    }); else {
       this.swal.fail("Please Complete The Form With Valid Information Before Saving");
     }
   }
 
   onNoClick() {
-    this.formBuild();
+    this.initialize();
   }
 
   onChangeDataSource() {

@@ -9,6 +9,7 @@ import { selectFiltersForDataSource } from 'src/store/filters/filters.selectors'
 import { selectCharts } from 'src/store/core/selectors/core.selector';
 import { Observable } from 'rxjs';
 import { NotificationService } from 'src/store/notifications/notifications.service';
+import { addSVGChart } from 'src/store/visualizers';
 
 
 @Component({
@@ -30,7 +31,6 @@ export class AddVisualizerComponent {
     private swal: NotificationService,
     @Inject(MAT_DIALOG_DATA) public data: any
     ) {
-      // console.log(this.data,this.data.data)
       this.formBuild();
       this.filters = this.store.select(selectFiltersForDataSource,{dataSource : this.form.value.data})
     }
@@ -42,7 +42,7 @@ export class AddVisualizerComponent {
       xColumn: [this.data ? this.data.xColumn.toString() : '',Validators.required],
       chart: [this. data ?this.data.chart.toString() : '',Validators.required],
       name: [this.data ? this.data.name.toString() : '',Validators.required],
-      filters: [this.data ? this.data.filters.map(x=>x.toString()) : []],
+      animation: [this.data ? this.data.animation : false]
     })
   }
   onNoClick(): void {
@@ -57,6 +57,15 @@ export class AddVisualizerComponent {
   }
   onSelectDataSource(){
     this.filters = this.store.select(selectFiltersForDataSource,{dataSource : this.form.value.data})
+  }
+
+  onSVGClick($event){
+    if($event.target.files[0].type == 'image/svg+xml'){
+      let file = $event.target.files[0]
+      this.store.dispatch(addSVGChart({data: {file : file}}))
+    }
+    else
+      this.swal.fail('Please Add a Valid File');
   }
 
 }

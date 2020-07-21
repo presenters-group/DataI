@@ -72,7 +72,6 @@ const visualizersReducer = createReducer(
   }),
 
   on(fromActions.addFilterToVisualizerSuccess, (state, { data }) => {
-    console.log(data);
     let newState = {
       ...state,
       entities: {
@@ -113,7 +112,6 @@ const visualizersReducer = createReducer(
   }),
 
   on(fromActions.removeFilterFromVisualizerSuccess, (state, { data }) => {
-    console.log(data)
     let filters = state.entities[data.visioId].filters;
     let newFilters = [];
     for (let filter of filters) {

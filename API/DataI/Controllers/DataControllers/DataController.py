@@ -1,3 +1,4 @@
+from copy import deepcopy
 from typing import List, Dict
 import os
 from DataI import enums
@@ -6,10 +7,13 @@ from DataI.Controllers.DataControllers.DataSourcesController import DataSourcesC
 from DataI.Controllers.DrawControllers.DrawController import DrawController
 from DataI.Controllers.DataControllers.FiltersModelController import FiltersModelController
 from DataI.Controllers.DataControllers.VisualizationsController import VisualizationsController
+from DataI.Controllers.Equation.Equation import Equation
 from DataI.Controllers.FileLoaders.CSVFileLoader import CSVFileLoader
+from DataI.Controllers.FileLoaders.DataIFileLoader import DataIFileLoader
 from DataI.Controllers.FileLoaders.ExcelFileLoader import ExcelFileLoader
 from DataI.Controllers.Filters.FiltersController import FiltersController
 from DataI.Models.BasicInfo import BasicDataModelInfo
+from DataI.Models.ColumnModel import ColumnModel
 from DataI.Models.DashboardModel import DashboardModel
 from DataI.Models.DataModel import DataModel
 from DataI.Models.FilterModel import FilterModel
@@ -21,6 +25,18 @@ from DataI.Controllers.FileSaver.ExcelFileSaver import ExcelFileSaver
 class DataController():
     def __init__(self):
         self.data = DataModel([], [], [], [])
+        self.chartsNames = [enums.ChartTypes.VerticalBarChart.value, enums.ChartTypes.BoundaryLineChart.value,
+                 enums.ChartTypes.PointChart.value, enums.ChartTypes.MultiplePieChart.value,
+                 enums.ChartTypes.InfChart.value, enums.ChartTypes.PyramidalChart.value,
+                 enums.ChartTypes.SmartPieChart.value, enums.ChartTypes.HealthyFoodChart.value,
+                 enums.ChartTypes.FemaleInfChart.value, enums.ChartTypes.FemaleAndMaleChart.value,
+                 enums.ChartTypes.MapChart.value,enums.ChartTypes.LineChart.value]
+        self.aggregationTypes = [enums.AggregationType.Basic.value, enums.AggregationType.DayBased.value, ]
+        self.aggregationTypes = [enums.AggregationType.MonthBased.value, enums.AggregationType.YearBased.value, ]
+
+    def loadDataIFile(self, filePath: str):
+        loader = DataIFileLoader(filePath)
+        self.data = loader.loadFile()
 
     # Don't add 1 to id here (it must be already added).
     def loadTablesFromExcelFile(self, filePath: str, greatestTableId: int):
@@ -32,8 +48,22 @@ class DataController():
         loader = CSVFileLoader(filePath)
         self.data.dataSources.append(loader.loadFile(greatestTableId))
 
-    def getFinalTables(self) -> List[TableModel]:
+    def insertNewColumn(self, tableId, column: ColumnModel) -> TableModel:
+        return DataSourcesController.insertNewColumn(self.data, tableId, column)
+
+    def implementEquation(self, tableId: int, equation: str, newName: str):
+        targetTableIndex = DataController.getElementIndexById(self.data.dataSources, tableId)
+        targetTable = self.data.dataSources[targetTableIndex]
+        Equation.implementEquation(targetTable, equation, newName)
+
+    def removeColumn(self, tableId: int, columnId: int) ->TableModel:
+        return DataSourcesController.removeColumn(self.data, tableId, columnId)
+
+    def getFinaleTables(self) -> List[TableModel]:
         return DataSourcesController.getFinalTables(self.data)
+
+    def getAggregatedTable(self, tableId: int, aggColumnId: int, type: str) -> TableModel:
+        return DataSourcesController.getAggregatedTable(self.data, tableId, aggColumnId, type)
 
     def insertNewTable(self, table: TableModel):
         DataSourcesController.insertNewTable(self.data, table)
@@ -59,13 +89,17 @@ class DataController():
         return FiltersController.getFilteredTable(self.data, tableId)
 
     def updateInDataSourceFilter(self, filter: Dict, tableId, filterId):
+        print(filter)
         targetTableIndex = DataController.getElementIndexById(self.data.dataSources, tableId)
         self.__updateInDataModelFilter(self.data.dataSources[targetTableIndex], filter, filterId)
         return FiltersController.getFilteredTable(self.data, tableId)
 
     def removeInDataSourceFilter(self, tableId, filterId):
         targetTableIndex = DataController.getElementIndexById(self.data.dataSources, tableId)
-        return self.__removeInDataModelFilter(self.data.dataSources[targetTableIndex], filterId)
+        value = self.__removeInDataModelFilter(self.data.dataSources[targetTableIndex], filterId)
+        if value == -1:
+            return -1
+        return DataSourcesController.getFilteredTables(self.data)[targetTableIndex]
 
     def insertNewVisualizer(self, table: VisualizationModel):
         return VisualizationsController.insertNewVisualizer(self.data, table)
@@ -96,21 +130,14 @@ class DataController():
         returnDict['filterId'] = filterId
         return returnDict
 
+    def getAggregationTypes(self):
+        return self.aggregationTypes
+
     def getChartsNames(self):
-        names = [enums.ChartTypes.AnimatedVerticalBarChart.value, enums.ChartTypes.VerticalBarChart.value, enums.ChartTypes.BoundaryLineChart.value,
-                 enums.ChartTypes.PointChart.value, enums.ChartTypes.MultiplePieChart.value,
-                 enums.ChartTypes.InfChart.value, enums.ChartTypes.PyramidalChart.value,
-                 enums.ChartTypes.SmartPieChart.value, enums.ChartTypes.HealthyFoodChart.value,
-                 enums.ChartTypes.FemaleInfChart.value, enums.ChartTypes.FemaleAndMaleChart.value,
-                 enums.ChartTypes.MapChart.value,enums.ChartTypes.LineChart.value]
-        return names
+        return self.chartsNames
 
     def getChart(self, visioId, width, height):
         return DrawController.getChart(self.data, visioId, width, height, VisualizationsController.getFinalTable, 0)
-
-    def getSingleDashboardChart(self, dashboardId: int, visioId, width, height):
-        return DrawController.getChart(self.data, visioId, width, height,
-                                       DashboardsController.getFinaleChartTable, dashboardId)
 
     def insertNewDashboard(self, dashBoard: DashboardModel):
         DashboardsController.insertNewDashboard(self.data, dashBoard)
@@ -212,7 +239,7 @@ class DataController():
         if inFilterIndex == -1:
             return -1
         model.filters.pop(inFilterIndex)
-        return 1
+        return model
 
     @classmethod
     def __removeInDashboardModelFilter(cls, dashboard: BasicDataModelInfo, visioId: int, filterId: int):

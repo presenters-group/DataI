@@ -3,7 +3,7 @@ import { Observable } from "rxjs";
 import { selectCurrentDataSource } from "src/store/data-sources/data-sources.selectors";
 import { Store } from "@ngrx/store";
 import { AppState } from "src/store";
-import { updateCell, updateFilterInDataSource,addFilterToDataSource, removeFilterFromDataSource, updateDataSourceColumnColor, updateDataSourceRowColor } from "src/store/data-sources";
+import { updateCell, updateDataSourceAggregation,updateFilterInDataSource,addFilterToDataSource, removeFilterFromDataSource, updateDataSourceColumnColor, updateDataSourceRowColor } from "src/store/data-sources";
 import { first } from 'rxjs/operators';
 import { selectCurrentDataSourceFilters,  selectAllCurrentDataSourceFilters } from 'src/store/filters/filters.selectors';
 import { NotificationService } from 'src/store/notifications/notifications.service';
@@ -20,13 +20,25 @@ export class DataSourceComponent implements AfterViewInit {
   addableFilters : Observable<any> = this.store.select(selectAllCurrentDataSourceFilters);
   insertedFilter;
   insertFilter : boolean = false;
+
+  aggregatedColumn;
+  aggregationEnabled;
+  aggregationType = 'Basic';
   constructor(private store: Store<AppState>,private notification : NotificationService) {
     this.dataSource = this.store.select(selectCurrentDataSource);
+    this.dataSource.subscribe((dataSource)=>{
+      this.aggregatedColumn = dataSource.aggregator.aggregationColumn.toString();
+      this.aggregationEnabled = dataSource.aggregator.isActive;
+      this.aggregationType = dataSource.aggregator.type;
+    })
   }
 
   ngAfterViewInit(
 
-  ): void {}
+  ): void {
+
+
+  }
 
 
 
@@ -37,7 +49,6 @@ export class DataSourceComponent implements AfterViewInit {
     let acceptedValue;
     this.dataSource.pipe(first()).subscribe((value) => {
       let old = value.columns[columnId].cells[cellIndex];
-      console.log("cell value in subscribe",cellValue, !(!cellValue))
       if(value.columns[columnId].columnType == 'Measures' && cellIndex != 0){
         cellValue = Number.parseInt(cellValue)
         if(isNaN(cellValue)){
@@ -47,7 +58,6 @@ export class DataSourceComponent implements AfterViewInit {
         }
       }
       if (old.value != cellValue){
-          console.log('OldValue',old.value);
           tableId = value.id;
           this.store.dispatch(
             updateCell({
@@ -64,13 +74,11 @@ export class DataSourceComponent implements AfterViewInit {
   }
 
   consol(data){
-    console.log(data)
     return data
   }
 
 
   onFilterChangeValue($event){
-    console.log($event)
     this.dataSource.pipe(first()).subscribe((value)=>{
       this.store.dispatch(updateFilterInDataSource({data : {...$event,tableId : value.id}}))
     })
@@ -120,6 +128,35 @@ export class DataSourceComponent implements AfterViewInit {
     this.store.dispatch(updateDataSourceRowColor({ data : {color : $event.target.value,rowId , tableId : value.id}}))
   })
   }
+
+
+  onAggregateClick(){
+    this.dataSource.pipe(first()).subscribe((dataSource)=>{
+
+      this.store.dispatch(updateDataSourceAggregation({
+        data : {
+            type: this.aggregationType,
+            isActive: true,
+            columnId: this.aggregatedColumn,
+            tableId: dataSource.id
+        }
+      }))
+    })
+  }
+
+  onUnAggregateClick(){
+    this.dataSource.pipe(first()).subscribe((dataSource)=>{
+      this.store.dispatch(updateDataSourceAggregation({
+        data : {
+          type: this.aggregationType,
+          isActive: false,
+          columnId: this.aggregatedColumn,
+          tableId: dataSource.id
+        }
+      }))
+
+    })
+      }
 }
 
 

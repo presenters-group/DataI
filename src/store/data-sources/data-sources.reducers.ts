@@ -42,7 +42,6 @@ const dataSourcesReducer = createReducer(
     fromActions.updateDataSourceSuccess,
     fromActions.createDataSourceSuccess,
     (state, { data }) => {
-      console.log(data)
       const entities = {
         ...state.entities,
         [data.id]: data,
@@ -67,7 +66,6 @@ const dataSourcesReducer = createReducer(
   }),
   //Updating Cell
   on(fromActions.updateCellSuccess, (state, { data }) => {
-    console.log(data)
     let cells = [...state.entities[data.tableID].columns[data.columnId].cells]
     cells[data.cellIndex] = {
       value : data.cellValue,

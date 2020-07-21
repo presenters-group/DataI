@@ -35,6 +35,7 @@
   <div (click)="onPreviewClick($event)" class="preview" (drop)="onDrop($event)" (dragover)="allowDrop($event)">
     <div
       *ngFor="let visualizer of visualizers"
+      (click)="selectFromAdded(visualizer)"
       id="visualizer"
       class="inner visualizer-shape"
       moving
@@ -52,11 +53,11 @@
     <div
       class="inner filter-shape"
       *ngFor="let filter of filters"
+      (click)="selectFromAdded(filter)"
       [id]="'filter' + filter.id"
       moving
+      [scalable]="false"
       [ngStyle]="{
-        'width.px': filter.measurements.width,
-        'height.px': filter.measurements.height,
         'top.px': filter.measurements.y,
         'left.px': filter.measurements.x
       }"

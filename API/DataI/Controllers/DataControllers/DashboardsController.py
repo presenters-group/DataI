@@ -1,7 +1,5 @@
-from typing import Dict
-
 from DataI.Controllers.DataControllers import DataController
-from DataI.Controllers.Filters.FiltersController import FiltersController
+from DataI.Controllers.Filters import FiltersController
 from DataI.Models.BasicInfo import BasicDataModelInfo
 from DataI.Models.DataModel import DataModel
 from DataI.Models.DashboardModel import DashboardModel

@@ -83,3 +83,20 @@ export const changeVisualizerInDashboardZoom = createAction(
   "[DashboardComponent] change visualizer in dashboard zoom",
   props<{ data: {visualizerId : number, zoom : number, dashboardId : number} }>()
 );
+
+
+export const updateFilterInDashboard = createAction(
+  "[DashboardComponent] update filter in dashboard",
+  props<{ data }>()
+);
+
+
+export const updateFilterInDashboardSuccess = createAction(
+  "[DashboardComponent] update filter in dashboard success",
+  props<{ data }>()
+);
+
+export const updateFilterInDashboardFailed = createAction(
+  "[DashboardComponent] update filter in dashboard failed",
+  props<{ error }>()
+);

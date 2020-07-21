@@ -1,19 +1,34 @@
 import json
 import os
 
-from DataI.Controllers.Aggregation.Aggregation import BasicAggregationController
+from DataI import enums
+from DataI.Controllers.Aggregation.Aggregation import BasicAggregation, AggregationColumnUtils, DayBasedAggregation, \
+    MonthBasedAggregation, YearBasedAggregation
 from DataI.Controllers.DataControllers.DataController import DataController
 from DataI.Controllers.DrawControllers.DrawController import DrawController
+from DataI.Controllers.Equation.Equation import Equation
+from DataI.Controllers.FileSaver.DataIFileSaver import DataIFileSaver
 from DataI.Controllers.Filters.FiltersController import FiltersController
+from DataI.JSONSerializer import ObjectEncoder
+from DataI.Models.ColumnModel import ColumnModel, CellModel
 from DataI.Models.DashboardModel import DashboardModel
 from DataI.Models.FilterModel import FilterModel
+from DataI.Models.TableModel import TableModel
 from DataI.Models.VisualizationModel import VisualizationModel
-
 dataController = DataController()
+# dirName = os.path.dirname(__file__)
+# filename = os.path.join(dirName, 'binary-test-file.datai')
+# dataController.loadDataIFile(filename)
+
+
+
+
 dirName = os.path.dirname(__file__)
-filename = os.path.join(dirName, '../Test.xlsx')
+filename = os.path.join(dirName, '../Aggregation-Test.xlsx')
 
 dataController.loadTablesFromExcelFile(filename, 0)
+
+# ================================ load static data ================================:
 
 
 jsonVisio1 = '''
@@ -23,14 +38,15 @@ jsonVisio1 = '''
             "data": 0,
             "usedColumns": [
                 0,
-                1,
-                2
+                2,
+                3
             ],
             "xColumn": 0,
             "chart": "BoundaryLineChart",
             "filters": [
             ],
-            "isDeleted": false
+            "isDeleted": false,
+            "animation": false
 }
 '''
 jsonVisio2 = '''
@@ -40,14 +56,15 @@ jsonVisio2 = '''
             "data": 0,
             "usedColumns": [
                 0,
-                1,
-                2
+                2,
+                3
             ],
             "xColumn": 0,
             "chart": "VerticalBarChart",
             "filters": [
             ],
-            "isDeleted": false
+            "isDeleted": false,
+            "animation": true
 }
 '''
 
@@ -114,17 +131,22 @@ jsonFilters = '''
             "name": "filter3",
             "id": 2,
             "dataSource": 0,
-            "filteredColumn": 0,
+            "filteredColumn": 3,
             "initValue": 11,
             "type": "<",
             "isDeleted": false
+        },
+        {
+            "name": "dateTimeFilter",
+            "id": 3,
+            "dataSource": 0,
+            "filteredColumn": 1,
+            "initValue": "11/10/2000",
+            "type": ">",
+            "isDeleted": false
         }
-    ]
+]
 '''
-
-loadedJsonFilters = json.loads(jsonFilters)
-for filter in loadedJsonFilters:
-    dataController.data.filters.append(FilterModel.from_json(filter))
 
 filter1 = {
     "id": 1,
@@ -132,7 +154,7 @@ filter1 = {
     "isActive": True
 }
 filter2 = {
-    "id": 1,
+    "id": 2,
     "value": 60,
     "isActive": False
 }
@@ -142,20 +164,102 @@ filter3 = {
     "isActive": True
 }
 
+
 dataController.data.visualizations.append(VisualizationModel.from_json(json.loads(jsonVisio1)))
 dataController.data.visualizations.append(VisualizationModel.from_json(json.loads(jsonVisio2)))
 dataController.data.dashboards.append(DashboardModel.from_json(json.loads(jsonDashboard)))
-dataController.data.dataSources[0].filters = [filter1, filter2]
-dataController.data.dataSources[1].filters = [filter3]
-dataController.data.visualizations[0].filters = [filter1]
-
-BasicAggregationController.implementAggregation(dataController.data.dataSources[0], 0)
+loadedJsonFilters = json.loads(jsonFilters)
+for filter in loadedJsonFilters:
+    dataController.data.filters.append(FilterModel.from_json(filter))
 
 
-for col in dataController.data.dataSources[0].aggregator.aggregatedTable:
-    for c in col.cells:
-        print(c)
-    print('_________________________')
+dateTimeFilter = {
+    "id": 3,
+    "value": '7/23/2020',
+    "isActive": True
+}
+
+dataController.data.dataSources[0].printTable()
+
+print('=========================================================================================================')
+print('=========================================================================================================')
+
+
+equation = '( السعر + الحجم ) * ( السعر - الكمية )'
+
+Equation.implementEquation(dataController.data.dataSources[0], equation, 'EquationResult')
+
+dataController.data.dataSources[0].printTable()
+
+# dataController.data.dataSources[0].filters.append(dateTimeFilter)
+
+# table = FiltersController.getFilteredTable(dataController.data, 0)
+#
+# table.printTable()
+#
+# print('=========================================================================================================')
+# print('=========================================================================================================')
+#
+# # DayBasedAggregation.implementAggregation(dataController.data, table, 1)
+# # MonthBasedAggregation.implementAggregation(dataController.data, table, 1)
+# # YearBasedAggregation.implementAggregation(dataController.data, table, 1)
+# # aggregator = BasicAggregation()
+# # aggregator.implementAggregation(dataController.data, table, 0)
+#
+# print('=========================================================================================================')
+# print('=========================================================================================================')
+#
+# TableModel.printColumns(table.aggregator.aggregatedTable)
+
+
+# print(dataController.data.dataSources[0].columns[0].name + ':', dataController.data.dataSources[0].columns[0].columnType)
+# print(dataController.data.dataSources[0].columns[1].name + ':', dataController.data.dataSources[0].columns[1].columnType)
+# print(dataController.data.dataSources[0].columns[2].name + ':', dataController.data.dataSources[0].columns[2].columnType)
+# print(dataController.data.dataSources[0].columns[3].name + ':', dataController.data.dataSources[0].columns[3].columnType)
+# print(dataController.data.dataSources[0].columns[4].name + ':', dataController.data.dataSources[0].columns[4].columnType)
+
+
+# for c in dataController.data.dataSources[0].columns[1].cells:
+#     print(c.value, c.type, type(c.value))
+
+# dateColumn = ColumnModel(
+#     [
+#         CellModel('Date', enums.CellType.string.value),
+#         CellModel('22/1/2000', enums.CellType.string.value),
+#         CellModel('10/2/2000', enums.CellType.string.value),
+#         CellModel('15/10/2001', enums.CellType.string.value),
+#         CellModel('17/10/2001', enums.CellType.string.value),
+#         CellModel('2/7/2002', enums.CellType.string.value),
+#         CellModel('4/8/2002', enums.CellType.string.value)
+#     ], 'Date', 0, False
+# )
+
+
+# dateColumn = dataController.data.dataSources[0].columns[1]
+# AggregationColumnUtils.updateDayBasedValueCats(dateColumn)
+# for ce in dateColumn.valueCategories:
+#     print(ce)
+# print('__________________________________________________________________')
+# AggregationColumnUtils.updateMonthBasedValueCats(dateColumn)
+# for ce in dateColumn.valueCategories:
+#     print(ce)
+# print('__________________________________________________________________')
+# AggregationColumnUtils.updateYearBasedValueCats(dateColumn)
+# for ce in dateColumn.valueCategories:
+#     print(ce)
+# print('__________________________________________________________________')
+#
+
+
+
+
+# BasicAggregationController.implementAggregation(dataController.data.dataSources[0], 0)
+#
+#
+# for col in dataController.data.dataSources[0].aggregator.aggregatedTable:
+#     for c in col.cells:
+#         print(c)
+#     print('_________________________')
 
 
 # for column in dataController.data.dataSources[0].columns:

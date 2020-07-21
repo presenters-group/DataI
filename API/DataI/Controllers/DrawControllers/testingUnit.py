@@ -3,6 +3,7 @@ import os
 from DataI.Controllers.DataControllers.DataController import DataController
 from DataI.Controllers.DrawControllers.BarChart import BarChart
 from DataI.Controllers.DrawControllers.BoundaryLineChart import BoundaryLineChart
+from DataI.Controllers.DrawControllers.CustomChart import CustomChart
 from DataI.Controllers.DrawControllers.FemaleAndMaleChart import FemaleAndMaleChart
 from DataI.Controllers.DrawControllers.FemaleInfChart import FemaleInfChart
 from DataI.Controllers.DrawControllers.HealthyFoodChart import HealthyFoodChart
@@ -53,14 +54,18 @@ dataSource = dataController.data.dataSources[0]
 #   print(column.columnType)
 Xcolomn = dataSource.columns[4]
 dataSource.columns.pop(4)
-# char = PointChart(dataSource, double(1000), double(1000), Xcolomn, 8, "point")
-# chart = LineChart(dataSource, double(1000), double(1000), Xcolomn, 8, "line")
-# chart0 = MultiplePieChart(dataSource, Xcolomn, double(1000), double(1000), "pie")
-# chart1 = SmartPieChart(dataSource, Xcolomn, double(1000000), double(100), "smart")
-# chart2 = InfChart(dataSource, Xcolomn, double(1000), double(1000), "Inf")
-# chart2 = BarChart(dataSource, double(1000), double(1000), Xcolomn, 8, "BarChart")
-chart4 = MapChart(dataSource, Xcolomn, double(1000000), double(100), "maptest")
-# chart5 = FemaleInfChart(dataSource, Xcolomn, double(10), double(100), "femaInf")
-# chart6 = HealthyFoodChart(dataSource, Xcolomn, double(1000000), double(100), "HealthyFoodChart")
-# chart7 = FemaleAndMaleChart(dataSource, Xcolomn, double(1000000), double(50), "FemaleAndMaleChart")
-# chart3 = BoundaryLineChart(dataSource, double(1000), double(1000), Xcolomn, 8, "BoundaryLineChart")
+# char = PointChart(dataSource, double(1000), double(1000), Xcolomn, 8,True, "point")
+# chart = LineChart(dataSource, double(1000), double(1000), Xcolomn, 8, True, "line")
+# chart0 = MultiplePieChart(dataSource, Xcolomn, double(1000), double(1000), True, "pie")
+# chart1 = SmartPieChart(dataSource, Xcolomn, double(1000000), double(100), True, "smart")
+# chart2 = InfChart(dataSource, Xcolomn, double(1000), double(1000), True, "Inf")
+# chart2 = BarChart(dataSource, double(1000), double(1000), Xcolomn, 8, True, "BarChart")
+# chart4 = MapChart(dataSource, Xcolomn, double(1000000), double(100), True, "maptest")
+# chart5 = FemaleInfChart(dataSource, Xcolomn, double(10), double(100), True, "femaInf")
+# chart6 = HealthyFoodChart(dataSource, Xcolomn, double(1000000), double(100), True, "HealthyFoodChart")
+
+ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
+dir =str(ROOT_DIR) + "/T.svg"
+chart_6 = CustomChart(dataSource, Xcolomn, double(1000000), double(100), False, "CustomChart",dir)
+# chart7 = FemaleAndMaleChart(dataSource, Xcolomn, double(1000000), double(50), True, "FemaleAndMaleChart")
+# chart3 = BoundaryLineChart(dataSource, double(1000), double(1000), Xcolomn, 8, True, "BoundaryLineChart")

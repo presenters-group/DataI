@@ -1,6 +1,9 @@
 import sys
 import traceback
 from typing import List
+
+from dateutil.parser import parse
+
 from DataI.JSONSerializer import ObjectDeserializer
 from DataI.Models.BasicInfo import BasicInfo
 from DataI import enums
@@ -427,12 +430,36 @@ class ColumnModel(BasicInfo):
         return False
 
     def __getColumnType(self, column: List[CellModel]) -> str:
+        if self.__isDateColumn(column):
+            return enums.ColumnDataType.DateTime.value
+
+
         for cell in column:
             isDigit = str(cell.value).replace('-', '').replace('.', '').isdigit()
             if not isDigit:
                 return enums.ColumnDataType.Dimensions.value
-
         return enums.ColumnDataType.Measures.value
+
+    def __isDateColumn(self, cells: List[CellModel]) -> bool:
+        for cell in cells:
+            try:
+                buffer = parse(cell.value, fuzzy=False)
+                cell.type = enums.CellType.DateTime.value
+                # dateTimeObj = parse(cell.value, fuzzy=False)
+                # if (dateTimeObj.day == 0 and dateTimeObj.month == 0) or\
+                #         (dateTimeObj.day == 0 and dateTimeObj.year == 0) or\
+                #         (dateTimeObj.month == 0 and dateTimeObj.year == 0):
+                #     flag = False
+                # else:
+                #     flag = True
+                flag = True
+            except:
+                flag = False
+
+            if flag is False:
+                return False
+
+        return True
 
 
     @classmethod
@@ -442,3 +469,14 @@ class ColumnModel(BasicInfo):
         id = data['id']
         isDeleted = data['isDeleted']
         return cls(cells, name, id, isDeleted)
+
+    def printColumn(self):
+        for c in self.cells:
+            print(c)
+        print('************************************')
+
+    @classmethod
+    def printCells(cls, cells: List[CellModel]):
+        for c in cells:
+            print(c)
+        print('************************************')

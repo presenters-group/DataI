@@ -1,12 +1,25 @@
-.container{
-  position: relative;
+.container {
   overflow: auto;
+  display: flex;
+  flex-direction: column;
 }
-.inner{
+
+.main {
+  position: relative;
+}
+.title {
+  display: flex;
+  flex-direction: row;
+  border-bottom: solid #00000044 1px;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+.inner {
   position: absolute;
 }
 
-.visualizer-shape{
+.visualizer-shape {
   background-color: var(--pink);
   display: flex;
   margin: auto auto;
@@ -14,10 +27,9 @@
   justify-content: center;
   color: white;
   font-size: 100%;
-
 }
 
-.filter-shape{
+.filter-shape {
   background-color: var(--sky-blue);
   display: flex;
   margin: auto auto;
@@ -25,35 +37,37 @@
   justify-content: center;
   color: white;
   font-size: 100%;
+  width: 100px;
+  height: 100px;
 }
 
-.top{
+.top {
   top: -15px;
 }
 
-.right{
+.right {
   right: -15px;
 }
 
-.left{
+.left {
   left: -15px;
 }
 
-.bottom{
- bottom: -15px;
+.bottom {
+  bottom: -15px;
 }
 
-.halfVertical{
+.halfVertical {
   top: 50%;
   bottom: 50%;
 }
 
-.halfHorizontal{
+.halfHorizontal {
   right: 50%;
   left: 50%;
 }
 
-.circle{
+.circle {
   position: absolute;
   border-radius: 50%;
   width: 15px;
@@ -62,15 +76,14 @@
   background-color: blue;
 }
 
-
-.edit{
+.edit {
   display: flex;
-  position: absolute;
-  top: 20px;
-  right: 20px;
+  // position: absolute;
+  // top: 20px;
+  // right: 20px;
 }
 
-.tools{
+.tools {
   display: flex;
   flex-direction: row;
   position: absolute;
@@ -80,35 +93,35 @@
   align-items: center;
 }
 
-
-
-.zoom-slider{
+.zoom-slider {
   display: flex;
   flex-direction: row;
   align-items: center;
 }
 
-.chart-container{
+.chart-container {
   position: absolute;
   border: solid var(--pink) 2px;
 }
 
-
-.chart-container:hover .tools{
+.chart-container:hover .tools {
   visibility: visible;
 }
 
-.open-visualizer{
+.open-visualizer {
   width: 25px;
   height: auto;
 }
 
-.filter{
+.filter {
   border: solid var(--sky-blue) 2px;
 }
 
-
-.visualizer{
+.visualizer {
   width: 100%;
   height: 100%;
+}
+
+.name {
+  font-size: larger;
 }

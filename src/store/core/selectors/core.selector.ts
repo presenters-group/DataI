@@ -12,7 +12,10 @@ export const selectCurrentTap = createSelector(
 
 export const selectCurrentTree = createSelector(
   selectCoreState,
-  (state) => state.currentTree
+  (state) => {
+   console.log(state.currentTree)
+    return state.currentTree
+  }
 );
 
 export const isTreeOpened = createSelector(

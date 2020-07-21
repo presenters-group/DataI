@@ -62,16 +62,18 @@ export const selectVisualizersTree = createSelector(
       entity.filters.forEach((value, key) => {
 
         let filter = filtersEntities[value.id];
-        console.log(value.id,filtersEntities,filter)
         filters.children.push({
           name: filter.name,
           content: {id : value , type : 'filter' , name : filter.name}
         });
       });
 
-      visualizers.children.push(columns);
-      visualizers.children.push(row);
-      visualizers.children.push(filters);
+      if(columns.children.length)
+        visualizers.children.push(columns);
+      if(row.children.length)
+        visualizers.children.push(row);
+      if(filters.children.length)
+        visualizers.children.push(filters);
 
       tree.children.push(visualizers);
     };

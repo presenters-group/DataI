@@ -3,6 +3,7 @@ import enum
 class ColumnDataType(enum.Enum):
     Dimensions = 'Dimensions'
     Measures = 'Measures'
+    DateTime = 'DateTime'
 
 
 class FileType(enum.Enum):
@@ -23,6 +24,7 @@ class FilterType(enum.Enum):
 class CellType(enum.Enum):
     string = 'string'
     numeric = 'numeric'
+    DateTime = 'DateTime'
 
 
 class ChartTypes(enum.Enum):
@@ -43,8 +45,14 @@ class ChartTypes(enum.Enum):
     FemaleAndMaleChart = 'FemaleAndMaleChart'
     FemaleInfChart = 'FemaleInfChart'
     HealthyFoodChart = 'HealthyFoodChart'
-    AnimatedVerticalBarChart = 'AnimatedVerticalBarChart'
     MapChart = 'MapChart'
+
+
+class AggregationType(enum.Enum):
+    Basic = 'Basic'
+    DayBased = 'DayBased'
+    MonthBased = 'MonthBased'
+    YearBased = 'YearBased'
 
 
 

@@ -15,9 +15,10 @@ class PropertiesModel(ObjectDeserializer):
 
 
 class AggregationModel():
-    def __init__(self, aggregatedTable: List[ColumnModel], aggregationColumn: int, isActive: bool):
+    def __init__(self, aggregatedTable: List[ColumnModel], aggregationColumn: int, type: str, isActive: bool):
         self.aggregatedTable = aggregatedTable
         self.aggregationColumn = aggregationColumn
+        self.type = type
         self.isActive = isActive
 
     def __str__(self):
@@ -31,8 +32,9 @@ class AggregationModel():
         for element in buffer:
             aggregatedTable.append(ColumnModel.from_json(element))
         aggregationColumn = data['aggregationColumn']
+        type = data['type']
         isActive = data['isActive']
-        return cls(aggregatedTable, aggregationColumn, isActive)
+        return cls(aggregatedTable, aggregationColumn, type, isActive)
 
 
 class TableModel(BasicDataModelInfo):
@@ -80,8 +82,13 @@ class TableModel(BasicDataModelInfo):
         columns = list()
         for element in buffer:
             columns.append(ColumnModel.from_json(element))
+
         columnsVisibility = data['columnsVisibility']
         rowsVisibility = data['rowsVisibility']
+
+        columnsColors = data['columnsColors']
+        rowsColors = data['rowsColors']
+
         name = data['name']
         id = data['id']
         properties = PropertiesModel.from_json(data['properties'])
@@ -90,7 +97,23 @@ class TableModel(BasicDataModelInfo):
         isDeleted = data['isDeleted']
 
         returnTable = cls(columns, name, id, properties, aggregator, filters, isDeleted)
+
         returnTable.columnsVisibility = columnsVisibility
         returnTable.rowsVisibility = rowsVisibility
+        returnTable.columnsColors = columnsColors
+        returnTable.rowsColors = rowsColors
 
         return returnTable
+
+    def printTable(self):
+        for i in range(len(self.columns[0].cells)):
+            for j in range(len(self.columns)):
+                print('{:20}'.format(self.columns[j].cells[i].value), end='')
+            print()
+
+    @classmethod
+    def printColumns(cls, columns: List[ColumnModel]):
+        for i in range(len(columns[0].cells)):
+            for j in range(len(columns)):
+                print('{:20}'.format(columns[j].cells[i].value), end='')
+            print()

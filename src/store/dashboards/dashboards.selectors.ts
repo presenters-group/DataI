@@ -50,7 +50,6 @@ export const selectDashboardsTree = createSelector(
       let visualizers = [];
       entity.visualizers.forEach((value, key) => {
         let visualizerEntity = visualizersEntities[value.visualizationId];
-        console.log(visualizersEntities, visualizerEntity);
         let visualizer = {
           name: visualizerEntity.name,
           content: {
@@ -76,7 +75,6 @@ export const selectDashboardsTree = createSelector(
       dashboards.children.push(...visualizers);
       tree.children.push(dashboards);
     }
-    console.log("plaplapla: ", tree);
     return tree;
   }
 );
@@ -100,7 +98,6 @@ export const selectVisualizersFiltersTree = createSelector(
       let allFilters = visualizers[visualizer].filters;
       let filtersTree = [];
       for (let filter of allFilters) {
-        console.log(filter);
         filtersTree.push({
           id: filter.id,
           name: filters[filter.id].name,

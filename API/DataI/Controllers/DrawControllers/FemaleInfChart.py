@@ -1,18 +1,14 @@
-import random
-from typing import List
 import drawSvg as draw
-from numpy import double
 
-from DataI import enums
+from numpy import double
 from DataI.Controllers.DrawControllers.InfChart import InfChart
-from DataI.Controllers.DrawControllers.chart import Chart
 from DataI.Models.ColumnModel import ColumnModel
 from DataI.Models.TableModel import TableModel
 
 
 class FemaleInfChart(InfChart):
-    def __init__(self, dataSource: TableModel, XColumn: ColumnModel, width: double, height: double, nameFile: str):
-        super().__init__(dataSource, XColumn,width, height, nameFile)
+    def __init__(self, dataSource: TableModel, XColumn: ColumnModel, width: double, height: double, animation: bool, nameFile: str):
+        super().__init__(dataSource, XColumn,width, height, animation, nameFile)
 
     def drawHuman(self):
         p = draw.Path(stroke_width=0, stroke="gray", fill="white", fill_opacity=1,

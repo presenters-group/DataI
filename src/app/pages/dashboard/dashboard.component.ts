@@ -10,6 +10,7 @@ import {
   fetchDashboardSVGs,
   changeVisualizerInDashboardZoom,
   updateDashboardSuccess,
+  updateFilterInDashboard,
 } from "src/store/dashboards";
 import { first, takeUntil } from "rxjs/operators";
 import { addToTapes } from 'src/store/core/actions/core.actions';
@@ -43,7 +44,6 @@ export class DashboardComponent implements AfterViewInit, OnDestroy {
   }
 
   constructor(private store: Store<AppState>,private update$:Actions) {
-    this.fetchSvgs();
   }
 
   fetchSvgs(){
@@ -54,11 +54,9 @@ export class DashboardComponent implements AfterViewInit, OnDestroy {
     });
   }
 
-  consol(data) {
-    console.log(data);
-    return data;
-  }
   ngAfterViewInit(): void {
+    this.fetchSvgs();
+
     this.update$
     .pipe(
       // delay(500),
@@ -69,7 +67,6 @@ export class DashboardComponent implements AfterViewInit, OnDestroy {
         // updateVisualizerSuccess,
         addToTapes,
         updateDashboardSuccess,
-
         // updateCurrentTree
       ),
       takeUntil(this.destroyed$)
@@ -129,5 +126,22 @@ export class DashboardComponent implements AfterViewInit, OnDestroy {
       );
 
     })
+  }
+
+
+  onFilterChangeValue($event,filter){
+    this.dashboard.pipe(first()).subscribe((dashboard)=>{
+      this.store.dispatch(updateFilterInDashboard({ data : {
+        ...filter,
+        dashboardId: dashboard.id,
+        visioId: filter.visioId,
+        id: filter.id,
+        value: $event.value,
+        isActive: $event.active,
+      }}))
+
+    })
+
+    this.fetchSvgs();
   }
 }

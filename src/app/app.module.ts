@@ -33,7 +33,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatSelectModule} from '@angular/material/select';
 import {MatSidenavModule} from '@angular/material/sidenav'
 import { AddDataSourceComponent } from './pages/data-source/dialogs/add-data-source/add-data-source.component';
-import {MatRippleModule} from '@angular/material/core';
+import {MatRippleModule, MatNativeDateModule} from '@angular/material/core';
 import { MovingDirective } from './directives/moving/moving.directive';
 import { AddDashboardComponent } from './pages/dashboard/dialogs/add-dashboard/add-dashboard.component';
 import { AddFilterComponent } from './pages/filter/dialogs/add-filter/add-filter.component';
@@ -45,6 +45,7 @@ import { InsertFilterComponent } from './pages/filter/dialogs/insert-filter/inse
 import { MainMenuComponent } from './components/main-menu/main-menu.component';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatSliderModule} from '@angular/material/slider';
+import {MatDatepickerModule} from '@angular/material/datepicker';
 
 @NgModule({
   declarations: [
@@ -99,6 +100,8 @@ import {MatSliderModule} from '@angular/material/slider';
     MatCheckboxModule,
     MatProgressSpinnerModule,
     MatSliderModule,
+    MatDatepickerModule,
+    MatNativeDateModule
     ],
   providers: [],
   bootstrap: [AppComponent],

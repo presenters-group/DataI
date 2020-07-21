@@ -3,7 +3,7 @@ from typing import Dict, List
 from numpy import double
 
 from DataI.Controllers.DataControllers.DashboardsController import DashboardsController
-from DataI.Controllers.DataControllers.VisualizationsController import VisualizationsController
+from DataI.Controllers.DataControllers.DataSourcesController import DataSourcesController
 from DataI.Controllers.DrawControllers.ChartsFactory import ChartsFactory
 from DataI.Models.DashboardModel import DashboardModel
 from DataI.Models.DataModel import DataModel
@@ -45,7 +45,7 @@ class DrawController():
 
     @classmethod
     def getChart(cls, data: DataModel, visioId: int, width: double, height: double,
-                 tableFinalizer, dashboardId: int) -> Dict:
+                 tableFilter, dashboardId: int) -> Dict:
         visioIndex = DataController.getElementIndexById(data.visualizations, visioId)
         visualizer = data.visualizations[visioIndex]
 
@@ -53,7 +53,11 @@ class DrawController():
         cls.__removeXColumnIfExists(drawTable, visualizer.xColumn)
 
         # implement visualization filters.
-        drawTable = tableFinalizer(data, dashboardId, visioId)
+        drawTable = tableFilter(data, dashboardId, visioId)
+
+        drawTable = DataSourcesController.sugreCoatAggregatedTable(drawTable)
+
+        drawTable.printTable()
 
         xColumnIndex = DataController.getElementIndexById(data.dataSources, visualizer.xColumn)
         xColumn = drawTable.columns[xColumnIndex]
@@ -63,7 +67,9 @@ class DrawController():
         #         print(cell)
         #     print('_________________________')
 
-        drawer = ChartsFactory.generateCharts(visualizer.chart, drawTable, width, height, xColumn, double(8.0))
+        drawer = ChartsFactory.generateCharts(visualizer.chart,
+                                              drawTable, width, height, xColumn, double(8.0), visualizer.animation)
+
         chartDict = dict()
         chartDict['visualizerId'] = visioId
         chartDict['svg'] = drawer.SVG

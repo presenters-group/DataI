@@ -41,6 +41,7 @@ export class DataSourcesService {
   }
 
   updateFilterInDataSource(data) {
+    console.log(data)
     return this.httpClient.put(
       `${this.URL}/update-filter/${data.tableId}/${data.id}/`,
       {
@@ -79,6 +80,17 @@ export class DataSourcesService {
     return this.httpClient.put(
       `${this.URL}/row-color/${data.tableId}/${data.rowId}/`,
       { color : data.color}
+    )
+  }
+
+  updateDataSourceAggregation(data){
+    console.log(data)
+    return this.httpClient.put(
+      `${this.URL}/aggregation/${data.tableId}/${data.columnId}/`,
+      {
+        type: data.type,
+        isActive: data.isActive
+    }
     )
   }
 }

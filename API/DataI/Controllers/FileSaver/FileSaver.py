@@ -13,7 +13,6 @@ class FileSaver():
     def tableToDataFrameConverter(cls, table: TableModel) -> DataFrame:
         return DataFrame(cls.__getTableAsListOfRows(table), columns=cls.__getColumnsNames(table))
 
-
     @classmethod
     def __getTableAsListOfRows(cls, table: TableModel) ->List[list]:
         rowsCount = len(table.columns[0].cells)
