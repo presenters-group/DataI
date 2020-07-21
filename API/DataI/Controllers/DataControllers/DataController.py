@@ -47,11 +47,7 @@ class DataController():
         return DataSourcesController.getFilteredTables(self.data)
 
     def getAggregatedTable(self, tableId: int, aggColumnId: int, type: str) -> TableModel:
-        table = DataSourcesController.getAggregatedTable(self.data, tableId, aggColumnId, type)
-        returnTable = deepcopy(table)
-        returnTable.columns.clear()
-        returnTable.columns.extend(returnTable.aggregator.aggregatedTable)
-        return returnTable
+        return DataSourcesController.getAggregatedTable(self.data, tableId, aggColumnId, type)
 
     def insertNewTable(self, table: TableModel):
         DataSourcesController.insertNewTable(self.data, table)
