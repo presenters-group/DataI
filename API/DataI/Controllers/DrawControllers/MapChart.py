@@ -4,7 +4,6 @@ from numpy import double, os
 from xml.dom import minidom
 
 from DataI import enums
-from DataI.Controllers.DrawControllers.InfChart import InfChart
 from DataI.Models.ColumnModel import ColumnModel
 from DataI.Models.TableModel import TableModel
 

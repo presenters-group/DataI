@@ -1,11 +1,7 @@
-import random
-from typing import List
 import drawSvg as draw
-from numpy import double
 
-from DataI import enums
+from numpy import double
 from DataI.Controllers.DrawControllers.InfChart import InfChart
-from DataI.Controllers.DrawControllers.chart import Chart
 from DataI.Models.ColumnModel import ColumnModel
 from DataI.Models.TableModel import TableModel
 
