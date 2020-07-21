@@ -45,7 +45,7 @@ class DataSourcesController():
         aggregator = Aggregation.getAggregator(type)
         Aggregation.clearAggregationTable(targetTable)
         aggregator.implementAggregation(data, targetTable, aggColumnId)
-        returnTable = cls.__sugreCoatAggregatedTable(deepcopy(targetTable))
+        returnTable = cls.sugreCoatAggregatedTable(deepcopy(targetTable))
         return returnTable
 
     @classmethod
@@ -136,7 +136,7 @@ class DataSourcesController():
 
 
     @classmethod
-    def __sugreCoatAggregatedTable(cls, table: TableModel) -> TableModel:
+    def sugreCoatAggregatedTable(cls, table: TableModel) -> TableModel:
         if table.aggregator.isActive:
             table.columns.clear()
             table.columns.extend(table.aggregator.aggregatedTable)
