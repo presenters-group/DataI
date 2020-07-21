@@ -22,6 +22,14 @@ from DataI.Models.VisualizationModel import VisualizationModel
 class DataController():
     def __init__(self):
         self.data = DataModel([], [], [], [])
+        self.chartsNames = [enums.ChartTypes.VerticalBarChart.value, enums.ChartTypes.BoundaryLineChart.value,
+                 enums.ChartTypes.PointChart.value, enums.ChartTypes.MultiplePieChart.value,
+                 enums.ChartTypes.InfChart.value, enums.ChartTypes.PyramidalChart.value,
+                 enums.ChartTypes.SmartPieChart.value, enums.ChartTypes.HealthyFoodChart.value,
+                 enums.ChartTypes.FemaleInfChart.value, enums.ChartTypes.FemaleAndMaleChart.value,
+                 enums.ChartTypes.MapChart.value,enums.ChartTypes.LineChart.value]
+        self.aggregationTypes = [enums.AggregationType.Basic.value, enums.AggregationType.DayBased.value, ]
+        self.aggregationTypes = [enums.AggregationType.MonthBased.value, enums.AggregationType.YearBased.value, ]
 
     def loadDataIFile(self, filePath: str):
         loader = DataIFileLoader(filePath)
@@ -114,14 +122,11 @@ class DataController():
         returnDict['filterId'] = filterId
         return returnDict
 
+    def getAggregationTypes(self):
+        return self.aggregationTypes
+
     def getChartsNames(self):
-        names = [enums.ChartTypes.VerticalBarChart.value, enums.ChartTypes.BoundaryLineChart.value,
-                 enums.ChartTypes.PointChart.value, enums.ChartTypes.MultiplePieChart.value,
-                 enums.ChartTypes.InfChart.value, enums.ChartTypes.PyramidalChart.value,
-                 enums.ChartTypes.SmartPieChart.value, enums.ChartTypes.HealthyFoodChart.value,
-                 enums.ChartTypes.FemaleInfChart.value, enums.ChartTypes.FemaleAndMaleChart.value,
-                 enums.ChartTypes.MapChart.value,enums.ChartTypes.LineChart.value]
-        return names
+        return self.chartsNames
 
     def getChart(self, visioId, width, height):
         return DrawController.getChart(self.data, visioId, width, height, VisualizationsController.getFinalTable, 0)

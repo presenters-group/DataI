@@ -20,6 +20,8 @@ urlpatterns = [
     path('visualizers/update-filter/<int:visioId>/<int:filterId>/', views.updateInVisioFilter),
     path('visualizers/remove-filter/<int:visioId>/<int:filterId>/', views.removeInVisioFilter),
 
+    path('aggregationTypes/', views.getAggregationTypes),
+
     path('chartsNames/', views.getChartsNames),
     path('chart/', views.getChartSVG),
 

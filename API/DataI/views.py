@@ -11,7 +11,7 @@ from DataI.Models.DashboardModel import DashboardModel
 from DataI.Models.FilterModel import FilterModel
 from DataI.Models.TableModel import TableModel
 from DataI.Models.VisualizationModel import VisualizationModel
-from DataI.models import Document
+from DataI.models import Document, SVGDocument
 
 dataController = DataController()
 dirName = os.path.dirname(__file__)
@@ -370,6 +370,17 @@ def removeInVisioFilter(request, visioId, filterId):
 
 
 @csrf_exempt
+def getAggregationTypes(request):
+    if request.method == 'GET':
+        types = dataController.getAggregationTypes()
+        typesDict = dict()
+        typesDict['aggregationTypes'] = types
+        return HttpResponse(json.dumps(typesDict, indent=4, cls=ObjectEncoder, ensure_ascii=False))
+    else:
+        return HttpResponseNotFound('No such request({} <{}>) is available'.format(request.path, request.method))
+
+
+@csrf_exempt
 def getChartsNames(request):
     if request.method == 'GET':
         chartsNames = dataController.getChartsNames()
@@ -565,13 +576,15 @@ def svgUpload(request):
     if request.method != 'POST':
         return HttpResponseNotFound('No such request({} <{}>) is available'.format(request.path, request.method))
 
-    newdoc = Document(docfile=request.FILES['file_upload'])
+    newdoc = SVGDocument(docfile=request.FILES['file_upload'])
     try:
         newdoc.save()
     except:
         pass
 
     fileName = request.FILES['file_upload'].name
+    newChartName = filename[:len(filename) - 1]
+    dataController.chartsNames.append(newChartName)
     projectPath = os.path.dirname(__file__)
     print('project path: ' + projectPath)
     filePath = (os.path.join(projectPath.replace('/DataI', '')) + '/media/uploads/svg/') + fileName

@@ -63,7 +63,8 @@ from DataI.Models.ColumnModel import CellModel, ColumnModel
 # except ValueError:
 #     print('not date')
 
-
+fileName = 'filename.svg'
+print(fileName[:len(fileName) - 4])
 
 
 
