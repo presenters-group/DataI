@@ -10,6 +10,7 @@ from DataI.Controllers.FileLoaders.DataIFileLoader import DataIFileLoader
 from DataI.Controllers.FileLoaders.ExcelFileLoader import ExcelFileLoader
 from DataI.Controllers.Filters.FiltersController import FiltersController
 from DataI.Models.BasicInfo import BasicDataModelInfo
+from DataI.Models.ColumnModel import ColumnModel
 from DataI.Models.DashboardModel import DashboardModel
 from DataI.Models.DataModel import DataModel
 from DataI.Models.FilterModel import FilterModel
@@ -35,8 +36,17 @@ class DataController():
         loader = CSVFileLoader(filePath)
         self.data.dataSources.append(loader.loadFile(greatestTableId))
 
-    def getFinalTables(self) -> List[TableModel]:
-        return DataSourcesController.getFinalTables(self.data)
+    def insertNewColumn(self, tableId, column: ColumnModel) -> TableModel:
+        return DataSourcesController.insertNewColumn(self.data, tableId, column)
+
+    def removeColumn(self, tableId: int, columnId: int) ->TableModel:
+        return DataSourcesController.removeColumn(self.data, tableId, columnId)
+
+    def getFilteredTables(self) -> List[TableModel]:
+        return DataSourcesController.getFilteredTables(self.data)
+
+    def getAggregatedTable(self, tableId: int, aggColumnId: int, type: str) -> TableModel:
+        return DataSourcesController.getAggregatedTable(self.data, tableId, aggColumnId, type)
 
     def insertNewTable(self, table: TableModel):
         DataSourcesController.insertNewTable(self.data, table)
@@ -62,6 +72,7 @@ class DataController():
         return FiltersController.getFilteredTable(self.data, tableId)
 
     def updateInDataSourceFilter(self, filter: Dict, tableId, filterId):
+        print(filter)
         targetTableIndex = DataController.getElementIndexById(self.data.dataSources, tableId)
         self.__updateInDataModelFilter(self.data.dataSources[targetTableIndex], filter, filterId)
         return FiltersController.getFilteredTable(self.data, tableId)
@@ -71,7 +82,7 @@ class DataController():
         value = self.__removeInDataModelFilter(self.data.dataSources[targetTableIndex], filterId)
         if value == -1:
             return -1
-        return DataSourcesController.getFinalTables(self.data)[targetTableIndex]
+        return DataSourcesController.getFilteredTables(self.data)[targetTableIndex]
 
     def insertNewVisualizer(self, table: VisualizationModel):
         return VisualizationsController.insertNewVisualizer(self.data, table)
@@ -113,10 +124,6 @@ class DataController():
 
     def getChart(self, visioId, width, height):
         return DrawController.getChart(self.data, visioId, width, height, VisualizationsController.getFinalTable, 0)
-
-    def getSingleDashboardChart(self, dashboardId: int, visioId, width, height):
-        return DrawController.getChart(self.data, visioId, width, height,
-                                       DashboardsController.getFinaleChartTable, dashboardId)
 
     def insertNewDashboard(self, dashBoard: DashboardModel):
         DashboardsController.insertNewDashboard(self.data, dashBoard)

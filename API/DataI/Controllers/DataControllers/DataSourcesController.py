@@ -1,8 +1,9 @@
-import json
-from typing import List, Dict
+from typing import List
 
 from DataI import enums
+from DataI.Controllers.Aggregation import Aggregation
 from DataI.Controllers.DataControllers import DataController
+from DataI.Controllers.DataControllers.RowUtils import RowUtils
 from DataI.Controllers.Filters import FiltersController
 from DataI.Models.ColumnModel import ColumnModel, CellModel
 from DataI.Models.DataModel import DataModel
@@ -17,16 +18,47 @@ class DataSourcesController():
         data.dataSources.append(table)
 
     @classmethod
-    def getFinalTables(cls, data: DataModel) -> List[TableModel]:
-        # Aggregation should be added here.
-        return cls.__getFilteredTables(data)
+    def insertNewColumn(cls, data: DataModel, tableId: int, column: ColumnModel) -> TableModel:
+        targetTableIndex = DataController.getElementIndexById(data.dataSources, tableId)
+        data.dataSources[targetTableIndex].columns.append(column)
+        return data.dataSources[targetTableIndex]
 
     @classmethod
-    def __getFilteredTables(cls, data: DataModel) -> List[TableModel]:
+    def removeColumn(cls, data: DataModel, tableId: int, columnId: int) -> TableModel:
+        targetTableIndex = DataController.getElementIndexById(data.dataSources, tableId)
+        targetColumnIndex = DataController.getElementIndexById(data.dataSources[targetTableIndex].columns, columnId)
+        data.dataSources[targetTableIndex].columns.pop(targetColumnIndex)
+        return data.dataSources[targetTableIndex]
+
+    @classmethod
+    def getFilteredTables(cls, data: DataModel) -> List[TableModel]:
         tables = list()
         for table in data.dataSources:
             tables.append(FiltersController.getFilteredTable(data, table.id))
         return tables
+
+    @classmethod
+    def getAggregatedTable(cls, data: DataModel, tableId: int, aggColumnId: int, type: str) -> TableModel:
+        targetTableIndex = DataController.getElementIndexById(data.dataSources, tableId)
+        targetTable = data.dataSources[targetTableIndex]
+        aggregator = Aggregation.getAggregator(type)
+        Aggregation.clearAggregationTable(targetTable)
+        aggregator.implementAggregation(data, targetTable, aggColumnId)
+        return targetTable
+
+    @classmethod
+    def setAggregationOn(cls, data: DataModel, tableId: int) -> TableModel:
+        targetTableIndex = DataController.getElementIndexById(data.dataSources, tableId)
+        targetTable = data.dataSources[targetTableIndex]
+        Aggregation.setAggregationOn(targetTable)
+        return targetTable
+
+    @classmethod
+    def setAggregationOff(cls, data: DataModel, tableId: int) -> TableModel:
+        targetTableIndex = DataController.getElementIndexById(data.dataSources, tableId)
+        targetTable = data.dataSources[targetTableIndex]
+        Aggregation.setAggregationOff(targetTable)
+        return targetTable
 
     @classmethod
     def updateTableById(cls, data: DataModel, table: TableModel, id: int):
@@ -70,22 +102,20 @@ class DataSourcesController():
         return data.dataSources[targetTableIndex]
 
     @classmethod
+    def addTwoCellsLists(cls, firstList: List[CellModel], secondList: List[CellModel]) -> List[CellModel]:
+        return RowUtils.addTwoCellsLists(firstList, secondList)
+
+    @classmethod
     def getRowFromTable(cls, columns: List[ColumnModel], rowIndex: int) -> List[CellModel]:
-        row = list()
-        for column in columns:
-            row.append(column.cells[rowIndex])
-        return row
+        return RowUtils.getRowFromTable(columns, rowIndex)
 
     @classmethod
     def updateRowInTable(cls, columns: List[ColumnModel], rowIndex: int, row: List[CellModel]):
-        for column, i in zip(columns, range(len(columns))):
-            column.cells[rowIndex].value = row[i].value
-            column.cells[rowIndex].type = row[i].type
+        RowUtils.updateRowInTable(columns, rowIndex, row)
 
     @classmethod
     def removeRowFromTable(cls, columns: List[ColumnModel], rowIndex: int):
-        for column in columns:
-            column.cells.pop(rowIndex)
+        RowUtils.removeRowFromTable(columns, rowIndex)
 
     @classmethod
     def __getCellType(cls, cell):
@@ -115,13 +145,16 @@ class DataSourcesController():
 def getRowFromTable(columns: List[ColumnModel], rowIndex: int) -> List[CellModel]:
     return DataSourcesController.getRowFromTable(columns, rowIndex)
 
+
 def updateRowInTable(columns: List[ColumnModel], rowIndex: int, row: List[CellModel]):
     DataSourcesController.updateRowInTable(columns, rowIndex, row)
+
 
 def removeRowFromTable(columns: List[ColumnModel], rowIndex: int):
     DataSourcesController.removeRowFromTable(columns, rowIndex)
 
-#============================================================
+
+# ============================================================
 
 def updateCategorizedValues(column: ColumnModel):
     column.valueCategories.clear()
@@ -129,23 +162,10 @@ def updateCategorizedValues(column: ColumnModel):
         if not DataSourcesController.cellInList(cell, column.valueCategories):
             column.valueCategories.append(cell)
 
+
 ##############################################
 
-#util functions.
+# util functions.
 
 def addTwoCellsLists(firstList: List[CellModel], secondList: List[CellModel]) -> List[CellModel]:
-    resultList = list()
-    for cell1, cell2 in zip(firstList, secondList):
-        if type(cell1) is str and type(cell2) is str:
-            resultList.append(CellModel(cell1.value, cell1.type))
-        else:
-            try:
-                resultValue = cell1 + cell2
-            except:
-                resultValue = cell1
-            resultList.append(resultValue)
-
-    return resultList
-
-
-
+    return DataSourcesController.addTwoCellsLists(firstList, secondList)

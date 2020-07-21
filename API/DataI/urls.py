@@ -11,6 +11,8 @@ urlpatterns = [
     path('data-sources/insert-filter/<int:tableId>/', views.insertInDataSourceFilter),
     path('data-sources/update-filter/<int:tableId>/<int:filterId>/', views.updateInDataSourceFilter),
     path('data-sources/remove-filter/<int:tableId>/<int:filterId>/', views.removeInDataSourceFilter),
+    path('data-sources/remove-column/<int:tableId>/<int:columnId>/', views.removeColumn),
+    path('data-sources/aggregation/<int:tableId>/<int:columnId>/', views.getAggregatedTable),
 
     path('visualizers/', views.visualizersHandler),
     path('visualizers/<int:id>/', views.visualizerModifier),
@@ -34,7 +36,7 @@ urlpatterns = [
 
     path('excel-upload/', views.excelUpload),
     path('csv-upload/', views.csvUpload),
-        path('dataI-upload/', views.dataIUpload),
+    path('dataI-upload/', views.dataIUpload),
     path('svg-upload/', views.svgUpload),
     path('', views.fullDataHandler),
 ]

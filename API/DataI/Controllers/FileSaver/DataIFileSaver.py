@@ -9,4 +9,4 @@ class DataIFileSaver(FileSaver):
     def saveFile(self, data: DataModel):
         writer = open(self.fullFilePath, 'wb')
         jsonString = json.dumps(data, indent=4, cls=ObjectEncoder, ensure_ascii=False)
-        writer.write(bytes(jsonString))
+        writer.write(jsonString.encode())

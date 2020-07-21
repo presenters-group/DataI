@@ -6,6 +6,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 from DataI.Controllers.DataControllers.DataController import DataController
 from DataI.JSONSerializer import ObjectEncoder
+from DataI.Models.ColumnModel import ColumnModel
 from DataI.Models.DashboardModel import DashboardModel
 from DataI.Models.FilterModel import FilterModel
 from DataI.Models.TableModel import TableModel
@@ -16,160 +17,160 @@ dataController = DataController()
 dirName = os.path.dirname(__file__)
 filename = os.path.join(dirName, 'test-file.datai')
 dataController.loadDataIFile(filename)
-# dirName = os.path.dirname(__file__)
-# filename = os.path.join(dirName, '../Aggregation-Test.xlsx')
-#
-# dataController.loadTablesFromExcelFile(filename, 0)
+dirName = os.path.dirname(__file__)
+filename = os.path.join(dirName, '../Aggregation-Test.xlsx')
 
-# ================================ load static data ================================:
+dataController.loadTablesFromExcelFile(filename, 0)
 
-
-# jsonVisio1 = '''
-# {
-#             "name": "visualization1",
-#             "id": 0,
-#             "data": 0,
-#             "usedColumns": [
-#                 0,
-#                 2,
-#                 3
-#             ],
-#             "xColumn": 0,
-#             "chart": "BoundaryLineChart",
-#             "filters": [
-#             ],
-#             "isDeleted": false,
-#             "animation": false
-# }
-# '''
-# jsonVisio2 = '''
-# {
-#             "name": "visualization2",
-#             "id": 1,
-#             "data": 0,
-#             "usedColumns": [
-#                 0,
-#                 2,
-#                 3
-#             ],
-#             "xColumn": 0,
-#             "chart": "VerticalBarChart",
-#             "filters": [
-#             ],
-#             "isDeleted": false,
-#             "animation": true
-# }
-# '''
-#
-# jsonDashboard = '''
-# {
-# 	"name": "dashboard1",
-# 	"id": 0,
-# 	"isDeleted": false,
-# 	"visualizers": [{
-# 			"visualizationId": 0,
-# 			"measurements": {
-# 				"width": 100.0,
-# 				"height": 100.0,
-# 				"x": 50.0,
-# 				"y": 60.0
-# 			}
-# 		},
-# 		{
-# 			"visualizationId": 1,
-# 			"measurements": {
-# 				"width": 100.0,
-# 				"height": 100.0,
-# 				"x": 50.0,
-# 				"y": 60.0
-# 			}
-# 		}
-# 	],
-# 	"filters": [{
-# 		"id": 1,
-# 		"visioId": 0,
-# 		"value": 50,
-# 		"isActive": true,
-# 		"measurements": {
-# 			"width": 20.0,
-# 			"height": 60.0,
-# 			"x": 10.0,
-# 			"y": 20.0
-# 		}
-# 	}]
-# }
-# '''
-#
-# jsonFilters = '''
-# [
-#         {
-#             "name": "filter1",
-#             "id": 0,
-#             "dataSource": 1,
-#             "filteredColumn": 0,
-#             "initValue": "A",
-#             "type": "MultipleEquality",
-#             "isDeleted": false
-#         },
-#         {
-#             "name": "filter2",
-#             "id": 1,
-#             "dataSource": 0,
-#             "filteredColumn": 2,
-#             "initValue": 100,
-#             "type": ">",
-#             "isDeleted": false
-#         },
-#         {
-#             "name": "filter3",
-#             "id": 2,
-#             "dataSource": 0,
-#             "filteredColumn": 3,
-#             "initValue": 11,
-#             "type": "<",
-#             "isDeleted": false
-#         },
-#         {
-#             "name": "dateTimeFilter",
-#             "id": 3,
-#             "dataSource": 0,
-#             "filteredColumn": 1,
-#             "initValue": "11/10/2000",
-#             "type": ">",
-#             "isDeleted": false
-#         }
-# ]
-# '''
-#
-# filter1 = {
-#     "id": 1,
-#     "value": 50,
-#     "isActive": True
-# }
-# filter2 = {
-#     "id": 2,
-#     "value": 60,
-#     "isActive": False
-# }
-# filter3 = {
-#     "id": 0,
-#     "value": ['log', '44', '15'],
-#     "isActive": True
-# }
-#
-# dateTimeFilter = {
-#     "id": 3,
-#     "value": '23/1/2000',
-#     "isActive": True
-# }
+#================================ load static data ================================:
 
 
-# dataController.data.visualizations.append(VisualizationModel.from_json(json.loads(jsonVisio1)))
-# dataController.data.visualizations.append(VisualizationModel.from_json(json.loads(jsonVisio2)))
-# dataController.data.dashboards.append(DashboardModel.from_json(json.loads(jsonDashboard)))
-# loadedJsonFilters = json.loads(jsonFilters)
-# for filter in loadedJsonFilters:
-#     dataController.data.filters.append(FilterModel.from_json(filter))
+jsonVisio1 = '''
+{
+            "name": "visualization1",
+            "id": 0,
+            "data": 0,
+            "usedColumns": [
+                0,
+                2,
+                3
+            ],
+            "xColumn": 0,
+            "chart": "BoundaryLineChart",
+            "filters": [
+            ],
+            "isDeleted": false,
+            "animation": false
+}
+'''
+jsonVisio2 = '''
+{
+            "name": "visualization2",
+            "id": 1,
+            "data": 0,
+            "usedColumns": [
+                0,
+                2,
+                3
+            ],
+            "xColumn": 0,
+            "chart": "VerticalBarChart",
+            "filters": [
+            ],
+            "isDeleted": false,
+            "animation": true
+}
+'''
+
+jsonDashboard = '''
+{
+	"name": "dashboard1",
+	"id": 0,
+	"isDeleted": false,
+	"visualizers": [{
+			"visualizationId": 0,
+			"measurements": {
+				"width": 100.0,
+				"height": 100.0,
+				"x": 50.0,
+				"y": 60.0
+			}
+		},
+		{
+			"visualizationId": 1,
+			"measurements": {
+				"width": 100.0,
+				"height": 100.0,
+				"x": 50.0,
+				"y": 60.0
+			}
+		}
+	],
+	"filters": [{
+		"id": 1,
+		"visioId": 0,
+		"value": 50,
+		"isActive": true,
+		"measurements": {
+			"width": 20.0,
+			"height": 60.0,
+			"x": 10.0,
+			"y": 20.0
+		}
+	}]
+}
+'''
+
+jsonFilters = '''
+[
+        {
+            "name": "filter1",
+            "id": 0,
+            "dataSource": 1,
+            "filteredColumn": 0,
+            "initValue": "A",
+            "type": "MultipleEquality",
+            "isDeleted": false
+        },
+        {
+            "name": "filter2",
+            "id": 1,
+            "dataSource": 0,
+            "filteredColumn": 2,
+            "initValue": 100,
+            "type": ">",
+            "isDeleted": false
+        },
+        {
+            "name": "filter3",
+            "id": 2,
+            "dataSource": 0,
+            "filteredColumn": 3,
+            "initValue": 11,
+            "type": "<",
+            "isDeleted": false
+        },
+        {
+            "name": "dateTimeFilter",
+            "id": 3,
+            "dataSource": 0,
+            "filteredColumn": 1,
+            "initValue": "11/10/2000",
+            "type": ">",
+            "isDeleted": false
+        }
+]
+'''
+
+filter1 = {
+    "id": 1,
+    "value": 50,
+    "isActive": True
+}
+filter2 = {
+    "id": 2,
+    "value": 60,
+    "isActive": False
+}
+filter3 = {
+    "id": 0,
+    "value": ['log', '44', '15'],
+    "isActive": True
+}
+
+dateTimeFilter = {
+    "id": 3,
+    "value": '23/1/2000',
+    "isActive": True
+}
+
+
+dataController.data.visualizations.append(VisualizationModel.from_json(json.loads(jsonVisio1)))
+dataController.data.visualizations.append(VisualizationModel.from_json(json.loads(jsonVisio2)))
+dataController.data.dashboards.append(DashboardModel.from_json(json.loads(jsonDashboard)))
+loadedJsonFilters = json.loads(jsonFilters)
+for filter in loadedJsonFilters:
+    dataController.data.filters.append(FilterModel.from_json(filter))
 
 
 # dataController.data.dataSources[0].filters.append(dateTimeFilter)
@@ -192,7 +193,7 @@ def fullDataHandler(request):
 @csrf_exempt
 def dataSourcesHandler(request):
     if request.method == 'GET':
-        fullTables = dataController.getFinalTables()
+        fullTables = dataController.getFilteredTables()
         return HttpResponse(
             json.dumps(fullTables, indent=4, cls=ObjectEncoder, ensure_ascii=False))
     elif request.method == 'POST':
@@ -214,6 +215,30 @@ def dataSourceModifier(request, id):
         return HttpResponse(json.dumps(table, indent=4, cls=ObjectEncoder, ensure_ascii=False))
     else:
         return HttpResponseNotFound('No such request({} <{}>) is available'.format(request.path, request.method))
+
+
+@csrf_exempt
+def removeColumn(request, tableId, columnId):
+    if request.method == 'DELETE':
+        returnTable = dataController.removeColumn(tableId, columnId)
+        return HttpResponse(json.dumps(returnTable, indent=4, cls=ObjectEncoder, ensure_ascii=False))
+    else:
+        return HttpResponseNotFound('No such request({} <{}>) is available'.format(request.path, request.method))
+
+
+@csrf_exempt
+def getAggregatedTable(request, tableId, columnId):
+    if request.method == 'PUT':
+        aggregationProperties = json.loads(request.body.decode())
+        tableIndex = DataController.getElementIndexById(dataController.data.dataSources, tableId)
+        table = dataController.data.dataSources[tableIndex]
+        table.aggregator.aggregationColumn = columnId
+        table.aggregator.isActive = aggregationProperties['isActive']
+        returnTable = dataController.getAggregatedTable(tableId, columnId, aggregationProperties['type'])
+        return HttpResponse(json.dumps(returnTable, indent=4, cls=ObjectEncoder, ensure_ascii=False))
+    else:
+        return HttpResponseNotFound('No such request({} <{}>) is available'.format(request.path, request.method))
+
 
 
 @csrf_exempt
@@ -519,6 +544,7 @@ def dataIUpload(request):
     if request.method != 'POST':
         return HttpResponseNotFound('No such request({} <{}>) is available'.format(request.path, request.method))
 
+    print(request.FILES)
     newdoc = Document(docfile=request.FILES['file_upload'])
     try:
         newdoc.save()
