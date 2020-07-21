@@ -1,13 +1,11 @@
 import json
 import os
 
-from django.conf import settings
 from django.http import HttpResponse, HttpResponseNotFound, Http404
 from django.views.decorators.csrf import csrf_exempt
 
 from DataI.Controllers.DataControllers.DataController import DataController
 from DataI.JSONSerializer import ObjectEncoder
-from DataI.Models.ColumnModel import ColumnModel
 from DataI.Models.DashboardModel import DashboardModel
 from DataI.Models.FilterModel import FilterModel
 from DataI.Models.TableModel import TableModel
@@ -595,10 +593,6 @@ def svgUpload(request):
     print(filePath)
 
     return HttpResponse()
-
-
-import os
-from django.http import HttpResponse, Http404
 
 
 @csrf_exempt
