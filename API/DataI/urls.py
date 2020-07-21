@@ -40,7 +40,9 @@ urlpatterns = [
     path('csv-upload/', views.csvUpload),
     path('dataI-upload/', views.dataIUpload),
     path('svg-upload/', views.svgUpload),
+
+    path('excel-export/', views.exportExcel),
+
     path('', views.fullDataHandler),
 
-    path('download/',views.download)
 ]

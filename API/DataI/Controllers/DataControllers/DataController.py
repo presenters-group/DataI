@@ -26,11 +26,11 @@ class DataController():
     def __init__(self):
         self.data = DataModel([], [], [], [])
         self.chartsNames = [enums.ChartTypes.VerticalBarChart.value, enums.ChartTypes.BoundaryLineChart.value,
-                 enums.ChartTypes.PointChart.value, enums.ChartTypes.MultiplePieChart.value,
-                 enums.ChartTypes.InfChart.value, enums.ChartTypes.PyramidalChart.value,
-                 enums.ChartTypes.SmartPieChart.value, enums.ChartTypes.HealthyFoodChart.value,
-                 enums.ChartTypes.FemaleInfChart.value, enums.ChartTypes.FemaleAndMaleChart.value,
-                 enums.ChartTypes.MapChart.value,enums.ChartTypes.LineChart.value]
+                            enums.ChartTypes.PointChart.value, enums.ChartTypes.MultiplePieChart.value,
+                            enums.ChartTypes.InfChart.value, enums.ChartTypes.PyramidalChart.value,
+                            enums.ChartTypes.SmartPieChart.value, enums.ChartTypes.HealthyFoodChart.value,
+                            enums.ChartTypes.FemaleInfChart.value, enums.ChartTypes.FemaleAndMaleChart.value,
+                            enums.ChartTypes.MapChart.value, enums.ChartTypes.LineChart.value]
         self.aggregationTypes = [enums.AggregationType.Basic.value, enums.AggregationType.DayBased.value, ]
         self.aggregationTypes = [enums.AggregationType.MonthBased.value, enums.AggregationType.YearBased.value, ]
 
@@ -56,8 +56,7 @@ class DataController():
         targetTable = self.data.dataSources[targetTableIndex]
         Equation.implementEquation(targetTable, equation, newName)
 
-
-    def removeColumn(self, tableId: int, columnId: int) ->TableModel:
+    def removeColumn(self, tableId: int, columnId: int) -> TableModel:
         return DataSourcesController.removeColumn(self.data, tableId, columnId)
 
     def getFinaleTables(self) -> List[TableModel]:
@@ -250,14 +249,11 @@ class DataController():
         dashboard.filters.pop(inFilterIndex)
         return 1
 
-    def saveTablesAsExcel(self, fileName:str):
-      current = os.path.dirname(__file__)
-      current = current[:len(current) - 33]
-      filePath = current + 'media/download/'
-      print('file path: ' + filePath)
-      # / home / allonios / PycharmProjects / FullEnd / API / media
-      saver = ExcelFileSaver(filePath + fileName)
-      saver.saveFile(self.data.dataSources)
+    def saveTablesAsExcel(self, filePath: str):
+        saver = ExcelFileSaver(filePath)
+        saver.saveFile(self.data.dataSources)
+        return filePath
+
 
 def getMaxIdInList(idList):
     max = 0

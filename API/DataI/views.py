@@ -2,7 +2,7 @@ import json
 import os
 
 from django.conf import settings
-from django.http import HttpResponse, HttpResponseNotFound,Http404
+from django.http import HttpResponse, HttpResponseNotFound, Http404
 from django.views.decorators.csrf import csrf_exempt
 
 from DataI.Controllers.DataControllers.DataController import DataController
@@ -229,8 +229,6 @@ def removeColumn(request, tableId, columnId):
 @csrf_exempt
 def implementEquation(request, tableId):
     pass
-
-
 
 
 @csrf_exempt
@@ -597,3 +595,31 @@ def svgUpload(request):
     print(filePath)
 
     return HttpResponse()
+
+
+import os
+from django.http import HttpResponse, Http404
+
+
+@csrf_exempt
+def exportExcel(request):
+    if request.method == 'PUT':
+        fileNameDict = json.loads(request.body.decode())
+        fileName = fileNameDict['fileName']
+
+        current = os.path.dirname(__file__)
+        current = current[:len(current) - 5] + 'media/download/'
+        print('current:', current)
+        filePath = current + fileName
+
+        dataController.saveTablesAsExcel(filePath)
+
+        if os.path.exists(filePath):
+            with open(filePath, 'rb') as fh:
+                response = HttpResponse(fh.read(), content_type="application/vnd.ms-excel")
+                response['Content-Disposition'] = 'inline; filename=' + os.path.basename(filePath)
+                return response
+        raise Http404
+    else:
+        return HttpResponseNotFound('No such request({} <{}>) is available'.format(request.path, request.method))
+
