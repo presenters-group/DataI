@@ -1,7 +1,6 @@
 from numpy import double
 
 from DataI import enums
-from DataI.Controllers.DrawControllers.AnimatedVerticalBarChart import AnimatedVerticalBarChart
 from DataI.Controllers.DrawControllers.BarChart import BarChart
 from DataI.Controllers.DrawControllers.BoundaryLineChart import BoundaryLineChart
 from DataI.Controllers.DrawControllers.FemaleAndMaleChart import FemaleAndMaleChart
@@ -26,43 +25,40 @@ class ChartsFactory():
                        width: double, height: double, xColomn: ColumnModel, quality: double, animation: bool):
 
         if chartType == enums.ChartTypes.BoundaryLineChart.value:
-            return BoundaryLineChart(table, width, height, xColomn, quality, 'testerrr')
+            return BoundaryLineChart(table, width, height, xColomn, quality, animation, 'testerrr')
 
         if chartType == enums.ChartTypes.LineChart.value:
-            return LineChart(table, width, height, xColomn, quality, '')
+            return LineChart(table, width, height, xColomn, quality, animation, '')
 
         if chartType == enums.ChartTypes.PointChart.value:
-            return PointChart(table, width, height, xColomn, quality, 'testerrr')
+            return PointChart(table, width, height, xColomn, quality, animation, 'testerrr')
 
         if chartType == enums.ChartTypes.VerticalBarChart.value:
-            return BarChart(table, width, height, xColomn, quality, 'testerrr')
-
-        if chartType == enums.ChartTypes.AnimatedVerticalBarChart.value:
-            return AnimatedVerticalBarChart(table, width, height, xColomn, quality, 'testerrr', animation)
+            return BarChart(table, width, height, xColomn, quality, animation, 'testerrr')
 
         if chartType == enums.ChartTypes.InfChart.value:
-            return InfChart(table, xColomn, width, height, 'testerrr')
+            return InfChart(table, xColomn, width, height, animation, 'testerrr')
 
         if chartType == enums.ChartTypes.MultiplePieChart.value:
-            return MultiplePieChart(table, xColomn, width, height, 'testerrr')
+            return MultiplePieChart(table, xColomn, width, height, animation, 'testerrr')
 
         if chartType == enums.ChartTypes.PyramidalChart.value:
-            return PyramidalChart(table, xColomn, width, height, 'testerrr')
+            return PyramidalChart(table, xColomn, width, height, animation, 'testerrr')
 
         if chartType == enums.ChartTypes.SmartPieChart.value:
-            return SmartPieChart(table, xColomn, width, height, 'testerrr')
+            return SmartPieChart(table, xColomn, width, height, animation, 'testerrr')
 
         if chartType == enums.ChartTypes.FemaleAndMaleChart.value:
-            return FemaleAndMaleChart(table, xColomn, width, height, 'testerrr')
+            return FemaleAndMaleChart(table, xColomn, width, height, animation, 'testerrr')
 
         if chartType == enums.ChartTypes.FemaleInfChart.value:
-            return FemaleInfChart(table, xColomn, width, height, 'testerrr')
+            return FemaleInfChart(table, xColomn, width, height, animation, 'testerrr')
 
         if chartType == enums.ChartTypes.HealthyFoodChart.value:
-            return HealthyFoodChart(table, xColomn, width, height, 'testerrr')
+            return HealthyFoodChart(table, xColomn, width, height, animation, 'testerrr')
 
         if chartType == enums.ChartTypes.MapChart.value:
-            return MapChart(table, xColomn, width, height, 'testerrr')
+            return MapChart(table, xColomn, width, height, animation, 'testerrr')
 
 
 

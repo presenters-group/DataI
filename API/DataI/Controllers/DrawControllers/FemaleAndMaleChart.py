@@ -11,8 +11,8 @@ from DataI.Models.TableModel import TableModel
 
 
 class FemaleAndMaleChart(InfChart):
-    def __init__(self, dataSource: TableModel, XColumn: ColumnModel, width: double, height: double, nameFile: str):
-      super().__init__(dataSource, XColumn,width, height, nameFile)
+    def __init__(self, dataSource: TableModel, XColumn: ColumnModel, width: double, height: double, animation: bool, nameFile: str):
+      super().__init__(dataSource, XColumn,width, height, animation, nameFile)
       self.Check = False
       self.getMaleAndFemaleColumns()
       if self.Check:
@@ -69,7 +69,7 @@ class FemaleAndMaleChart(InfChart):
                     self.d.append(
                         draw.Rectangle(0, startX+800, self.widthView + 50, height, fill=self.colorList[i-1], fill_opacity=0.5,
                                        stroke="white",
-                                       stroke_width=2,transform="translate(380,-100) scale(0.30 0.30)" ,id= self.Index))
+                                       stroke_width=2,transform="translate(380,-100) scale(0.30 0.30)" ,Class=str(self.Index),id= self.Index))
                     self.metaData.append(text)
                     self.Index += 1
 
@@ -89,7 +89,7 @@ class FemaleAndMaleChart(InfChart):
                     self.d.append(
                         draw.Rectangle(0, startX+800, self.widthView + 50, height, fill=self.colorList[i-1], fill_opacity=0.5,
                                        stroke="white",
-                                       stroke_width=2,transform="translate(0,-100) scale(0.30 0.30)" ,id= self.Index))
+                                       stroke_width=2,transform="translate(0,-100) scale(0.30 0.30)" ,Class=str(self.Index),id= self.Index))
                     self.metaData.append(text)
                     self.Index += 1
 
@@ -111,6 +111,6 @@ class FemaleAndMaleChart(InfChart):
                 draw.Circle(self.widthView - 230, length * 80 + 50, 20, fill=self.colorList[i - 1], fill_opacity=0.5,
                             stroke_width=0))
               self.d.append(
-                draw.Text(text=str(text), fontSize=30, x=self.widthView - 200, y=length * 80 + 50, id=self.Index))
+                draw.Text(text=str(text), fontSize=30, x=self.widthView - 200, y=length * 80 + 50, Class=str(self.Index),id=self.Index))
               self.metaData.append(text)
               self.Index += 1

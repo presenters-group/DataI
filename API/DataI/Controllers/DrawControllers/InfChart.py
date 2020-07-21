@@ -10,8 +10,8 @@ from DataI.Models.TableModel import TableModel
 
 
 class InfChart(Chart):
-    def __init__(self, dataSource: TableModel, XColumn: ColumnModel, width: double, height: double, nameFile: str):
-        super().__init__(dataSource, width, height, XColumn)
+    def __init__(self, dataSource: TableModel, XColumn: ColumnModel, width: double, height: double, animation: bool, nameFile: str):
+        super().__init__(dataSource, width, height, XColumn,animation)
         self.widthView = 1000
         self.heightView = 1000
         self.LabelColumn = dataSource.columns[0]
@@ -69,8 +69,9 @@ class InfChart(Chart):
                     height = self.getLength(double(cell2.value))
                     oldstartPoint = height
                     text = str(cell.value) + ": " + str(self.percentageOfValue(double(cell2.value)))[0:4] + "%"
-                    t =draw.Rectangle(0, startX+800, self.widthView + 50, height, fill=self.colorList[i-1], fill_opacity=0.5,stroke="white",stroke_width=2,transform="translate(0,+200) scale(0.6 0.55)" ,id= self.Index)
-                    t.appendAnim(draw.Animate('width', str(timer)+'s', from_or_values=0, to=self.widthView + 50 ,repeatCount='1'))
+                    t =draw.Rectangle(0, startX+800, self.widthView + 50, height, fill=self.colorList[i-1], fill_opacity=0.5,stroke="white",stroke_width=2,transform="translate(0,+200) scale(0.6 0.55)" ,Class=str(self.Index),id= self.Index)
+                    if self.animation:
+                      t.appendAnim(draw.Animate('width', str(timer)+'s', from_or_values=0, to=self.widthView + 50 ,repeatCount='1'))
                     self.d.append(t)
                     self.metaData.append(text)
                     timer += 0.05
@@ -93,6 +94,6 @@ class InfChart(Chart):
                     self.d.append(
                         draw.Circle(self.widthView - 300, length * 80+50, 20, fill=self.colorList[i-1], fill_opacity=0.5,
                                     stroke_width=0))
-                    self.d.append(draw.Text(text=str(text), fontSize=30, x=self.widthView - 250, y=length * 80 +50,id= self.Index))
+                    self.d.append(draw.Text(text=str(text), fontSize=30, x=self.widthView - 250, y=length * 80 +50,Class=str(self.Index),id= self.Index))
                     self.metaData.append(text)
                     self.Index += 1

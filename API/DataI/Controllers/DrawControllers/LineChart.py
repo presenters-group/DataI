@@ -10,9 +10,9 @@ from DataI.Models.TableModel import TableModel
 
 
 class LineChart(PointChart):
-    def __init__(self, dataSource: TableModel, width: double, height: double, Xcolomn: ColumnModel, quality: double,
+    def __init__(self, dataSource: TableModel, width: double, height: double, Xcolomn: ColumnModel, quality: double, animation: bool,
                  nameFile):
-        super().__init__(dataSource, width, height, Xcolomn, quality, nameFile)
+        super().__init__(dataSource, width, height, Xcolomn, quality, animation, nameFile)
         self.drawLines(dataSource.columnsColors)
         #self.d.saveSvg(nameFile + '.svg')
         #self.d.savePng(nameFile + '.png')
@@ -24,7 +24,7 @@ class LineChart(PointChart):
             if column.columnType == enums.ColumnDataType.Measures.value:
                 add = self.widthOfYLabels
                 p = draw.Path(stroke_width=self.xUnit / 50, stroke=colors[columnCounter],
-                              fill=colors[columnCounter], fill_opacity=0.5, id=str(self.Index))
+                              fill=colors[columnCounter], fill_opacity=0.5)
                 name = str(column.name)
                 self.metaData.append(name)
                 self.Index += 1
@@ -38,3 +38,4 @@ class LineChart(PointChart):
                 self.d.append(p)
 
             columnCounter += 1
+        self.drawPointsOfValuesInDataSourceTableWithoutXColumn(self.dataSourceTableWithoutXcolumn.columnsColors)

@@ -11,10 +11,10 @@ import drawSvg as draw
 
 class BarChart(PointChart):
     def __init__(self,  dataSourceTableWithoutXcolumn: TableModel, widthView: double, heightView: double,
-                 xcolumon: ColumnModel, quality: double, nameFile):
+                 xcolumon: ColumnModel, quality: double, animation: bool, nameFile):
 
         # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-        super().__init__( dataSourceTableWithoutXcolumn, widthView, heightView,xcolumon, quality, nameFile)
+        super().__init__( dataSourceTableWithoutXcolumn, widthView, heightView,xcolumon, quality, animation, nameFile)
         self.widthOfSingleColumn = self.xUnit / (len(self.dataSourceTableWithoutXcolumn.columns)+2)
         self.drawColumns(dataSourceTableWithoutXcolumn.columnsColors)
         self.SVG = self.d.asSvg()
@@ -32,21 +32,44 @@ class BarChart(PointChart):
       return double(-(index + 1) * self.widthOfSingleColumn)
 
     def drawColumn(self,add,colors,columnCounter,j,cell):
+
       x = abs(add + self.FindYofRightEdgeOFCoulumn(j)) + self.widthOfSingleColumn
       y = abs(self.convertY(self.findZeroInSVG()))
       width = abs((add + self.FindYofRightEdgeOFCoulumn(j)) - (add + self.FindYofLeftEdgeOFCoulumn(j)))
       height = self.convertY(cell.value) - self.convertY(self.findZeroInSVG())
-      if height > -1:
-        r = draw.Rectangle(x, y + height, width, height, stroke=colors[columnCounter], stroke_width=self.xUnit / 60,id=self.Index,
+      if self.animation:
+        if height > -1:
+          t = draw.Rectangle(x, y + height, width, height, stroke=colors[columnCounter], stroke_width=self.xUnit / 60,
+                            Class=str(self.Index), id=self.Index,
+
+                            transform="rotate(180," + str(x) + ',' + str(-abs(y + height)) + ')',
+                            fill=colors[columnCounter], fill_opacity=0.5)
+          t.appendAnim(draw.Animate('height', '1s', from_or_values=0, to=height,
+
+                                   repeatCount='1'))
+          self.d.append(t)
+        else:
+          t = draw.Rectangle(x - self.widthOfSingleColumn, y - abs(height), width, abs(height), Class=str(self.Index),
+                            id=self.Index,
+                            stroke=colors[columnCounter],
+                            stroke_width=self.xUnit / 30,
+                            fill=colors[columnCounter], fill_opacity=0.5)
+          t.appendAnim(draw.Animate('height', '1s', from_or_values=0, to=abs(height),
+
+                                   repeatCount='1'))
+          self.d.append(t)
+      else:
+        if height > -1:
+          r = draw.Rectangle(x, y + height, width, height, stroke=colors[columnCounter], stroke_width=self.xUnit / 60,Class=str(self.Index),id=self.Index,
                            transform="rotate(180," + str(x) + ',' + str(-abs(y + height)) + ')',
                            fill=colors[columnCounter], fill_opacity=0.5)
-        self.d.append(r)
-      else:
-        r = draw.Rectangle(x - self.widthOfSingleColumn, y - abs(height), width, abs(height),id=self.Index,
+          self.d.append(r)
+        else:
+          r = draw.Rectangle(x - self.widthOfSingleColumn, y - abs(height), width, abs(height),Class=str(self.Index),id=self.Index,
                            stroke=colors[columnCounter],
                            stroke_width=self.xUnit / 30,
                            fill=colors[columnCounter], fill_opacity=0.5)
-        self.d.append(r)
+          self.d.append(r)
 
     def drawColumns(self, colors: List[str]):
         columnCounter = 0
@@ -61,13 +84,6 @@ class BarChart(PointChart):
                         if (i != 0):
                             name = str(column.name)
                             self.metaData.append(name+' = '+ str(cell.value))
-                            p = draw.Path(stroke_width=self.xUnit / 60, stroke=colors[columnCounter],
-                                        fill=colors[columnCounter], fill_opacity=0.5, id=str(self.Index))
-                            p.M(add+self.FindYofLeftEdgeOFCoulumn(j), self.convertY(self.findZeroInSVG()))
-                            p.V(self.convertY(cell.value))
-                            p.H(add+self.FindYofRightEdgeOFCoulumn(j))
-                            p.L(add+self.FindYofRightEdgeOFCoulumn(j), self.convertY(self.findZeroInSVG()))
-                            #self.d.append(p)
                             self.drawColumn(add, colors, columnCounter, j, cell)
                             self.Index += 1
                             add += self.xUnit

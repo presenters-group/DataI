@@ -10,7 +10,8 @@ from DataI.Models.ColumnModel import ColumnModel
 
 
 class PieChart:
-    def __init__(self, firstColumn: ColumnModel, secondColumn: ColumnModel, width: double, height: double, nameFile):
+    def __init__(self, firstColumn: ColumnModel, secondColumn: ColumnModel, width: double, height: double, animation: bool, nameFile):
+        self.animation = animation
         self.widthView = width
         self.heightView = height
         self.firstColumn = firstColumn
