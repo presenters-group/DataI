@@ -1,7 +1,8 @@
 import json
 import os
 
-from django.http import HttpResponse, HttpResponseNotFound
+from django.conf import settings
+from django.http import HttpResponse, HttpResponseNotFound,Http404
 from django.views.decorators.csrf import csrf_exempt
 
 from DataI.Controllers.DataControllers.DataController import DataController

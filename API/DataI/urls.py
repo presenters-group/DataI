@@ -41,4 +41,6 @@ urlpatterns = [
     path('dataI-upload/', views.dataIUpload),
     path('svg-upload/', views.svgUpload),
     path('', views.fullDataHandler),
+
+    path('download/',views.download)
 ]
