@@ -226,7 +226,13 @@ def removeColumn(request, tableId, columnId):
 
 @csrf_exempt
 def implementEquation(request, tableId):
-    pass
+    if request.method == 'PUT':
+        equationInfo = json.loads(request.body.decode())
+        returnTable = dataController.implementEquation(tableId, equationInfo['equation'], equationInfo['newColumnName'])
+        returnTable.printTable()
+        return HttpResponse(json.dumps(returnTable, indent=4, cls=ObjectEncoder, ensure_ascii=False))
+    else:
+        return HttpResponseNotFound('No such request({} <{}>) is available'.format(request.path, request.method))
 
 
 @csrf_exempt
@@ -609,10 +615,10 @@ def exportExcel(request):
         dataController.saveTablesAsExcel(filePath)
 
         if os.path.exists(filePath):
-            with open(filePath, 'rb') as fh:
-                response = HttpResponse(fh.read(), content_type="application/vnd.ms-excel")
-                response['Content-Disposition'] = 'inline; filename=' + os.path.basename(filePath)
-                return response
+            file = open(filePath, 'rb')
+            response = HttpResponse(file.read(), content_type="application/vnd.ms-excel")
+            response['Content-Disposition'] = 'inline; filename=' + os.path.basename(filePath)
+            return response
         raise Http404
     else:
         return HttpResponseNotFound('No such request({} <{}>) is available'.format(request.path, request.method))

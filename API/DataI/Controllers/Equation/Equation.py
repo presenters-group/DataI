@@ -1,6 +1,6 @@
 import re
+import random
 from copy import deepcopy
-from random import random
 from typing import List, Set
 
 from DataI import enums
@@ -11,7 +11,7 @@ from DataI.Models.TableModel import TableModel
 
 class Equation():
     @classmethod
-    def implementEquation(cls, table: TableModel, equation: str, newName: str):
+    def implementEquation(cls, table: TableModel, equation: str, newName: str) -> TableModel:
         columns = cls.extractColumnsFromEquation(table, equation)
         distinctNames = cls.extractDistinctNamesFromEquation(equation)
 
