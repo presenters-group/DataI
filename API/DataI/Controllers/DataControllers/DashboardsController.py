@@ -48,22 +48,22 @@ class DashboardsController():
 
 
 
-def insertNewDashboard(data: DataModel, dashBoard: DashboardModel):
-    DashboardsController.insertNewDashboard(data, dashBoard)
-
-
-def updateDashboardById(data: DataModel, dashboard: DashboardModel, id: int):
-    return DashboardsController.updateDashboardById(data, dashboard, id)
-
-def deleteDashBoard(data: DataModel, id):
-    return DashboardsController.deleteDashBoard(data, id)
-
-
-def getFilterIndex(data: BasicDataModelInfo, visioId, filterId: int) -> int:
-    return DashboardsController.getFilterIndex(data, visioId, filterId)
-
-def getFinaleChartTable(data: DataModel, dasboardId: int, visioId: int) -> TableModel:
-    return DashboardsController.getFinaleChartTable(data, dasboardId, visioId)
+# def insertNewDashboard(data: DataModel, dashBoard: DashboardModel):
+#     DashboardsController.insertNewDashboard(data, dashBoard)
+#
+#
+# def updateDashboardById(data: DataModel, dashboard: DashboardModel, id: int):
+#     return DashboardsController.updateDashboardById(data, dashboard, id)
+#
+# def deleteDashBoard(data: DataModel, id):
+#     return DashboardsController.deleteDashBoard(data, id)
+#
+#
+# def getFilterIndex(data: BasicDataModelInfo, visioId, filterId: int) -> int:
+#     return DashboardsController.getFilterIndex(data, visioId, filterId)
+#
+# def getFinaleChartTable(data: DataModel, dasboardId: int, visioId: int) -> TableModel:
+#     return DashboardsController.getFinaleChartTable(data, dasboardId, visioId)
 
 
 

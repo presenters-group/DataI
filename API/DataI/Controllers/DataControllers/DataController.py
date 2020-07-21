@@ -1,8 +1,6 @@
-from copy import deepcopy
 from typing import List, Dict
-import os
 from DataI import enums
-from DataI.Controllers.DataControllers import DashboardsController
+from DataI.Controllers.DataControllers.DashboardsController import DashboardsController
 from DataI.Controllers.DataControllers.DataSourcesController import DataSourcesController
 from DataI.Controllers.DrawControllers.DrawController import DrawController
 from DataI.Controllers.DataControllers.FiltersModelController import FiltersModelController
@@ -11,6 +9,7 @@ from DataI.Controllers.Equation.Equation import Equation
 from DataI.Controllers.FileLoaders.CSVFileLoader import CSVFileLoader
 from DataI.Controllers.FileLoaders.DataIFileLoader import DataIFileLoader
 from DataI.Controllers.FileLoaders.ExcelFileLoader import ExcelFileLoader
+from DataI.Controllers.FileSaver.CSVFileSaver import CSVFileSaver
 from DataI.Controllers.Filters.FiltersController import FiltersController
 from DataI.Models.BasicInfo import BasicDataModelInfo
 from DataI.Models.ColumnModel import ColumnModel
@@ -253,6 +252,13 @@ class DataController():
         saver = ExcelFileSaver(filePath)
         saver.saveFile(self.data.dataSources)
         return filePath
+
+    def saveTablesAsCSV(self, filePath: str):
+        saver = CSVFileSaver(filePath)
+        saver.saveFile(self.data.dataSources)
+        return filePath
+
+
 
 
 def getMaxIdInList(idList):

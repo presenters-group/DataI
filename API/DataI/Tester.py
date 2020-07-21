@@ -179,7 +179,11 @@ dateTimeFilter = {
     "isActive": True
 }
 
-dataController.saveTablesAsExcel('testing.xlsx')
+# dataController.saveTablesAsExcel('testing.xlsx')
+
+path = '/home/allonios/PycharmProjects/FullEnd/API/media/download/csv-tester.csv'
+
+dataController.saveTablesAsCSV(path)
 
 # dataController.data.dataSources[0].filters.append(dateTimeFilter)
 
