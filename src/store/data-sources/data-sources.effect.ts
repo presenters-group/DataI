@@ -228,7 +228,26 @@ export class DataSourcesEffects {
   )
 
 
+  updateDataSourceAggregation$ = createEffect(()=>
+  this.actions$.pipe(
+    ofType(fromActions.updateDataSourceAggregation),
+    debounceTime(100),
 
+    switchMap(({ data }) =>
+      this.dataSourcesService.updateDataSourceAggregation(data).pipe(
+        switchMap((data) => [
+          fromActions.updateDataSourceSuccess({ data }),
+          showSuccess({ message: UPDATE_SUCCESSFUL }),
+        ]),
+
+        catchError((error) => [
+          fromActions.updateDataSourceFailed({ error }),
+          showError({ message: UPDATE_FAILED }),
+        ])
+      )
+    )
+  )
+  )
 
 
   updateDataSourceColumnColor$ = createEffect(()=>

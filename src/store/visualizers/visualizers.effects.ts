@@ -7,7 +7,7 @@ import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { VisualizersService } from "./visualizers.service";
 
 import * as fromActions from "./visualizers.actions";
-import { closeTapFromTree } from "../core/actions/core.actions";
+import { closeTapFromTree, fetchCharts } from "../core/actions/core.actions";
 import { showSuccess, showError } from "../notifications";
 import {
   CREATE_SUCCESSFUL,
@@ -34,12 +34,11 @@ export class VisualizersEffects {
       switchMap(({ data }) => {
         return this.visualizersService.create(data as any).pipe(
           switchMap((data) => [
-            fromActions.createVisualizerSuccess({ data }),
+            fetchCharts(),
             showSuccess({ message: CREATE_SUCCESSFUL }),
           ]),
 
           catchError((error) => [
-            fromActions.createVisualizerFailed({ error }),
             showError({ message: CREATE_FAILED }),
           ])
         );
@@ -191,4 +190,26 @@ export class VisualizersEffects {
       )
     )
   );
+
+
+  addSVGChart$ = createEffect(() =>
+  this.actions$.pipe(
+    ofType(fromActions.addSVGChart),
+    debounceTime(100),
+
+    switchMap(({ data }) =>
+      this.visualizersService.addSVGChart(data).pipe(
+        switchMap((data) => [
+          fromActions.removeFilterFromVisualizerSuccess({ data }),
+          showSuccess({ message: UPDATE_SUCCESSFUL }),
+        ]),
+
+        catchError((error) => [
+          fromActions.removeFilterFromVisualizerFailed({ error }),
+          showError({ message: UPDATE_FAILED }),
+        ])
+      )
+    )
+  )
+);
 }

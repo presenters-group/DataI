@@ -82,4 +82,15 @@ export class DataSourcesService {
       { color : data.color}
     )
   }
+
+  updateDataSourceAggregation(data){
+    console.log(data)
+    return this.httpClient.put(
+      `${this.URL}/aggregation/${data.tableId}/${data.columnId}/`,
+      {
+        type: data.type,
+        isActive: data.isActive
+    }
+    )
+  }
 }

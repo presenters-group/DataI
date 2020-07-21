@@ -136,3 +136,8 @@ export const removeSvgForVisualizer = createAction(
   "[VisualizerComponent] remove svg from visualizer",
   props<{data : {visualizerId: number}}>()
 )
+
+export const addSVGChart = createAction(
+  "[AddVisualizerComponent] add svg chart",
+  props<{data}>()
+)

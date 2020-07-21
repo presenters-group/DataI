@@ -107,3 +107,9 @@ export const updateDataSourceColumnColor = createAction(
   "[DataSourceComponent] update data source column color",
   props<{ data }>()
 )
+
+
+export const updateDataSourceAggregation = createAction(
+  "[DataSourceComponent] update data source aggregation",
+  props<{ data }>()
+)

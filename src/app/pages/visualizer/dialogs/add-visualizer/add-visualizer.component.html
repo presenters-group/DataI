@@ -139,21 +139,40 @@
         </ng-container>
       </mat-select>
     </mat-form-field> -->
+    <div class="disc">
+      You can upload a SVG file to make it as infograph chart.
+    </div>
 
-    <mat-form-field>
-      <mat-label>Charts</mat-label>
-      <mat-select required formControlName="chart">
-        <mat-select-trigger>
-          {{ form.value.chart ? form.value.chart : "" }}
-        </mat-select-trigger>
-        <mat-option *ngFor="let chart of charts | async" [value]="chart">{{
-          chart
-        }}</mat-option>
-      </mat-select>
-    </mat-form-field>
 
-    <mat-checkbox formControlName="animation"> Enable Animations </mat-checkbox>
-  </form>
+    <!-- <label for="upload-svg">
+      <button mat-button>
+        Upload SVG.
+      </button>
+    </label>
+    <input type="file" id="upload-svg" />
+ -->
+<div class="chart-container">
+
+  <label mat-ripple or="svg-upload"  class="button svg" >
+    Upload SVG
+    <input id="svg-upload"  accept=".svg" type="file" (change)="onSVGClick($event)"/>
+  </label>
+
+  <mat-form-field>
+    <mat-label>Charts</mat-label>
+    <mat-select required formControlName="chart">
+      <mat-select-trigger>
+        {{ form.value.chart ? form.value.chart : "" }}
+      </mat-select-trigger>
+      <mat-option *ngFor="let chart of charts | async" [value]="chart">{{
+        chart
+      }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+
+  <mat-checkbox formControlName="animation"> Enable Animations </mat-checkbox>
+</form>
 </mat-dialog-content>
 
 <div class="buttons" mat-dialog-actions>

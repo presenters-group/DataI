@@ -70,4 +70,9 @@ export class VisualizersService {
       {}
     );
   }
+
+  addSVGChart(data){
+    let testData: FormData = new FormData();
+    testData.append("file_upload", data.file, data.file.name);
+    return this.httpClient.post(BASE_URL + "svg-upload/", testData);  }
 }

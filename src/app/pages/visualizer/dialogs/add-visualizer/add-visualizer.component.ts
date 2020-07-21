@@ -9,6 +9,7 @@ import { selectFiltersForDataSource } from 'src/store/filters/filters.selectors'
 import { selectCharts } from 'src/store/core/selectors/core.selector';
 import { Observable } from 'rxjs';
 import { NotificationService } from 'src/store/notifications/notifications.service';
+import { addSVGChart } from 'src/store/visualizers';
 
 
 @Component({
@@ -56,6 +57,15 @@ export class AddVisualizerComponent {
   }
   onSelectDataSource(){
     this.filters = this.store.select(selectFiltersForDataSource,{dataSource : this.form.value.data})
+  }
+
+  onSVGClick($event){
+    if($event.target.files[0].type == 'image/svg+xml'){
+      let file = $event.target.files[0]
+      this.store.dispatch(addSVGChart({data: {file : file}}))
+    }
+    else
+      this.swal.fail('Please Add a Valid File');
   }
 
 }

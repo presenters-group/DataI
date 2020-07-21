@@ -1,25 +1,86 @@
 <div class="container">
   <div class="table">
+    <div class="title">
+      <div>
+        {{ (dataSource | async).name }}
+      </div>
+      <div class="aggregation-tool">
+        <mat-form-field>
+          <mat-label>Aggregation Column</mat-label>
+          <mat-select [(ngModel)]="aggregatedColumn">
+            <mat-select-trigger>
+              {{ (dataSource | async).columns[aggregatedColumn]?.name }}
+            </mat-select-trigger>
+            <mat-option
+              *ngFor="let column of objectKeys((dataSource | async).columns)"
+              [value]="column"
+              >{{ (dataSource | async).columns[column].name }}</mat-option
+            >
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="type" *ngIf="aggregatedColumn">
+          <mat-label>Aggregation Type</mat-label>
+          <mat-select [disabled]="!aggregatedColumn" [(ngModel)]="aggregationType">
+            <mat-select-trigger>
+              {{ aggregationType }}
+            </mat-select-trigger>
+            <mat-option
+              [value]="'Basic'"
+              >Basic</mat-option>
+              <mat-option *ngIf="(dataSource | async).columns[aggregatedColumn].columnType == 'DateTime'"
+              [value]="'DayBased'"
+              >Day Based</mat-option>
+              <mat-option *ngIf="(dataSource | async).columns[aggregatedColumn].columnType == 'DateTime'"
+              [value]="'MonthBased'"
+              >Month Based</mat-option>
+              <mat-option *ngIf="(dataSource | async).columns[aggregatedColumn].columnType == 'DateTime'"
+              [value]="'YearBased'"
+              >Year Based</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <button (click)="onAggregateClick()" class="type" mat-button color="primary" *ngIf="aggregatedColumn && aggregationType">Aggregate</button>
+        <button (click)="onUnAggregateClick()" class="type" mat-button *ngIf="(dataSource | async).aggregator.isActive" >unAggregate</button>
+
+      </div>
+    </div>
     <table>
       <tr>
-        <td>
-        </td>
-        <td class="color-cell" *ngFor="let color of (dataSource | async).columnsColors;let i = index">
-          <input type="color" (change)="onColumnColorChange(i,$event)" [value]="color" />
+        <td rowspan="2"></td>
+        <td
+          class="color-cell"
+          *ngFor="
+            let color of (dataSource | async).columnsColors;
+            let i = index
+          "
+        >
+          <input
+            type="color"
+            (change)="onColumnColorChange(i, $event)"
+            [value]="color"
+          />
           &nbsp;
           <!-- {{ color }} -->
         </td>
       </tr>
-      <tr *ngFor="let cell of (dataSource | async).columns[0].cells; let i = index">
-        <td *ngIf="!i"> Colors </td>
+      <tr
+        *ngFor="
+          let cell of (dataSource | async).columns[0].cells;
+          let i = index
+        "
+      >
         <td class="color-cell" *ngIf="i">
-          <input type="color" (change)="onRowColorChange(i-1,$event)" [value]="(dataSource | async).rowsColors[i - 1]" />
+          <input
+            type="color"
+            (change)="onRowColorChange(i - 1, $event)"
+            [value]="(dataSource | async).rowsColors[i - 1]"
+          />
           &nbsp;
           <!-- {{ (dataSource | async).rowsColors[i - 1] }} -->
         </td>
         <td
           contenteditable="true"
-          (blur)="onCellUpdate(column, i, $event.target.innerText,$event)"
+          (blur)="onCellUpdate(column, i, $event.target.innerText, $event)"
           *ngFor="let column of objectKeys((dataSource | async).columns)"
         >
           {{ (dataSource | async).columns[column].cells[i].value }}
@@ -28,28 +89,47 @@
     </table>
   </div>
   <div class="filters">
-    <button class="add-filter" *ngIf="!insertFilter" (click)="insertFilter = true" mat-raised-button>Add Filter</button>
-      <mat-form-field *ngIf="insertFilter">
-      <mat-label >Select Filter</mat-label>
-      <mat-select   required [(ngModel)]="insertedFilter">
-          <mat-select-trigger>
-            {{
-              insertedFilter?.name
-            }}
-          </mat-select-trigger>
-          <mat-option
-            [disabled]="disableAddedFilter(filter,filters | async)"
-            *ngFor="let filter of (addableFilters | async)"
-            [value]="filter"
-            >{{ filter.name }}</mat-option
-          >
-        </mat-select>
-      </mat-form-field>
-    <button class="add-filter" *ngIf="insertFilter" (click)="onAddFilter()" mat-raised-button>ADD</button>
+    <button
+      class="add-filter"
+      *ngIf="!insertFilter"
+      (click)="insertFilter = true"
+      mat-raised-button
+    >
+      Add Filter
+    </button>
+    <mat-form-field *ngIf="insertFilter">
+      <mat-label>Select Filter</mat-label>
+      <mat-select required [(ngModel)]="insertedFilter">
+        <mat-select-trigger>
+          {{ insertedFilter?.name }}
+        </mat-select-trigger>
+        <mat-option
+          [disabled]="disableAddedFilter(filter, filters | async)"
+          *ngFor="let filter of addableFilters | async"
+          [value]="filter"
+          >{{ filter.name }}</mat-option
+        >
+      </mat-select>
+    </mat-form-field>
+    <button
+      class="add-filter"
+      *ngIf="insertFilter"
+      (click)="onAddFilter()"
+      mat-raised-button
+    >
+      ADD
+    </button>
 
-
-        <div class="filter" *ngFor="let filter of (filters | async)" class="filter">
-      <app-filter-item (onMinus)="onDeleteFilter($event)" [showOptions]="true" [filter]="filter"[enabled]="filter.active" [value]="filter.value" (onChange)="onFilterChangeValue($event)"> </app-filter-item>
+    <div class="filter" *ngFor="let filter of filters | async" class="filter">
+      <app-filter-item
+        (onMinus)="onDeleteFilter($event)"
+        [showOptions]="true"
+        [filter]="filter"
+        [enabled]="filter.active"
+        [value]="filter.value"
+        (onChange)="onFilterChangeValue($event)"
+      >
+      </app-filter-item>
     </div>
   </div>
 </div>

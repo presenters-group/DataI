@@ -22,12 +22,12 @@ import { Actions } from "@ngrx/effects";
 
 //TODO Complete the tooltips user renderer.
 export class VisualizerItemComponent implements AfterViewChecked {
-  @ViewChild('chartElement') chartElement
+  @ViewChild("chartElement") chartElement;
   chart;
   change: boolean = false;
   @Input() set svg(value) {
-      this.chart = value;
-      this.change = true;
+    this.chart = value;
+    this.change = true;
   }
   chartData;
   @Input() set metaData(value) {
@@ -49,27 +49,33 @@ export class VisualizerItemComponent implements AfterViewChecked {
         this.renderer.addClass(parent, "tipTool-container");
         let content;
         for (let i = 0; i < this.chartData.length; i++) {
-          let element = document.getElementById(`${i}`);
+          let element = this.chartElement.nativeElement.getElementsByClassName(`${i}`)[0];
+          // console.log(element)
           if (element) {
-            element.addEventListener("mouseover", () => {
+            element.addEventListener("mouseover", ($event) => {
+              // console.log($event)
               content = this.renderer.createText(this.chartData[i]);
               this.renderer.appendChild(document.body, parent);
 
               this.renderer.setStyle(
                 parent,
                 "left",
-                `${element.getBoundingClientRect().x + 30}px`
+                `${$event.pageX}px`
               );
+              this.renderer.setStyle(element, "stroke-width", "5px");
+
               this.renderer.setStyle(
                 parent,
                 "top",
-                `${element.getBoundingClientRect().y + 30}px`
+                `${$event.pageY}px`
               );
               this.renderer.appendChild(parent, content);
             });
             element.addEventListener("mouseleave", () => {
               this.renderer.removeChild(document.body, parent);
               this.renderer.removeChild(parent, content);
+
+              this.renderer.setStyle(element, "stroke-width", "");
             });
           }
         }
@@ -81,5 +87,4 @@ export class VisualizerItemComponent implements AfterViewChecked {
   safe(data) {
     return this.sanitizer.bypassSecurityTrustHtml(data);
   }
-
 }
