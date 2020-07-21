@@ -34,7 +34,7 @@ export class VisualizersEffects {
       switchMap(({ data }) => {
         return this.visualizersService.create(data as any).pipe(
           switchMap((data) => [
-            fetchCharts(),
+            fromActions.createVisualizerSuccess({ data }),
             showSuccess({ message: CREATE_SUCCESSFUL }),
           ]),
 
@@ -200,12 +200,11 @@ export class VisualizersEffects {
     switchMap(({ data }) =>
       this.visualizersService.addSVGChart(data).pipe(
         switchMap((data) => [
-          fromActions.removeFilterFromVisualizerSuccess({ data }),
+          fetchCharts(),
           showSuccess({ message: UPDATE_SUCCESSFUL }),
         ]),
 
         catchError((error) => [
-          fromActions.removeFilterFromVisualizerFailed({ error }),
           showError({ message: UPDATE_FAILED }),
         ])
       )
