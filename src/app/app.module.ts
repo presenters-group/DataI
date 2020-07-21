@@ -46,6 +46,7 @@ import { MainMenuComponent } from './components/main-menu/main-menu.component';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatSliderModule} from '@angular/material/slider';
 import {MatDatepickerModule} from '@angular/material/datepicker';
+import { GetNameComponent } from './components/get-name/get-name.component';
 
 @NgModule({
   declarations: [
@@ -67,6 +68,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
     VisualizerItemComponent,
     InsertFilterComponent,
     MainMenuComponent,
+    GetNameComponent,
 
   ],
   imports: [
