@@ -13,7 +13,9 @@ import { Observable } from "rxjs";
 import { MatDialogRef, MatDialog } from "@angular/material/dialog";
 import { GetNameComponent } from "../get-name/get-name.component";
 import { HttpClient } from "@angular/common/http";
+import { ResponseContentType } from "@angular/http";
 import { BASE_URL } from "src/utils/url.util";
+import { saveAs } from "file-saver";
 
 @Component({
   selector: "app-main-menu",
@@ -47,25 +49,56 @@ export class MainMenuComponent implements OnInit {
       console.log(name);
       if (name) {
         if (as == "excel") {
+          console.log(`${BASE_URL}excel-export/`);
           this.httpClient
-            .put(`${BASE_URL}excel-export/`, {
-              fileName: `${name}.xlsx`,
-            })
-            .subscribe((data) => {
-              console.log(data);
-            });
+            .put(
+              `${BASE_URL}excel-export/`,
+              {
+                fileName: `${name}.xlsx`,
+              },
+              { responseType: "blob" }
+            )
+            .subscribe((res) =>
+              this.saveFile(res, "application/ms-excel", `${name}.xlsx`)
+            );
         } else {
+          console.log(`${BASE_URL}csv-export/`);
           this.httpClient
-            .put(`${BASE_URL}csv-export/`, {
-              fileName: `${name}.csv`,
-            })
-            .subscribe((data) => {
-              console.log(data);
-            });
+            .put(
+              `${BASE_URL}csv-export/`,
+              {
+                fileName: `${name}.csv`,
+              },
+              {
+                responseType: "blob",
+              }
+            )
+            .subscribe((response) => this.saveFile(response, "text/csv", `${name}.csv`));
         }
       }
     });
   }
+
+  // downloadFile(data: any, type: string) {
+  //   const blob = new Blob([data], { type: type });
+
+  //   const url = window.URL.createObjectURL(blob);
+  //   window.open(url);
+  // }
+
+  saveFile = (blobContent: Blob, type: string, fileName: string) => {
+    const blob = new Blob([blobContent], { type: "application/octet-stream" });
+    saveAs(blob, fileName);
+  };
+  // downLoadFile(data: any, type: string) {
+  //   let blob = new Blob([data], { type: type});
+  //   let url = window.URL.createObjectURL(blob);
+  //   let pwa = window.open(url);
+  //   console.log(pwa,url,blob)
+  //   if (!pwa || pwa.closed || typeof pwa.closed == 'undefined') {
+  //       alert( 'Please disable your Pop-up blocker and try again.');
+  //   }
+  // }
 
   ngOnInit(): void {}
 }
