@@ -591,7 +591,7 @@ def svgUpload(request):
         pass
 
     fileName = request.FILES['file_upload'].name
-    newChartName = filename[:len(filename) - 1]
+    newChartName = filename[:len(filename) - 4]
     dataController.chartsNames.append(newChartName)
     projectPath = os.path.dirname(__file__)
     print('project path: ' + projectPath)
@@ -603,14 +603,11 @@ def svgUpload(request):
 
 @csrf_exempt
 def exportExcel(request):
-    if request.method == 'PUT':
-        fileNameDict = json.loads(request.body.decode())
-        fileName = fileNameDict['fileName']
-
+    if request.method == 'GET':
         current = os.path.dirname(__file__)
         current = current[:len(current) - 5] + 'media/download/'
         print('current:', current)
-        filePath = current + fileName
+        filePath = current + 'fileName.xlsx'
 
         dataController.saveTablesAsExcel(filePath)
 

@@ -9,7 +9,7 @@ from DataI.Models.TableModel import TableModel
 
 
 class CustomChart(InfChart):
-    def __init__(self, dataSource: TableModel, XColumn: ColumnModel, width: double, height: double, animation: bool, nameFile: str,dir:str):
+    def __init__(self, dataSource: TableModel, XColumn: ColumnModel, width: double, height: double, animation: bool, nameFile: str, dir:str):
       self.dir = dir
       super().__init__(dataSource, XColumn,width, height, animation, nameFile)
 

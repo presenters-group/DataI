@@ -1,8 +1,11 @@
+import os
+
 from numpy import double
 
 from DataI import enums
 from DataI.Controllers.DrawControllers.BarChart import BarChart
 from DataI.Controllers.DrawControllers.BoundaryLineChart import BoundaryLineChart
+from DataI.Controllers.DrawControllers.CustomChart import CustomChart
 from DataI.Controllers.DrawControllers.FemaleAndMaleChart import FemaleAndMaleChart
 from DataI.Controllers.DrawControllers.FemaleInfChart import FemaleInfChart
 from DataI.Controllers.DrawControllers.HealthyFoodChart import HealthyFoodChart
@@ -10,7 +13,6 @@ from DataI.Controllers.DrawControllers.InfChart import InfChart
 from DataI.Controllers.DrawControllers.LineChart import LineChart
 from DataI.Controllers.DrawControllers.MapChart import MapChart
 from DataI.Controllers.DrawControllers.MultiplePieChart import MultiplePieChart
-from DataI.Controllers.DrawControllers.PieChart import PieChart
 from DataI.Controllers.DrawControllers.PointChart import PointChart
 from DataI.Controllers.DrawControllers.PyramidalChart import PyramidalChart
 from DataI.Controllers.DrawControllers.SmatPieChart import SmartPieChart
@@ -60,6 +62,11 @@ class ChartsFactory():
         if chartType == enums.ChartTypes.MapChart.value:
             return MapChart(table, xColomn, width, height, animation, 'testerrr')
 
+        else:
+            current = os.path.dirname(__file__)
+            current = current[:len(current) - 33] + 'media/uploads/svg/'
+            filePath = current + chartType + '.svg'
+            return CustomChart(table, xColomn, width, height, animation, filePath, current)
 
 
 
