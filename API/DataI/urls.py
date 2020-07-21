@@ -35,4 +35,6 @@ urlpatterns = [
     path('excel-upload/', views.excelUpload),
     path('csv-upload/', views.csvUpload),
     path('', views.fullDataHandler),
+
+    path('download/',views.download)
 ]

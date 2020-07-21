@@ -14,30 +14,3 @@ class ExcelFileSaver(FileSaver):
             dataFrame.to_excel(writer, sheet_name=table.name, index=False)
 
         writer.save()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
