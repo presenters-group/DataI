@@ -20,7 +20,10 @@ class Equation():
         for distinctName, index in zip(distinctNames, range(len(distinctNames))):
             moddedEquation = moddedEquation.replace(distinctName, cls.columnNameBuilder(index, 'columns'))
 
-        resultColumn = eval(moddedEquation)
+        try:
+            resultColumn = eval(moddedEquation)
+        except:
+            return -1
 
         resultColumn.name = newName
         resultColumn.cells[0] = CellModel(newName, enums.CellType.string.value)

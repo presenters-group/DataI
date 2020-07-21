@@ -1,7 +1,7 @@
 import json
 import os
 
-from django.http import HttpResponse, HttpResponseNotFound, Http404
+from django.http import HttpResponse, HttpResponseNotFound, Http404, HttpResponseBadRequest
 from django.views.decorators.csrf import csrf_exempt
 
 from DataI.Controllers.DataControllers.DataController import DataController
@@ -229,7 +229,8 @@ def implementEquation(request, tableId):
     if request.method == 'PUT':
         equationInfo = json.loads(request.body.decode())
         returnTable = dataController.implementEquation(tableId, equationInfo['equation'], equationInfo['newColumnName'])
-        returnTable.printTable()
+        if returnTable == -1:
+            return HttpResponseBadRequest('Equation Syntax Error.')
         return HttpResponse(json.dumps(returnTable, indent=4, cls=ObjectEncoder, ensure_ascii=False))
     else:
         return HttpResponseNotFound('No such request({} <{}>) is available'.format(request.path, request.method))
