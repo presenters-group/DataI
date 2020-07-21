@@ -2,8 +2,9 @@ import json
 import os
 
 from DataI import enums
-from DataI.Controllers.Aggregation.Aggregation import BasicAggregation, AggregationColumnUtils, DayBasedAggregation, \
-    MonthBasedAggregation, YearBasedAggregation
+from DataI.Controllers.Aggregation.Aggregation import BasicSumAggregation, AggregationColumnUtils, \
+    DayBasedSumAggregation, \
+    MonthBasedSumAggregation, YearBasedSumAggregation, BasicAVGAggregation
 from DataI.Controllers.DataControllers.DataController import DataController
 from DataI.Controllers.DrawControllers.DrawController import DrawController
 from DataI.Controllers.Equation.Equation import Equation
@@ -179,11 +180,16 @@ dateTimeFilter = {
     "isActive": True
 }
 
+
+# agg = BasicAVGAggregation()
+#
+# agg.implementAggregation(dataController.data, dataController.data.dataSources[0], 0)
+
 # dataController.saveTablesAsExcel('testing.xlsx')
 
-path = '/home/allonios/PycharmProjects/FullEnd/API/media/download/csv-tester.csv'
-
-dataController.saveTablesAsCSV(path)
+# path = '/home/allonios/PycharmProjects/FullEnd/API/media/download/csv-tester.csv'
+#
+# dataController.saveTablesAsCSV(path)
 
 # dataController.data.dataSources[0].filters.append(dateTimeFilter)
 

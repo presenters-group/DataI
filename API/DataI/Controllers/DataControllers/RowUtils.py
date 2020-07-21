@@ -34,3 +34,11 @@ class RowUtils():
     def removeRowFromTable(cls, columns: List[ColumnModel], rowIndex: int):
         for column in columns:
             column.cells.pop(rowIndex)
+
+    @classmethod
+    def divideCellsListOnNum(cls, cellsList: List[CellModel], num: int) -> List[CellModel]:
+        resultList = list()
+        for cell in cellsList:
+            resultList.append(cell / num)
+        return resultList
+

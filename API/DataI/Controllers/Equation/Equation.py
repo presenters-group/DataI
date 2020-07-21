@@ -11,7 +11,7 @@ from DataI.Models.TableModel import TableModel
 
 class Equation():
     @classmethod
-    def implementEquation(cls, table: TableModel, equation: str, newName: str) -> TableModel:
+    def implementEquation(cls, table: TableModel, equation: str, newName: str) -> (TableModel, int):
         columns = cls.extractColumnsFromEquation(table, equation)
         distinctNames = cls.extractDistinctNamesFromEquation(equation)
 
@@ -51,7 +51,7 @@ class Equation():
 
     @classmethod
     def extractDistinctNamesFromEquation(cls, equation: str) -> Set:
-        res = re.sub('\W+', ',', equation)
+        res = re.sub('[^A-Za-z0-9أ-ي]+', ',', equation)
         names = res.split(',')
 
         # remove empty strings from the names list.
@@ -75,5 +75,5 @@ class Equation():
 
 def getColumnByName(table: TableModel, name: str) -> ColumnModel:
     for column in table.columns:
-        if column.name == name:
+        if re.sub('\W+', '', column.name) == re.sub('\W+', '', name):
             return column

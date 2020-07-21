@@ -10,6 +10,7 @@ from DataI.Controllers.FileLoaders.CSVFileLoader import CSVFileLoader
 from DataI.Controllers.FileLoaders.DataIFileLoader import DataIFileLoader
 from DataI.Controllers.FileLoaders.ExcelFileLoader import ExcelFileLoader
 from DataI.Controllers.FileSaver.CSVFileSaver import CSVFileSaver
+from DataI.Controllers.FileSaver.DataIFileSaver import DataIFileSaver
 from DataI.Controllers.Filters.FiltersController import FiltersController
 from DataI.Models.BasicInfo import BasicDataModelInfo
 from DataI.Models.ColumnModel import ColumnModel
@@ -251,12 +252,15 @@ class DataController():
     def saveTablesAsExcel(self, filePath: str):
         saver = ExcelFileSaver(filePath)
         saver.saveFile(self.data.dataSources)
-        return filePath
 
     def saveTablesAsCSV(self, filePath: str):
         saver = CSVFileSaver(filePath)
         saver.saveFile(self.data.dataSources)
-        return filePath
+
+    def saveDataAsDataI(self, filePath: str):
+        saver = DataIFileSaver(filePath)
+        saver.saveFile(self.data)
+
 
 
 

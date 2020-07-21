@@ -621,3 +621,54 @@ def exportExcel(request):
     else:
         return HttpResponseNotFound('No such request({} <{}>) is available'.format(request.path, request.method))
 
+
+
+@csrf_exempt
+def exportDataI(request):
+    if request.method == 'GET':
+        current = os.path.dirname(__file__)
+        current = current[:len(current) - 5] + 'media/download/'
+        print('current:', current)
+        filePath = current + 'fileName.datai'
+
+        dataController.saveDataAsDataI(filePath)
+
+        if os.path.exists(filePath):
+            file = open(filePath, 'rb')
+            response = HttpResponse(file.read(), content_type="application/vnd.ms-excel")
+            response['Content-Disposition'] = 'inline; filename=' + os.path.basename(filePath)
+            return response
+        raise Http404
+    else:
+        return HttpResponseNotFound('No such request({} <{}>) is available'.format(request.path, request.method))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
