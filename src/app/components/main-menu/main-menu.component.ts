@@ -10,10 +10,9 @@ import { selectCurrentDataSource } from "src/store/data-sources/data-sources.sel
 import { AppState } from "src/store";
 import { Store } from "@ngrx/store";
 import { Observable } from "rxjs";
-import { MatDialogRef, MatDialog } from "@angular/material/dialog";
+import { MatDialog } from "@angular/material/dialog";
 import { GetNameComponent } from "../get-name/get-name.component";
 import { HttpClient } from "@angular/common/http";
-import { ResponseContentType } from "@angular/http";
 import { BASE_URL } from "src/utils/url.util";
 import { saveAs } from "file-saver";
 
