@@ -12,7 +12,7 @@ from DataI.Models.DataModel import DataModel
 from DataI.Models.TableModel import TableModel
 
 
-class BasicAggregation():
+class BasicSumAggregation():
 
     def __init__(self):
         self.compareUtil = basicCompare
@@ -74,35 +74,35 @@ class BasicAggregation():
                         column.cells.append(CellModel(0, enums.CellType.numeric.value))
 
 
-class DayBasedAggregation():
+class DayBasedSumAggregation():
     @classmethod
     def implementAggregation(cls, data: DataModel, table: TableModel, aggregationBaseColumnId: int):
         aggregationColumnIndex = DataController.getElementIndexById(table.columns, aggregationBaseColumnId)
         AggregationColumnUtils.updateDayBasedValueCats(table.columns[aggregationColumnIndex])
 
-        aggregator = BasicAggregation()
+        aggregator = BasicSumAggregation()
         aggregator.compareUtil = AggregationColumnUtils.sameDay
         aggregator.implementAggregation(data, table, aggregationBaseColumnId)
 
 
-class MonthBasedAggregation():
+class MonthBasedSumAggregation():
     @classmethod
     def implementAggregation(cls, data: DataModel, table: TableModel, aggregationBaseColumnId: int):
         aggregationColumnIndex = DataController.getElementIndexById(table.columns, aggregationBaseColumnId)
         AggregationColumnUtils.updateMonthBasedValueCats(table.columns[aggregationColumnIndex])
 
-        aggregator = BasicAggregation()
+        aggregator = BasicSumAggregation()
         aggregator.compareUtil = AggregationColumnUtils.sameMonth
         aggregator.implementAggregation(data, table, aggregationBaseColumnId)
 
 
-class YearBasedAggregation():
+class YearBasedSumAggregation():
     @classmethod
     def implementAggregation(cls, data: DataModel, table: TableModel, aggregationBaseColumnId: int):
         aggregationColumnIndex = DataController.getElementIndexById(table.columns, aggregationBaseColumnId)
         AggregationColumnUtils.updateYearBasedValueCats(table.columns[aggregationColumnIndex])
 
-        aggregator = BasicAggregation()
+        aggregator = BasicSumAggregation()
         aggregator.compareUtil = AggregationColumnUtils.sameYear
         aggregator.implementAggregation(data, table, aggregationBaseColumnId)
 
@@ -178,22 +178,93 @@ class AggregationColumnUtils():
         return False
 
 
+
+
+class BasicAVGAggregation():
+    def __init__(self):
+        self.compareUtil = basicCompare
+
+    def implementAggregation(self, data: DataModel, table: TableModel, aggregationBaseColumnId: int):
+        aggregatedBufferColumns = list()
+
+        aggregationColumnIndex = DataController.getElementIndexById(table.columns, aggregationBaseColumnId)
+
+        filteredTable = FiltersController.getFilteredTable(data, table.id)
+
+        filteredTable.columns[aggregationColumnIndex].valueCategories = \
+            deepcopy(table.columns[aggregationColumnIndex].valueCategories)
+
+        self.__initAggregatedBufferColumns(aggregatedBufferColumns, aggregationBaseColumnId,
+                                          deepcopy(table.columns))
+
+        for categorizedValue, aggRowIndex in zip(filteredTable.columns[aggregationColumnIndex].valueCategories,
+                                                 range(len(
+                                                     filteredTable.columns[aggregationColumnIndex].valueCategories))):
+            counter = 0
+            for cell, rowIndex in zip(filteredTable.columns[aggregationColumnIndex].cells[1:],
+                                      range(1, len(filteredTable.columns[aggregationColumnIndex].cells))):
+                if self.compareUtil(cell, categorizedValue):
+                    targetAggRow = RowUtils.getRowFromTable(aggregatedBufferColumns, aggRowIndex + 1)
+
+                    targetRow = RowUtils.getRowFromTable(filteredTable.columns, rowIndex)
+
+                    bufferRow = RowUtils.addTwoCellsLists(targetAggRow, targetRow)
+                    RowUtils.updateRowInTable(aggregatedBufferColumns, aggRowIndex + 1, bufferRow)
+
+                    counter += 1
+            print(categorizedValue.value + ' occurrences:', str(counter))
+            RowUtils.updateRowInTable(aggregatedBufferColumns, aggRowIndex,
+                                      RowUtils.divideCellsListOnNum(RowUtils.getRowFromTable(aggregatedBufferColumns)))
+
+
+        table.aggregator.aggregatedTable = aggregatedBufferColumns
+
+
+    @classmethod
+    def __initAggregatedBufferColumns(cls, aggColumns: List[ColumnModel], aggColumnId: int, columns: List[ColumnModel]):
+        # filling new aggregated columns with the aggregated column values.
+        for column in columns:
+            bufferNameCell = CellModel(column.name, enums.CellType.string.value)
+
+            if column.id == aggColumnId:
+                bufferColumn = ColumnModel([bufferNameCell], column.name, column.id, column.isDeleted)
+                bufferColumn.columnType = deepcopy(column.columnType)
+                bufferColumn.cells.extend(column.valueCategories)
+                aggColumns.append(bufferColumn)
+            else:
+                bufferColumn = ColumnModel([bufferNameCell], column.name, column.id, column.isDeleted)
+                bufferColumn.columnType = deepcopy(column.columnType)
+                aggColumns.append(bufferColumn)
+
+        # filling the reset of the columns with empty cells to be used when adding other rows to it.
+        aggColumnIndex = DataController.getElementIndexById(aggColumns, aggColumnId)
+        for i in range(1, len(aggColumns[aggColumnIndex].cells)):
+            for column, j in zip(aggColumns, range(len(aggColumns))):
+                if column.id != aggColumnId:
+                    if columns[j].cells[i].type != enums.CellType.numeric.value:
+                        column.cells.append(columns[j].cells[i])
+                    else:
+                        column.cells.append(CellModel(0, enums.CellType.numeric.value))
+
+
+
+
 class AggregationFactory():
     @classmethod
     def getAggregator(cls, type: str):
         if type == enums.AggregationType.Basic.value:
-            aggregator = BasicAggregation()
+            aggregator = BasicSumAggregation()
             aggregator.compareUtil = basicCompare
             return aggregator
 
         if type == enums.AggregationType.DayBased.value:
-            return DayBasedAggregation()
+            return DayBasedSumAggregation()
 
         if type == enums.AggregationType.MonthBased.value:
-            return MonthBasedAggregation()
+            return MonthBasedSumAggregation()
 
         if type == enums.AggregationType.YearBased.value:
-            return YearBasedAggregation()
+            return YearBasedSumAggregation()
 
 
 def getAggregator(type: str):
