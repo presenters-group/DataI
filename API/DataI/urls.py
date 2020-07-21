@@ -43,6 +43,8 @@ urlpatterns = [
 
     path('excel-export/', views.exportExcel),
 
+    path('implement-equation/<int:tableId>', views.implementEquation),
+
     path('', views.fullDataHandler),
 
 ]

@@ -51,10 +51,10 @@ class DataController():
     def insertNewColumn(self, tableId, column: ColumnModel) -> TableModel:
         return DataSourcesController.insertNewColumn(self.data, tableId, column)
 
-    def implementEquation(self, tableId: int, equation: str, newName: str):
+    def implementEquation(self, tableId: int, equation: str, newName: str) -> TableModel:
         targetTableIndex = DataController.getElementIndexById(self.data.dataSources, tableId)
         targetTable = self.data.dataSources[targetTableIndex]
-        Equation.implementEquation(targetTable, equation, newName)
+        return Equation.implementEquation(targetTable, equation, newName)
 
     def removeColumn(self, tableId: int, columnId: int) -> TableModel:
         return DataSourcesController.removeColumn(self.data, tableId, columnId)
