@@ -46,6 +46,7 @@ class DataSourcesController():
         Aggregation.clearAggregationTable(targetTable)
         aggregator.implementAggregation(data, targetTable, aggColumnId)
         returnTable = cls.sugreCoatAggregatedTable(deepcopy(targetTable))
+        returnTable.aggregator.type = type
         return returnTable
 
     @classmethod

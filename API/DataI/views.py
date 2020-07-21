@@ -20,7 +20,7 @@ dataController.loadDataIFile(filename)
 dirName = os.path.dirname(__file__)
 filename = os.path.join(dirName, '../Aggregation-Test.xlsx')
 
-dataController.loadTablesFromExcelFile(filename, 0)
+# dataController.loadTablesFromExcelFile(filename, 0)
 
 #================================ load static data ================================:
 
