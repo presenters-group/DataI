@@ -591,8 +591,8 @@ def svgUpload(request):
         pass
 
     fileName = request.FILES['file_upload'].name
-    newChartName = filename[:len(filename) - 4]
-    dataController.chartsNames.append(newChartName)
+    print(str(fileName).replace('.svg', ''))
+    dataController.chartsNames.append(str(fileName).replace('.svg', ''))
     projectPath = os.path.dirname(__file__)
     print('project path: ' + projectPath)
     filePath = (os.path.join(projectPath.replace('/DataI', '')) + '/media/uploads/svg/') + fileName

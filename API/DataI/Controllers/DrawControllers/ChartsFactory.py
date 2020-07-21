@@ -66,7 +66,7 @@ class ChartsFactory():
             current = os.path.dirname(__file__)
             current = current[:len(current) - 33] + 'media/uploads/svg/'
             filePath = current + chartType + '.svg'
-            return CustomChart(table, xColomn, width, height, animation, filePath, current)
+            return CustomChart(table, xColomn, width, height, animation, filePath, filePath)
 
 
 
