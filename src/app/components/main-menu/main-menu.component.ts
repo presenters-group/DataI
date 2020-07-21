@@ -51,11 +51,8 @@ export class MainMenuComponent implements OnInit {
         if (as == "excel") {
           console.log(`${BASE_URL}excel-export/`);
           this.httpClient
-            .put(
+            .get(
               `${BASE_URL}excel-export/`,
-              {
-                fileName: `${name}.xlsx`,
-              },
               { responseType: "blob" }
             )
             .subscribe((res) =>
@@ -64,11 +61,8 @@ export class MainMenuComponent implements OnInit {
         } else {
           console.log(`${BASE_URL}csv-export/`);
           this.httpClient
-            .put(
+            .get(
               `${BASE_URL}csv-export/`,
-              {
-                fileName: `${name}.csv`,
-              },
               {
                 responseType: "blob",
               }
