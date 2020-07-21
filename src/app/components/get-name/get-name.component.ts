@@ -8,7 +8,7 @@ import { NotificationService } from 'src/store/notifications/notifications.servi
   styleUrls: ['./get-name.component.scss']
 })
 export class GetNameComponent implements OnInit {
-  name;
+  name = "";
 
   constructor(public dialogRef: MatDialogRef<GetNameComponent>,
     private swal : NotificationService) { }
@@ -21,8 +21,8 @@ export class GetNameComponent implements OnInit {
   }
 
   onSave(){
-    if(name)
-      this.dialogRef.close(name);
+    if(this.name)
+      this.dialogRef.close(this.name);
     else
     this.swal.fail(
       "please set a name before saving"
