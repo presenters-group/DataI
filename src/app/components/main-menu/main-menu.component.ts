@@ -1,6 +1,4 @@
 import { Component, OnInit, HostListener, ViewChild, Output, EventEmitter } from '@angular/core';
-import * as FileSaver from 'file-saver';
-import * as XLSX from 'xlsx';
 import { selectCurrentDataSource } from "src/store/data-sources/data-sources.selectors";
 import { AppState } from "src/store";
 import { Store } from '@ngrx/store';
@@ -18,7 +16,7 @@ export class MainMenuComponent implements OnInit {
   dataSource: Observable<any>;
   data : any[];
   @Output() onClose : EventEmitter<any> = new EventEmitter();
-  constructor(private store: Store<AppState>) { 
+  constructor(private store: Store<AppState>) {
     this.dataSource = this.store.select(selectCurrentDataSource);
   }
 
