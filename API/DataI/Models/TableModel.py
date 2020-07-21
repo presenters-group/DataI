@@ -15,9 +15,10 @@ class PropertiesModel(ObjectDeserializer):
 
 
 class AggregationModel():
-    def __init__(self, aggregatedTable: List[ColumnModel], aggregationColumn: int, isActive: bool):
+    def __init__(self, aggregatedTable: List[ColumnModel], aggregationColumn: int, type: str, isActive: bool):
         self.aggregatedTable = aggregatedTable
         self.aggregationColumn = aggregationColumn
+        self.type = type
         self.isActive = isActive
 
     def __str__(self):
@@ -31,8 +32,9 @@ class AggregationModel():
         for element in buffer:
             aggregatedTable.append(ColumnModel.from_json(element))
         aggregationColumn = data['aggregationColumn']
+        type = data['type']
         isActive = data['isActive']
-        return cls(aggregatedTable, aggregationColumn, isActive)
+        return cls(aggregatedTable, aggregationColumn, type, isActive)
 
 
 class TableModel(BasicDataModelInfo):

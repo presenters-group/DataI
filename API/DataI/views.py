@@ -20,7 +20,7 @@ dataController.loadDataIFile(filename)
 dirName = os.path.dirname(__file__)
 filename = os.path.join(dirName, '../Aggregation-Test.xlsx')
 
-dataController.loadTablesFromExcelFile(filename, 0)
+# dataController.loadTablesFromExcelFile(filename, 0)
 
 #================================ load static data ================================:
 
@@ -193,7 +193,7 @@ def fullDataHandler(request):
 @csrf_exempt
 def dataSourcesHandler(request):
     if request.method == 'GET':
-        fullTables = dataController.getFilteredTables()
+        fullTables = dataController.getFinaleTables()
         return HttpResponse(
             json.dumps(fullTables, indent=4, cls=ObjectEncoder, ensure_ascii=False))
     elif request.method == 'POST':
@@ -574,7 +574,7 @@ def svgUpload(request):
     fileName = request.FILES['file_upload'].name
     projectPath = os.path.dirname(__file__)
     print('project path: ' + projectPath)
-    filePath = (os.path.join(projectPath.replace('/DataI', '')) + '/media/uploads/') + fileName
+    filePath = (os.path.join(projectPath.replace('/DataI', '')) + '/media/uploads/svg/') + fileName
     print(filePath)
 
     return HttpResponse()

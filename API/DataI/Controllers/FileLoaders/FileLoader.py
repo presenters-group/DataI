@@ -24,7 +24,7 @@ class FileLoader():
             columnIdCounter += 1
 
         properties = PropertiesModel(enums.FileType.Excel.value, 50)
-        aggregator = AggregationModel([], 0, False)
+        aggregator = AggregationModel([], 0, '', False)
         table = TableModel(bufferColumnsList, name, id, properties, aggregator,[] , False)
         table.rowsColors = randomRowsColors
         table.columnsColors = randomColumnsColors
