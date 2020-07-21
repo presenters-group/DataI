@@ -6,6 +6,7 @@ from DataI.Controllers.Aggregation.Aggregation import BasicAggregation, Aggregat
     MonthBasedAggregation, YearBasedAggregation
 from DataI.Controllers.DataControllers.DataController import DataController
 from DataI.Controllers.DrawControllers.DrawController import DrawController
+from DataI.Controllers.Equation.Equation import Equation
 from DataI.Controllers.FileSaver.DataIFileSaver import DataIFileSaver
 from DataI.Controllers.Filters.FiltersController import FiltersController
 from DataI.JSONSerializer import ObjectEncoder
@@ -178,25 +179,37 @@ dateTimeFilter = {
     "isActive": True
 }
 
+dataController.data.dataSources[0].printTable()
+
+print('=========================================================================================================')
+print('=========================================================================================================')
+
+
+equation = '( السعر + الحجم ) * ( السعر - الكمية )'
+
+TableModel.printColumns(Equation.extractColumnsFromEquation(dataController.data.dataSources[0], equation))
+
+Equation.implementEquation(dataController.data.dataSources[0], equation)
+
 # dataController.data.dataSources[0].filters.append(dateTimeFilter)
 
-table = FiltersController.getFilteredTable(dataController.data, 0)
-
-table.printTable()
-
-print('=========================================================================================================')
-print('=========================================================================================================')
-
-# DayBasedAggregation.implementAggregation(dataController.data, table, 1)
-# MonthBasedAggregation.implementAggregation(dataController.data, table, 1)
-# YearBasedAggregation.implementAggregation(dataController.data, table, 1)
-# aggregator = BasicAggregation()
-# aggregator.implementAggregation(dataController.data, table, 0)
-
-print('=========================================================================================================')
-print('=========================================================================================================')
-
-TableModel.printColumns(table.aggregator.aggregatedTable)
+# table = FiltersController.getFilteredTable(dataController.data, 0)
+#
+# table.printTable()
+#
+# print('=========================================================================================================')
+# print('=========================================================================================================')
+#
+# # DayBasedAggregation.implementAggregation(dataController.data, table, 1)
+# # MonthBasedAggregation.implementAggregation(dataController.data, table, 1)
+# # YearBasedAggregation.implementAggregation(dataController.data, table, 1)
+# # aggregator = BasicAggregation()
+# # aggregator.implementAggregation(dataController.data, table, 0)
+#
+# print('=========================================================================================================')
+# print('=========================================================================================================')
+#
+# TableModel.printColumns(table.aggregator.aggregatedTable)
 
 
 # print(dataController.data.dataSources[0].columns[0].name + ':', dataController.data.dataSources[0].columns[0].columnType)

@@ -1,3 +1,4 @@
+from copy import deepcopy
 from typing import List
 
 from DataI import enums
@@ -44,7 +45,8 @@ class DataSourcesController():
         aggregator = Aggregation.getAggregator(type)
         Aggregation.clearAggregationTable(targetTable)
         aggregator.implementAggregation(data, targetTable, aggColumnId)
-        return targetTable
+        returnTable = cls.sugreCoatAggregatedTable(deepcopy(targetTable))
+        return returnTable
 
     @classmethod
     def setAggregationOn(cls, data: DataModel, tableId: int) -> TableModel:
@@ -131,6 +133,19 @@ class DataSourcesController():
         for cell in column.cells[1:]:
             if not cls.cellInList(cell, column.valueCategories):
                 column.valueCategories.append(cell)
+
+
+    @classmethod
+    def sugreCoatAggregatedTable(cls, table: TableModel) -> TableModel:
+        if table.aggregator.isActive:
+            table.columns.clear()
+            table.columns.extend(table.aggregator.aggregatedTable)
+            table.rowsColors = table.rowsColors[:len(table.aggregator.aggregatedTable) - 2]
+            table.rowsVisibility = table.rowsVisibility[:len(table.aggregator.aggregatedTable) - 2]
+            return table
+        else:
+            return table
+
 
     @classmethod
     def cellInList(self, cell, list):

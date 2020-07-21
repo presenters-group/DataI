@@ -3,7 +3,7 @@ from typing import Dict, List
 from numpy import double
 
 from DataI.Controllers.DataControllers.DashboardsController import DashboardsController
-from DataI.Controllers.DataControllers.VisualizationsController import VisualizationsController
+from DataI.Controllers.DataControllers.DataSourcesController import DataSourcesController
 from DataI.Controllers.DrawControllers.ChartsFactory import ChartsFactory
 from DataI.Models.DashboardModel import DashboardModel
 from DataI.Models.DataModel import DataModel
@@ -55,9 +55,7 @@ class DrawController():
         # implement visualization filters.
         drawTable = tableFilter(data, dashboardId, visioId)
 
-        if drawTable.aggregator.isActive:
-            drawTable.columns.clear()
-            drawTable.columns.extend(drawTable.aggregator.aggregatedTable)
+        drawTable = DataSourcesController.sugreCoatAggregatedTable(drawTable)
 
         drawTable.printTable()
 
