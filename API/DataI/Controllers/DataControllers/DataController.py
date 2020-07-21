@@ -249,15 +249,13 @@ class DataController():
         dashboard.filters.pop(inFilterIndex)
         return 1
 
-    def saveTablesAsExcel(self, tableIds:List[int], fileName:str):
-      tables = list()
-      for tableId in tableIds:
-        tables.append(DataController.getElementIndexById(self.data.dataSources,tableId))
+    def saveTablesAsExcel(self, fileName:str):
+
       projectPath = os.path.dirname(__file__)
       print('project path: ' + projectPath)
       filePath = projectPath.replace('/DataI', '') + '/media/downloads/'
       saver = ExcelFileSaver(filePath + fileName)
-      saver.saveFile(tables)
+      saver.saveFile(self.data.dataSources)
 
 def getMaxIdInList(idList):
     max = 0

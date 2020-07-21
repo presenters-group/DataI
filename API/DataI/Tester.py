@@ -179,17 +179,7 @@ dateTimeFilter = {
     "isActive": True
 }
 
-dataController.data.dataSources[0].printTable()
-
-print('=========================================================================================================')
-print('=========================================================================================================')
-
-
-equation = '( السعر + الحجم ) * ( السعر - الكمية )'
-
-Equation.implementEquation(dataController.data.dataSources[0], equation, 'EquationResult')
-
-dataController.data.dataSources[0].printTable()
+dataController.saveTablesAsExcel("testing.xlsx")
 
 # dataController.data.dataSources[0].filters.append(dateTimeFilter)
 
