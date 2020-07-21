@@ -179,7 +179,7 @@ dateTimeFilter = {
     "isActive": True
 }
 
-dataController.saveTablesAsExcel("testing.xlsx")
+dataController.saveTablesAsExcel('testing.xlsx')
 
 # dataController.data.dataSources[0].filters.append(dateTimeFilter)
 

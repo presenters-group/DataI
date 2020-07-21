@@ -2,7 +2,7 @@ from copy import deepcopy
 from typing import List, Dict
 import os
 from DataI import enums
-from DataI.Controllers.DataControllers.DashboardsController import DashboardsController
+from DataI.Controllers.DataControllers import DashboardsController
 from DataI.Controllers.DataControllers.DataSourcesController import DataSourcesController
 from DataI.Controllers.DrawControllers.DrawController import DrawController
 from DataI.Controllers.DataControllers.FiltersModelController import FiltersModelController
@@ -55,6 +55,7 @@ class DataController():
         targetTableIndex = DataController.getElementIndexById(self.data.dataSources, tableId)
         targetTable = self.data.dataSources[targetTableIndex]
         Equation.implementEquation(targetTable, equation, newName)
+
 
     def removeColumn(self, tableId: int, columnId: int) ->TableModel:
         return DataSourcesController.removeColumn(self.data, tableId, columnId)
@@ -250,10 +251,11 @@ class DataController():
         return 1
 
     def saveTablesAsExcel(self, fileName:str):
-
-      projectPath = os.path.dirname(__file__)
-      print('project path: ' + projectPath)
-      filePath = projectPath.replace('/DataI', '') + '/media/downloads/'
+      current = os.path.dirname(__file__)
+      current = current[:len(current) - 33]
+      filePath = current + 'media/download/'
+      print('file path: ' + filePath)
+      # / home / allonios / PycharmProjects / FullEnd / API / media
       saver = ExcelFileSaver(filePath + fileName)
       saver.saveFile(self.data.dataSources)
 

@@ -1,9 +1,10 @@
 import re
 from copy import deepcopy
+from random import random
 from typing import List, Set
 
 from DataI import enums
-from DataI.Controllers.DataControllers.DataController import DataController
+from DataI.Controllers.DataControllers import DataController
 from DataI.Models.ColumnModel import ColumnModel, CellModel
 from DataI.Models.TableModel import TableModel
 
@@ -25,7 +26,12 @@ class Equation():
         resultColumn.cells[0] = CellModel(newName, enums.CellType.string.value)
         resultColumn.id = DataController.getMaxIdInList(table.columns) + 1
 
+        table.columnsVisibility.append(True)
+        table.columnsColors.append(cls.__generateRandomColor())
+
         table.columns.append(resultColumn)
+
+        return table
 
     @classmethod
     def extractColumnsFromEquation(cls, table: TableModel, equation: str) -> List[ColumnModel]:
@@ -55,6 +61,13 @@ class Equation():
     @classmethod
     def columnNameBuilder(cls, index: int, listName: str) -> str:
         return listName + '[' + str(index) + ']'
+
+    @classmethod
+    def __generateRandomColor(cls) -> str:
+        random_color = random.randint(0, 16777215)
+        hex_color = str(hex(random_color))
+        hex_color = '#' + hex_color[2:]
+        return hex_color
 
 
 def getColumnByName(table: TableModel, name: str) -> ColumnModel:

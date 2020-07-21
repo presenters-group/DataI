@@ -227,6 +227,13 @@ def removeColumn(request, tableId, columnId):
 
 
 @csrf_exempt
+def implementEquation(request, tableId):
+    pass
+
+
+
+
+@csrf_exempt
 def getAggregatedTable(request, tableId, columnId):
     if request.method == 'PUT':
         aggregationProperties = json.loads(request.body.decode())
