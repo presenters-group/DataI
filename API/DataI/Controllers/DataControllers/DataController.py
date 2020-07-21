@@ -6,6 +6,7 @@ from DataI.Controllers.DataControllers.DataSourcesController import DataSourcesC
 from DataI.Controllers.DrawControllers.DrawController import DrawController
 from DataI.Controllers.DataControllers.FiltersModelController import FiltersModelController
 from DataI.Controllers.DataControllers.VisualizationsController import VisualizationsController
+from DataI.Controllers.Equation.Equation import Equation
 from DataI.Controllers.FileLoaders.CSVFileLoader import CSVFileLoader
 from DataI.Controllers.FileLoaders.DataIFileLoader import DataIFileLoader
 from DataI.Controllers.FileLoaders.ExcelFileLoader import ExcelFileLoader
@@ -47,6 +48,11 @@ class DataController():
 
     def insertNewColumn(self, tableId, column: ColumnModel) -> TableModel:
         return DataSourcesController.insertNewColumn(self.data, tableId, column)
+
+    def implementEquation(self, tableId: int, equation: str, newName: str):
+        targetTableIndex = DataController.getElementIndexById(self.data.dataSources, tableId)
+        targetTable = self.data.dataSources[targetTableIndex]
+        Equation.implementEquation(targetTable, equation, newName)
 
     def removeColumn(self, tableId: int, columnId: int) ->TableModel:
         return DataSourcesController.removeColumn(self.data, tableId, columnId)

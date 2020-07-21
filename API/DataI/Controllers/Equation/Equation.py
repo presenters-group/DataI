@@ -2,7 +2,9 @@ import re
 from copy import deepcopy
 from typing import List, Set
 
-from DataI.Models.ColumnModel import ColumnModel
+from DataI import enums
+from DataI.Controllers.DataControllers.DataController import DataController
+from DataI.Models.ColumnModel import ColumnModel, CellModel
 from DataI.Models.TableModel import TableModel
 
 
@@ -17,14 +19,13 @@ class Equation():
         for distinctName, index in zip(distinctNames, range(len(distinctNames))):
             moddedEquation = moddedEquation.replace(distinctName, cls.columnNameBuilder(index, 'columns'))
 
-        print(moddedEquation)
-
         resultColumn = eval(moddedEquation)
 
         resultColumn.name = newName
+        resultColumn.cells[0] = CellModel(newName, enums.CellType.string.value)
+        resultColumn.id = DataController.getMaxIdInList(table.columns) + 1
 
-        return resultColumn
-
+        table.columns.append(resultColumn)
 
     @classmethod
     def extractColumnsFromEquation(cls, table: TableModel, equation: str) -> List[ColumnModel]:

@@ -187,9 +187,9 @@ print('=========================================================================
 
 equation = '( السعر + الحجم ) * ( السعر - الكمية )'
 
-TableModel.printColumns(Equation.extractColumnsFromEquation(dataController.data.dataSources[0], equation))
+Equation.implementEquation(dataController.data.dataSources[0], equation, 'EquationResult')
 
-Equation.implementEquation(dataController.data.dataSources[0], equation)
+dataController.data.dataSources[0].printTable()
 
 # dataController.data.dataSources[0].filters.append(dateTimeFilter)
 

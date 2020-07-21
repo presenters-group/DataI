@@ -22,7 +22,7 @@ filename = os.path.join(dirName, '../Aggregation-Test.xlsx')
 
 # dataController.loadTablesFromExcelFile(filename, 0)
 
-#================================ load static data ================================:
+# ================================ load static data ================================:
 
 
 jsonVisio1 = '''
@@ -164,7 +164,6 @@ dateTimeFilter = {
     "isActive": True
 }
 
-
 dataController.data.visualizations.append(VisualizationModel.from_json(json.loads(jsonVisio1)))
 dataController.data.visualizations.append(VisualizationModel.from_json(json.loads(jsonVisio2)))
 dataController.data.dashboards.append(DashboardModel.from_json(json.loads(jsonDashboard)))
@@ -238,7 +237,6 @@ def getAggregatedTable(request, tableId, columnId):
         return HttpResponse(json.dumps(returnTable, indent=4, cls=ObjectEncoder, ensure_ascii=False))
     else:
         return HttpResponseNotFound('No such request({} <{}>) is available'.format(request.path, request.method))
-
 
 
 @csrf_exempt
@@ -591,20 +589,3 @@ def svgUpload(request):
     print(filePath)
 
     return HttpResponse()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
