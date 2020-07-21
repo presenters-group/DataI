@@ -1,3 +1,4 @@
+from copy import deepcopy
 from typing import List, Dict
 from DataI import enums
 from DataI.Controllers.DataControllers.DashboardsController import DashboardsController
@@ -46,7 +47,11 @@ class DataController():
         return DataSourcesController.getFilteredTables(self.data)
 
     def getAggregatedTable(self, tableId: int, aggColumnId: int, type: str) -> TableModel:
-        return DataSourcesController.getAggregatedTable(self.data, tableId, aggColumnId, type)
+        table = DataSourcesController.getAggregatedTable(self.data, tableId, aggColumnId, type)
+        returnTable = deepcopy(table)
+        returnTable.columns.clear()
+        returnTable.columns.extend(returnTable.aggregator.aggregatedTable)
+        return returnTable
 
     def insertNewTable(self, table: TableModel):
         DataSourcesController.insertNewTable(self.data, table)
