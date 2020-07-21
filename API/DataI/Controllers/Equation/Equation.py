@@ -4,7 +4,7 @@ from random import random
 from typing import List, Set
 
 from DataI import enums
-from DataI.Controllers.DataControllers.DataController import DataController
+from DataI.Controllers.DataControllers import DataController
 from DataI.Models.ColumnModel import ColumnModel, CellModel
 from DataI.Models.TableModel import TableModel
 

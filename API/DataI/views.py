@@ -227,7 +227,9 @@ def removeColumn(request, tableId, columnId):
 
 
 @csrf_exempt
-def implementEquation(request, tableId)
+def implementEquation(request, tableId):
+    pass
+
 
 
 
