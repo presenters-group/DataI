@@ -54,6 +54,7 @@ class DataController():
         targetTable = self.data.dataSources[targetTableIndex]
         Equation.implementEquation(targetTable, equation, newName)
 
+
     def removeColumn(self, tableId: int, columnId: int) ->TableModel:
         return DataSourcesController.removeColumn(self.data, tableId, columnId)
 
