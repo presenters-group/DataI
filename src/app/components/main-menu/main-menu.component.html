@@ -30,10 +30,9 @@
         </div>
       </button>
           <div class="export-as-menu">
-            <button mat-button (click)="download()">Excel</button>
-            <button mat-button>CSV</button>
+            <button mat-button (click)="onExport('excel')">Excel</button>
+            <button mat-button  (click)="onExport('excel')">CSV</button>
           </div>
-
     </div>
     <!-- <div class="export-as-menu">
       <button mat-button>Excel</button>
