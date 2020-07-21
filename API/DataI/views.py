@@ -574,7 +574,7 @@ def svgUpload(request):
     fileName = request.FILES['file_upload'].name
     projectPath = os.path.dirname(__file__)
     print('project path: ' + projectPath)
-    filePath = (os.path.join(projectPath.replace('/DataI', '')) + '/media/uploads/') + fileName
+    filePath = (os.path.join(projectPath.replace('/DataI', '')) + '/media/uploads/svg/') + fileName
     print(filePath)
 
     return HttpResponse()

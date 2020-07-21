@@ -140,8 +140,8 @@ class DataSourcesController():
         if table.aggregator.isActive:
             table.columns.clear()
             table.columns.extend(table.aggregator.aggregatedTable)
-            table.rowsColors = table.rowsColors[:len(table.aggregator.aggregatedTable) - 2]
-            table.rowsVisibility = table.rowsVisibility[:len(table.aggregator.aggregatedTable) - 2]
+            table.rowsColors = table.rowsColors[:len(table.aggregator.aggregatedTable[0].cells) - 1]
+            table.rowsVisibility = table.rowsVisibility[:len(table.aggregator.aggregatedTable[0].cells) - 1]
             return table
         else:
             return table
