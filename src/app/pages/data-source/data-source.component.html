@@ -4,44 +4,67 @@
       <div>
         {{ (dataSource | async).name }}
       </div>
-      <div class="aggregation-tool">
-        <mat-form-field>
-          <mat-label>Aggregation Column</mat-label>
-          <mat-select [(ngModel)]="aggregatedColumn">
-            <mat-select-trigger>
-              {{ (dataSource | async).columns[aggregatedColumn]?.name }}
-            </mat-select-trigger>
-            <mat-option
-              *ngFor="let column of objectKeys((dataSource | async).columns)"
-              [value]="column"
-              >{{ (dataSource | async).columns[column].name }}</mat-option
-            >
-          </mat-select>
-        </mat-form-field>
 
-        <mat-form-field class="type" *ngIf="aggregatedColumn">
-          <mat-label>Aggregation Type</mat-label>
-          <mat-select [disabled]="!aggregatedColumn" [(ngModel)]="aggregationType">
-            <mat-select-trigger>
-              {{ aggregationType }}
-            </mat-select-trigger>
-            <mat-option
-              [value]="'Basic'"
-              >Basic</mat-option>
-              <mat-option *ngIf="(dataSource | async).columns[aggregatedColumn].columnType == 'DateTime'"
-              [value]="'DayBased'"
-              >Day Based</mat-option>
-              <mat-option *ngIf="(dataSource | async).columns[aggregatedColumn].columnType == 'DateTime'"
-              [value]="'MonthBased'"
-              >Month Based</mat-option>
-              <mat-option *ngIf="(dataSource | async).columns[aggregatedColumn].columnType == 'DateTime'"
-              [value]="'YearBased'"
-              >Year Based</mat-option>
-          </mat-select>
-        </mat-form-field>
-        <button (click)="onAggregateClick()" class="type" mat-button color="primary" *ngIf="aggregatedColumn && aggregationType">Aggregate</button>
-        <button (click)="onUnAggregateClick()" class="type" mat-button *ngIf="(dataSource | async).aggregator.isActive" >unAggregate</button>
+      <button  mat-button (click)="openMenu = !openMenu"><img  class="menu-button" src="/assets/icons/menu.svg" alt=""></button>
+      <div class="menu" *ngIf="openMenu">
+        <div class="tool-title">
+          Aggregation
+        </div>
+        <div class="aggregation-tools tool">
+          <mat-form-field>
+            <mat-label>Aggregation Column</mat-label>
+            <mat-select [(ngModel)]="aggregatedColumn">
+              <mat-select-trigger>
+                {{ (dataSource | async).columns[aggregatedColumn]?.name }}
+              </mat-select-trigger>
+              <mat-option
+                *ngFor="let column of objectKeys((dataSource | async).columns)"
+                [value]="column"
+                >{{ (dataSource | async).columns[column].name }}</mat-option
+              >
+            </mat-select>
+          </mat-form-field>
 
+          <mat-form-field class="type" *ngIf="aggregatedColumn">
+            <mat-label>Aggregation Type</mat-label>
+            <mat-select [disabled]="!aggregatedColumn" [(ngModel)]="aggregationType">
+              <mat-select-trigger>
+                {{ aggregationType }}
+              </mat-select-trigger>
+              <mat-option
+                [value]="'Basic'"
+                >Basic</mat-option>
+                <mat-option *ngIf="(dataSource | async).columns[aggregatedColumn].columnType == 'DateTime'"
+                [value]="'DayBased'"
+                >Day Based</mat-option>
+                <mat-option *ngIf="(dataSource | async).columns[aggregatedColumn].columnType == 'DateTime'"
+                [value]="'MonthBased'"
+                >Month Based</mat-option>
+                <mat-option *ngIf="(dataSource | async).columns[aggregatedColumn].columnType == 'DateTime'"
+                [value]="'YearBased'"
+                >Year Based</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <button (click)="onAggregateClick()" class="type" mat-button color="primary" *ngIf="aggregatedColumn && aggregationType">Aggregate</button>
+          <button (click)="onUnAggregateClick()" class="type" mat-button *ngIf="(dataSource | async).aggregator.isActive" >unAggregate</button>
+
+        </div>
+
+        <div class="tool-title non-first-tool-title">
+          Add Column
+        </div>
+        <div class="tool">
+          <div class="name-filed">
+            <label class="field-title">Column Name:</label>
+            <input class="field-input" [(ngModel)]="addedColumnName" type="text"/>
+          </div>
+          <div class="name-filed">
+            <label class="field-title">Column Equation:</label>
+            <textarea class="field-input equation" [(ngModel)]="addedColumn">
+            </textarea>
+          </div>
+          <button mat-button (click)="onAddColumn()">Add</button>
+        </div>
       </div>
     </div>
     <table>

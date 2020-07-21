@@ -41,7 +41,6 @@ export class DataSourcesService {
   }
 
   updateFilterInDataSource(data) {
-    console.log(data)
     return this.httpClient.put(
       `${this.URL}/update-filter/${data.tableId}/${data.id}/`,
       {
@@ -53,7 +52,6 @@ export class DataSourcesService {
   }
 
   addFilterToDataSource(data) {
-    console.log(data);
     return this.httpClient.put(`${this.URL}/insert-filter/${data.tableId}/`, {
       id: data.id,
       value: data.value,
@@ -68,29 +66,37 @@ export class DataSourcesService {
     );
   }
 
-
-  updateDataSourceColumnColor(data){
+  updateDataSourceColumnColor(data) {
     return this.httpClient.put(
       `${this.URL}/column-color/${data.tableId}/${data.columnId}/`,
-      { color : data.color}
-    )
+      { color: data.color }
+    );
   }
 
-  updateDataSourceRowColor(data){
+  updateDataSourceRowColor(data) {
     return this.httpClient.put(
       `${this.URL}/row-color/${data.tableId}/${data.rowId}/`,
-      { color : data.color}
-    )
+      { color: data.color }
+    );
   }
 
-  updateDataSourceAggregation(data){
-    console.log(data)
+  updateDataSourceAggregation(data) {
     return this.httpClient.put(
       `${this.URL}/aggregation/${data.tableId}/${data.columnId}/`,
       {
         type: data.type,
-        isActive: data.isActive
-    }
-    )
+        isActive: data.isActive,
+      }
+    );
+  }
+
+  addColumnToDataSource(data) {
+    return this.httpClient.put(
+      `${BASE_URL}implement-equation/${data.tableId}`,
+      {
+        newColumnName: data.newColumnName,
+        equation: data.equation,
+      }
+    );
   }
 }

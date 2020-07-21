@@ -40,3 +40,8 @@ export const fetchChartsFailed = createAction(
   "[TapsComponent] Fetch chart failed",
   props<{ error }>()
 );
+
+export const openProject = createAction(
+  "[MainMenuComponent] open project",
+  props<{ data }>()
+);

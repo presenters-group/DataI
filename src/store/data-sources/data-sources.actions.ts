@@ -113,3 +113,8 @@ export const updateDataSourceAggregation = createAction(
   "[DataSourceComponent] update data source aggregation",
   props<{ data }>()
 )
+
+export const addColumnToDataSource = createAction(
+  "[DataSourceComponent] add column to data source",
+  props<{data}>()
+)

@@ -35,6 +35,7 @@ table tr td {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  position: relative;
 }
 
 
@@ -61,6 +62,7 @@ table tr td {
 }
 
 .title{
+  position: relative;
   display: flex;
   flex-direction: row;
   border-bottom: solid #00000044 1px;
@@ -71,6 +73,70 @@ table tr td {
 .checkbox{
   margin-right: 10px;
 }
-.type{
-  margin-left : 10px;
+
+.menu-button{
+  width: 32px;
+}
+.menu{
+  background-color: var(--gray1);
+  padding: 20px;
+
+  border-radius: 10px;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  top: 50px;
+  right: 50px;
+}
+.aggregation-tools{
+  display: flex;
+  flex-direction: column;
+
+}
+.tool-title{
+  font-size: small;
+  text-align: center;
+  padding-bottom: 10px;
+
+}
+.non-first-tool-title{
+  margin-top: 15px;
+}
+
+.tool{
+  display: flex;
+  flex-direction: column;
+  border: solid #00000044 1px ;
+  padding: 12px;
+}
+.column{
+  padding: 10px;
+  background-color: white;
+  border-radius: 10px;
+  margin: 10px;
+  width: 60px;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.column-container{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+
+}
+.name-filed{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 2px;
+}
+.field-title{
+  margin-right: 10px;
+}
+.field-input{
+  width: 55%;
+}
+.equation{
+
 }

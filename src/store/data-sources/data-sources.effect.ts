@@ -270,4 +270,28 @@ export class DataSourcesEffects {
     )
   )
   )
+
+  addColumnToDataSource$ = createEffect(()=>
+  this.actions$.pipe(
+    ofType(fromActions.addColumnToDataSource),
+    debounceTime(100),
+
+    switchMap(({ data }) =>
+      this.dataSourcesService.addColumnToDataSource(data).pipe(
+        switchMap((data) => [
+          fromActions.updateDataSourceSuccess({ data }),
+          showSuccess({ message: UPDATE_SUCCESSFUL }),
+        ]),
+
+        catchError((error) => {
+          if(error.errorCode == '400')
+          return [showError({ message: "The Equation you've entered is not a valid equation" })]
+          return [
+          showError({ message: UPDATE_FAILED }),
+        ]})
+      )
+    )
+  )
+  )
+
 }
