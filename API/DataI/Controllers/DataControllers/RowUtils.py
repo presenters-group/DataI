@@ -39,6 +39,9 @@ class RowUtils():
     def divideCellsListOnNum(cls, cellsList: List[CellModel], num: int) -> List[CellModel]:
         resultList = list()
         for cell in cellsList:
-            resultList.append(cell / num)
+            try:
+                resultList.append(cell / num)
+            except:
+                resultList.append(cell)
         return resultList
 

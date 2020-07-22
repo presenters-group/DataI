@@ -2,6 +2,7 @@
   <div class="chart-zoom-container">
     <div class="chart-component" id="svg">
       <app-visualizer-item
+        id='print-section'
         [zoom]="zoom"
         [svg]="(visualizer | async).chartSvg"
         [metaData]="(visualizer | async).chartData"
@@ -24,7 +25,7 @@
       <div class="export">
         <button mat-button (click)="download('png')">PNG</button>
         <button mat-button (click)="download('svg')">SVG</button>
-
+        <button mat-button (click)="print()">Print</button>
       </div>
     </div>
   </div>

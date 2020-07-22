@@ -4,13 +4,7 @@
             "name": "First",
             "id": 0,
             "isDeleted": false,
-            "filters": [
-                {
-                    "id": 3,
-                    "value": "23/1/2000",
-                    "isActive": true
-                }
-            ],
+            "filters": [],
             "columns": [
                 {
                     "name": "النوع",
@@ -459,23 +453,23 @@
                 true
             ],
             "columnsColors": [
-                "#662a06",
-                "#78592d",
-                "#237940",
-                "#36eb9c",
-                "#ab8ce6"
+                "#509b3e",
+                "#c82488",
+                "#e423d2",
+                "#1edf50",
+                "#e8f16"
             ],
             "rowsColors": [
-                "#ce5190",
-                "#1ec93d",
-                "#bc40d8",
-                "#b64cd1",
-                "#f39ee6",
-                "#3dbc3f",
-                "#9e232a",
-                "#ca66b0",
-                "#428754",
-                "#5a1883"
+                "#28b1c9",
+                "#7daf34",
+                "#805fd0",
+                "#c813f3",
+                "#9e66b8",
+                "#a47082",
+                "#b51331",
+                "#e93d2f",
+                "#2c66ac",
+                "#a12829"
             ],
             "properties": {
                 "sourceFileType": "Excel",
@@ -484,6 +478,7 @@
             "aggregator": {
                 "aggregatedTable": [],
                 "aggregationColumn": 0,
+                "type": "",
                 "isActive": false
             }
         },
@@ -644,17 +639,17 @@
                 true
             ],
             "columnsColors": [
-                "#13744d",
-                "#2b55a2"
+                "#70958b",
+                "#b81ec1"
             ],
             "rowsColors": [
-                "#e4ec52",
-                "#27aaf",
-                "#789d0e",
-                "#3e2964",
-                "#dff3a8",
-                "#37eb1a",
-                "#e2f207"
+                "#956597",
+                "#8b1bf9",
+                "#4828c5",
+                "#3eebd3",
+                "#4954b3",
+                "#549433",
+                "#e60359"
             ],
             "properties": {
                 "sourceFileType": "Excel",
@@ -663,6 +658,7 @@
             "aggregator": {
                 "aggregatedTable": [],
                 "aggregationColumn": 0,
+                "type": "",
                 "isActive": false
             }
         }

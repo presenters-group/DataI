@@ -49,10 +49,17 @@ class ChartTypes(enum.Enum):
 
 
 class AggregationType(enum.Enum):
-    Basic = 'Basic'
-    DayBased = 'DayBased'
-    MonthBased = 'MonthBased'
-    YearBased = 'YearBased'
+    BasicSum = 'BasicSum'
+    BasicAvg = 'BasicAvg'
+
+    DayBasedSum = 'DayBasedSum'
+    DayBasedAvg = 'DayBasedAvg'
+
+    MonthBasedSum = 'MonthBasedSum'
+    MonthBasedAvg = 'MonthBasedAvg'
+
+    YearBasedSum = 'YearBasedSum'
+    YearBasedAvg = 'YearBasedAvg'
 
 
 

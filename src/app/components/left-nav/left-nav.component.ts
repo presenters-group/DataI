@@ -15,7 +15,7 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
         left: '-200px'
       })),
       transition('* <=> void',[
-        animate('0.5s')
+        animate('0.25s')
       ])
     ])
   ],

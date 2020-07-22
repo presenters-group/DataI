@@ -1,13 +1,16 @@
 import json
 import os
+from copy import deepcopy
 
 from DataI import enums
 from DataI.Controllers.Aggregation.Aggregation import BasicSumAggregation, AggregationColumnUtils, \
     DayBasedSumAggregation, \
-    MonthBasedSumAggregation, YearBasedSumAggregation, BasicAVGAggregation
+    MonthBasedSumAggregation, YearBasedSumAggregation, BasicAvgAggregation, DayBasedAvgAggregation, \
+    YearBasedAvgAggregation
 from DataI.Controllers.DataControllers.DataController import DataController
 from DataI.Controllers.DrawControllers.DrawController import DrawController
 from DataI.Controllers.Equation.Equation import Equation
+from DataI.Controllers.FileLoaders.DataIFileLoader import DataIFileLoader
 from DataI.Controllers.FileSaver.DataIFileSaver import DataIFileSaver
 from DataI.Controllers.Filters.FiltersController import FiltersController
 from DataI.JSONSerializer import ObjectEncoder
@@ -181,9 +184,28 @@ dateTimeFilter = {
 }
 
 
-# agg = BasicAVGAggregation()
+path = '/home/allonios/PycharmProjects/FullEnd/API/DataIFileTester.datai'
+
+loader = DataIFileLoader(path)
+
+loader.loadFile()
+
+
+# agg1 = YearBasedSumAggregation
+# agg1.implementAggregation(dataController.data, deepcopy(dataController.data.dataSources[0]), 1)
 #
-# agg.implementAggregation(dataController.data, dataController.data.dataSources[0], 0)
+# print('________________________________________________________________________________________________________')
+# print('________________________________________________________________________________________________________')
+#
+#
+# agg = YearBasedAvgAggregation()
+# agg.implementAggregation(dataController.data, deepcopy(dataController.data.dataSources[0]), 1)
+#
+
+
+
+
+
 
 # dataController.saveTablesAsExcel('testing.xlsx')
 

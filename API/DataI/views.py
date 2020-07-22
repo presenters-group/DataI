@@ -1,5 +1,6 @@
 import json
 import os
+import re
 
 from django.http import HttpResponse, HttpResponseNotFound, Http404, HttpResponseBadRequest
 from django.views.decorators.csrf import csrf_exempt
@@ -14,15 +15,13 @@ from DataI.models import Document, SVGDocument
 
 dataController = DataController()
 dirName = os.path.dirname(__file__)
-filename = os.path.join(dirName, 'test-file.datai')
+#filename = os.path.join(dirName, 'test-file.datai')
 # dataController.loadDataIFile(filename)
-dirName = os.path.dirname(__file__)
 filename = os.path.join(dirName, '../Aggregation-Test.xlsx')
 
 # dataController.loadTablesFromExcelFile(filename, 0)
 
 # ================================ load static data ================================:
-
 
 jsonVisio1 = '''
 {
@@ -591,15 +590,22 @@ def svgUpload(request):
     except:
         pass
 
+    # dataController.defaultChartsNames.append(str(fileName).replace('.svg', ''))
     fileName = request.FILES['file_upload'].name
-    print(str(fileName).replace('.svg', ''))
-    dataController.chartsNames.append(str(fileName).replace('.svg', ''))
     projectPath = os.path.dirname(__file__)
-    print('project path: ' + projectPath)
     filePath = (os.path.join(projectPath.replace('/DataI', '')) + '/media/uploads/svg/') + fileName
-    print(filePath)
+
+    fileHandler = open(filePath, 'r')
+    svg = fileHandler.read()
+
+    svg = svg.replace('\n', '')
+    svg = svg.replace('\t', '')
+
+    chartName = str(fileName).replace('.svg', '')
+    dataController.insertNewCustomChart(svg, chartName)
 
     return HttpResponse()
+
 
 
 @csrf_exempt
