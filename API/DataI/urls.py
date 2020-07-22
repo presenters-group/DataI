@@ -41,6 +41,9 @@ urlpatterns = [
     path('dataI-upload/', views.dataIUpload),
     path('svg-upload/', views.svgUpload),
 
+    path('png-export/', views.exportChartPNG),
+    path('svg-export/', views.exportChartSVG),
+
     path('excel-export/', views.exportExcel),
     path('dataI-export/', views.exportDataI),
 
