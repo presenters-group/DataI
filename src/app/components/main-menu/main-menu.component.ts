@@ -59,7 +59,7 @@ export class MainMenuComponent implements OnInit {
             .subscribe((res) =>
               this.saveFile(res, "application/ms-excel", `${name}.xlsx`)
             );
-        } else {
+        } else if(as == 'csv') {
           console.log(`${BASE_URL}csv-export/`);
           this.httpClient
             .get(
@@ -69,6 +69,17 @@ export class MainMenuComponent implements OnInit {
               }
             )
             .subscribe((response) => this.saveFile(response, "text/csv", `${name}.csv`));
+        }
+        else if(as == 'dataI'){
+          console.log(`${BASE_URL}dataI-export//`);
+          this.httpClient
+            .get(
+              `${BASE_URL}dataI-export/`,
+              {
+                responseType: "blob",
+              }
+            )
+            .subscribe((response) => this.saveFile(response, "text/datai", `${name}.dataI`));
         }
       }
     });
@@ -95,7 +106,9 @@ export class MainMenuComponent implements OnInit {
   //   }
   // }
   onOpenClick($event){
-    if($event.target.files[0].type == '.datai'){
+    let x = $event.target.files[0].name.split('.')
+    console.log(x,$event.target.files[0].name);
+    if(x[x.length-1].toLowerCase() == 'datai'){
       let file = $event.target.files[0]
       this.store.dispatch(openProject({data: {file : file}}))
     }
