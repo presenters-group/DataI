@@ -274,7 +274,7 @@ class DataController():
 
 
 def getMaxIdInList(idList):
-    max = 0
+    max = -1
     for item in idList:
         if item.id > max:
             max = item.id
@@ -291,7 +291,9 @@ def getElementById(elementsList: List, id):
 
 def getElementIndexById(list: List, id: int):
     indexCounter = 0
+    print('in function len:', len(list))
     for element in list:
+        print('element id:', element.id)
         if element.id == id:
             return indexCounter
         indexCounter += 1
