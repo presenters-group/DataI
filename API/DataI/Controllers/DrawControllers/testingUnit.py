@@ -60,12 +60,13 @@ dataSource.columns.pop(4)
 # chart1 = SmartPieChart(dataSource, Xcolomn, double(1000000), double(100), True, "smart")
 # chart2 = InfChart(dataSource, Xcolomn, double(1000), double(1000), True, "Inf")
 # chart2 = BarChart(dataSource, double(1000), double(1000), Xcolomn, 8, True, "BarChart")
-# chart4 = MapChart(dataSource, Xcolomn, double(1000000), double(100), True, "maptest")
+chart4 = MapChart(dataSource, Xcolomn, double(500), double(1000), True, "mtest")
+
 # chart5 = FemaleInfChart(dataSource, Xcolomn, double(10), double(100), True, "femaInf")
 # chart6 = HealthyFoodChart(dataSource, Xcolomn, double(1000000), double(100), True, "HealthyFoodChart")
 
-ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
-dir =str(ROOT_DIR) + "/T.svg"
-chart_6 = CustomChart(dataSource, Xcolomn, double(1000000), double(100), False, "CustomChart",dir)
+# ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
+# dir =str(ROOT_DIR) + "/T.svg"
+# chart_6 = CustomChart(dataSource, Xcolomn, double(1000000), double(100), False, "CustomChart",dir)
 # chart7 = FemaleAndMaleChart(dataSource, Xcolomn, double(1000000), double(50), True, "FemaleAndMaleChart")
 # chart3 = BoundaryLineChart(dataSource, double(1000), double(1000), Xcolomn, 8, True, "BoundaryLineChart")
