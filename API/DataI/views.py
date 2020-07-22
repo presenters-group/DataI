@@ -15,7 +15,7 @@ from DataI.models import Document, SVGDocument
 dataController = DataController()
 dirName = os.path.dirname(__file__)
 filename = os.path.join(dirName, 'test-file.datai')
-dataController.loadDataIFile(filename)
+# dataController.loadDataIFile(filename)
 dirName = os.path.dirname(__file__)
 filename = os.path.join(dirName, '../Aggregation-Test.xlsx')
 
@@ -163,12 +163,12 @@ dateTimeFilter = {
     "isActive": True
 }
 
-dataController.data.visualizations.append(VisualizationModel.from_json(json.loads(jsonVisio1)))
-dataController.data.visualizations.append(VisualizationModel.from_json(json.loads(jsonVisio2)))
-dataController.data.dashboards.append(DashboardModel.from_json(json.loads(jsonDashboard)))
-loadedJsonFilters = json.loads(jsonFilters)
-for filter in loadedJsonFilters:
-    dataController.data.filters.append(FilterModel.from_json(filter))
+# dataController.data.visualizations.append(VisualizationModel.from_json(json.loads(jsonVisio1)))
+# dataController.data.visualizations.append(VisualizationModel.from_json(json.loads(jsonVisio2)))
+# dataController.data.dashboards.append(DashboardModel.from_json(json.loads(jsonDashboard)))
+# loadedJsonFilters = json.loads(jsonFilters)
+# for filter in loadedJsonFilters:
+#     dataController.data.filters.append(FilterModel.from_json(filter))
 
 
 # dataController.data.dataSources[0].filters.append(dateTimeFilter)

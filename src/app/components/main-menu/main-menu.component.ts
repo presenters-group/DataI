@@ -15,7 +15,8 @@ import { GetNameComponent } from "../get-name/get-name.component";
 import { HttpClient } from "@angular/common/http";
 import { BASE_URL } from "src/utils/url.util";
 import { saveAs } from "file-saver";
-
+import { NotificationService } from 'src/store/notifications/notifications.service';
+import {openProject} from '../../../store/core/actions/core.actions'
 @Component({
   selector: "app-main-menu",
   templateUrl: "./main-menu.component.html",
@@ -30,7 +31,8 @@ export class MainMenuComponent implements OnInit {
   constructor(
     private store: Store<AppState>,
     public dialog: MatDialog,
-    private httpClient: HttpClient
+    private httpClient: HttpClient,
+    private notification:NotificationService
   ) {
     this.dataSource = this.store.select(selectCurrentDataSource);
   }
@@ -92,6 +94,14 @@ export class MainMenuComponent implements OnInit {
   //       alert( 'Please disable your Pop-up blocker and try again.');
   //   }
   // }
+  onOpenClick($event){
+    if($event.target.files[0].type == '.datai'){
+      let file = $event.target.files[0]
+      this.store.dispatch(openProject({data: {file : file}}))
+    }
+    else
+      this.notification.fail('Please Add a Valid File');
+  }
 
   ngOnInit(): void {}
 }

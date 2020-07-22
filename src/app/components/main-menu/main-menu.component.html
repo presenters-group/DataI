@@ -13,7 +13,14 @@
   </div>
     <hr>
   <div class="actions">
-    <button mat-button>Open</button>
+
+
+    <button mat-button (click)="open.click()">
+      <span>Open</span>
+      <input #open type="file" (change)="onOpenClick($event)" style="display:none;" />
+    </button>
+
+
     <button mat-button>Save</button>
     <!-- <button mat-button>Save as</button> -->
     <hr>

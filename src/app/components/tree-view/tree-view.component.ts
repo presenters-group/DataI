@@ -56,6 +56,7 @@ export class TreeViewComponent implements OnInit, AfterViewInit {
   }
   initialTree() {
     this.tree.nativeElement.innerHTML = "";
+    if(this.items.children.length == 0)
     for (let i = 0; i < this.items.children.length; i++)
       this.createTree(this.tree.nativeElement, this.items.children[i], 0);
   }

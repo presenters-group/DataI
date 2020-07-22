@@ -7,11 +7,15 @@ import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { CoreService } from "../services/core.service";
 
 import * as fromActions from "../actions/core.actions";
+import { fetchDataSources } from 'src/store/data-sources';
+import { fetchDashboards } from 'src/store/dashboards';
+import { fetchFilters } from 'src/store/filters';
+import { fetchVisualizers } from 'src/store/visualizers';
 @Injectable()
 export class CoreEffects {
   constructor(
     private actions$: Actions,
-    private coreService: CoreService
+    private coreService: CoreService,
   ) {}
 
 
@@ -33,6 +37,25 @@ export class CoreEffects {
       )
     )
   );
+
+  openProject$ = createEffect(() =>
+  this.actions$.pipe(
+    ofType(fromActions.openProject),
+
+    debounceTime(100),
+
+    switchMap(({data}) =>
+      this.coreService.openProject(data).pipe(
+        switchMap((data) => [
+          fetchDataSources(),
+          fetchDashboards(),
+          fetchFilters(),
+          fetchVisualizers(),
+        ]),
+      )
+    )
+  )
+);
 
 
 }
