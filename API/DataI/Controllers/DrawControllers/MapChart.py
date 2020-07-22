@@ -103,3 +103,15 @@ class MapChart():
           if (double(cell.value) > Max):
             Max = double(cell.value)
       return Max
+
+    def saveAsSVG (self)->str:
+      current = os.path.dirname(__file__)
+      filePath = current[:len(current) - 33] + 'media/download/svg/'
+      self.d.saveSvg(filePath+'Chart.svg')
+      return filePath+'Chart.svg'
+
+    def saveAsPNG (self)->str:
+      current = os.path.dirname(__file__)
+      filePath = current[:len(current) - 33] + 'media/download/svg/'
+      self.d.saveSvg(filePath+'Chart.png')
+      return filePath+'Chart.png'

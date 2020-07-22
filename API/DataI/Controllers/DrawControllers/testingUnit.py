@@ -61,6 +61,7 @@ dataSource.columns.pop(4)
 # chart2 = InfChart(dataSource, Xcolomn, double(1000), double(1000), True, "Inf")
 # chart2 = BarChart(dataSource, double(1000), double(1000), Xcolomn, 8, True, "BarChart")
 chart4 = MapChart(dataSource, Xcolomn, double(500), double(1000), True, "mtest")
+chart4.save()
 
 # chart5 = FemaleInfChart(dataSource, Xcolomn, double(10), double(100), True, "femaInf")
 # chart6 = HealthyFoodChart(dataSource, Xcolomn, double(1000000), double(100), True, "HealthyFoodChart")
