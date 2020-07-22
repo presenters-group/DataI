@@ -18,9 +18,9 @@ class MapChart():
         self.heightView = 1000 - 1000/3
         self.dataSourceTableWithoutXcolumn = dataSource
         self.xColumn = XColumn
+        # print(XColumn.name)
         self.keyColumn = self.findKeyColumn()
         if self.keyColumn != self.xColumn:
-          self.colorList = self.dataSourceTableWithoutXcolumn.rowsColors
           self.listOfLength = list()
           self.d = draw.Drawing(self.widthView , self.heightView)
           self.total = self.sumColumn(self.xColumn)
@@ -28,6 +28,7 @@ class MapChart():
           self.drawMap()
         else:
           self.d.append(draw.Text(text="Error: you have to select keyCountries in columns", fontSize=60, x=50, y=self.heightView / 2))
+
         self.d.setPixelScale(min(width,height)/1000)  # Set number of pixels per geometry unit
         # self.d.saveSvg(nameFile+'.svg')
         self.SVG = self.d.asSvg()
@@ -57,10 +58,10 @@ class MapChart():
         for column in self.dataSourceTableWithoutXcolumn.columns:
           meta += '\n'+ str(column.name)+":"+str(column.cells[self.findIndexForCountryBykey(key)].value)
         self.metaData.append(meta)
-        self.d.append(draw.Path(stroke_width=1, Class=str(self.Index), id=key, stroke="white", fill="gray",
+        self.d.append(draw.Path(stroke_width=1, Class=str(self.Index), id=str(self.Index), stroke="white", fill="gray",
                                 fill_opacity=0.2, d=path
                                 , transform="translate(-80,-950) scale(1.15 1.19)"))
-        self.d.append(draw.Path(stroke_width=0, Class=str(self.Index),id=key, stroke="white", fill="blue",
+        self.d.append(draw.Path(stroke_width=0, Class=str(self.Index),id=str(self.Index), stroke="white", fill=self.dataSourceTableWithoutXcolumn.columnsColors[self.keyColumn.id],
                                 fill_opacity=self.getPercentageOfCountryKey(str(key))/80,d=path
                                 , transform="translate(-80,-950) scale(1.15 1.19)" ))
 

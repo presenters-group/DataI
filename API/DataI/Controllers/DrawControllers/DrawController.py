@@ -59,9 +59,8 @@ class DrawController():
         drawTable = DataSourcesController.sugreCoatAggregatedTable(drawTable)
 
         drawTable.printTable()
-
-        xColumnIndex = DataController.getElementIndexById(data.dataSources, visualizer.xColumn)
-        xColumn = drawTable.columns[xColumnIndex]
+        xColumnIndex = DataController.getElementIndexById(data.dataSources[visualizer.data].columns, visualizer.xColumn)
+        xColumn = data.dataSources[visualizer.data].columns[xColumnIndex]
 
         # for column in drawTable.columns:
         #     for cell in column.cells:
