@@ -58,12 +58,13 @@ class MapChart():
         for column in self.dataSourceTableWithoutXcolumn.columns:
           meta += '\n'+ str(column.name)+":"+str(column.cells[self.findIndexForCountryBykey(key)].value)
         self.metaData.append(meta)
-        self.d.append(draw.Path(stroke_width=1, Class=str(self.Index), id=str(self.Index), stroke="white", fill="gray",
+        self.d.append(draw.Path(stroke_width=1, Class=self.Index, id=self.Index, stroke="white", fill="gray",
                                 fill_opacity=0.2, d=path
                                 , transform="translate(-80,-950) scale(1.15 1.19)"))
-        self.d.append(draw.Path(stroke_width=0, Class=str(self.Index),id=str(self.Index), stroke="white", fill=self.dataSourceTableWithoutXcolumn.columnsColors[self.keyColumn.id],
+        self.d.append(draw.Path(stroke_width=0, Class=self.Index,id=self.Index, stroke="white", fill=self.dataSourceTableWithoutXcolumn.columnsColors[self.keyColumn.id],
                                 fill_opacity=self.getPercentageOfCountryKey(str(key))/80,d=path
                                 , transform="translate(-80,-950) scale(1.15 1.19)" ))
+        self.Index += 1
 
     def findKeyColumn(self)->ColumnModel:
       for column in self.dataSourceTableWithoutXcolumn.columns:
