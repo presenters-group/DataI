@@ -19,7 +19,7 @@ dirName = os.path.dirname(__file__)
 # dataController.loadDataIFile(filename)
 filename = os.path.join(dirName, '../Aggregation-Test.xlsx')
 
-dataController.loadTablesFromExcelFile(filename, 0)
+# dataController.loadTablesFromExcelFile(filename, 0)
 
 # ================================ load static data ================================:
 
@@ -162,12 +162,12 @@ dateTimeFilter = {
     "isActive": True
 }
 
-dataController.data.visualizations.append(VisualizationModel.from_json(json.loads(jsonVisio1)))
-dataController.data.visualizations.append(VisualizationModel.from_json(json.loads(jsonVisio2)))
-dataController.data.dashboards.append(DashboardModel.from_json(json.loads(jsonDashboard)))
-loadedJsonFilters = json.loads(jsonFilters)
-for filter in loadedJsonFilters:
-    dataController.data.filters.append(FilterModel.from_json(filter))
+# dataController.data.visualizations.append(VisualizationModel.from_json(json.loads(jsonVisio1)))
+# dataController.data.visualizations.append(VisualizationModel.from_json(json.loads(jsonVisio2)))
+# dataController.data.dashboards.append(DashboardModel.from_json(json.loads(jsonDashboard)))
+# loadedJsonFilters = json.loads(jsonFilters)
+# for filter in loadedJsonFilters:
+#     dataController.data.filters.append(FilterModel.from_json(filter))
 
 
 # dataController.data.dataSources[0].filters.append(dateTimeFilter)
