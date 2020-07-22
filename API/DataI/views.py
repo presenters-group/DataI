@@ -358,7 +358,6 @@ def updateInVisioFilter(request, visioId, filterId):
     if request.method == 'PUT':
         filter = json.loads(request.body.decode())
         returnFilter = dataController.updateInVisioFilter(filter, visioId, filterId)
-        print(returnFilter['state'])
         if returnFilter['state'] == -1:
             return HttpResponseNotFound('Filter not found.')
         return HttpResponse(json.dumps(returnFilter, indent=4, cls=ObjectEncoder, ensure_ascii=False))
@@ -402,7 +401,6 @@ def getChartsNames(request):
 @csrf_exempt
 def getChartSVG(request):
     if request.method == 'PUT':
-        print('Body: ', request.body.decode())
         visioInfo = json.loads(request.body.decode())
         visualizerId = visioInfo.get('visualizerId')
         width = visioInfo.get('width')
@@ -531,9 +529,7 @@ def excelUpload(request):
 
     fileName = request.FILES['file_upload'].name
     projectPath = os.path.dirname(__file__)
-    print('project path: ' + projectPath)
     filePath = projectPath.replace('/DataI', '') + '/media/uploads/' + fileName
-    print(filePath)
 
     try:
         dataController.loadTablesFromExcelFile(filePath, DataController.getMaxIdInList(dataController.data.dataSources) + 1)
@@ -556,9 +552,7 @@ def csvUpload(request):
 
     fileName = request.FILES['file_upload'].name
     projectPath = os.path.dirname(__file__)
-    print('project path: ' + projectPath)
     filePath = (os.path.join(projectPath.replace('/DataI', '')) + '/media/uploads/') + fileName
-    print(filePath)
 
     try:
         dataController.loadTableFromCSVFile(filePath, DataController.getMaxIdInList(dataController.data.dataSources) + 1)
@@ -573,7 +567,6 @@ def dataIUpload(request):
     if request.method != 'POST':
         return HttpResponseNotFound('No such request({} <{}>) is available'.format(request.path, request.method))
 
-    print(request.FILES)
     newdoc = Document(docfile=request.FILES['file_upload'])
     try:
         newdoc.save()
@@ -582,10 +575,8 @@ def dataIUpload(request):
 
     fileName = request.FILES['file_upload'].name
     projectPath = os.path.dirname(__file__)
-    print('project path: ' + projectPath)
     filePath = projectPath.replace('/DataI', '') + '/media/uploads/' + fileName
-    print(filePath)
-    
+
     try:
         dataController.loadDataIFile(filePath)
     except:
@@ -628,7 +619,6 @@ def exportExcel(request):
     if request.method == 'GET':
         current = os.path.dirname(__file__)
         current = current[:len(current) - 5] + 'media/download/'
-        print('current:', current)
         filePath = current + 'fileName.xlsx'
 
         dataController.saveTablesAsExcel(filePath)
@@ -649,7 +639,6 @@ def exportDataI(request):
     if request.method == 'GET':
         current = os.path.dirname(__file__)
         current = current[:len(current) - 5] + 'media/download/'
-        print('current:', current)
         filePath = current + 'fileName.datai'
 
         dataController.saveDataAsDataI(filePath)
