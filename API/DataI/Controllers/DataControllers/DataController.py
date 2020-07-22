@@ -31,8 +31,11 @@ class DataController():
                             enums.ChartTypes.SmartPieChart.value, enums.ChartTypes.HealthyFoodChart.value,
                             enums.ChartTypes.FemaleInfChart.value, enums.ChartTypes.FemaleAndMaleChart.value,
                             enums.ChartTypes.MapChart.value, enums.ChartTypes.LineChart.value]
-        self.aggregationTypes = [enums.AggregationType.Basic.value, enums.AggregationType.DayBased.value, ]
-        self.aggregationTypes = [enums.AggregationType.MonthBased.value, enums.AggregationType.YearBased.value, ]
+
+        self.aggregationTypes = [enums.AggregationType.BasicSum.value, enums.AggregationType.DayBasedSum.value,
+                                 enums.AggregationType.MonthBasedSum.value, enums.AggregationType.YearBasedSum.value,
+                                 enums.AggregationType.BasicAvg.value, enums.AggregationType.DayBasedAvg.value,
+                                 enums.AggregationType.MonthBasedAvg.value, enums.AggregationType.YearBasedAvg.value, ]
 
     def loadDataIFile(self, filePath: str):
         loader = DataIFileLoader(filePath)

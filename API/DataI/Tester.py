@@ -1,10 +1,12 @@
 import json
 import os
+from copy import deepcopy
 
 from DataI import enums
 from DataI.Controllers.Aggregation.Aggregation import BasicSumAggregation, AggregationColumnUtils, \
     DayBasedSumAggregation, \
-    MonthBasedSumAggregation, YearBasedSumAggregation, BasicAVGAggregation
+    MonthBasedSumAggregation, YearBasedSumAggregation, BasicAvgAggregation, DayBasedAvgAggregation, \
+    YearBasedAvgAggregation
 from DataI.Controllers.DataControllers.DataController import DataController
 from DataI.Controllers.DrawControllers.DrawController import DrawController
 from DataI.Controllers.Equation.Equation import Equation
@@ -181,9 +183,21 @@ dateTimeFilter = {
 }
 
 
-# agg = BasicAVGAggregation()
+# agg1 = YearBasedSumAggregation
+# agg1.implementAggregation(dataController.data, deepcopy(dataController.data.dataSources[0]), 1)
 #
-# agg.implementAggregation(dataController.data, dataController.data.dataSources[0], 0)
+# print('________________________________________________________________________________________________________')
+# print('________________________________________________________________________________________________________')
+#
+#
+# agg = YearBasedAvgAggregation()
+# agg.implementAggregation(dataController.data, deepcopy(dataController.data.dataSources[0]), 1)
+#
+
+
+
+
+
 
 # dataController.saveTablesAsExcel('testing.xlsx')
 
