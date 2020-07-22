@@ -15,7 +15,7 @@ from DataI.models import Document, SVGDocument
 
 dataController = DataController()
 dirName = os.path.dirname(__file__)
-#filename = os.path.join(dirName, 'test-file.datai')
+# filename = os.path.join(dirName, 'test-file.datai')
 # dataController.loadDataIFile(filename)
 filename = os.path.join(dirName, '../Aggregation-Test.xlsx')
 
@@ -534,7 +534,12 @@ def excelUpload(request):
     print('project path: ' + projectPath)
     filePath = projectPath.replace('/DataI', '') + '/media/uploads/' + fileName
     print(filePath)
-    dataController.loadTablesFromExcelFile(filePath, DataController.getMaxIdInList(dataController.data.dataSources) + 1)
+
+    try:
+        dataController.loadTablesFromExcelFile(filePath, DataController.getMaxIdInList(dataController.data.dataSources) + 1)
+    except:
+        return HttpResponseBadRequest('Failed to Upload Excel File.')
+
     return HttpResponse()
 
 
@@ -554,7 +559,12 @@ def csvUpload(request):
     print('project path: ' + projectPath)
     filePath = (os.path.join(projectPath.replace('/DataI', '')) + '/media/uploads/') + fileName
     print(filePath)
-    dataController.loadTableFromCSVFile(filePath, DataController.getMaxIdInList(dataController.data.dataSources) + 1)
+
+    try:
+        dataController.loadTableFromCSVFile(filePath, DataController.getMaxIdInList(dataController.data.dataSources) + 1)
+    except:
+        return HttpResponseBadRequest('Failed to Upload CSV File.')
+
     return HttpResponse()
 
 
@@ -575,7 +585,12 @@ def dataIUpload(request):
     print('project path: ' + projectPath)
     filePath = projectPath.replace('/DataI', '') + '/media/uploads/' + fileName
     print(filePath)
-    dataController.loadDataIFile(filePath)
+    
+    try:
+        dataController.loadDataIFile(filePath)
+    except:
+        return HttpResponseBadRequest('Failed to Upload DataI File.')
+
     return HttpResponse()
 
 
