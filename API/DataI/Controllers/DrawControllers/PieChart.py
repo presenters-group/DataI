@@ -9,7 +9,7 @@ from DataI import enums
 from DataI.Models.ColumnModel import ColumnModel
 
 
-class PieChart:
+class PieChart():
     def __init__(self, firstColumn: ColumnModel, secondColumn: ColumnModel, width: double, height: double, animation: bool, nameFile):
         self.animation = animation
         self.widthView = width
@@ -93,3 +93,14 @@ class PieChart:
                         draw.Circle(self.widthView + 100, length * 80, 20, fill=colorList[i - 1], fill_opacity=0.5,
                                     stroke_width=0))
                     self.d.append(draw.Text(text=str(text), fontSize=30, x=self.widthView + 150, y=length * 80 - 10))
+
+    def saveAsSVG (self)->str:
+      current = os.path.dirname(__file__)
+      filePath = current[:len(current) - 33] + 'media/download/svg/'
+      self.d.saveSvg(filePath+'Chart.svg')
+      return filePath+'Chart.svg'
+    def saveAsPNG (self)->str:
+      current = os.path.dirname(__file__)
+      filePath = current[:len(current) - 33] + 'media/download/svg/'
+      self.d.saveSvg(filePath+'Chart.png')
+      return filePath+'Chart.png'

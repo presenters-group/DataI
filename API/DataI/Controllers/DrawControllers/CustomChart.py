@@ -13,6 +13,7 @@ class CustomChart(InfChart):
       self.dir = dir
       super().__init__(dataSource, XColumn,width, height, animation, nameFile)
 
+
     def drawHuman(self):
       doc = minidom.parse(self.dir)
       path_data = [path.getAttribute('d') for path

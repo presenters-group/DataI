@@ -13,9 +13,3 @@ class PyramidalChart(InfChart):
                     d="M920.8,982.5L549.9,134.1c0,0-14.5-20.8-33,0l-373,854c0,0-8,24.4,24.4,24.4s739.1,0,739.1,0s23.4-4.9,14.3-28.7L920.8,982.5l379.2,0V1100H0V0h1300v982.5l-379.2,0.1L920.8,982.5z"
                     , transform="translate(0,-800) scale(0.6 0.6)")
       self.d.append(p)
-
-
-
-#
-# class PyramidalChart:
-#     def __init__(self, firstcColumon: ColumnModel, xColumn: ColumnModel, width: double, height: double, nameFile):
