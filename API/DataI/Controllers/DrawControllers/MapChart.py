@@ -56,7 +56,7 @@ class MapChart():
           key = dataname
         meta =  self.xColumn.name +":"+str(self.xColumn.cells[self.findIndexForCountryBykey(key)].value)
         for column in self.dataSourceTableWithoutXcolumn.columns:
-          meta += '\n'+ str(column.name)+":"+str(column.cells[self.findIndexForCountryBykey(key)].value)
+          meta += '<br/>'+ str(column.name)+":"+str(column.cells[self.findIndexForCountryBykey(key)].value)
         self.metaData.append(meta)
         self.d.append(draw.Path(stroke_width=1, Class=self.Index, id=self.Index, stroke="white", fill="gray",
                                 fill_opacity=0.2, d=path
