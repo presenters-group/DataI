@@ -14,15 +14,13 @@ from DataI.models import Document, SVGDocument
 
 dataController = DataController()
 dirName = os.path.dirname(__file__)
-filename = os.path.join(dirName, 'test-file.datai')
+#filename = os.path.join(dirName, 'test-file.datai')
 # dataController.loadDataIFile(filename)
-dirName = os.path.dirname(__file__)
 filename = os.path.join(dirName, '../Aggregation-Test.xlsx')
 
-# dataController.loadTablesFromExcelFile(filename, 0)
+dataController.loadTablesFromExcelFile(filename, 0)
 
 # ================================ load static data ================================:
-
 
 jsonVisio1 = '''
 {
@@ -163,13 +161,14 @@ dateTimeFilter = {
     "isActive": True
 }
 
-# dataController.data.visualizations.append(VisualizationModel.from_json(json.loads(jsonVisio1)))
-# dataController.data.visualizations.append(VisualizationModel.from_json(json.loads(jsonVisio2)))
-# dataController.data.dashboards.append(DashboardModel.from_json(json.loads(jsonDashboard)))
-# loadedJsonFilters = json.loads(jsonFilters)
-# for filter in loadedJsonFilters:
-#     dataController.data.filters.append(FilterModel.from_json(filter))
+dataController.data.visualizations.append(VisualizationModel.from_json(json.loads(jsonVisio1)))
+dataController.data.visualizations.append(VisualizationModel.from_json(json.loads(jsonVisio2)))
+dataController.data.dashboards.append(DashboardModel.from_json(json.loads(jsonDashboard)))
+loadedJsonFilters = json.loads(jsonFilters)
+for filter in loadedJsonFilters:
+    dataController.data.filters.append(FilterModel.from_json(filter))
 
+print(dataController.data)
 
 # dataController.data.dataSources[0].filters.append(dateTimeFilter)
 # dataController.data.dataSources[0].filters = [filter1, filter2]
@@ -585,19 +584,25 @@ def svgUpload(request):
     if request.method != 'POST':
         return HttpResponseNotFound('No such request({} <{}>) is available'.format(request.path, request.method))
 
+
+
     newdoc = SVGDocument(docfile=request.FILES['file_upload'])
     try:
         newdoc.save()
     except:
         pass
 
+    #dataController.defaultChartsNames.append(str(fileName).replace('.svg', ''))
     fileName = request.FILES['file_upload'].name
-    print(str(fileName).replace('.svg', ''))
-    dataController.chartsNames.append(str(fileName).replace('.svg', ''))
     projectPath = os.path.dirname(__file__)
-    print('project path: ' + projectPath)
     filePath = (os.path.join(projectPath.replace('/DataI', '')) + '/media/uploads/svg/') + fileName
-    print(filePath)
+
+    fileHandler = open(filePath, 'r')
+    svg = fileHandler.read()
+    chartName = str(fileName).replace('.svg', '')
+    dataController.insertNewCustomChart(svg, chartName)
+
+
 
     return HttpResponse()
 

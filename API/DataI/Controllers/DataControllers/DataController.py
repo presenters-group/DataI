@@ -1,5 +1,6 @@
 from typing import List, Dict
 from DataI import enums
+from DataI.Controllers.DataControllers.CustomChartsController import CustomChartsController
 from DataI.Controllers.DataControllers.DashboardsController import DashboardsController
 from DataI.Controllers.DataControllers.DataSourcesController import DataSourcesController
 from DataI.Controllers.DrawControllers.DrawController import DrawController
@@ -24,13 +25,13 @@ from DataI.Controllers.FileSaver.ExcelFileSaver import ExcelFileSaver
 
 class DataController():
     def __init__(self):
-        self.data = DataModel([], [], [], [])
-        self.chartsNames = [enums.ChartTypes.VerticalBarChart.value, enums.ChartTypes.BoundaryLineChart.value,
-                            enums.ChartTypes.PointChart.value, enums.ChartTypes.MultiplePieChart.value,
-                            enums.ChartTypes.InfChart.value, enums.ChartTypes.PyramidalChart.value,
-                            enums.ChartTypes.SmartPieChart.value, enums.ChartTypes.HealthyFoodChart.value,
-                            enums.ChartTypes.FemaleInfChart.value, enums.ChartTypes.FemaleAndMaleChart.value,
-                            enums.ChartTypes.MapChart.value, enums.ChartTypes.LineChart.value]
+        self.data = DataModel([], [], [], [], [])
+        self.defaultChartsNames = [enums.ChartTypes.VerticalBarChart.value, enums.ChartTypes.BoundaryLineChart.value,
+                                   enums.ChartTypes.PointChart.value, enums.ChartTypes.MultiplePieChart.value,
+                                   enums.ChartTypes.InfChart.value, enums.ChartTypes.PyramidalChart.value,
+                                   enums.ChartTypes.SmartPieChart.value, enums.ChartTypes.HealthyFoodChart.value,
+                                   enums.ChartTypes.FemaleInfChart.value, enums.ChartTypes.FemaleAndMaleChart.value,
+                                   enums.ChartTypes.MapChart.value, enums.ChartTypes.LineChart.value]
 
         self.aggregationTypes = [enums.AggregationType.BasicSum.value, enums.AggregationType.DayBasedSum.value,
                                  enums.AggregationType.MonthBasedSum.value, enums.AggregationType.YearBasedSum.value,
@@ -43,6 +44,7 @@ class DataController():
 
     # Don't add 1 to id here (it must be already added).
     def loadTablesFromExcelFile(self, filePath: str, greatestTableId: int):
+        print('loading...')
         loader = ExcelFileLoader(filePath)
         self.data.dataSources.extend(loader.loadFile(greatestTableId))
 
@@ -137,7 +139,7 @@ class DataController():
         return self.aggregationTypes
 
     def getChartsNames(self):
-        return self.chartsNames
+        return self.defaultChartsNames
 
     def getChart(self, visioId, width, height):
         return DrawController.getChart(self.data, visioId, width, height, VisualizationsController.getFinalTable, 0)
@@ -264,8 +266,8 @@ class DataController():
         saver = DataIFileSaver(filePath)
         saver.saveFile(self.data)
 
-
-
+    def insertNewCustomChart(self, svg: str, chartName: str):
+        CustomChartsController.addNewChart(self.data, svg, chartName)
 
 
 def getMaxIdInList(idList):
