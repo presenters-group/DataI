@@ -26,6 +26,9 @@ export class VisualizerItemComponent implements AfterViewChecked {
   chart;
   change: boolean = false;
   @Input() set svg(value) {
+    let forDelete = document.getElementsByClassName('tipTool-container');
+    for(let element of (forDelete as any))
+      this.renderer.removeChild(document.body,element);
     this.chart = value;
     this.change = true;
   }
@@ -49,12 +52,14 @@ export class VisualizerItemComponent implements AfterViewChecked {
         this.renderer.addClass(parent, "tipTool-container");
         let content;
         for (let i = 0; i < this.chartData.length; i++) {
-          let element = this.chartElement.nativeElement.getElementsByClassName(`${i}`)[0];
-          // console.log(element)
+          let elements = this.chartElement.nativeElement.getElementsByClassName(`${i}`);
+          for(let element of elements){
           if (element) {
+            // console.log(element)
             element.addEventListener("mouseover", ($event) => {
               // console.log($event)
-              content = this.renderer.createText(this.chartData[i]);
+              content = this.chartData[i];
+              // content = this.renderer.createText(this.chartData[i]);
               this.renderer.appendChild(document.body, parent);
 
               this.renderer.setStyle(
@@ -69,7 +74,8 @@ export class VisualizerItemComponent implements AfterViewChecked {
                 "top",
                 `${$event.pageY}px`
               );
-              this.renderer.appendChild(parent, content);
+                parent.innerHTML = content;
+              // this.renderer.appendChild(parent, content);
             });
             element.addEventListener("mouseleave", () => {
               this.renderer.removeChild(document.body, parent);
@@ -78,6 +84,7 @@ export class VisualizerItemComponent implements AfterViewChecked {
               this.renderer.setStyle(element, "stroke-width", "");
             });
           }
+        }
         }
       }, 500);
       this.change = false;

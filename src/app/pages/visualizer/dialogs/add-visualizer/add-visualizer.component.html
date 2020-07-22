@@ -107,50 +107,11 @@
       </mat-select>
     </mat-form-field>
 
-    <!-- <mat-form-field>
-      <mat-label>Filters</mat-label>
-      <mat-select formControlName="filters" [disabled]="form.value.data == ''" multiple>
-        <mat-select-trigger>
-          {{
-            form.value.filters.length
-              ? (filters | async)[
-                form.value.filters[0]
-              ].name
-              : ""
-          }}
-          <span
-            *ngIf="form.value.filters?.length > 1"
-            class="example-additional-selection"
-          >
-            (+{{ form.value.filters.length - 1 }}
-            {{ form.value.filters?.length === 2 ? "other" : "others" }})
-          </span>
-        </mat-select-trigger>
-        <ng-container *ngIf="form.value.data != ''">
-          <mat-option
-            *ngFor="
-              let filter of objectKeys((filters | async))
-            "
-            [value]="filter"
-            >{{
-              (filters | async)[filter].name
-            }}</mat-option
-          >
-        </ng-container>
-      </mat-select>
-    </mat-form-field> -->
     <div class="disc">
-      You can upload a SVG file to make it as infograph chart.
+      You can upload a SVG file to make it as infograph chart. <br/>
+      You can see an example from <button (click)="downloadExample()">here</button>
     </div>
 
-
-    <!-- <label for="upload-svg">
-      <button mat-button>
-        Upload SVG.
-      </button>
-    </label>
-    <input type="file" id="upload-svg" />
- -->
 <div class="chart-container">
 
   <label mat-ripple or="svg-upload"  class="button svg" >

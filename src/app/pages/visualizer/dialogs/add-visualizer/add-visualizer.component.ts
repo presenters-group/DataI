@@ -68,5 +68,10 @@ export class AddVisualizerComponent {
       this.swal.fail('Please Add a Valid File');
   }
 
+  downloadExample(){
+    console.log("download")
+      window.open('/assets/chart/example.svg', '_blank');
+  }
+
 }
 
