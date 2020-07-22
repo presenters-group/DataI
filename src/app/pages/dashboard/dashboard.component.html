@@ -4,8 +4,11 @@
       {{(dashboard | async).name}}
     </div>
     <div class="edit">
+      <button mat-button *ngIf="!edit" (click)="print()">
+        Print
+      </button>
       <button
-        *ngIf="!edit"
+      *ngIf="!edit"
         (click)="edit = !edit"
         mat-flat-button
         color="primary"
@@ -15,6 +18,7 @@
       <button *ngIf="edit" (click)="onSave()" mat-button color="primary">
         Save
       </button>
+
       <!-- filter -->
 
       <button *ngIf="edit" (click)="edit = !edit" mat-flat-button color="primary">
@@ -23,7 +27,7 @@
     </div>
   </div>
   <div class="main">
-    <div *ngIf="!edit">
+    <div *ngIf="!edit" id="print-section">
       <div
         [ngStyle]="{
           'width.px': visualizer.measurements.width,
