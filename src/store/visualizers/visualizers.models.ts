@@ -9,4 +9,5 @@ export interface IVisualizer {
   isDeleted: boolean;
   chartSvg?: string;
   chartData;
+  animation : boolean;
 }
