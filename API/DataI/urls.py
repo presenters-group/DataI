@@ -45,6 +45,7 @@ urlpatterns = [
     path('svg-export/', views.exportChartSVG),
 
     path('excel-export/', views.exportExcel),
+    path('csv-export/', views.exportCSV),
     path('dataI-export/', views.exportDataI),
 
     path('implement-equation/<int:tableId>', views.implementEquation),

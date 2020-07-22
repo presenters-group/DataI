@@ -11,6 +11,7 @@ from DataI.Controllers.DataControllers.DataController import DataController
 from DataI.Controllers.DrawControllers.DrawController import DrawController
 from DataI.Controllers.Equation.Equation import Equation
 from DataI.Controllers.FileLoaders.DataIFileLoader import DataIFileLoader
+from DataI.Controllers.FileSaver.CSVFileSaver import CSVFileSaver
 from DataI.Controllers.FileSaver.DataIFileSaver import DataIFileSaver
 from DataI.Controllers.Filters.FiltersController import FiltersController
 from DataI.JSONSerializer import ObjectEncoder
@@ -184,11 +185,16 @@ dateTimeFilter = {
 }
 
 
-path = '/home/allonios/PycharmProjects/FullEnd/API/DataIFileTester.datai'
 
-loader = DataIFileLoader(path)
+saver = CSVFileSaver("/home/allonios/PycharmProjects/FullEnd/API/media/download/csvFile/test.csv")
+saver.saveFile(dataController.data.dataSources)
 
-loader.loadFile()
+
+# path = '/home/allonios/PycharmProjects/FullEnd/API/DataIFileTester.datai'
+#
+# loader = DataIFileLoader(path)
+#
+# loader.loadFile()
 
 
 # agg1 = YearBasedSumAggregation
