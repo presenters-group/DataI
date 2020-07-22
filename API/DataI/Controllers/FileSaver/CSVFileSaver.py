@@ -35,6 +35,9 @@ class CSVFileSaver(FileSaver):
 
         ziph.close()
 
+    def saveSingleFile(self, table: TableModel):
+        dataFrame = self.tableToDataFrameConverter(table)
+        dataFrame.to_csv(self.fullFilePath, index=False)
 
 
 

@@ -46,6 +46,7 @@ urlpatterns = [
 
     path('excel-export/', views.exportExcel),
     path('csv-export/', views.exportCSV),
+    path('csv-single-export/<int:tableId>', views.exportSingleCSV),
     path('dataI-export/', views.exportDataI),
 
     path('implement-equation/<int:tableId>', views.implementEquation),

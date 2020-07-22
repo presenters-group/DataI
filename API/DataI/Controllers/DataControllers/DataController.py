@@ -271,6 +271,12 @@ class DataController():
         saver = CSVFileSaver(filePath)
         saver.saveFile(self.data.dataSources)
 
+    def saveSingleTablesAsCSV(self, tableId:int, filePath: str):
+        targetTableIndex = DataController.getElementIndexById(self.data.dataSources, tableId)
+        targetTable = self.data.dataSources[targetTableIndex]
+        saver = CSVFileSaver(filePath)
+        saver.saveSingleFile(targetTable)
+
     def saveDataAsDataI(self, filePath: str):
         saver = DataIFileSaver(filePath)
         saver.saveFile(self.data)
@@ -297,9 +303,7 @@ def getElementById(elementsList: List, id):
 
 def getElementIndexById(list: List, id: int):
     indexCounter = 0
-    print('in function len:', len(list))
     for element in list:
-        print('element id:', element.id)
         if element.id == id:
             return indexCounter
         indexCounter += 1
