@@ -19,7 +19,6 @@ class CustomChart(InfChart):
                    in doc.getElementsByTagName('path')]
       doc.unlink()
       for path in path_data:
-        print(path)
         self.d.append(draw.Path(stroke_width=0, stroke="gray", fill="white", fill_opacity=1,
                       d=str(path), transform="translate(0,-800) scale(0.6 0.6)" ))
 

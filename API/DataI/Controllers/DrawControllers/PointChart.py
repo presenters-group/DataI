@@ -48,14 +48,13 @@ class PointChart(Chart):
     def findStartYvalue(self):
         for column in self.dataSourceTableWithoutXcolumn.columns:
             if column.columnType == enums.ColumnDataType.Measures.value and column != self.xColumn:
-              print(column.cells[1].value)
               return double( column.cells[1].value)
-            else:
-              for column in self.dataSourceTableWithoutXcolumn.columns:
-                print(column.name)
-              print("name:",column.name)
-              print("column.columnType == enums.ColumnDataType.Measures.value:",column.columnType == enums.ColumnDataType.Measures.value)
-              print("column != self.xColumn:",column != self.xColumn)
+            # else:
+            #   for column in self.dataSourceTableWithoutXcolumn.columns:
+            #     print(column.name)
+            #   print("name:",column.name)
+            #   print("column.columnType == enums.ColumnDataType.Measures.value:",column.columnType == enums.ColumnDataType.Measures.value)
+            #   print("column != self.xColumn:",column != self.xColumn)
         return 0
 
     def getStartvalue(self) -> double:
@@ -144,7 +143,7 @@ class PointChart(Chart):
         for column in self.dataSourceTableWithoutXcolumn.columns:
           if column.columnType == enums.ColumnDataType.Measures.value:
             if (column != self.xColumn):
-                print(column.columnType)
+                # print(column.columnType)
                 add = self.widthOfYLabels
                 for cell, i in zip(column.cells, range(0, len(self.xColumn.cells))):
                     if (i != 0):
