@@ -11,6 +11,7 @@ import { fetchDataSources } from 'src/store/data-sources';
 import { fetchDashboards } from 'src/store/dashboards';
 import { fetchFilters } from 'src/store/filters';
 import { fetchVisualizers } from 'src/store/visualizers';
+import { showSuccess, showError } from 'src/store/notifications';
 @Injectable()
 export class CoreEffects {
   constructor(
@@ -51,9 +52,16 @@ export class CoreEffects {
           fetchDashboards(),
           fetchFilters(),
           fetchVisualizers(),
+          fromActions.fetchCharts(),
+          showSuccess({message : "File Uploaded Successful"})
         ]),
       )
-    )
+    ),
+    catchError((error) =>
+            of(showError({ message : 'File failed to upload' }))
+          )
+
+
   )
 );
 
