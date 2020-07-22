@@ -44,7 +44,6 @@ class DataController():
 
     # Don't add 1 to id here (it must be already added).
     def loadTablesFromExcelFile(self, filePath: str, greatestTableId: int):
-        print('loading...')
         loader = ExcelFileLoader(filePath)
         self.data.dataSources.extend(loader.loadFile(greatestTableId))
 
@@ -139,7 +138,11 @@ class DataController():
         return self.aggregationTypes
 
     def getChartsNames(self):
-        return self.defaultChartsNames
+        buffer = list()
+        buffer.extend(self.defaultChartsNames)
+        for customChart in self.data.customCharts:
+            buffer.append(customChart.chartName)
+        return buffer
 
     def getChart(self, visioId, width, height):
         return DrawController.getChart(self.data, visioId, width, height, VisualizationsController.getFinalTable, 0)

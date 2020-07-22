@@ -10,6 +10,7 @@ from DataI.Controllers.Aggregation.Aggregation import BasicSumAggregation, Aggre
 from DataI.Controllers.DataControllers.DataController import DataController
 from DataI.Controllers.DrawControllers.DrawController import DrawController
 from DataI.Controllers.Equation.Equation import Equation
+from DataI.Controllers.FileLoaders.DataIFileLoader import DataIFileLoader
 from DataI.Controllers.FileSaver.DataIFileSaver import DataIFileSaver
 from DataI.Controllers.Filters.FiltersController import FiltersController
 from DataI.JSONSerializer import ObjectEncoder
@@ -181,6 +182,13 @@ dateTimeFilter = {
     "value": '7/23/2020',
     "isActive": True
 }
+
+
+path = '/home/allonios/PycharmProjects/FullEnd/API/DataIFileTester.datai'
+
+loader = DataIFileLoader(path)
+
+loader.loadFile()
 
 
 # agg1 = YearBasedSumAggregation

@@ -1,5 +1,6 @@
 import json
 import os
+import re
 
 from django.http import HttpResponse, HttpResponseNotFound, Http404, HttpResponseBadRequest
 from django.views.decorators.csrf import csrf_exempt
@@ -168,7 +169,6 @@ loadedJsonFilters = json.loads(jsonFilters)
 for filter in loadedJsonFilters:
     dataController.data.filters.append(FilterModel.from_json(filter))
 
-print(dataController.data)
 
 # dataController.data.dataSources[0].filters.append(dateTimeFilter)
 # dataController.data.dataSources[0].filters = [filter1, filter2]
@@ -584,27 +584,28 @@ def svgUpload(request):
     if request.method != 'POST':
         return HttpResponseNotFound('No such request({} <{}>) is available'.format(request.path, request.method))
 
-
-
     newdoc = SVGDocument(docfile=request.FILES['file_upload'])
     try:
         newdoc.save()
     except:
         pass
 
-    #dataController.defaultChartsNames.append(str(fileName).replace('.svg', ''))
+    # dataController.defaultChartsNames.append(str(fileName).replace('.svg', ''))
     fileName = request.FILES['file_upload'].name
     projectPath = os.path.dirname(__file__)
     filePath = (os.path.join(projectPath.replace('/DataI', '')) + '/media/uploads/svg/') + fileName
 
     fileHandler = open(filePath, 'r')
     svg = fileHandler.read()
+
+    svg = svg.replace('\n', '')
+    svg = svg.replace('\t', '')
+
     chartName = str(fileName).replace('.svg', '')
     dataController.insertNewCustomChart(svg, chartName)
 
-
-
     return HttpResponse()
+
 
 
 @csrf_exempt
