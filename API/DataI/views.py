@@ -654,6 +654,48 @@ def exportDataI(request):
 
 
 
+@csrf_exempt
+def exportChartPNG(request):
+    if request.method == 'PUT':
+        visioInfo = json.loads(request.body.decode())
+        visualizerId = visioInfo.get('visualizerId')
+        width = visioInfo.get('width')
+        height = visioInfo.get('height')
+        pngDirectory = dataController.getChartPNG(visualizerId, width, height)
+
+        if os.path.exists(pngDirectory):
+            file = open(pngDirectory, 'rb')
+            response = HttpResponse(file.read(), content_type="image/png")
+            response['Content-Disposition'] = 'inline; filename=' + os.path.basename(pngDirectory)
+            return response
+
+        raise Http404
+    else:
+        return HttpResponseNotFound('No such request({} <{}>) is available'.format(request.path, request.method))
+
+
+
+
+@csrf_exempt
+def exportChartSVG(request):
+    if request.method == 'PUT':
+        visioInfo = json.loads(request.body.decode())
+        visualizerId = visioInfo.get('visualizerId')
+        width = visioInfo.get('width')
+        height = visioInfo.get('height')
+        svgDirectory = dataController.getChartSVG(visualizerId, width, height)
+
+        if os.path.exists(svgDirectory):
+            file = open(svgDirectory, 'rb')
+            response = HttpResponse(file.read(), content_type="image/svg+xml")
+            response['Content-Disposition'] = 'inline; filename=' + os.path.basename(svgDirectory)
+            return response
+
+        raise Http404
+    else:
+        return HttpResponseNotFound('No such request({} <{}>) is available'.format(request.path, request.method))
+
+
 
 
 

@@ -58,16 +58,13 @@ class DrawController():
 
         drawTable = DataSourcesController.sugreCoatAggregatedTable(drawTable)
 
-        drawTable.printTable()
-
-        xColumnIndex = DataController.getElementIndexById(data.dataSources, visualizer.xColumn)
-        xColumn = drawTable.columns[xColumnIndex]
+        xColumnIndex = DataController.getElementIndexById(data.dataSources[visualizer.data].columns, visualizer.xColumn)
+        xColumn = data.dataSources[visualizer.data].columns[xColumnIndex]
 
         # for column in drawTable.columns:
         #     for cell in column.cells:
         #         print(cell)
         #     print('_________________________')
-
         drawer = ChartsFactory.generateCharts(visualizer.chart,
                                               drawTable, width, height, xColumn, double(8.0), visualizer.animation)
 
@@ -77,6 +74,60 @@ class DrawController():
         chartDict['metaData'] = drawer.metaData
 
         return chartDict
+
+    @classmethod
+    def getChartPNG(cls, data: DataModel, visioId: int, width: double, height: double,
+                 tableFilter, dashboardId: int) -> str:
+        visioIndex = DataController.getElementIndexById(data.visualizations, visioId)
+        visualizer = data.visualizations[visioIndex]
+
+        drawTable = cls.generateVisualizerTable(data, visioId)
+        cls.__removeXColumnIfExists(drawTable, visualizer.xColumn)
+
+        # implement visualization filters.
+        drawTable = tableFilter(data, dashboardId, visioId)
+
+        drawTable = DataSourcesController.sugreCoatAggregatedTable(drawTable)
+
+        xColumnIndex = DataController.getElementIndexById(data.dataSources[visualizer.data].columns, visualizer.xColumn)
+        xColumn = data.dataSources[visualizer.data].columns[xColumnIndex]
+
+        # for column in drawTable.columns:
+        #     for cell in column.cells:
+        #         print(cell)
+        #     print('_________________________')
+
+        drawer = ChartsFactory.generateCharts(visualizer.chart,
+                                              drawTable, width, height, xColumn, double(8.0), visualizer.animation)
+
+        return drawer.saveAsPNG()
+
+    @classmethod
+    def getChartSVG(cls, data: DataModel, visioId: int, width: double, height: double,
+                 tableFilter, dashboardId: int) -> str:
+        visioIndex = DataController.getElementIndexById(data.visualizations, visioId)
+        visualizer = data.visualizations[visioIndex]
+
+        drawTable = cls.generateVisualizerTable(data, visioId)
+        cls.__removeXColumnIfExists(drawTable, visualizer.xColumn)
+
+        # implement visualization filters.
+        drawTable = tableFilter(data, dashboardId, visioId)
+
+        drawTable = DataSourcesController.sugreCoatAggregatedTable(drawTable)
+
+        xColumnIndex = DataController.getElementIndexById(data.dataSources[visualizer.data].columns, visualizer.xColumn)
+        xColumn = data.dataSources[visualizer.data].columns[xColumnIndex]
+
+        # for column in drawTable.columns:
+        #     for cell in column.cells:
+        #         print(cell)
+        #     print('_________________________')
+
+        drawer = ChartsFactory.generateCharts(visualizer.chart,
+                                              drawTable, width, height, xColumn, double(8.0), visualizer.animation)
+
+        return drawer.saveAsSVG()
 
     @classmethod
     def __removeXColumnIfExists(ctablels, drawTable: TableModel, xColumnId: int):

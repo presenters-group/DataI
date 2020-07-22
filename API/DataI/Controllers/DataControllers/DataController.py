@@ -147,6 +147,12 @@ class DataController():
     def getChart(self, visioId, width, height):
         return DrawController.getChart(self.data, visioId, width, height, VisualizationsController.getFinalTable, 0)
 
+    def getChartPNG(self, visioId, width, height) -> str:
+        return DrawController.getChartPNG(self.data, visioId, width, height, VisualizationsController.getFinalTable, 0)
+
+    def getChartSVG(self, visioId, width, height) -> str:
+        return DrawController.getChartSVG(self.data, visioId, width, height, VisualizationsController.getFinalTable, 0)
+
     def insertNewDashboard(self, dashBoard: DashboardModel):
         DashboardsController.insertNewDashboard(self.data, dashBoard)
 
@@ -276,8 +282,12 @@ class DataController():
 def getMaxIdInList(idList):
     max = -1
     for item in idList:
-        if item.id > max:
-            max = item.id
+        try:
+            if item.id > max:
+                max = item.id
+        except:
+            print(item.id, '>?', max)
+            print(type(item.id), type(max))
     return max
 
 
@@ -291,9 +301,7 @@ def getElementById(elementsList: List, id):
 
 def getElementIndexById(list: List, id: int):
     indexCounter = 0
-    print('in function len:', len(list))
     for element in list:
-        print('element id:', element.id)
         if element.id == id:
             return indexCounter
         indexCounter += 1

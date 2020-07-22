@@ -17,12 +17,12 @@ class Chart:
         self.heightView = heightView
     def saveAsSVG (self)->str:
       current = os.path.dirname(__file__)
-      filePath = current[:len(current) - 33] + 'media/download/svg/'
+      filePath = current[:len(current) - 33] + 'media/download/'
       self.d.saveSvg(filePath+'Chart.svg')
       return filePath+'Chart.svg'
     def saveAsPNG (self)->str:
       current = os.path.dirname(__file__)
-      filePath = current[:len(current) - 33] + 'media/download/svg/'
+      filePath = current[:len(current) - 33] + 'media/download/'
       self.d.saveSvg(filePath+'Chart.png')
       return filePath+'Chart.png'
 
