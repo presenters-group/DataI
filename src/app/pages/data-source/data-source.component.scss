@@ -140,3 +140,14 @@ table tr td {
 .equation{
 
 }
+.color-picker-container{
+  width: 50px;
+  height: 40px;
+  min-width: 100%;
+  min-height: 100%;
+}
+
+.color-cell{
+  padding : 0 !important;
+  line-height: 0;
+}

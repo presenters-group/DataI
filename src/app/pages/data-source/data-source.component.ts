@@ -140,12 +140,14 @@ export class DataSourceComponent implements AfterViewInit {
       );
     });
   }
-
   onColumnColorChange(columnId, $event) {
+    // console.log("column Color changed!",$event)
+    // let element = document.getElementsByTagName('color-picker')[0];
+    // (element as any).style.display = 'none';
     this.dataSource.pipe(first()).subscribe((value) => {
       this.store.dispatch(
         updateDataSourceColumnColor({
-          data: { color: $event.target.value, columnId, tableId: value.id },
+          data: { color: $event, columnId, tableId: value.id },
         })
       );
     });
@@ -155,7 +157,7 @@ export class DataSourceComponent implements AfterViewInit {
     this.dataSource.pipe(first()).subscribe((value) => {
       this.store.dispatch(
         updateDataSourceRowColor({
-          data: { color: $event.target.value, rowId, tableId: value.id },
+          data: { color: $event, rowId, tableId: value.id },
         })
       );
     });
