@@ -32,7 +32,6 @@ const dashboardsReducer = createReducer(
     fromActions.updateDashboardSuccess,
     fromActions.createDashboardSuccess,
     (state, { data }) => {
-      console.log(data)
       const entities = {
         ...state.entities,
         [data.id]: data,

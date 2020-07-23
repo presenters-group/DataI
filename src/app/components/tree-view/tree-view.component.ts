@@ -32,6 +32,7 @@ import { NotificationService } from "src/store/notifications/notifications.servi
 import { AddDashboardComponent } from "src/app/pages/dashboard/dialogs/add-dashboard/add-dashboard.component";
 import { selectVisualizersEntities } from "src/store/visualizers/visualizers.selectors";
 import { selectDashboardById } from "src/store/dashboards/dashboards.selectors";
+import { isObservable } from 'rxjs';
 @Component({
   selector: "app-tree-view",
   templateUrl: "./tree-view.component.html",
@@ -52,7 +53,7 @@ export class TreeViewComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {}
 
   ngAfterViewInit(): void {
-    this.onRefreshClick();
+    setTimeout(() => {this.onRefreshClick()},0);
   }
   initialTree() {
     this.tree.nativeElement.innerHTML = "";

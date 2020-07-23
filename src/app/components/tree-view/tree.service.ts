@@ -25,6 +25,8 @@ export class TreeService {
       return this.fillOutDataSources();
       case 'visualizers':
       return this.fillOutVisualizers();
+      default:
+        return new Observable();
 
     }
   }

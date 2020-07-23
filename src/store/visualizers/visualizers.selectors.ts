@@ -122,7 +122,7 @@ export const selectCurrentVisualizerFilters = createSelector(
   selectFiltersEntities,
   (visualizer,AllFilters) => {
     let filters = [];
-
+    if(visualizer)
     for (let filter of visualizer.filters)
       filters.push({...AllFilters[filter.id],isActive: filter.isActive, value:filter.value})
     return filters;

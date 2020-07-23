@@ -47,10 +47,8 @@ export class MainMenuComponent implements OnInit {
   onExport(as: string) {
     let dialogRef = this.dialog.open(GetNameComponent);
     dialogRef.afterClosed().subscribe((name) => {
-      console.log(name);
       if (name) {
         if (as == "excel") {
-          console.log(`${BASE_URL}excel-export/`);
           this.httpClient
             .get(
               `${BASE_URL}excel-export/`,
@@ -60,7 +58,6 @@ export class MainMenuComponent implements OnInit {
               this.saveFile(res, "application/ms-excel", `${name}.xlsx`)
             );
         } else if(as == 'csv') {
-          console.log(`${BASE_URL}csv-export/`);
           this.httpClient
             .get(
               `${BASE_URL}csv-export/`,
@@ -71,7 +68,6 @@ export class MainMenuComponent implements OnInit {
             .subscribe((response) => this.saveFile(response, "text/csv", `${name}.csv`));
         }
         else if(as == 'dataI'){
-          console.log(`${BASE_URL}dataI-export//`);
           this.httpClient
             .get(
               `${BASE_URL}dataI-export/`,
@@ -85,29 +81,13 @@ export class MainMenuComponent implements OnInit {
     });
   }
 
-  // downloadFile(data: any, type: string) {
-  //   const blob = new Blob([data], { type: type });
-
-  //   const url = window.URL.createObjectURL(blob);
-  //   window.open(url);
-  // }
-
   saveFile = (blobContent: Blob, type: string, fileName: string) => {
     const blob = new Blob([blobContent], { type: "application/octet-stream" });
     saveAs(blob, fileName);
   };
-  // downLoadFile(data: any, type: string) {
-  //   let blob = new Blob([data], { type: type});
-  //   let url = window.URL.createObjectURL(blob);
-  //   let pwa = window.open(url);
-  //   console.log(pwa,url,blob)
-  //   if (!pwa || pwa.closed || typeof pwa.closed == 'undefined') {
-  //       alert( 'Please disable your Pop-up blocker and try again.');
-  //   }
-  // }
+
   onOpenClick($event){
     let x = $event.target.files[0].name.split('.')
-    console.log(x,$event.target.files[0].name);
     if(x[x.length-1].toLowerCase() == 'datai'){
       let file = $event.target.files[0]
       this.store.dispatch(openProject({data: {file : file}}))
