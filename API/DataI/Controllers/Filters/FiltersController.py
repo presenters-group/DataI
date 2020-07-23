@@ -106,7 +106,6 @@ class FiltersController():
 
         return filteredTable
 
-
     @classmethod
     def getFilteredVisioTable(cls, data: DataModel, visioId: int) -> TableModel:
         visioIndex = DataController.getElementIndexById(data.visualizations, visioId)
@@ -125,6 +124,13 @@ class FiltersController():
                 filteredTable = filterObj.implementFilter(filteredTable, filterModel.filteredColumn, visioFilter['value'])
 
         return filteredTable
+
+    @classmethod
+    def theNoVisioFilter(cls, data: DataModel, signatureMatcher: int, visioId: int) -> TableModel:
+        visioIndex = DataController.getElementIndexById(data.visualizations, visioId)
+        visio = data.visualizations[visioIndex]
+        tableIndex = DataController.getElementIndexById(data.dataSources, visio.data)
+        return data.dataSources[tableIndex]
 
 
     @classmethod

@@ -58,7 +58,6 @@ class DataSourcesController():
         Aggregation.clearAggregationTable(targetTable)
         aggColumns = aggregator.implementAggregation(data, targetTable, aggColumnId, FiltersController.getFilteredTable)
         targetTable.aggregator.aggregatedTable = aggColumns
-        TableModel.printColumns(targetTable.aggregator.aggregatedTable)
         returnTable = cls.sugreCoatAggregatedTable(deepcopy(targetTable))
         return returnTable
 
@@ -153,8 +152,8 @@ class DataSourcesController():
         if table.aggregator.isActive:
             table.columns.clear()
             table.columns.extend(table.aggregator.aggregatedTable)
-            #table.rowsColors = table.rowsColors[:len(table.aggregator.aggregatedTable[0].cells) - 1]
-            #table.rowsVisibility = table.rowsVisibility[:len(table.aggregator.aggregatedTable[0].cells) - 1]
+            table.rowsColors = table.rowsColors[:len(table.columns[0].cells) - 1]
+            table.rowsVisibility = table.rowsVisibility[:len(table.columns[0].cells) - 1]
             return table
         else:
             return table
@@ -165,14 +164,14 @@ class DataSourcesController():
         if table.aggregator.isActive:
             aggregator = Aggregation.getAggregator(table.aggregator.type)
             Aggregation.clearAggregationTable(table)
-            aggregator.implementAggregation(data, table, table.aggregator.aggregationColumn, filterAgent)
+            aggColumns = aggregator.implementAggregation(data, table, table.aggregator.aggregationColumn, filterAgent)
+            table.columns.clear()
+            table.columns.extend(aggColumns)
             for column, i in zip(drawTable.columns,
                                  range(len(drawTable.columns))):
                 table.columns[i].valueCategories = column.valueCategories
-            table.columns.clear()
-            table.columns.extend(table.aggregator.aggregatedTable)
-            table.rowsColors = table.rowsColors[:len(table.aggregator.aggregatedTable[0].cells) - 1]
-            table.rowsVisibility = table.rowsVisibility[:len(table.aggregator.aggregatedTable[0].cells) - 1]
+            table.rowsColors = table.rowsColors[:len(table.columns[0].cells) - 1]
+            table.rowsVisibility = table.rowsVisibility[:len(table.columns[0].cells) - 1]
             return table
         else:
             return table

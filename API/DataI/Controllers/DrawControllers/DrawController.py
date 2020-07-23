@@ -6,6 +6,7 @@ from numpy import double
 from DataI.Controllers.DataControllers.DashboardsController import DashboardsController
 from DataI.Controllers.DataControllers.DataSourcesController import DataSourcesController
 from DataI.Controllers.DrawControllers.ChartsFactory import ChartsFactory
+from DataI.Controllers.Filters.FiltersController import FiltersController
 from DataI.Models.DashboardModel import DashboardModel
 from DataI.Models.DataModel import DataModel
 from DataI.Models.TableModel import TableModel
@@ -51,13 +52,26 @@ class DrawController():
         visualizer = data.visualizations[visioIndex]
 
         # implement visualization filters.
-        # drawTable = tableFilter(data, dashboardId, visioId)
-        targetTableIndex = DataController.getElementIndexById(data.dataSources, visualizer.data)
-        drawTable = deepcopy(data.dataSources[targetTableIndex])
+        drawTable = tableFilter(data, dashboardId, visioId)
 
-        drawTable = DataSourcesController.sugreCoatAggregatedChartTable(data, drawTable, tableFilter)
+        print('Before:')
+        for col in drawTable.columns:
+            print('name:', col.name)
+            for val in col.valueCategories:
+                print(val)
+
+        drawTable = DataSourcesController.\
+            sugreCoatAggregatedChartTable(data, drawTable, FiltersController.theNoVisioFilter)
 
         xColumn = drawTable.columns[DataController.getElementIndexById(drawTable.columns, visualizer.xColumn)]
+
+        print('-------------------------------------------------------------------')
+        print('-------------------------------------------------------------------')
+        print('After:')
+        for col in drawTable.columns:
+            print('name:', col.name)
+            for val in col.valueCategories:
+                print(val)
 
         drawTable = cls.generateVisualizerTable(drawTable, visualizer)
 

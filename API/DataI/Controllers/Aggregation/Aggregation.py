@@ -145,11 +145,6 @@ class BasicAvgAggregation():
         table.columns[aggregationColumnIndex].valueCategories = \
             deepcopy(table.columns[aggregationColumnIndex].valueCategories)
 
-        for column in table.columns:
-            print(column.name)
-            for cell in column.valueCategories:
-                print(cell)
-            print('____________________________________')
 
         self.__initAggregatedBufferColumns(aggregatedBufferColumns, aggregationBaseColumnId,
                                            deepcopy(table.columns))
