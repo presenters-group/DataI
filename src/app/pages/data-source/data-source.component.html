@@ -170,7 +170,7 @@
           <div
           [ngStyle]="{ 'background-color': (dataSource | async).rowsColors[i - 1] }"
           class="color-picker-container"
-          (colorPickerSelect)="onRowColorChange(i - 1,$event)"
+        (colorPickerSelect)="onRowColorChange(i - 1,$event)"
           [colorPicker]="(dataSource | async).rowsColors[i - 1]"
         ></div>
           &nbsp;

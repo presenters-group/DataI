@@ -132,6 +132,19 @@
   </mat-form-field>
 </div>
 
+<mat-form-field appearance="legacy">
+  <mat-label for="name">Chart Quality:</mat-label>
+  <input
+    required
+    ngDefaultControl
+    matInput
+    placeholder="Visualizer1"
+    id="name"
+    type="number"
+    formControlName="quality"
+  />
+</mat-form-field>
+
   <mat-checkbox formControlName="animation"> Enable Animations </mat-checkbox>
 </form>
 </mat-dialog-content>
