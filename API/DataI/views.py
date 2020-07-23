@@ -27,17 +27,16 @@ jsonVisio1 = '''
 {
             "name": "visualization1",
             "id": 0,
+            "isDeleted": false,
+            "filters": [],
             "data": 0,
             "usedColumns": [
                 0,
                 2,
                 3
             ],
-            "xColumn": 0,
+            "xColumn": 2,
             "chart": "BoundaryLineChart",
-            "filters": [
-            ],
-            "isDeleted": false,
             "animation": false
 }
 '''
@@ -162,7 +161,7 @@ dateTimeFilter = {
     "isActive": True
 }
 
-# dataController.data.visualizations.append(VisualizationModel.from_json(json.loads(jsonVisio1)))
+dataController.data.visualizations.append(VisualizationModel.from_json(json.loads(jsonVisio1)))
 # dataController.data.visualizations.append(VisualizationModel.from_json(json.loads(jsonVisio2)))
 # dataController.data.dashboards.append(DashboardModel.from_json(json.loads(jsonDashboard)))
 # loadedJsonFilters = json.loads(jsonFilters)

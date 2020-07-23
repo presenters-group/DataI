@@ -5,42 +5,40 @@ from numpy import double
 from DataI.Controllers.DataControllers.DashboardsController import DashboardsController
 from DataI.Controllers.DataControllers.DataSourcesController import DataSourcesController
 from DataI.Controllers.DrawControllers.ChartsFactory import ChartsFactory
+from DataI.Models.ColumnModel import ColumnModel
 from DataI.Models.DashboardModel import DashboardModel
 from DataI.Models.DataModel import DataModel
 from DataI.Models.TableModel import TableModel
 from DataI.Controllers.DataControllers import DataController
+from DataI.Models.VisualizationModel import VisualizationModel
 
 
 class DrawController():
     @classmethod
-    def generateVisualizerTable(cls, data: DataModel, visioID: int) -> TableModel:
+    def generateVisualizerTable(cls, table: TableModel, visio: VisualizationModel) -> TableModel:
         columns = list()
-        visioIndex = DataController.getElementIndexById(data.visualizations, visioID)
-        tableIndex = data.visualizations[visioIndex].data
 
-
-        for columnId in data.visualizations[visioIndex].usedColumns:
-            columnIndex = DataController.getElementIndexById(data.dataSources[tableIndex].columns, columnId)
-            columns.append(data.dataSources[tableIndex].columns[columnIndex])
+        for columnId in visio.usedColumns:
+            columnIndex = DataController.getElementIndexById(table.columns, columnId)
+            columns.append(table.columns[columnIndex])
 
         returnTable = TableModel(columns,
-                                 data.dataSources[tableIndex].name,
-                                 data.dataSources[tableIndex].id,
-                                 data.dataSources[tableIndex].properties,
-                                 data.dataSources[tableIndex].aggregator,
-                                 data.dataSources[tableIndex].filters,
-                                 data.dataSources[tableIndex].isDeleted)
+                                 table.name,
+                                 table.id,
+                                 table.properties,
+                                 table.aggregator,
+                                 table.filters,
+                                 table.isDeleted)
 
         # setting used colors in table:
         # 1- rows:
-        returnTable.rowsColors = data.dataSources[tableIndex].rowsColors
+        returnTable.rowsColors = table.rowsColors
         # 2- columns:
         columnsColors = list()
-        for columnId in data.visualizations[visioIndex].usedColumns:
-            columnIndex = DataController.getElementIndexById(data.dataSources[tableIndex].columns, columnId)
-            columnsColors.append(data.dataSources[tableIndex].columnsColors[columnIndex])
+        for columnId in visio.usedColumns:
+            columnIndex = DataController.getElementIndexById(table.columns, columnId)
+            columnsColors.append(table.columnsColors[columnIndex])
         returnTable.columnsColors = columnsColors
-
 
         return returnTable
 
@@ -50,13 +48,13 @@ class DrawController():
         visioIndex = DataController.getElementIndexById(data.visualizations, visioId)
         visualizer = data.visualizations[visioIndex]
 
-        drawTable = cls.generateVisualizerTable(data, visioId)
-        cls.__removeXColumnIfExists(drawTable, visualizer.xColumn)
-
         # implement visualization filters.
         drawTable = tableFilter(data, dashboardId, visioId)
 
         drawTable = DataSourcesController.sugreCoatAggregatedTable(drawTable)
+
+        drawTable = cls.generateVisualizerTable(drawTable, visualizer)
+        cls.__removeXColumnIfExists(drawTable, visualizer.xColumn)
 
         xColumnIndex = DataController.getElementIndexById(data.dataSources[visualizer.data].columns, visualizer.xColumn)
         xColumn = data.dataSources[visualizer.data].columns[xColumnIndex]
@@ -65,6 +63,10 @@ class DrawController():
         #     for cell in column.cells:
         #         print(cell)
         #     print('_________________________')
+        print('table:')
+        drawTable.printTable()
+        print('x column:')
+        xColumn.printColumn()
         drawer = ChartsFactory.generateCharts(visualizer.chart,
                                               drawTable, width, height, xColumn, double(8.0), visualizer.animation)
 
