@@ -18,8 +18,11 @@ class MapChart():
         self.heightView = 1000 - 1000/3
         self.dataSourceTableWithoutXcolumn = dataSource
         self.xColumn = XColumn
-        # print(XColumn.name)
+        print(XColumn.name)
+        self.idOfKeyColumn = 0
+        self.color = self.dataSourceTableWithoutXcolumn.columnsColors[0]
         self.keyColumn = self.findKeyColumn()
+        print("hereeeeeeeeeeeeeeeeeeeeee:",self.keyColumn.name)
         if self.keyColumn != self.xColumn:
           self.listOfLength = list()
           self.d = draw.Drawing(self.widthView , self.heightView)
@@ -61,20 +64,30 @@ class MapChart():
         self.d.append(draw.Path(stroke_width=1, Class=self.Index, id=self.Index, stroke="white", fill="gray",
                                 fill_opacity=0.2, d=path
                                 , transform="translate(-80,-950) scale(1.15 1.19)"))
-        self.d.append(draw.Path(stroke_width=0, Class=self.Index,id=self.Index, stroke="white", fill=self.dataSourceTableWithoutXcolumn.columnsColors[self.keyColumn.id],
+        self.d.append(draw.Path(stroke_width=0, Class=self.Index,id=self.Index, stroke="white", fill=self.color,
                                 fill_opacity=self.getPercentageOfCountryKey(str(key))/80,d=path
                                 , transform="translate(-80,-950) scale(1.15 1.19)" ))
         self.Index += 1
 
     def findKeyColumn(self)->ColumnModel:
+      ID =0
       for column in self.dataSourceTableWithoutXcolumn.columns:
         if column.name.lower() == "geoid" :
-          self.dataSourceTableWithoutXcolumn.columns.pop(column.id)
+          self.dataSourceTableWithoutXcolumn.columns.pop(ID)
+          self.idOfKeyColumn = ID
+          self.color =  self.dataSourceTableWithoutXcolumn.columnsColors[ID]
+          print(ID , "some ::", column.name)
           return column
+        ID += 1
+      ID = 0
       for column in self.dataSourceTableWithoutXcolumn.columns:
         if column.name.lower() == 'countries' :
-          self.dataSourceTableWithoutXcolumn.columns.pop(column.id)
+          self.color = self.dataSourceTableWithoutXcolumn.columnsColors[ID]
+          self.dataSourceTableWithoutXcolumn.columns.pop(ID)
+          self.idOfKeyColumn = ID
+          self.color =  self.dataSourceTableWithoutXcolumn.columnsColors[ID]
           return column
+      ID += 1
       return self.xColumn
 
     def getPercentageOfCountryKey(self,key:str)->double:
