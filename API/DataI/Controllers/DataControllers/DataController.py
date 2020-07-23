@@ -31,7 +31,8 @@ class DataController():
                                    enums.ChartTypes.MultiplePieChart.value, enums.ChartTypes.SmartPieChart.value,
                                    enums.ChartTypes.InfChart.value, enums.ChartTypes.PyramidalChart.value,
                                    enums.ChartTypes.FemaleInfChart.value,enums.ChartTypes.FemaleAndMaleChart.value,
-                                   enums.ChartTypes.HealthyFoodChart.value,enums.ChartTypes.MapChart.value]
+                                   enums.ChartTypes.HealthyFoodChart.value,enums.ChartTypes.MapChart.value,
+                                   enums.ChartTypes.MapChartByLatitudeAndLongitude.value]
 
         self.aggregationTypes = [enums.AggregationType.BasicSum.value, enums.AggregationType.DayBasedSum.value,
                                  enums.AggregationType.MonthBasedSum.value, enums.AggregationType.YearBasedSum.value,
