@@ -46,6 +46,7 @@ class ChartTypes(enum.Enum):
     FemaleInfChart = 'FemaleInfChart'
     HealthyFoodChart = 'HealthyFoodChart'
     MapChart = 'MapChart'
+    MapChartByLatitudeAndLongitude = 'MapChartByLatitudeAndLongitude'
 
 
 class AggregationType(enum.Enum):

@@ -12,6 +12,7 @@ from DataI.Controllers.DrawControllers.HealthyFoodChart import HealthyFoodChart
 from DataI.Controllers.DrawControllers.InfChart import InfChart
 from DataI.Controllers.DrawControllers.LineChart import LineChart
 from DataI.Controllers.DrawControllers.MapChart import MapChart
+from DataI.Controllers.DrawControllers.MapChartByLatitudeAndLongitude import MapChartByLatitudeAndLongitude
 from DataI.Controllers.DrawControllers.MultiplePieChart import MultiplePieChart
 from DataI.Controllers.DrawControllers.PointChart import PointChart
 from DataI.Controllers.DrawControllers.PyramidalChart import PyramidalChart
@@ -61,6 +62,9 @@ class ChartsFactory():
 
         if chartType == enums.ChartTypes.MapChart.value:
             return MapChart(table, xColomn, width, height, animation, 'testerrr')
+
+        if chartType == enums.ChartTypes.MapChartByLatitudeAndLongitude.value:
+            return MapChartByLatitudeAndLongitude(table, xColomn, width, height, animation, 'testerrr')
 
         else:
             current = os.path.dirname(__file__)
