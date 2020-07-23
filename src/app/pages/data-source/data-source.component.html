@@ -6,13 +6,11 @@
       </div>
       <div>
         <button mat-button (click)="exportAsCSV()">CSV</button>
-        <button mat-button (click)="openMenu = !openMenu">
-          <img class="menu-button" src="/assets/icons/menu.svg" alt="" />
-        </button>
+        <button  mat-button (click)="openMenu = !openMenu"><img  class="menu-button" src="/assets/icons/menu.svg" alt=""></button>
       </div>
       <div class="menu" *ngIf="openMenu">
         <div class="tool-title">
-          Aggregationيشف
+          Aggregation
         </div>
         <div class="aggregation-tools tool">
           <mat-form-field>
@@ -31,83 +29,41 @@
 
           <mat-form-field class="type" *ngIf="aggregatedColumn">
             <mat-label>Aggregation Type</mat-label>
-            <mat-select
-              [disabled]="!aggregatedColumn"
-              [(ngModel)]="aggregationType"
-            >
+            <mat-select [disabled]="!aggregatedColumn" [(ngModel)]="aggregationType">
               <mat-select-trigger>
                 {{ aggregationType }}
               </mat-select-trigger>
-              <mat-option [value]="'BasicSum'">Basic Sum</mat-option>
               <mat-option
-                *ngIf="
-                  (dataSource | async).columns[aggregatedColumn].columnType ==
-                  'DateTime'
-                "
+                [value]="'BasicSum'"
+                >Basic Sum</mat-option>
+                <mat-option *ngIf="(dataSource | async).columns[aggregatedColumn].columnType == 'DateTime'"
                 [value]="'DayBasedSum'"
-                >Day Based Sum</mat-option
-              >
-              <mat-option
-                *ngIf="
-                  (dataSource | async).columns[aggregatedColumn].columnType ==
-                  'DateTime'
-                "
+                >Day Based Sum</mat-option>
+                <mat-option *ngIf="(dataSource | async).columns[aggregatedColumn].columnType == 'DateTime'"
                 [value]="'MonthBasedSum'"
-                >Month Based Sum</mat-option
-              >
-              <mat-option
-                *ngIf="
-                  (dataSource | async).columns[aggregatedColumn].columnType ==
-                  'DateTime'
-                "
+                >Month Based Sum</mat-option>
+                <mat-option *ngIf="(dataSource | async).columns[aggregatedColumn].columnType == 'DateTime'"
                 [value]="'YearBasedSum'"
-                >Year Based Sum</mat-option
-              >
+                >Year Based Sum</mat-option>
 
-              <mat-option
-                *ngIf="
-                  (dataSource | async).columns[aggregatedColumn].columnType ==
-                  'DateTime'
-                "
+
+                <mat-option *ngIf="(dataSource | async).columns[aggregatedColumn].columnType == 'DateTime'"
                 [value]="'DayBasedAvg'"
-                >Day Based Average</mat-option
-              >
-              <mat-option
-                *ngIf="
-                  (dataSource | async).columns[aggregatedColumn].columnType ==
-                  'DateTime'
-                "
+                >Day Based Average</mat-option>
+                <mat-option *ngIf="(dataSource | async).columns[aggregatedColumn].columnType == 'DateTime'"
                 [value]="'MonthBasedAvg'"
-                >Month Based Average</mat-option
-              >
-              <mat-option
-                *ngIf="
-                  (dataSource | async).columns[aggregatedColumn].columnType ==
-                  'DateTime'
-                "
+                >Month Based Average</mat-option>
+                <mat-option *ngIf="(dataSource | async).columns[aggregatedColumn].columnType == 'DateTime'"
                 [value]="'YearBasedAvg'"
-                >Year Based Average</mat-option
-              >
-              <mat-option [value]="'BasicAvg'">Basic Average</mat-option>
+                >Year Based Average</mat-option>
+                <mat-option
+                [value]="'BasicAvg'"
+                >Basic Average</mat-option>
             </mat-select>
           </mat-form-field>
-          <button
-            (click)="onAggregateClick()"
-            class="type"
-            mat-button
-            color="primary"
-            *ngIf="aggregatedColumn && aggregationType"
-          >
-            Aggregate
-          </button>
-          <button
-            (click)="onUnAggregateClick()"
-            class="type"
-            mat-button
-            *ngIf="(dataSource | async).aggregator.isActive"
-          >
-            unAggregate
-          </button>
+          <button (click)="onAggregateClick()" class="type" mat-button color="primary" *ngIf="aggregatedColumn && aggregationType">Aggregate</button>
+          <button (click)="onUnAggregateClick()" class="type" mat-button *ngIf="(dataSource | async).aggregator.isActive" >unAggregate</button>
+
         </div>
 
         <div class="tool-title non-first-tool-title">
@@ -116,11 +72,7 @@
         <div class="tool">
           <div class="name-filed">
             <label class="field-title">Column Name:</label>
-            <input
-              class="field-input"
-              [(ngModel)]="addedColumnName"
-              type="text"
-            />
+            <input class="field-input" [(ngModel)]="addedColumnName" type="text"/>
           </div>
           <div class="name-filed">
             <label class="field-title">Column Equation:</label>
@@ -141,18 +93,14 @@
             let i = index
           "
         >
-          <div
-            [ngStyle]="{ 'background-color': color }"
-            class="color-picker-container"
-            (colorPickerSelect)="onColumnColorChange(i,$event)"
-            [colorPicker]="color"
-          ></div>
-          <!-- <input matInput
+          <input
+          class="color-input"
             type="color"
             (change)="onColumnColorChange(i, $event)"
             [value]="color"
-          /> -->
+          />
           &nbsp;
+          <!-- {{ color }} -->
         </td>
       </tr>
       <tr
@@ -162,17 +110,11 @@
         "
       >
         <td class="color-cell" *ngIf="i">
-          <!-- <input
+          <input
             type="color"
             (change)="onRowColorChange(i - 1, $event)"
             [value]="(dataSource | async).rowsColors[i - 1]"
-          /> -->
-          <div
-          [ngStyle]="{ 'background-color': (dataSource | async).rowsColors[i - 1] }"
-          class="color-picker-container"
-        (colorPickerSelect)="onRowColorChange(i - 1,$event)"
-          [colorPicker]="(dataSource | async).rowsColors[i - 1]"
-        ></div>
+          />
           &nbsp;
           <!-- {{ (dataSource | async).rowsColors[i - 1] }} -->
         </td>

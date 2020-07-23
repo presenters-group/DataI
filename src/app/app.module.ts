@@ -47,7 +47,6 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatSliderModule} from '@angular/material/slider';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { GetNameComponent } from './components/get-name/get-name.component';
-import { ColorPickerModule } from 'ngx-color-picker';
 
 @NgModule({
   declarations: [
@@ -105,7 +104,6 @@ import { ColorPickerModule } from 'ngx-color-picker';
     MatSliderModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    ColorPickerModule
     ],
   providers: [],
   bootstrap: [AppComponent],
