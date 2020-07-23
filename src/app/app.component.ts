@@ -66,13 +66,13 @@ export class AppComponent implements OnInit, AfterViewInit {
       if (!this.grabber) {
         return;
       }
-      this.resizer((event.clientX - this.oldX) * 2);
-      this.oldX = event.clientX;
+      this.resizer(((event as any).clientX - this.oldX) * 2);
+      this.oldX = (event as any).clientX;
     });
     document.addEventListener("mouseup", () => {
       this.grabber = false;
     });
-
+    if(element)
     element.addEventListener("mousedown", (event) => {
       this.grabber = true;
       this.oldX = event.clientX;

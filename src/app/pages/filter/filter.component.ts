@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ChangeDetectorRef } from "@angular/core";
 import { Store } from "@ngrx/store";
 import { AppState } from "src/store";
 import { updateFilter } from "src/store/filters";
@@ -25,11 +25,12 @@ export class FilterComponent implements OnInit {
   constructor(
     private swal: NotificationService,
     private store: Store<AppState>,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
   ) {}
 
   formBuild() {
     this.filter.subscribe((value) => {
+      if(value)
       this.form = this.formBuilder.group({
         name: [value.name, Validators.required],
         dataSource: [value.dataSource.toString(), Validators.required],
@@ -41,15 +42,13 @@ export class FilterComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.initialize();
-    this.filter.subscribe((value)=>{
-      console.log('initialize')
+    this.filter.subscribe(()=>{
       this.initialize();
     })
   }
 
   initialize(){
-    setTimeout(()=>{
+    // setTimeout(()=>{
       this.formBuild();
       this.dataSources.pipe(first()).subscribe((dataSources)=>{
         let type = dataSources[this.form.value.dataSource].columns[this.form.value.filteredColumn].columnType;
@@ -57,9 +56,8 @@ export class FilterComponent implements OnInit {
           this.form.controls['initValue'].setValue(new Date(this.form.value.initValue).toISOString().slice(0,10))
         if(type == "Dimension")
         this.form.controls['initValue'].setValue([]);
-          console.log(type,this.form.value.initValue)
       })
-    },100)
+    // },100)
   }
 
   onSaveClick() {
@@ -68,7 +66,6 @@ export class FilterComponent implements OnInit {
     this.dataSources.pipe(first()).subscribe((dataSources)=>{
       let type = dataSources[this.form.value.dataSource].columns[this.form.value.filteredColumn].columnType
       if(type == 'DateTime'){
-        console.log("DateTime")
         this.form.controls['initValue'].setValue(new Date(this.form.value.initValue).toLocaleDateString())
       }
       else if (type == 'Measures'){

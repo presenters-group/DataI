@@ -31,14 +31,14 @@ export class AddDashboardComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    console.log(this.data)
     if (this.data) {
       this.store
         .select(selectVisualizersEntities)
         .pipe(first())
         .subscribe((value) => {
           this.visualizers = this.data.visualizers.map((x) => ({
-            visualizationId: x.visualizationId,
+            type: 'visualizer',
+            visualizationId: x.visualizationId.toString(),
             measurements: x.measurements,
             name: value[x.visualizationId].name,
           }));
@@ -48,18 +48,18 @@ export class AddDashboardComponent implements OnInit {
         .pipe(first())
         .subscribe((value) => {
           this.filters = this.data.filters.map((x) => ({
-            id: x.id,
-            visioId: x.visioId,
+            type: 'filter',
+            id: x.id.toString(),
+            visioId: x.visioId.toString(),
             measurements: x.measurements,
             name: value[x.id].name,
           }));
         });
       this.name = this.data.name;
-      (this.visualizers,this.filters)
     }
 
     document.addEventListener("keypress", (event) => {
-      if(event.key == 'Delete')
+      if((event as any).key == 'Delete')
         this.delete();
     });
   }
@@ -69,6 +69,8 @@ export class AddDashboardComponent implements OnInit {
   }
 
   onPreviewClick($event) {
+    if($event.path[0].id == 'preview')
+      this.selectedFromPreview = null
     if (this.selectedEntity) {
       $event.preventDefault();
       let data = this.selectedEntity;
@@ -114,7 +116,7 @@ export class AddDashboardComponent implements OnInit {
         });
         break;
       case "visualizer":
-        if (this.visualizers.map((x) => x.id).includes(data.id))
+        if (this.visualizers.map((x) => x.visualizationId).includes(data.id))
         {
           this.notification.warning("Can't add an already added visualizer")
           return;
@@ -138,7 +140,10 @@ export class AddDashboardComponent implements OnInit {
   }
 
   onEntityClick($event, data) {
-    this.selectedEntity = data;
+    if(this.selectedEntity == data)
+      this.selectedEntity = null
+    else
+      this.selectedEntity = data;
   }
 
   onNoClick() {
@@ -215,8 +220,4 @@ export class AddDashboardComponent implements OnInit {
     this.selectedFromPreview = select;
   }
 
-  consol(data){
-    console.log(data);
-    return data;
-  }
 }

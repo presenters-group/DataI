@@ -17,12 +17,17 @@
           />
         </mat-form-field>
 
+        <div class="disc">
+          you can't edit data source after create the filter.
+        </div>
+        <br>
         <mat-form-field>
           <mat-label>Data Source</mat-label>
           <mat-select
             required
             (selectionChange)="onChangeDataSource()"
             formControlName="dataSource"
+            disabled
           >
             <mat-select-trigger>
               {{ (dataSources | async)[form.value.dataSource].name }}

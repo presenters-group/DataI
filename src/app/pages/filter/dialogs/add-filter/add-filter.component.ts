@@ -51,7 +51,7 @@ export class AddFilterComponent implements OnInit {
         this.form.controls['initValue'].setValue(new Date(this.form.value.initValue).toLocaleDateString())
       else if (type == 'Measures'){
         let num = Number.parseInt(this.form.value.initValue);
-        if(!num){
+        if(num == undefined || num == null){
           this.swal.fail(
             "Init value cant have a character"
           );

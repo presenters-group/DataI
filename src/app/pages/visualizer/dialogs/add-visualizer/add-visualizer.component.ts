@@ -70,7 +70,6 @@ export class AddVisualizerComponent {
   }
 
   downloadExample(){
-    console.log("download")
       window.open('/assets/chart/example.svg', '_blank');
   }
 

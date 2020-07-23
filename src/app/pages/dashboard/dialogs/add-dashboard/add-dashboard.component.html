@@ -32,7 +32,7 @@
     </div>
   </div>
 
-  <div (click)="onPreviewClick($event)" class="preview" (drop)="onDrop($event)" (dragover)="allowDrop($event)">
+  <div (click)="onPreviewClick($event)" class="preview" id="preview" (drop)="onDrop($event)" (dragover)="allowDrop($event)">
     <div
       *ngFor="let visualizer of visualizers"
       (click)="selectFromAdded(visualizer)"
