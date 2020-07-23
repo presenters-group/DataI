@@ -59,14 +59,9 @@ class DrawController():
         xColumnIndex = DataController.getElementIndexById(data.dataSources[visualizer.data].columns, visualizer.xColumn)
         xColumn = data.dataSources[visualizer.data].columns[xColumnIndex]
 
-        # for column in drawTable.columns:
-        #     for cell in column.cells:
-        #         print(cell)
-        #     print('_________________________')
-        print('table:')
-        drawTable.printTable()
-        print('x column:')
-        xColumn.printColumn()
+        for color in drawTable.columnsColors:
+            print(color)
+
         drawer = ChartsFactory.generateCharts(visualizer.chart,
                                               drawTable, width, height, xColumn, double(8.0), visualizer.animation)
 
@@ -94,11 +89,6 @@ class DrawController():
         xColumnIndex = DataController.getElementIndexById(data.dataSources[visualizer.data].columns, visualizer.xColumn)
         xColumn = data.dataSources[visualizer.data].columns[xColumnIndex]
 
-        # for column in drawTable.columns:
-        #     for cell in column.cells:
-        #         print(cell)
-        #     print('_________________________')
-
         drawer = ChartsFactory.generateCharts(visualizer.chart,
                                               drawTable, width, height, xColumn, double(8.0), visualizer.animation)
 
@@ -121,11 +111,6 @@ class DrawController():
         xColumnIndex = DataController.getElementIndexById(data.dataSources[visualizer.data].columns, visualizer.xColumn)
         xColumn = data.dataSources[visualizer.data].columns[xColumnIndex]
 
-        # for column in drawTable.columns:
-        #     for cell in column.cells:
-        #         print(cell)
-        #     print('_________________________')
-
         drawer = ChartsFactory.generateCharts(visualizer.chart,
                                               drawTable, width, height, xColumn, double(8.0), visualizer.animation)
 
@@ -136,6 +121,7 @@ class DrawController():
         for column in drawTable.columns:
             if column.id == xColumnId:
                 drawTable.columns.pop(DataController.getElementIndexById(drawTable.columns, xColumnId))
+                drawTable.columnsColors.pop(DataController.getElementIndexById(drawTable.columns, xColumnId))
                 return
 
 
