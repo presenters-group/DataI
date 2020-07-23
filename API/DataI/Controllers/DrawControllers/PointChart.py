@@ -12,9 +12,10 @@ from DataI.Models.TableModel import TableModel
 class PointChart(Chart):
     def __init__(self, dataSourceTableWithoutXcolumn: TableModel, widthView: double, heightView: double,
                  xcolumon: ColumnModel, quality: double, animation: bool, nameFile):
-        super().__init__(dataSourceTableWithoutXcolumn, widthView, heightView, xcolumon, animation)
-        if(len(xcolumon.cells)>50):
-          self.widthView = 100*len(xcolumon.cells)
+        tempWidth = widthView
+        if(len(xcolumon.cells)>40):
+          tempWidth = 100*len(xcolumon.cells)
+        super().__init__(dataSourceTableWithoutXcolumn, tempWidth, heightView, xcolumon, animation)
         self.widthOfYLabels = widthView / 8
         self.heightOfXLabels = heightView / 8
         self.widthOfCoordinatePlane = self.widthView - self.widthOfYLabels
@@ -51,12 +52,6 @@ class PointChart(Chart):
         for column in self.dataSourceTableWithoutXcolumn.columns:
             if column.columnType == enums.ColumnDataType.Measures.value and column != self.xColumn:
               return double( column.cells[1].value)
-            # else:
-            #   for column in self.dataSourceTableWithoutXcolumn.columns:
-            #     print(column.name)
-            #   print("name:",column.name)
-            #   print("column.columnType == enums.ColumnDataType.Measures.value:",column.columnType == enums.ColumnDataType.Measures.value)
-            #   print("column != self.xColumn:",column != self.xColumn)
         return 0
 
     def getStartvalue(self) -> double:
@@ -151,10 +146,13 @@ class PointChart(Chart):
                     if (i != 0):
                         add += self.xUnit
                         self.metaData.append("(" + str(self.xColumn.cells[i].value) + "," + str(cell.value) + ")")
-                        self.d.append(draw.Circle(add, self.convertY(double(cell.value)), self.xUnit / 30,
+                        c = draw.Circle(add, self.convertY(double(cell.value)), self.xUnit / 25,
                                                   fill=colors[column.id],
                                                   stroke_width=0,Class=str(self.Index),
-                                                  stroke='black', id=(self.Index)))
+                                                  stroke=colors[column.id], id=(self.Index))
+                        if self.animation:
+                          c.appendAnim(draw.Animate('r', '3s', from_or_values=0, to=abs(self.xUnit / 25),repeatCount='1'))
+                        self.d.append(c)
                         self.Index += 1
 
             columnCounter += 1

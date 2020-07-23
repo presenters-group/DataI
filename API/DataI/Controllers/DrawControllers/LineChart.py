@@ -22,9 +22,10 @@ class LineChart(PointChart):
         columnCounter = 0
         for column in self.dataSourceTableWithoutXcolumn.columns:
             if column.columnType == enums.ColumnDataType.Measures.value:
+              if (column != self.xColumn):
                 add = self.widthOfYLabels
                 p = draw.Path(stroke_width=self.xUnit / 50, stroke=colors[columnCounter],
-                              fill=colors[columnCounter], fill_opacity=0.5)
+                              fill=colors[columnCounter], fill_opacity=0)
                 name = str(column.name)
                 self.metaData.append(name)
                 self.Index += 1
@@ -35,6 +36,8 @@ class LineChart(PointChart):
                             add += self.xUnit
                             p.L(add, self.convertY(double(cell.value)))
                 p.V(self.convertY(self.findZeroInSVG()))
+                if self.animation:
+                  p.appendAnim(draw.Animate('fill_opacity', '5s', from_or_values=0, to=0.5, repeatCount='1'))
                 self.d.append(p)
 
             columnCounter += 1
