@@ -14,8 +14,8 @@ class SmartPieChart(PieChart):
       self.colorList = dataSource.rowsColors
       super().__init__(dataSource.columns[0], XColumn, double(1000), double(1000), animation, nameFile)
       self.d.setPixelScale(min(width, height) / 1000)  # Set number of pixels per geometry unit
-      self.SVG = self.d.asSvg()
-      #self.d.saveSvg(nameFile + '.svg')
+      # self.SVG = self.d.asSvg()
+      self.d.saveSvg(nameFile + '.svg')
 
     def drawCircle(self):
 
@@ -23,7 +23,7 @@ class SmartPieChart(PieChart):
         ycenter = self.yCenter
         r = self.r
         Y = -self.yCenter
-        length = 0
+        length = -1
         for cell, cell2, i in zip(self.firstColumn.cells, self.secondColumn.cells,
                                   range(0, len(self.firstColumn.cells))):
             if (type(cell2.value) != str):
@@ -51,11 +51,18 @@ class SmartPieChart(PieChart):
                         self.percentageOfValue(cell2.value))[0:4] + "%"
                     self.metaData.append(text)
                     r -= self.r / len(self.firstColumn.cells)
-                    self.d.append(
-                        draw.Circle(-ycenter, xcenter, r, fill="white", fill_opacity=1,
-                                    stroke="white", stroke_width=10))
-                    self.d.append(draw.Text(text=str(text), fontSize=50, x=str((length * 55 + 8) - 50), y=Y - 5, style="font-size : "+str(50),
+                    c=draw.Circle(-ycenter, xcenter, r, fill="white", fill_opacity=1,
+                                    stroke="white", stroke_width=10)
+                    if self.animation:
+                      c.appendAnim(draw.Animate('r', '0.35s', from_or_values=0, to=r, repeatCount='1'))
+                    self.d.append(c)
+                    t =draw.Text(text=str(text), fontSize=30, x=str((length * 55 + 8) - 50), y=Y -50, style="font-size : "+str(30),
                                             transform="rotate(90," + str(self.xCenter - 40) + "," + str(
-                                                -length * 55 + 8) + ")",Class=str(self.Index),id=self.Index))
+                                                -length * 55 + 8) + ")",Class=str(self.Index),id=self.Index
+                                            ,Style="font-size : " + str(10))
+
+                    if self.animation:
+                      t.appendAnim(draw.Animate('x', str(length/4)+'s', from_or_values=0, to=(length * 55 + 8) - 50, repeatCount='1'))
+                    self.d.append(t)
                     self.Index += 1
-                    Y -= (self.r / len(self.firstColumn.cells)) / 8
+                    Y -= ((self.r / len(self.firstColumn.cells)) / 100)-10

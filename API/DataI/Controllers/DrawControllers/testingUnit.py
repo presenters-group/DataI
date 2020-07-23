@@ -44,7 +44,7 @@ i=0
 
 dataController = DataController()
 dir = os.path.dirname(__file__)
-filename = os.path.join(dir, '/home/kareem/University/Project1/web/API/cases.xlsx')
+filename = os.path.join(dir, '/home/kareem/University/Project1/web/API/Test.xlsx')
 
 dataController.loadTablesFromExcelFile(filename, 0)
 
@@ -52,16 +52,16 @@ dataSource = dataController.data.dataSources[0]
 # for column in dataSource.columns:
 #   print(column.name)
 #   print(column.columnType)
-Xcolomn = dataSource.columns[4]
+Xcolomn = dataSource.columns[3]
 print(Xcolomn.name)
-dataSource.columns.pop(4)
+dataSource.columns.pop(3)
 # char = PointChart(dataSource, double(1000), double(1000), Xcolomn, 8,True, "point")
 # chart = LineChart(dataSource, double(1000), double(1000), Xcolomn, 8, True, "line")
 # chart0 = MultiplePieChart(dataSource, Xcolomn, double(1000), double(1000), True, "pie")
-# chart1 = SmartPieChart(dataSource, Xcolomn, double(1000000), double(100), True, "smart")
+chart1 = SmartPieChart(dataSource, Xcolomn, double(2000), double(1000), True, "smart")
 # chart2 = InfChart(dataSource, Xcolomn, double(1000), double(1000), True, "Inf")
 # chart2 = BarChart(dataSource, double(1000), double(1000), Xcolomn, 8, True, "BarChart")
-chart4 = MapChart(dataSource, Xcolomn, double(1000), double(1000), True, "mtest")
+# chart4 = MapChart(dataSource, Xcolomn, double(1000), double(1000), True, "mtest")
 
 # chart5 = FemaleInfChart(dataSource, Xcolomn, double(10), double(100), True, "femaInf")
 # chart6 = HealthyFoodChart(dataSource, Xcolomn, double(1000000), double(100), True, "HealthyFoodChart")

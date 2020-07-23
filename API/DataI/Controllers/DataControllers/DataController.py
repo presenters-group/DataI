@@ -26,12 +26,12 @@ from DataI.Controllers.FileSaver.ExcelFileSaver import ExcelFileSaver
 class DataController():
     def __init__(self):
         self.data = DataModel([], [], [], [], [])
-        self.defaultChartsNames = [enums.ChartTypes.VerticalBarChart.value, enums.ChartTypes.BoundaryLineChart.value,
-                                   enums.ChartTypes.PointChart.value, enums.ChartTypes.MultiplePieChart.value,
+        self.defaultChartsNames = [enums.ChartTypes.PointChart.value, enums.ChartTypes.LineChart.value,
+                                   enums.ChartTypes.BoundaryLineChart.value, enums.ChartTypes.VerticalBarChart.value,
+                                   enums.ChartTypes.MultiplePieChart.value, enums.ChartTypes.SmartPieChart.value,
                                    enums.ChartTypes.InfChart.value, enums.ChartTypes.PyramidalChart.value,
-                                   enums.ChartTypes.SmartPieChart.value, enums.ChartTypes.HealthyFoodChart.value,
-                                   enums.ChartTypes.FemaleInfChart.value, enums.ChartTypes.FemaleAndMaleChart.value,
-                                   enums.ChartTypes.MapChart.value, enums.ChartTypes.LineChart.value]
+                                   enums.ChartTypes.FemaleInfChart.value,enums.ChartTypes.FemaleAndMaleChart.value,
+                                   enums.ChartTypes.HealthyFoodChart.value,enums.ChartTypes.MapChart.value]
 
         self.aggregationTypes = [enums.AggregationType.BasicSum.value, enums.AggregationType.DayBasedSum.value,
                                  enums.AggregationType.MonthBasedSum.value, enums.AggregationType.YearBasedSum.value,

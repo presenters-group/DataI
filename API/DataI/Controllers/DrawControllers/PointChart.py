@@ -91,7 +91,7 @@ class PointChart(Chart):
         return double(self.yDistance / (self.quality - 2))
 
     def getxUnit(self) -> double:
-        return double(self.widthOfCoordinatePlane / (len(self.xColumn.cells)))
+        return double(self.widthOfCoordinatePlane / (len(self.xColumn.cells)+1))
 
     def getYstep(self) -> double:
         return double(self.heightOfCoordinatePlane / (self.quality))
@@ -186,12 +186,13 @@ class PointChart(Chart):
             num = num[0:8] + "..."
         self.metaData.append("X:" + str(self.xColumn.name))
         self.Index += 1
-        self.d.append(draw.Circle(add, self.heightOfXLabels / 4 +(fontSize / 2), fontSize / 2, fill="black", stroke_width=0,
-                                  stroke='black',fill_opacity=1))
-        self.d.append(
-            draw.Text(text=str(num), fontSize=fontSize, x=add + (fontSize * 2),
-                      y=self.heightOfXLabels / 4 + (fontSize / 3),style="font-size : " + str(fontSize),
-                      Class=str(self.Index),id=str(self.Index)))
+        c = draw.Circle(add, self.heightOfXLabels / 4 +(fontSize / 2), fontSize / 2, fill="black", stroke_width=0,stroke='black',fill_opacity=1)
+        t =draw.Text(text=str(num), fontSize=fontSize, x=add + (fontSize * 2),y=self.heightOfXLabels / 4 + (fontSize / 3),style="font-size : " + str(fontSize),Class=str(self.Index),id=str(self.Index))
+        if self.animation:
+          t.appendAnim(draw.Animate('x', str((self.Index / 20) ) + 's', from_or_values=0, to=add + (fontSize * 2),repeatCount='1'))
+          c.appendAnim(draw.Animate('cx', str((self.Index / 20) - 0.1) + 's', from_or_values=0, to=add + (fontSize * 2),repeatCount='1'))
+        self.d.append(t)
+        self.d.append(c)
         add += self.widthView / (len(self.dataSourceTableWithoutXcolumn.columns) + 3)
 
 
@@ -203,13 +204,13 @@ class PointChart(Chart):
                 if (len(str(num)) > 10):
                     num = num[0:8] + "..."
                 self.metaData.append(num)
-                self.d.append(
-                    draw.Circle(add, self.heightOfXLabels / 4 + (fontSize / 2), fontSize / 2, fill=colors[columnCounter],
-                                stroke_width=0,
-                                stroke='black'))
-                self.d.append(draw.Text(text=str(num), fontSize=fontSize, x=add + (fontSize * 2),
-                                        y=self.heightOfXLabels / 4 + (fontSize / 3),style="font-size : " +str(fontSize),
-                                        Class=str(self.Index),id=str(self.Index)))
+                c = draw.Circle(add, self.heightOfXLabels / 4 + (fontSize / 2), fontSize / 2, fill=colors[columnCounter],stroke_width=0,stroke='black')
+                t = draw.Text(text=str(num), fontSize=fontSize, x=add + (fontSize * 2),y=self.heightOfXLabels / 4 + (fontSize / 3),style="font-size : " +str(fontSize),Class=str(self.Index),id=str(self.Index))
+                if self.animation:
+                  t.appendAnim(draw.Animate('x', str((self.Index / 20) ) + 's', from_or_values=0, to=add + (fontSize * 2),repeatCount='1'))
+                  c.appendAnim(draw.Animate('cx', str((self.Index / 20) - 0.1) + 's', from_or_values=0, to=add + (fontSize * 2),repeatCount='1'))
+                self.d.append(t)
+                self.d.append(c)
                 add += self.widthView / (len(self.dataSourceTableWithoutXcolumn.columns) + 3)
                 self.Index += 1
           columnCounter += 1
@@ -225,10 +226,10 @@ class PointChart(Chart):
             self.metaData.append(num)
             if (len(num) > 10):
                 num = num[0:8] + "..."
-            self.d.append(
-                draw.Text(text=str(num), fontSize=fontSize, x=x,
-                          y=self.convertY(self.listOfLevelXValue[i]),style="font-size : "+str(fontSize),
-                          Class=str(self.Index),id=str(self.Index)))
+            t = draw.Text(text=str(num), fontSize=fontSize, x=x,y=self.convertY(self.listOfLevelXValue[i]),style="font-size : "+str(fontSize),Class=str(self.Index),id=str(self.Index))
+            if self.animation:
+              t.appendAnim(draw.Animate('x', str(self.Index /20)  + 's', from_or_values=self.widthView,to=x, repeatCount='1'))
+            self.d.append(t)
             self.Index += 1
 
     def getXPointlInSVG(self, i: int) -> double:

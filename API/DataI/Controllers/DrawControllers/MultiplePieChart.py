@@ -94,7 +94,14 @@ class MultiplePieChart(Chart):
                         self.d.append(p)
                         if (b == 0):
                             text = str(cell.value)
-                            self.d.append(draw.Circle(self.widthView - self.widthView/4.5, length , self.stroke*2, fill=colorList[i - 1],fill_opacity=1,stroke_width=0))
-                            self.d.append(draw.Text(text=str(text), fontSize=self.stroke*4,style="font-size :"+str(self.stroke*4),x=self.widthView - self.widthView/6, y=length-length/50))
+                            c=draw.Circle(self.widthView - self.widthView/4.5, length , self.stroke*2, fill=colorList[i - 1],fill_opacity=1,stroke_width=0)
+                            t=draw.Text(text=str(text), fontSize=self.stroke*4,style="font-size :"+str(self.stroke*4),x=self.widthView - self.widthView/6, y=length-length/50)
+                            if self.animation:
+                              t.appendAnim(draw.Animate('x', str((length / 150)-0.2) + 's', from_or_values=0, to=self.widthView - self.widthView/6,repeatCount='1'))
+                              c.appendAnim(draw.Animate('cx', str(length / 150) + 's', from_or_values=0, to=self.widthView - self.widthView/4.5,repeatCount='1'))
+
+                            self.d.append(t)
+                            self.d.append(c)
+
 
                 b += 1
