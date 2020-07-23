@@ -37,7 +37,8 @@ jsonVisio1 = '''
             ],
             "xColumn": 2,
             "chart": "BoundaryLineChart",
-            "animation": false
+            "animation": false,
+            "quality": 8.0
 }
 '''
 jsonVisio2 = '''
@@ -55,7 +56,8 @@ jsonVisio2 = '''
             "filters": [
             ],
             "isDeleted": false,
-            "animation": true
+            "animation": true,
+            "quality": 8.0
 }
 '''
 

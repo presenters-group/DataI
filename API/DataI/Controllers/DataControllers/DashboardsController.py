@@ -38,12 +38,7 @@ class DashboardsController():
         return -1
 
     @classmethod
-    def getFinaleChartTable(cls, data: DataModel, dasboardId: int, visioId: int) -> TableModel:
-        # Implement Aggregation Here.
-        return cls.__getFilteredChartTable(data, dasboardId, visioId)
-
-    @classmethod
-    def __getFilteredChartTable(cls, data: DataModel, dasboardId: int, visioId: int) -> TableModel:
+    def getFilteredChartTable(cls, data: DataModel, dasboardId: int, visioId: int) -> TableModel:
         return FiltersController.getFilteredDashboardVisio(data, dasboardId, visioId)
 
 

@@ -6,7 +6,6 @@ from numpy import double
 from DataI.Controllers.DataControllers.DashboardsController import DashboardsController
 from DataI.Controllers.DataControllers.DataSourcesController import DataSourcesController
 from DataI.Controllers.DrawControllers.ChartsFactory import ChartsFactory
-from DataI.Models.ColumnModel import ColumnModel
 from DataI.Models.DashboardModel import DashboardModel
 from DataI.Models.DataModel import DataModel
 from DataI.Models.TableModel import TableModel
@@ -61,7 +60,7 @@ class DrawController():
         drawTable = cls.generateVisualizerTable(drawTable, visualizer)
 
         drawer = ChartsFactory.generateCharts(visualizer.chart,
-                                              drawTable, width, height, xColumn, double(8.0), visualizer.animation)
+                                              drawTable, width, height, xColumn, double(visualizer.quality), visualizer.animation)
 
         chartDict = dict()
         chartDict['visualizerId'] = visioId
@@ -86,7 +85,7 @@ class DrawController():
         drawTable = cls.generateVisualizerTable(drawTable, visualizer)
 
         drawer = ChartsFactory.generateCharts(visualizer.chart,
-                                              drawTable, width, height, xColumn, double(8.0), visualizer.animation)
+                                              drawTable, width, height, xColumn, double(visualizer.quality), visualizer.animation)
 
         return drawer.saveAsPNG()
 
@@ -106,21 +105,9 @@ class DrawController():
         drawTable = cls.generateVisualizerTable(drawTable, visualizer)
 
         drawer = ChartsFactory.generateCharts(visualizer.chart,
-                                              drawTable, width, height, xColumn, double(8.0), visualizer.animation)
+                                              drawTable, width, height, xColumn, double(visualizer.quality), visualizer.animation)
 
         return drawer.saveAsSVG()
-
-    @classmethod
-    def __removeXColumnFromDrawTableIfExists(cls, drawTable: TableModel, xColumnId: int) -> ColumnModel:
-        for column in drawTable.columns:
-            if column.id == xColumnId:
-                returnColumn = drawTable.columns[DataController.getElementIndexById(drawTable.columns, xColumnId)]
-                drawTable.columns.pop(DataController.getElementIndexById(drawTable.columns, xColumnId))
-                drawTable.columnsColors.pop(DataController.getElementIndexById(drawTable.columns, xColumnId))
-                print('removed:')
-                print(column.name, column.id,
-                      drawTable.columnsColors[DataController.getElementIndexById(drawTable.columns, xColumnId)])
-                return returnColumn
 
 
     @classmethod
@@ -133,7 +120,7 @@ class DrawController():
         return cls.getChart(data, inVisio.visualizationId,
                             inVisio.measurements['width'],
                             inVisio.measurements['height'],
-                            DashboardsController.getFinaleChartTable, dashboardId)
+                            DashboardsController.getFilteredChartTable, dashboardId)
 
 
     @classmethod
