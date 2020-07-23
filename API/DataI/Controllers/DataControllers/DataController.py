@@ -90,13 +90,13 @@ class DataController():
     def insertInDataSourceFilter(self, filter: Dict, tableId: int):
         targetTableIndex = DataController.getElementIndexById(self.data.dataSources, tableId)
         self.__insertInDataModelFilter(self.data.dataSources[targetTableIndex], filter)
-        return FiltersController.getFilteredTable(self.data, tableId)
+        return FiltersController.getFilteredTable(self.data, 0, tableId)
 
     def updateInDataSourceFilter(self, filter: Dict, tableId, filterId):
         print(filter)
         targetTableIndex = DataController.getElementIndexById(self.data.dataSources, tableId)
         self.__updateInDataModelFilter(self.data.dataSources[targetTableIndex], filter, filterId)
-        return FiltersController.getFilteredTable(self.data, tableId)
+        return FiltersController.getFilteredTable(self.data, 0, tableId)
 
     def removeInDataSourceFilter(self, tableId, filterId):
         targetTableIndex = DataController.getElementIndexById(self.data.dataSources, tableId)
@@ -325,5 +325,19 @@ def getElementIndexFromDictById(list: List, id: int):
 def elementExists(list: List, id: int) -> bool:
     for element in list:
         if element.id == id:
+            return True
+    return False
+
+
+def updateCategorizedValues(column: ColumnModel):
+    column.valueCategories.clear()
+    for cell in column.cells[1:]:
+        if not cellInList(cell, column.valueCategories):
+            column.valueCategories.append(cell)
+
+
+def cellInList(cell, list):
+    for item in list:
+        if item.value == cell.value:
             return True
     return False

@@ -51,9 +51,11 @@ class DrawController():
         visualizer = data.visualizations[visioIndex]
 
         # implement visualization filters.
-        drawTable = tableFilter(data, dashboardId, visioId)
+        # drawTable = tableFilter(data, dashboardId, visioId)
+        targetTableIndex = DataController.getElementIndexById(data.dataSources, visualizer.data)
+        drawTable = deepcopy(data.dataSources[targetTableIndex])
 
-        drawTable = DataSourcesController.sugreCoatAggregatedTable(drawTable)
+        drawTable = DataSourcesController.sugreCoatAggregatedChartTable(data, drawTable, tableFilter)
 
         xColumn = drawTable.columns[DataController.getElementIndexById(drawTable.columns, visualizer.xColumn)]
 

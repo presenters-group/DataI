@@ -100,7 +100,7 @@ jsonDashboard = '''
 }
 '''
 
-jsonFilters = '''
+jsonFilters1 = '''
 [
         {
             "name": "filter1",
@@ -140,6 +140,19 @@ jsonFilters = '''
         }
 ]
 '''
+jsonFilters2 = '''
+[
+        {
+            "name": "filter1",
+            "id": 0,
+            "dataSource": 0,
+            "filteredColumn": 0,
+            "initValue": "A",
+            "type": "MultipleEquality",
+            "isDeleted": false
+        }
+]
+'''
 
 filter1 = {
     "id": 1,
@@ -166,9 +179,9 @@ dateTimeFilter = {
 dataController.data.visualizations.append(VisualizationModel.from_json(json.loads(jsonVisio1)))
 # dataController.data.visualizations.append(VisualizationModel.from_json(json.loads(jsonVisio2)))
 # dataController.data.dashboards.append(DashboardModel.from_json(json.loads(jsonDashboard)))
-# loadedJsonFilters = json.loads(jsonFilters)
-# for filter in loadedJsonFilters:
-#     dataController.data.filters.append(FilterModel.from_json(filter))
+loadedJsonFilters = json.loads(jsonFilters2)
+for filter in loadedJsonFilters:
+     dataController.data.filters.append(FilterModel.from_json(filter))
 
 
 # dataController.data.dataSources[0].filters.append(dateTimeFilter)

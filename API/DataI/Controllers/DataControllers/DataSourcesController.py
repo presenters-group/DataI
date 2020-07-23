@@ -46,7 +46,7 @@ class DataSourcesController():
     def getFilteredTables(cls, data: DataModel) -> List[TableModel]:
         tables = list()
         for table in data.dataSources:
-            tables.append(FiltersController.getFilteredTable(data, table.id))
+            tables.append(FiltersController.getFilteredTable(data, 0, table.id))
         return tables
 
     @classmethod
@@ -56,7 +56,9 @@ class DataSourcesController():
         targetTable.aggregator.type = type
         aggregator = Aggregation.getAggregator(type)
         Aggregation.clearAggregationTable(targetTable)
-        aggregator.implementAggregation(data, targetTable, aggColumnId)
+        aggColumns = aggregator.implementAggregation(data, targetTable, aggColumnId, FiltersController.getFilteredTable)
+        targetTable.aggregator.aggregatedTable = aggColumns
+        TableModel.printColumns(targetTable.aggregator.aggregatedTable)
         returnTable = cls.sugreCoatAggregatedTable(deepcopy(targetTable))
         return returnTable
 
@@ -146,10 +148,27 @@ class DataSourcesController():
             if not cls.cellInList(cell, column.valueCategories):
                 column.valueCategories.append(cell)
 
-
     @classmethod
     def sugreCoatAggregatedTable(cls, table: TableModel) -> TableModel:
         if table.aggregator.isActive:
+            table.columns.clear()
+            table.columns.extend(table.aggregator.aggregatedTable)
+            #table.rowsColors = table.rowsColors[:len(table.aggregator.aggregatedTable[0].cells) - 1]
+            #table.rowsVisibility = table.rowsVisibility[:len(table.aggregator.aggregatedTable[0].cells) - 1]
+            return table
+        else:
+            return table
+
+    @classmethod
+    def sugreCoatAggregatedChartTable(cls, data: DataModel, drawTable: TableModel, filterAgent) -> TableModel:
+        table = deepcopy(drawTable)
+        if table.aggregator.isActive:
+            aggregator = Aggregation.getAggregator(table.aggregator.type)
+            Aggregation.clearAggregationTable(table)
+            aggregator.implementAggregation(data, table, table.aggregator.aggregationColumn, filterAgent)
+            for column, i in zip(drawTable.columns,
+                                 range(len(drawTable.columns))):
+                table.columns[i].valueCategories = column.valueCategories
             table.columns.clear()
             table.columns.extend(table.aggregator.aggregatedTable)
             table.rowsColors = table.rowsColors[:len(table.aggregator.aggregatedTable[0].cells) - 1]
@@ -157,7 +176,6 @@ class DataSourcesController():
             return table
         else:
             return table
-
 
     @classmethod
     def cellInList(self, cell, list):
