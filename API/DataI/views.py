@@ -258,6 +258,10 @@ def getAggregatedTable(request, tableId, columnId):
         table.aggregator.aggregationColumn = columnId
         table.aggregator.isActive = aggregationProperties['isActive']
         returnTable = dataController.getAggregatedTable(tableId, columnId, aggregationProperties['type'])
+
+        for column, i in zip(table.columns, range(len(table.columns))):
+            returnTable.columns[i].valueCategories = column.valueCategories
+
         return HttpResponse(json.dumps(returnTable, indent=4, cls=ObjectEncoder, ensure_ascii=False))
     else:
         return HttpResponseNotFound('No such request({} <{}>) is available'.format(request.path, request.method))

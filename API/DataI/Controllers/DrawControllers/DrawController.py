@@ -54,24 +54,11 @@ class DrawController():
         # implement visualization filters.
         drawTable = tableFilter(data, dashboardId, visioId)
 
-        print('Before:')
-        for col in drawTable.columns:
-            print('name:', col.name)
-            for val in col.valueCategories:
-                print(val)
-
         drawTable = DataSourcesController.\
             sugreCoatAggregatedChartTable(data, drawTable, FiltersController.theNoVisioFilter)
 
         xColumn = drawTable.columns[DataController.getElementIndexById(drawTable.columns, visualizer.xColumn)]
 
-        print('-------------------------------------------------------------------')
-        print('-------------------------------------------------------------------')
-        print('After:')
-        for col in drawTable.columns:
-            print('name:', col.name)
-            for val in col.valueCategories:
-                print(val)
 
         drawTable = cls.generateVisualizerTable(drawTable, visualizer)
 
