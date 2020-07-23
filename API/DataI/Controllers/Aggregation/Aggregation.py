@@ -114,6 +114,7 @@ class YearBasedSumAggregation():
     @classmethod
     def implementAggregation(cls, data: DataModel, table: TableModel,
                              aggregationBaseColumnId: int, filterAgent) -> List[ColumnModel]:
+
         aggregationColumnIndex = DataController.getElementIndexById(table.columns, aggregationBaseColumnId)
 
         filteredTable = filterAgent(data, 0, table.id)

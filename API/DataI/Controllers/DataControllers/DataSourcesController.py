@@ -161,9 +161,9 @@ class DataSourcesController():
     @classmethod
     def sugreCoatAggregatedChartTable(cls, data: DataModel, drawTable: TableModel, filterAgent) -> TableModel:
         table = deepcopy(drawTable)
+
         if table.aggregator.isActive:
             aggregator = Aggregation.getAggregator(table.aggregator.type)
-            Aggregation.clearAggregationTable(table)
             aggColumns = aggregator.implementAggregation(data, table, table.aggregator.aggregationColumn, filterAgent)
             table.columns.clear()
             table.columns.extend(aggColumns)
