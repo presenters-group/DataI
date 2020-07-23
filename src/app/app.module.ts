@@ -103,7 +103,7 @@ import { GetNameComponent } from './components/get-name/get-name.component';
     MatProgressSpinnerModule,
     MatSliderModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
     ],
   providers: [],
   bootstrap: [AppComponent],

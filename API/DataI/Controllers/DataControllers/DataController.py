@@ -146,13 +146,16 @@ class DataController():
         return buffer
 
     def getChart(self, visioId, width, height):
-        return DrawController.getChart(self.data, visioId, width, height, VisualizationsController.getFinalTable, 0)
+        return DrawController.getChart(self.data, visioId, width, height,
+                                       VisualizationsController.getFilteredTable, 0)
 
     def getChartPNG(self, visioId, width, height) -> str:
-        return DrawController.getChartPNG(self.data, visioId, width, height, VisualizationsController.getFinalTable, 0)
+        return DrawController.getChartPNG(self.data, visioId, width, height,
+                                          VisualizationsController.getFilteredTable, 0)
 
     def getChartSVG(self, visioId, width, height) -> str:
-        return DrawController.getChartSVG(self.data, visioId, width, height, VisualizationsController.getFinalTable, 0)
+        return DrawController.getChartSVG(self.data, visioId, width, height,
+                                          VisualizationsController.getFilteredTable, 0)
 
     def insertNewDashboard(self, dashBoard: DashboardModel):
         DashboardsController.insertNewDashboard(self.data, dashBoard)

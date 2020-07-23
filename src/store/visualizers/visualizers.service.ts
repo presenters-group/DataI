@@ -18,6 +18,7 @@ export class VisualizersService {
       xColumn: Number.parseInt(data.xColumn),
       data: Number.parseInt(data.data),
       filters : [],
+      quality: Number.parseInt(data.quality)
     });
   }
 
@@ -27,6 +28,8 @@ export class VisualizersService {
       usedColumns: data.usedColumns.map((x) => Number.parseInt(x)),
       xColumn: Number.parseInt(data.xColumn),
       data: Number.parseInt(data.data),
+      filters: [],
+      quality: Number.parseInt(data.quality)
     });
   }
 
