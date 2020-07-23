@@ -147,15 +147,16 @@ class PointChart(Chart):
                         add += self.xUnit
                         self.metaData.append("(" + str(self.xColumn.cells[i].value) + "," + str(cell.value) + ")")
                         c = draw.Circle(add, self.convertY(double(cell.value)), self.xUnit / 25,
-                                                  fill=colors[column.id],
+                                                  fill=colors[columnCounter],
                                                   stroke_width=0,Class=str(self.Index),
-                                                  stroke=colors[column.id], id=(self.Index))
+                                                  stroke=colors[columnCounter], id=(self.Index))
                         if self.animation:
                           c.appendAnim(draw.Animate('r', '3s', from_or_values=0, to=abs(self.xUnit / 25),repeatCount='1'))
                         self.d.append(c)
                         self.Index += 1
-
-            columnCounter += 1
+          print("cunt of col",len(self.dataSourceTableWithoutXcolumn.columns))
+          print("cunt of colors",len(colors))
+          columnCounter += 1
 
     def drawXPointsWithXValueSteps(self):
         add = self.widthOfYLabels

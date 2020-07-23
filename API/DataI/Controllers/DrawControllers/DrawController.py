@@ -1,3 +1,4 @@
+from copy import deepcopy
 from typing import Dict, List
 
 from numpy import double
@@ -19,8 +20,9 @@ class DrawController():
         columns = list()
 
         for columnId in visio.usedColumns:
-            columnIndex = DataController.getElementIndexById(table.columns, columnId)
-            columns.append(table.columns[columnIndex])
+            if columnId != visio.xColumn:
+                columnIndex = DataController.getElementIndexById(table.columns, columnId)
+                columns.append(table.columns[columnIndex])
 
         returnTable = TableModel(columns,
                                  table.name,
@@ -36,8 +38,9 @@ class DrawController():
         # 2- columns:
         columnsColors = list()
         for columnId in visio.usedColumns:
-            columnIndex = DataController.getElementIndexById(table.columns, columnId)
-            columnsColors.append(table.columnsColors[columnIndex])
+            if columnId != visio.xColumn:
+                columnIndex = DataController.getElementIndexById(table.columns, columnId)
+                columnsColors.append(table.columnsColors[columnIndex])
         returnTable.columnsColors = columnsColors
 
         return returnTable
@@ -53,20 +56,10 @@ class DrawController():
 
         drawTable = DataSourcesController.sugreCoatAggregatedTable(drawTable)
 
+        xColumn = drawTable.columns[DataController.getElementIndexById(drawTable.columns, visualizer.xColumn)]
+
         drawTable = cls.generateVisualizerTable(drawTable, visualizer)
-        cls.__removeXColumnIfExists(drawTable, visualizer.xColumn)
 
-        xColumnIndex = DataController.getElementIndexById(data.dataSources[visualizer.data].columns, visualizer.xColumn)
-        xColumn = data.dataSources[visualizer.data].columns[xColumnIndex]
-
-        # for column in drawTable.columns:
-        #     for cell in column.cells:
-        #         print(cell)
-        #     print('_________________________')
-        print('table:')
-        drawTable.printTable()
-        print('x column:')
-        xColumn.printColumn()
         drawer = ChartsFactory.generateCharts(visualizer.chart,
                                               drawTable, width, height, xColumn, double(8.0), visualizer.animation)
 
@@ -88,16 +81,9 @@ class DrawController():
 
         drawTable = DataSourcesController.sugreCoatAggregatedTable(drawTable)
 
+        xColumn = drawTable.columns[DataController.getElementIndexById(drawTable.columns, visualizer.xColumn)]
+
         drawTable = cls.generateVisualizerTable(drawTable, visualizer)
-        cls.__removeXColumnIfExists(drawTable, visualizer.xColumn)
-
-        xColumnIndex = DataController.getElementIndexById(data.dataSources[visualizer.data].columns, visualizer.xColumn)
-        xColumn = data.dataSources[visualizer.data].columns[xColumnIndex]
-
-        # for column in drawTable.columns:
-        #     for cell in column.cells:
-        #         print(cell)
-        #     print('_________________________')
 
         drawer = ChartsFactory.generateCharts(visualizer.chart,
                                               drawTable, width, height, xColumn, double(8.0), visualizer.animation)
@@ -115,16 +101,9 @@ class DrawController():
 
         drawTable = DataSourcesController.sugreCoatAggregatedTable(drawTable)
 
+        xColumn = drawTable.columns[DataController.getElementIndexById(drawTable.columns, visualizer.xColumn)]
+
         drawTable = cls.generateVisualizerTable(drawTable, visualizer)
-        cls.__removeXColumnIfExists(drawTable, visualizer.xColumn)
-
-        xColumnIndex = DataController.getElementIndexById(data.dataSources[visualizer.data].columns, visualizer.xColumn)
-        xColumn = data.dataSources[visualizer.data].columns[xColumnIndex]
-
-        # for column in drawTable.columns:
-        #     for cell in column.cells:
-        #         print(cell)
-        #     print('_________________________')
 
         drawer = ChartsFactory.generateCharts(visualizer.chart,
                                               drawTable, width, height, xColumn, double(8.0), visualizer.animation)
@@ -132,11 +111,16 @@ class DrawController():
         return drawer.saveAsSVG()
 
     @classmethod
-    def __removeXColumnIfExists(ctablels, drawTable: TableModel, xColumnId: int):
+    def __removeXColumnFromDrawTableIfExists(cls, drawTable: TableModel, xColumnId: int) -> ColumnModel:
         for column in drawTable.columns:
             if column.id == xColumnId:
+                returnColumn = drawTable.columns[DataController.getElementIndexById(drawTable.columns, xColumnId)]
                 drawTable.columns.pop(DataController.getElementIndexById(drawTable.columns, xColumnId))
-                return
+                drawTable.columnsColors.pop(DataController.getElementIndexById(drawTable.columns, xColumnId))
+                print('removed:')
+                print(column.name, column.id,
+                      drawTable.columnsColors[DataController.getElementIndexById(drawTable.columns, xColumnId)])
+                return returnColumn
 
 
     @classmethod

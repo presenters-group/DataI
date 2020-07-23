@@ -29,6 +29,9 @@ class DataSourcesController():
         targetTableIndex = DataController.getElementIndexById(data.dataSources, tableId)
         targetColumnIndex = DataController.getElementIndexById(data.dataSources[targetTableIndex].columns, columnId)
         data.dataSources[targetTableIndex].columns.pop(targetColumnIndex)
+        data.dataSources[targetTableIndex].columnsColors.pop(targetColumnIndex)
+        # or activate the is deleted.
+        # data.dataSources[targetTableIndex].columns[targetColumnIndex].isDeleted = True
         return data.dataSources[targetTableIndex]
 
     @classmethod
