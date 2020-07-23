@@ -83,13 +83,13 @@ class DrawController():
         visioIndex = DataController.getElementIndexById(data.visualizations, visioId)
         visualizer = data.visualizations[visioIndex]
 
-        drawTable = cls.generateVisualizerTable(data, visioId)
-        cls.__removeXColumnIfExists(drawTable, visualizer.xColumn)
-
         # implement visualization filters.
         drawTable = tableFilter(data, dashboardId, visioId)
 
         drawTable = DataSourcesController.sugreCoatAggregatedTable(drawTable)
+
+        drawTable = cls.generateVisualizerTable(drawTable, visualizer)
+        cls.__removeXColumnIfExists(drawTable, visualizer.xColumn)
 
         xColumnIndex = DataController.getElementIndexById(data.dataSources[visualizer.data].columns, visualizer.xColumn)
         xColumn = data.dataSources[visualizer.data].columns[xColumnIndex]
@@ -110,13 +110,13 @@ class DrawController():
         visioIndex = DataController.getElementIndexById(data.visualizations, visioId)
         visualizer = data.visualizations[visioIndex]
 
-        drawTable = cls.generateVisualizerTable(data, visioId)
-        cls.__removeXColumnIfExists(drawTable, visualizer.xColumn)
-
         # implement visualization filters.
         drawTable = tableFilter(data, dashboardId, visioId)
 
         drawTable = DataSourcesController.sugreCoatAggregatedTable(drawTable)
+
+        drawTable = cls.generateVisualizerTable(drawTable, visualizer)
+        cls.__removeXColumnIfExists(drawTable, visualizer.xColumn)
 
         xColumnIndex = DataController.getElementIndexById(data.dataSources[visualizer.data].columns, visualizer.xColumn)
         xColumn = data.dataSources[visualizer.data].columns[xColumnIndex]
