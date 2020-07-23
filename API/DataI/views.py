@@ -19,7 +19,7 @@ dirName = os.path.dirname(__file__)
 # dataController.loadDataIFile(filename)
 filename = os.path.join(dirName, '../Aggregation-Test.xlsx')
 
-# dataController.loadTablesFromExcelFile(filename, 0)
+dataController.loadTablesFromExcelFile(filename, 0)
 
 # ================================ load static data ================================:
 
@@ -625,7 +625,54 @@ def exportExcel(request):
 
         if os.path.exists(filePath):
             file = open(filePath, 'rb')
-            response = HttpResponse(file.read(), content_type="application/vnd.ms-excel")
+            response = HttpResponse(file.read(), content_type='application/vnd.ms-excel')
+            response['Content-Disposition'] = 'inline; filename=' + os.path.basename(filePath)
+            return response
+        raise Http404
+    else:
+        return HttpResponseNotFound('No such request({} <{}>) is available'.format(request.path, request.method))
+
+
+@csrf_exempt
+def exportCSV(request):
+    if request.method == 'GET':
+        current = os.path.dirname(__file__)
+        current = current[:len(current) - 5] + 'media/download/csvFile/'
+        filePath = current + 'fileName.csv'
+
+        print(filePath)
+
+        dataController.saveTablesAsCSV(filePath)
+
+        filePath = filePath[:len(filePath) - 12] + 'csvFiles.zip'
+
+        print(filePath)
+
+        if os.path.exists(filePath):
+            file = open(filePath, 'rb')
+            response = HttpResponse(file.read(), content_type='text/csv')
+            response['Content-Disposition'] = 'inline; filename=' + os.path.basename(filePath)
+            return response
+        raise Http404
+    else:
+        return HttpResponseNotFound('No such request({} <{}>) is available'.format(request.path, request.method))
+
+
+
+@csrf_exempt
+def exportSingleCSV(request, tableId):
+    if request.method == 'GET':
+        current = os.path.dirname(__file__)
+        current = current[:len(current) - 5] + 'media/download/csvFile/'
+        filePath = current + 'fileName.csv'
+
+        print(filePath)
+
+        dataController.saveSingleTablesAsCSV(tableId, filePath)
+
+        if os.path.exists(filePath):
+            file = open(filePath, 'rb')
+            response = HttpResponse(file.read(), content_type='text/csv')
             response['Content-Disposition'] = 'inline; filename=' + os.path.basename(filePath)
             return response
         raise Http404
@@ -645,7 +692,7 @@ def exportDataI(request):
 
         if os.path.exists(filePath):
             file = open(filePath, 'rb')
-            response = HttpResponse(file.read(), content_type="application/vnd.ms-excel")
+            response = HttpResponse(file.read(), content_type='application/json')
             response['Content-Disposition'] = 'inline; filename=' + os.path.basename(filePath)
             return response
         raise Http404
@@ -653,32 +700,44 @@ def exportDataI(request):
         return HttpResponseNotFound('No such request({} <{}>) is available'.format(request.path, request.method))
 
 
+@csrf_exempt
+def exportChartPNG(request):
+    if request.method == 'PUT':
+        visioInfo = json.loads(request.body.decode())
+        visualizerId = visioInfo.get('visualizerId')
+        width = visioInfo.get('width')
+        height = visioInfo.get('height')
+        pngDirectory = dataController.getChartPNG(visualizerId, width, height)
+
+        if os.path.exists(pngDirectory):
+            file = open(pngDirectory, 'rb')
+            response = HttpResponse(file.read(), content_type='image/png')
+            response['Content-Disposition'] = 'inline; filename=' + os.path.basename(pngDirectory)
+            return response
+
+        raise Http404
+    else:
+        return HttpResponseNotFound('No such request({} <{}>) is available'.format(request.path, request.method))
 
 
 
+@csrf_exempt
+def exportChartSVG(request):
+    if request.method == 'PUT':
+        visioInfo = json.loads(request.body.decode())
+        visualizerId = visioInfo.get('visualizerId')
+        width = visioInfo.get('width')
+        height = visioInfo.get('height')
+        svgDirectory = dataController.getChartSVG(visualizerId, width, height)
 
+        if os.path.exists(svgDirectory):
+            file = open(svgDirectory, 'rb')
+            response = HttpResponse(file.read(), content_type='image/svg+xml')
+            response['Content-Disposition'] = 'inline; filename=' + os.path.basename(svgDirectory)
+            return response
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        raise Http404
+    else:
+        return HttpResponseNotFound('No such request({} <{}>) is available'.format(request.path, request.method))
 
 

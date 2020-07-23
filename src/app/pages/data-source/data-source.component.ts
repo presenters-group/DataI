@@ -19,6 +19,9 @@ import {
   selectAllCurrentDataSourceFilters,
 } from "src/store/filters/filters.selectors";
 import { NotificationService } from "src/store/notifications/notifications.service";
+import { HttpClient } from '@angular/common/http';
+import { BASE_URL } from 'src/utils/url.util';
+import { saveAs } from "file-saver";
 
 @Component({
   selector: "app-data-source",
@@ -43,7 +46,8 @@ export class DataSourceComponent implements AfterViewInit {
   addedColumnName;
   constructor(
     private store: Store<AppState>,
-    private notification: NotificationService
+    private notification: NotificationService,
+    private httpClient : HttpClient
   ) {
     this.dataSource = this.store.select(selectCurrentDataSource);
     this.dataSource.subscribe((dataSource) => {
@@ -203,4 +207,23 @@ export class DataSourceComponent implements AfterViewInit {
     else
     this.notification.fail("Please complete all fields before click add")
   }
+
+  exportAsCSV(){
+    this.dataSource.pipe(first()).subscribe((dataSource)=>{
+      this.httpClient
+      .get(
+        `${BASE_URL}csv-single-export/${dataSource.id}`,
+        { responseType: "blob" }
+      )
+      .subscribe((res) =>
+        this.saveFile(res, "text/csv", `${dataSource.name}.csv`)
+      );
+
+    })
+  }
+
+  saveFile = (blobContent: Blob, type: string, fileName: string) => {
+    const blob = new Blob([blobContent], { type: "application/octet-stream" });
+    saveAs(blob, fileName);
+  };
 }

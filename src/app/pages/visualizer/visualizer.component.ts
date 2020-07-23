@@ -23,6 +23,11 @@ import {
 } from "src/store/visualizers";
 import { Actions, ofType } from '@ngrx/effects';
 import { addToTapes, updateCurrentTree } from 'src/store/core/actions/core.actions';
+import { HttpClient } from '@angular/common/http';
+import { BASE_URL } from 'src/utils/url.util';
+import { saveAs } from "file-saver";
+import { MatDialog } from '@angular/material/dialog';
+import { GetNameComponent } from 'src/app/components/get-name/get-name.component';
 
 @Component({
   selector: "app-visualizer",
@@ -50,6 +55,8 @@ export class VisualizerComponent implements AfterViewInit, OnDestroy {
     private store: Store<AppState>,
     private notification: NotificationService,
     private update$: Actions,
+    private httpClient : HttpClient,
+    private dialog: MatDialog
   ) {
     this.addableFilters = this.store.select(selectAllCurrentVisualizerFilters);
 
@@ -165,14 +172,55 @@ export class VisualizerComponent implements AfterViewInit, OnDestroy {
   }
 
   download(as : string){
+    let svg = document.getElementById('svg')
+    let dialogRef = this.dialog.open(GetNameComponent);
+    dialogRef.afterClosed().subscribe((name) => {
     switch(as){
       case 'svg':
-        //TODO: download as svg;
-      case 'png':
-          //TODO: download as png;
+        this.visualizer.pipe(first()).subscribe((visualizer)=>{
+          this.httpClient
+          .put(
+            `${BASE_URL}svg-export/`,
+            {
+                visualizerId: visualizer.id,
+                width: svg.offsetWidth,
+                height: svg.offsetWidth,
+                animation: visualizer.animation
+            },{
+              responseType: "blob",
+            }
+          )
+          .subscribe((response) => this.saveFile(response, "image/svg+xml", `${name}.svg`));
 
-    }
+        })
+        break;
+        case 'png':
+          this.visualizer.pipe(first()).subscribe((visualizer)=>{
+            this.httpClient
+            .put(
+              `${BASE_URL}png-export/`,
+              {
+                  visualizerId: visualizer.id,
+                  width: svg.offsetWidth,
+                  height: svg.offsetWidth,
+                  animation: false
+              },{
+                responseType: "blob",
+              }
+            )
+            .subscribe((response) => this.saveFile(response, "image/png", `${name}.png`));
+
+          })
+          break;
+      }
+    });
   }
+
+
+  saveFile = (blobContent: Blob, type: string, fileName: string) => {
+    const blob = new Blob([blobContent], { type: "application/octet-stream" });
+    saveAs(blob, fileName);
+  };
 
 
   print(): void {

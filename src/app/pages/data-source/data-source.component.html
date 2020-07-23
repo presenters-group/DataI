@@ -4,8 +4,10 @@
       <div>
         {{ (dataSource | async).name }}
       </div>
-
-      <button  mat-button (click)="openMenu = !openMenu"><img  class="menu-button" src="/assets/icons/menu.svg" alt=""></button>
+      <div>
+        <button mat-button (click)="exportAsCSV()">CSV</button>
+        <button  mat-button (click)="openMenu = !openMenu"><img  class="menu-button" src="/assets/icons/menu.svg" alt=""></button>
+      </div>
       <div class="menu" *ngIf="openMenu">
         <div class="tool-title">
           Aggregation
