@@ -45,7 +45,7 @@ i=0
 
 dataController = DataController()
 dir = os.path.dirname(__file__)
-filename = os.path.join(dir, '/home/kareem/University/Project1/web/API/forMap.xlsx')
+filename = os.path.join(dir, '/home/kareem/University/Project1/web/API/Test.xlsx')
 
 dataController.loadTablesFromExcelFile(filename, 0)
 
@@ -53,16 +53,16 @@ dataSource = dataController.data.dataSources[0]
 # for column in dataSource.columns:
 #   print(column.name)
 #   print(column.columnType)
-Xcolomn = dataSource.columns[1]
+Xcolomn = dataSource.columns[0]
 
-dataSource.columns.pop(1)
+dataSource.columns.pop(0)
 # char = PointChart(dataSource, double(1000), double(1000), Xcolomn, 8,True, "point")
 # chart = LineChart(dataSource, double(1000), double(1000), Xcolomn, 8, True, "line")
 # chart0 = MultiplePieChart(dataSource, Xcolomn, double(1000), double(1000), True, "pie")
 # chart1 = SmartPieChart(dataSource, Xcolomn, double(2000), double(1000), True, "smart")
 # chart2 = ManInfChart(dataSource, Xcolomn, double(1000), double(1000), True, "Inf")
 # chart2 = BarChart(dataSource, double(1000), double(1000), Xcolomn, 8, True, "BarChart")
-chart4 = GeometryMapChart(dataSource, Xcolomn, double(1000), double(1000), True, "mtest")
+#chart4 = GeometryMapChart(dataSource, Xcolomn, double(1000), double(1000), True, "mtest")
 
 # chart5 = FemaleInfChart(dataSource, Xcolomn, double(10), double(100), True, "femaInf")
 # chart6 = HealthyFoodChart(dataSource, Xcolomn, double(1000000), double(100), True, "HealthyFoodChart")
@@ -70,5 +70,5 @@ chart4 = GeometryMapChart(dataSource, Xcolomn, double(1000), double(1000), True,
 # ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 # dir =str(ROOT_DIR) + "/T.svg"
 # chart_6 = CustomChart(dataSource, Xcolomn, double(1000000), double(100), False, "CustomChart",dir)
-# chart7 = FemaleAndMaleChart(dataSource, Xcolomn, double(1000000), double(50), True, "FemaleAndMaleChart")
+chart7 = FemaleAndMaleChart(dataSource, Xcolomn, double(10000), double(50), True, "FemaleAndMaleChart")
 # chart3 = BoundaryLineChart(dataSource, double(1000), double(1000), Xcolomn, 8, True, "BoundaryLineChart")

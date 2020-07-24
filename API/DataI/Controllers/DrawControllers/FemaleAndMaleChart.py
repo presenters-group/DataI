@@ -10,15 +10,25 @@ from DataI.Models.ColumnModel import ColumnModel
 from DataI.Models.TableModel import TableModel
 
 
-class FemaleAndMaleChart(ManInfChart):
+class FemaleAndMaleChart(Chart):
     def __init__(self, dataSource: TableModel, XColumn: ColumnModel, width: double, height: double, animation: bool, nameFile: str):
-      super().__init__(dataSource, XColumn,width, height, animation, nameFile)
+      super().__init__(dataSource, width, height, XColumn,animation)
+      self.widthView = 1000
+      self.heightView = 1000
+      self.LabelColumn = XColumn
+      self.colorList = self.dataSourceTableWithoutXcolumn.rowsColors
+      self.listOfLength = list()
+      self.d = draw.Drawing(self.widthView, self.heightView)
       self.Check = False
+      self.femaleColumn = self.maleColumn = XColumn
       self.getMaleAndFemaleColumns()
+      self.maleTotal = self.sumColumn(self.maleColumn)
+      self.femaleTotal = self.sumColumn(self.femaleColumn)
+      self.drawlayOut()
+      self.drawText()
       if self.Check:
           self.drawMaleAndFemaleStack()
           self.drawHuman()
-          self.drawText()
       else:
         self.drawlayOut()
         self.d.append(draw.Text(text="Error: we can't found male or Female column \n. . . Try to check column name", fontSize=40, x=0, y=self.heightView / 2))
@@ -29,12 +39,15 @@ class FemaleAndMaleChart(ManInfChart):
       self.SVG = self.d.asSvg()
 
 
+    def drawlayOut(self):
+        self.d.append(draw.Rectangle(0, 0, self.widthView , self.heightView , fill='#ffffff'))
+
     def getMaleAndFemaleColumns(self):
         for column in self.dataSourceTableWithoutXcolumn.columns:
-          if column.name == "male" or column.name == "Male" or column.name == "MALE":
+          if column.name.lower() == "male" or column.name.lower() == "males":
             self.Check = True
             self.maleColumn = column
-          elif  column.name == "female" or column.name == "Female" or column.name == "FEMALE":
+          elif  column.name.lower() == "female" or column.name.lower() == "females":
             self.femaleColumn = column
             self.Check = True
 
@@ -52,6 +65,13 @@ class FemaleAndMaleChart(ManInfChart):
     def drawStack(self):
       print()
 
+    def getLengthforMale(self, value: double) -> double:
+        percent = self.percentageOfValueinMale(value)
+        return double(((self.heightView - 100) / 100) * percent)
+
+    def getLengthForFemale(self, value: double) -> double:
+        percent = self.percentageOfValueinFemale(value)
+        return double(((self.heightView - 100) / 100) * percent)
     def drawMaleAndFemaleStack(self):
         oldstartPoint = 0
         height = 0
@@ -63,9 +83,9 @@ class FemaleAndMaleChart(ManInfChart):
                 if (i != 0):
                     length += 1
                     startX += oldstartPoint
-                    height = self.getLength(double(cell2.value))
+                    height = self.getLengthForFemale(double(cell2.value))
                     oldstartPoint = height
-                    text = str(cell.value) + ": " + str(self.percentageOfValue(double(cell2.value)))[0:4] + "%"
+                    text = str(cell.value) + ": " + str(self.percentageOfValueinFemale(double(cell2.value)))[0:4] + "%"
                     self.d.append(
                         draw.Rectangle(0, startX+800, self.widthView + 50, height, fill=self.colorList[i-1], fill_opacity=0.5,
                                        stroke="white",
@@ -83,34 +103,36 @@ class FemaleAndMaleChart(ManInfChart):
                 if (i != 0):
                     length += 1
                     startX += oldstartPoint
-                    height = self.getLength(double(cell2.value))
+                    height = self.getLengthforMale(double(cell2.value))
                     oldstartPoint = height
-                    text = str(cell.value) + ": " + str(self.percentageOfValue(double(cell2.value)))[0:4] + "%"
+                    text = str(cell.value) + ": " + str(self.percentageOfValueinMale(double(cell2.value)))[0:4] + "%"
                     self.d.append(
                         draw.Rectangle(0, startX+800, self.widthView + 50, height, fill=self.colorList[i-1], fill_opacity=0.5,
                                        stroke="white",
-                                       stroke_width=2,transform="translate(0,-100) scale(0.30 0.30)" ,Class=str(self.Index),id= self.Index))
+                                       stroke_width=2,transform="translate(0,-80) scale(0.30 0.33)" ,Class=str(self.Index),id= self.Index))
                     self.metaData.append(text)
                     self.Index += 1
 
     def drawText(self):
-      oldstartPoint = 0
-      startX = 0
-      length = 0
-      if self.xColumn.columnType == enums.ColumnDataType.Measures.value:
-        for cell, cell2, i in zip(self.LabelColumn.cells, self.xColumn.cells,
-                                  range(0, len(self.LabelColumn.cells))):
-          if (type(cell2.value) != str):
-            if (i != 0):
-              length += 1
-              startX += oldstartPoint
-              height = self.getLength(double(cell2.value))
-              oldstartPoint = height
-              text = str(cell.value)
-              self.d.append(
-                draw.Circle(self.widthView - 230, length * 80 + 50, 20, fill=self.colorList[i - 1], fill_opacity=0.5,
-                            stroke_width=0))
-              self.d.append(
-                draw.Text(text=str(text), fontSize=30, x=self.widthView - 200, y=length * 80 + 50, Class=str(self.Index),id=self.Index))
-              self.metaData.append(text)
-              self.Index += 1
+      h = 40
+      i=1
+      for cell in self.xColumn.cells[1:]:
+        self.d.append(
+          draw.Circle(self.widthView - 230,h, 20, fill=self.colorList[i - 1], fill_opacity=0.5,stroke_width=0))
+        self.d.append(
+          draw.Text(text=str(cell.value), fontSize=30, x=self.widthView - 200, y=h))
+        h+=60
+        i+=1
+    def percentageOfValueinFemale(self, value: double) -> double:
+        return double((abs(value) / self.femaleTotal) * 100)
+
+    def percentageOfValueinMale(self, value: double) -> double:
+        return double((abs(value) / self.maleTotal) * 100)
+
+    def sumColumn(self, column: ColumnModel) -> double:
+        sum = 0.0
+        for cell, i in zip(column.cells, range(0, len(column.cells))):
+            if (type(cell.value) != str):
+                if (i != 0):
+                    sum += abs(cell.value)
+        return double(sum)
