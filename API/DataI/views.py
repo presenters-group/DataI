@@ -62,42 +62,42 @@ jsonVisio2 = '''
 '''
 
 jsonDashboard = '''
-{
-	"name": "dashboard1",
-	"id": 0,
-	"isDeleted": false,
-	"visualizers": [{
-			"visualizationId": 0,
-			"measurements": {
-				"width": 100.0,
-				"height": 100.0,
-				"x": 50.0,
-				"y": 60.0
-			}
-		},
-		{
-			"visualizationId": 1,
-			"measurements": {
-				"width": 100.0,
-				"height": 100.0,
-				"x": 50.0,
-				"y": 60.0
-			}
-		}
-	],
-	"filters": [{
-		"id": 1,
-		"visioId": 0,
-		"value": 50,
-		"isActive": true,
-		"measurements": {
-			"width": 20.0,
-			"height": 60.0,
-			"x": 10.0,
-			"y": 20.0
-		}
-	}]
-}
+    {
+        "name": "dashboard1",
+        "id": 0,
+        "isDeleted": false,
+        "visualizers": [{
+                "visualizationId": 0,
+                "measurements": {
+                    "width": 100.0,
+                    "height": 100.0,
+                    "x": 50.0,
+                    "y": 60.0
+                }
+            },
+            {
+                "visualizationId": 1,
+                "measurements": {
+                    "width": 100.0,
+                    "height": 100.0,
+                    "x": 50.0,
+                    "y": 60.0
+                }
+            }
+        ],
+        "filters": [{
+            "id": 0,
+            "visioId": 0,
+            "value": ["Laptop"],
+            "isActive": true,
+            "measurements": {
+                "width": 20.0,
+                "height": 60.0,
+                "x": 10.0,
+                "y": 20.0
+            }
+        }]
+    }
 '''
 
 jsonFilters1 = '''

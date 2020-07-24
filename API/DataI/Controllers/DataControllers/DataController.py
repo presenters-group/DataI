@@ -94,7 +94,6 @@ class DataController():
         return FiltersController.getFilteredTable(self.data, 0, tableId)
 
     def updateInDataSourceFilter(self, filter: Dict, tableId, filterId):
-        print(filter)
         targetTableIndex = DataController.getElementIndexById(self.data.dataSources, tableId)
         self.__updateInDataModelFilter(self.data.dataSources[targetTableIndex], filter, filterId)
         return FiltersController.getFilteredTable(self.data, 0, tableId)

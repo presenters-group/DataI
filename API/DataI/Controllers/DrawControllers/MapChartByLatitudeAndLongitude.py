@@ -2,17 +2,6 @@ import drawSvg as draw
 from numpy import double, os
 
 from xml.dom import minidom
-
-from DataI import enums
-from DataI.Models.ColumnModel import ColumnModel
-from DataI.Models.TableModel import TableModel
-
-import drawSvg as draw
-from numpy import double, os
-
-from xml.dom import minidom
-
-from DataI import enums
 from DataI.Models.ColumnModel import ColumnModel
 from DataI.Models.TableModel import TableModel
 
@@ -28,8 +17,8 @@ class MapChartByLatitudeAndLongitude():
         self.dataSourceTableWithoutXcolumn = dataSource
         self.xColumn = XColumn
         self.idOfKeyColumn = 0
-        self.zeroX = 460
-        self.zeroY = 280
+        self.zeroX = 655.3
+        self.zeroY = 417.1
         self.color = self.dataSourceTableWithoutXcolumn.columnsColors[0]
         self.latColumn = self.findLatColumn()
         self.lngColumn = self.findLngColumn()
@@ -43,7 +32,7 @@ class MapChartByLatitudeAndLongitude():
           self.d.append(draw.Text(text="Error: you have to select keyCountries in columns", fontSize=60, x=50, y=self.heightView / 2))
 
         self.d.setPixelScale(min(width,height)/1000)  # Set number of pixels per geometry unit
-        self.d.saveSvg(nameFile+'.svg')
+        #self.d.saveSvg(nameFile+'.svg')
         self.SVG = self.d.asSvg()
 
     def drawlayOut(self):
@@ -51,7 +40,7 @@ class MapChartByLatitudeAndLongitude():
 
     def drawMap(self):
       ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
-      doc = minidom.parse(str(ROOT_DIR)+"/M.svg")
+      doc = minidom.parse(str(ROOT_DIR)+"/MAP.svg")
       path_id = [path.getAttribute('id') for path
                  in doc.getElementsByTagName('path')]
       path_data = [path.getAttribute('d') for path
@@ -63,18 +52,14 @@ class MapChartByLatitudeAndLongitude():
       i=0
       for path, id ,dataname in zip(path_data, path_id,data_name):
         i+=1
-        key = id
-        meta = ""
-        #self.xColumn.name +":"+str(self.xColumn.cells[self.findIndexForCountryBykey(key)].value)
-        #for column in self.dataSourceTableWithoutXcolumn.columns:
-        # meta += '<br/>'+ str(column.name)+":"+str(column.cells[self.findIndexForCountryBykey(key)].value)
-        self.metaData.append(meta)
-        self.d.append(draw.Path(stroke_width=1, stroke="white", fill="green",
-                                fill_opacity=0.5, d=path
-                                , transform="translate(-80,-950) scale(1.15 1.19)"))
-        self.Index += 1
-      # self.d.append(draw.Circle(450,270, 10, fill="black", stroke_width=0, stroke='black'))
-      # self.d.append(draw.Circle(950,270, 10, fill="black", stroke_width=0, stroke='black'))
+        self.d.append(draw.Path(stroke_width=0.5, stroke="white", fill="green",
+                                fill_opacity=0.3, d=path
+                                , transform="translate(-1,-950) scale(0.75 0.75)"))
+      # self.d.append(draw.Circle(655.3,417.1, 5, fill="black", stroke_width=0, stroke='black', transform="translate(-163.3,-120.8) "))
+      # self.d.append(draw.Circle(655.3,517.0, 5, fill="black", stroke_width=0, stroke='black', transform="translate(-163.3,-120.8) "))
+      # self.d.append(draw.Circle(735,417.1, 5, fill="black", stroke_width=0, stroke='black', transform="translate(-163.3,-120.8) "))
+      # self.d.append(draw.Circle(735,517, 5, fill="black", stroke_width=0, stroke='black', transform="translate(-163.3,-120.8) "))
+
 
     def findLatColumn(self)->ColumnModel:
       ID =0
@@ -99,10 +84,10 @@ class MapChartByLatitudeAndLongitude():
         ID += 1
 
     def convertX(self, x)->double:
-      return double((x*527)/180)
+      return double((x*79.7)/30)
 
     def convertY(self,y) -> double:
-      return double((y*279)/90)
+      return double((y*99.9)/30)
     def drawPoint(self):
       print("lng column:",self.lngColumn.name)
       print("lat column:",self.latColumn.name)
@@ -111,9 +96,9 @@ class MapChartByLatitudeAndLongitude():
         text = self.xColumn.name + ":" + str(data.value)
         for column in self.dataSourceTableWithoutXcolumn.columns:
           text += '  '+'<br/>' +column.name + ":" + str(column.cells[i].value)
-        self.d.append(draw.Circle(self.convertX(x.value)+self.zeroX,self.convertY(y.value)+self.zeroY, 1.4, fill="gray", stroke_width=0, stroke='gray',Class=self.Index,fill_opacity=1))
+        self.d.append(draw.Circle(self.convertX(x.value)+self.zeroX,self.convertY(y.value)+self.zeroY, 1.5, fill="gray", stroke_width=0, stroke='green',Class=self.Index,fill_opacity=1, transform="translate(-163.3,-120.8) "))
         self.metaData.append(text)
-        self.Index +=1
+        self.Index += 1
         i += 1
 
 
@@ -129,3 +114,4 @@ class MapChartByLatitudeAndLongitude():
       filePath = current[:len(current) - 33] + 'media/download/svg/'
       self.d.saveSvg(filePath+'Chart.png')
       return filePath+'Chart.png'
+
