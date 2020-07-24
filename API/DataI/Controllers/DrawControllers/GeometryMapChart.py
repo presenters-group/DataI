@@ -68,7 +68,6 @@ class GeometryMapChart():
           self.dataSourceTableWithoutXcolumn.columns.pop(ID)
           self.idOfKeyColumn = ID
           self.color =  self.dataSourceTableWithoutXcolumn.columnsColors[ID]
-          print(ID , "some ::", column.name)
           return column
         ID += 1
 
@@ -79,7 +78,6 @@ class GeometryMapChart():
           self.dataSourceTableWithoutXcolumn.columns.pop(ID)
           self.idOfKeyColumn = ID
           self.color =  self.dataSourceTableWithoutXcolumn.columnsColors[ID]
-          print(ID , "some ::", column.name)
           return column
         ID += 1
 
@@ -89,8 +87,6 @@ class GeometryMapChart():
     def convertY(self,y) -> double:
       return double((y*99.9)/30)
     def drawPoint(self):
-      print("lng column:",self.lngColumn.name)
-      print("lat column:",self.latColumn.name)
       i =1
       for x,y,data in zip(self.lngColumn.cells[1:],self.latColumn.cells[1:],self.xColumn.cells[1:]):
         text = self.xColumn.name + ":" + str(data.value)
