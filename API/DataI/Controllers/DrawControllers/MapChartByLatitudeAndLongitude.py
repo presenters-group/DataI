@@ -55,7 +55,6 @@ class MapChartByLatitudeAndLongitude():
         self.d.append(draw.Path(stroke_width=0.5, stroke="white", fill="green",
                                 fill_opacity=0.3, d=path
                                 , transform="translate(-1,-950) scale(0.75 0.75)"))
-        self.Index += 1
       # self.d.append(draw.Circle(655.3,417.1, 5, fill="black", stroke_width=0, stroke='black', transform="translate(-163.3,-120.8) "))
       # self.d.append(draw.Circle(655.3,517.0, 5, fill="black", stroke_width=0, stroke='black', transform="translate(-163.3,-120.8) "))
       # self.d.append(draw.Circle(735,417.1, 5, fill="black", stroke_width=0, stroke='black', transform="translate(-163.3,-120.8) "))
@@ -97,9 +96,9 @@ class MapChartByLatitudeAndLongitude():
         text = self.xColumn.name + ":" + str(data.value)
         for column in self.dataSourceTableWithoutXcolumn.columns:
           text += '  '+'<br/>' +column.name + ":" + str(column.cells[i].value)
-        self.d.append(draw.Circle(self.convertX(x.value)+self.zeroX,self.convertY(y.value)+self.zeroY, 1.5, fill="gray", stroke_width=0, stroke='gray',Class=self.Index,fill_opacity=1, transform="translate(-163.3,-120.8) "))
+        self.d.append(draw.Circle(self.convertX(x.value)+self.zeroX,self.convertY(y.value)+self.zeroY, 1.5, fill="gray", stroke_width=0, stroke='green',Class=self.Index,fill_opacity=1, transform="translate(-163.3,-120.8) "))
         self.metaData.append(text)
-        self.Index +=1
+        self.Index += 1
         i += 1
 
 

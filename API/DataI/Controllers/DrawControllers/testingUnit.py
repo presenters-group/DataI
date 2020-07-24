@@ -63,7 +63,10 @@ dataSource.columns.pop(1)
 # chart2 = InfChart(dataSource, Xcolomn, double(1000), double(1000), True, "Inf")
 # chart2 = BarChart(dataSource, double(1000), double(1000), Xcolomn, 8, True, "BarChart")
 chart4 = MapChartByLatitudeAndLongitude(dataSource, Xcolomn, double(1000), double(1000), True, "mtest")
-
+for cell in chart4.metaData:
+  print("_____________")
+  print(cell)
+  print("_____________")
 # chart5 = FemaleInfChart(dataSource, Xcolomn, double(10), double(100), True, "femaInf")
 # chart6 = HealthyFoodChart(dataSource, Xcolomn, double(1000000), double(100), True, "HealthyFoodChart")
 
