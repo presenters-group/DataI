@@ -1,0 +1,65 @@
+.container{
+  overflow-y: auto;
+  width: 75vw;
+  // height: 80vh;
+}
+h1{
+  font-size: larger;
+  width: 100%;
+  text-align: center;
+}
+.members{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+.img{
+  width : 140px;
+  height: 140px;
+  border-radius: 50%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border: solid 3px;
+}
+.member-container{
+  margin-top: 10px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: solid 4px;
+  padding: 11px;
+}
+.number{
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  line-height: 20px;
+  text-align: center;
+  margin-right: 10px;
+  color: white;
+}
+.member-content{
+  margin-bottom: 10px;
+  width: fit-content;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+.contents-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.email{
+  color: #00000099;
+  font-style: italic;
+}

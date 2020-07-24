@@ -42,7 +42,7 @@ export class AddVisualizerComponent {
       xColumn: [this.data ? this.data.xColumn.toString() : '',Validators.required],
       chart: [this. data ?this.data.chart.toString() : '',Validators.required],
       name: [this.data ? this.data.name.toString() : '',Validators.required],
-      quality: [this.data ? this.data.quality : ''],
+      quality: [this.data ? this.data.quality : 8,[Validators.required,Validators.min(3),Validators.max(30)]],
       animation: [this.data ? this.data.animation : false]
     })
   }

@@ -17,6 +17,7 @@ import { BASE_URL } from "src/utils/url.util";
 import { saveAs } from "file-saver";
 import { NotificationService } from 'src/store/notifications/notifications.service';
 import {openProject} from '../../../store/core/actions/core.actions'
+import { AboutComponent } from 'src/app/pages/about/about.component';
 @Component({
   selector: "app-main-menu",
   templateUrl: "./main-menu.component.html",
@@ -96,5 +97,9 @@ export class MainMenuComponent implements OnInit {
       this.notification.fail('Please Add a Valid File');
   }
 
+
+  onOpenContactUsClick(){
+    this.dialog.open(AboutComponent);
+  }
   ngOnInit(): void {}
 }
