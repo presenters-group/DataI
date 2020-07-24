@@ -62,45 +62,45 @@ jsonVisio2 = '''
 '''
 
 jsonDashboard = '''
-{
-	"name": "dashboard1",
-	"id": 0,
-	"isDeleted": false,
-	"visualizers": [{
-			"visualizationId": 0,
-			"measurements": {
-				"width": 100.0,
-				"height": 100.0,
-				"x": 50.0,
-				"y": 60.0
-			}
-		},
-		{
-			"visualizationId": 1,
-			"measurements": {
-				"width": 100.0,
-				"height": 100.0,
-				"x": 50.0,
-				"y": 60.0
-			}
-		}
-	],
-	"filters": [{
-		"id": 1,
-		"visioId": 0,
-		"value": 50,
-		"isActive": true,
-		"measurements": {
-			"width": 20.0,
-			"height": 60.0,
-			"x": 10.0,
-			"y": 20.0
-		}
-	}]
-}
+    {
+        "name": "dashboard1",
+        "id": 0,
+        "isDeleted": false,
+        "visualizers": [{
+                "visualizationId": 0,
+                "measurements": {
+                    "width": 100.0,
+                    "height": 100.0,
+                    "x": 50.0,
+                    "y": 60.0
+                }
+            },
+            {
+                "visualizationId": 1,
+                "measurements": {
+                    "width": 100.0,
+                    "height": 100.0,
+                    "x": 50.0,
+                    "y": 60.0
+                }
+            }
+        ],
+        "filters": [{
+            "id": 0,
+            "visioId": 0,
+            "value": ["Laptop"],
+            "isActive": true,
+            "measurements": {
+                "width": 20.0,
+                "height": 60.0,
+                "x": 10.0,
+                "y": 20.0
+            }
+        }]
+    }
 '''
 
-jsonFilters = '''
+jsonFilters1 = '''
 [
         {
             "name": "filter1",
@@ -140,6 +140,19 @@ jsonFilters = '''
         }
 ]
 '''
+jsonFilters2 = '''
+[
+        {
+            "name": "filter1",
+            "id": 0,
+            "dataSource": 0,
+            "filteredColumn": 0,
+            "initValue": "A",
+            "type": "MultipleEquality",
+            "isDeleted": false
+        }
+]
+'''
 
 filter1 = {
     "id": 1,
@@ -166,9 +179,9 @@ dateTimeFilter = {
 dataController.data.visualizations.append(VisualizationModel.from_json(json.loads(jsonVisio1)))
 # dataController.data.visualizations.append(VisualizationModel.from_json(json.loads(jsonVisio2)))
 # dataController.data.dashboards.append(DashboardModel.from_json(json.loads(jsonDashboard)))
-# loadedJsonFilters = json.loads(jsonFilters)
-# for filter in loadedJsonFilters:
-#     dataController.data.filters.append(FilterModel.from_json(filter))
+loadedJsonFilters = json.loads(jsonFilters2)
+for filter in loadedJsonFilters:
+     dataController.data.filters.append(FilterModel.from_json(filter))
 
 
 # dataController.data.dataSources[0].filters.append(dateTimeFilter)
@@ -245,6 +258,10 @@ def getAggregatedTable(request, tableId, columnId):
         table.aggregator.aggregationColumn = columnId
         table.aggregator.isActive = aggregationProperties['isActive']
         returnTable = dataController.getAggregatedTable(tableId, columnId, aggregationProperties['type'])
+
+        for column, i in zip(table.columns, range(len(table.columns))):
+            returnTable.columns[i].valueCategories = column.valueCategories
+
         return HttpResponse(json.dumps(returnTable, indent=4, cls=ObjectEncoder, ensure_ascii=False))
     else:
         return HttpResponseNotFound('No such request({} <{}>) is available'.format(request.path, request.method))

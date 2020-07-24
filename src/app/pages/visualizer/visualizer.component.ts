@@ -1,4 +1,11 @@
-import { Component, ViewChild, ElementRef, AfterViewInit, OnDestroy, HostListener } from "@angular/core";
+import {
+  Component,
+  ViewChild,
+  ElementRef,
+  AfterViewInit,
+  OnDestroy,
+  HostListener,
+} from "@angular/core";
 import { Observable, Subject } from "rxjs";
 import { Store } from "@ngrx/store";
 import { AppState } from "src/store";
@@ -21,13 +28,16 @@ import {
   updateVisualizerSuccess,
   removeSvgForVisualizer,
 } from "src/store/visualizers";
-import { Actions, ofType } from '@ngrx/effects';
-import { addToTapes, updateCurrentTree } from 'src/store/core/actions/core.actions';
-import { HttpClient } from '@angular/common/http';
-import { BASE_URL } from 'src/utils/url.util';
+import { Actions, ofType } from "@ngrx/effects";
+import {
+  addToTapes,
+  updateCurrentTree,
+} from "src/store/core/actions/core.actions";
+import { HttpClient } from "@angular/common/http";
+import { BASE_URL } from "src/utils/url.util";
 import { saveAs } from "file-saver";
-import { MatDialog } from '@angular/material/dialog';
-import { GetNameComponent } from 'src/app/components/get-name/get-name.component';
+import { MatDialog } from "@angular/material/dialog";
+import { GetNameComponent } from "src/app/components/get-name/get-name.component";
 
 @Component({
   selector: "app-visualizer",
@@ -35,7 +45,7 @@ import { GetNameComponent } from 'src/app/components/get-name/get-name.component
   styleUrls: ["./visualizer.component.scss"],
 })
 export class VisualizerComponent implements AfterViewInit, OnDestroy {
-  @ViewChild(VisualizerItemComponent) visualizerItem : VisualizerItemComponent;
+  @ViewChild(VisualizerItemComponent) visualizerItem: VisualizerItemComponent;
   filters: Observable<any> = this.store.select(selectCurrentVisualizerFilters);
   addableFilters: Observable<any>;
   insertFilter: boolean = false;
@@ -43,11 +53,10 @@ export class VisualizerComponent implements AfterViewInit, OnDestroy {
   objectKeys = Object.keys;
   visualizer = this.store.select(selectCurrentVisualizer);
   destroyed$ = new Subject<boolean>();
-  zoom : number = 100;
+  zoom: number = 100;
 
-
-  @HostListener('window:resize')
-  onResize(){
+  @HostListener("window:resize")
+  onResize() {
     this.fetchSvg();
   }
 
@@ -55,36 +64,34 @@ export class VisualizerComponent implements AfterViewInit, OnDestroy {
     private store: Store<AppState>,
     private notification: NotificationService,
     private update$: Actions,
-    private httpClient : HttpClient,
+    private httpClient: HttpClient,
     private dialog: MatDialog
   ) {
     this.addableFilters = this.store.select(selectAllCurrentVisualizerFilters);
-
   }
   ngAfterViewInit(): void {
-    this.removeSvg();
-    setTimeout(()=>{
-      this.fetchSvg();
-    },500)
-    this.update$
-    .pipe(
-      // delay(500),
-      ofType(
-        updateFilterInVisualizerSuccess,
-        addFilterToVisualizerSuccess,
-        removeFilterFromVisualizerSuccess,
-        updateVisualizerSuccess,
-        addToTapes,
-        // updateCurrentTree
-      ),
-      takeUntil(this.destroyed$)
-    )
-    .subscribe(() => {
+    setTimeout(() => {
       this.removeSvg();
-      setTimeout(()=>{
-        this.fetchSvg();
-      },100)
-    });
+      this.fetchSvg();
+    }, 0);
+    this.update$
+      .pipe(
+        ofType(
+          updateFilterInVisualizerSuccess,
+          addFilterToVisualizerSuccess,
+          removeFilterFromVisualizerSuccess,
+          updateVisualizerSuccess,
+          addToTapes
+          // updateCurrentTree
+        ),
+        takeUntil(this.destroyed$)
+      )
+      .subscribe(() => {
+        this.removeSvg();
+        setTimeout(() => {
+          this.fetchSvg();
+        }, 100);
+      });
   }
   disableAddedFilter(filter, filters) {
     return filters.map((x) => x.id).includes(filter.id);
@@ -135,98 +142,98 @@ export class VisualizerComponent implements AfterViewInit, OnDestroy {
     });
   }
 
-  consol(data,...rest) {
-    return data;
-  }
-
-
-  fetchSvg(){
-    let svg = document.getElementById('svg')
-    this.visualizer.pipe(first()).subscribe((value)=>{
-      this.store.dispatch(fetchChartAsSVG({
-        data : {
-          visualizerId : value.id,
-          width: svg.offsetWidth,
-          height: svg.offsetHeight
-        }
-      }))
-
-    })
+  fetchSvg() {
+    let svg = document.getElementById("svg");
+    if (svg)
+      this.visualizer.pipe(first()).subscribe((value) => {
+        this.store.dispatch(
+          fetchChartAsSVG({
+            data: {
+              visualizerId: value.id,
+              width: svg.offsetWidth,
+              height: svg.offsetHeight,
+            },
+          })
+        );
+      });
   }
 
   onAddClicked() {
     this.insertFilter = true;
-    this.fetchSvg()
+    this.fetchSvg();
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.destroyed$.next(false);
     this.destroyed$.complete();
   }
 
-  removeSvg(){
-
-    this.visualizer.pipe(first()).subscribe((value)=>{
-      this.store.dispatch(removeSvgForVisualizer({ data: {visualizerId: value.id}}))
-    })
+  removeSvg() {
+    this.visualizer.pipe(first()).subscribe((value) => {
+      this.store.dispatch(
+        removeSvgForVisualizer({ data: { visualizerId: value.id } })
+      );
+    });
   }
 
-  download(as : string){
-    let svg = document.getElementById('svg')
+  download(as: string) {
+    let svg = document.getElementById("svg");
     let dialogRef = this.dialog.open(GetNameComponent);
     dialogRef.afterClosed().subscribe((name) => {
-    switch(as){
-      case 'svg':
-        this.visualizer.pipe(first()).subscribe((visualizer)=>{
-          this.httpClient
-          .put(
-            `${BASE_URL}svg-export/`,
-            {
-                visualizerId: visualizer.id,
-                width: svg.offsetWidth,
-                height: svg.offsetWidth,
-                animation: visualizer.animation
-            },{
-              responseType: "blob",
-            }
-          )
-          .subscribe((response) => this.saveFile(response, "image/svg+xml", `${name}.svg`));
-
-        })
-        break;
-        case 'png':
-          this.visualizer.pipe(first()).subscribe((visualizer)=>{
+      switch (as) {
+        case "svg":
+          this.visualizer.pipe(first()).subscribe((visualizer) => {
             this.httpClient
-            .put(
-              `${BASE_URL}png-export/`,
-              {
+              .put(
+                `${BASE_URL}svg-export/`,
+                {
                   visualizerId: visualizer.id,
                   width: svg.offsetWidth,
                   height: svg.offsetWidth,
-                  animation: false
-              },{
-                responseType: "blob",
-              }
-            )
-            .subscribe((response) => this.saveFile(response, "image/png", `${name}.png`));
-
-          })
+                  animation: visualizer.animation,
+                },
+                {
+                  responseType: "blob",
+                }
+              )
+              .subscribe((response) =>
+                this.saveFile(response, "image/svg+xml", `${name}.svg`)
+              );
+          });
+          break;
+        case "png":
+          this.visualizer.pipe(first()).subscribe((visualizer) => {
+            this.httpClient
+              .put(
+                `${BASE_URL}png-export/`,
+                {
+                  visualizerId: visualizer.id,
+                  width: svg.offsetWidth,
+                  height: svg.offsetWidth,
+                  animation: false,
+                },
+                {
+                  responseType: "blob",
+                }
+              )
+              .subscribe((response) =>
+                this.saveFile(response, "image/png", `${name}.png`)
+              );
+          });
           break;
       }
     });
   }
-
 
   saveFile = (blobContent: Blob, type: string, fileName: string) => {
     const blob = new Blob([blobContent], { type: "application/octet-stream" });
     saveAs(blob, fileName);
   };
 
-
   print(): void {
     let printContents, popupWin;
-    printContents = document.getElementById('print-section').innerHTML;
-    popupWin = window.open('', '_blank', 'top=0,left=0,height=100%,width=auto');
+    printContents = document.getElementById("print-section").innerHTML;
+    popupWin = window.open("", "_blank", "top=0,left=0,height=100%,width=auto");
     popupWin.document.open();
     popupWin.document.write(`
       <html>
@@ -234,8 +241,7 @@ export class VisualizerComponent implements AfterViewInit, OnDestroy {
           <title>Print tab</title>
         </head>
     <body onload="window.print();window.close()">${printContents}</body>
-      </html>`
-    );
+      </html>`);
     popupWin.document.close();
-}
+  }
 }

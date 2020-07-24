@@ -1,4 +1,5 @@
 import operator
+import sys
 
 from copy import deepcopy
 from typing import List
@@ -90,7 +91,7 @@ class MultipleEqualityFilter():
 
 class FiltersController():
     @classmethod
-    def getFilteredTable(cls, data: DataModel, tableId: int) -> TableModel:
+    def getFilteredTable(cls, data: DataModel, signatureMatcher: int, tableId: int) -> TableModel:
         tableIndex = DataController.getElementIndexById(data.dataSources, tableId)
         table = data.dataSources[tableIndex]
         filteredTable = deepcopy(table)
@@ -104,7 +105,6 @@ class FiltersController():
                 filteredTable = filterObj.implementFilter(filteredTable, filterModel.filteredColumn, tableFilter['value'])
 
         return filteredTable
-
 
     @classmethod
     def getFilteredVisioTable(cls, data: DataModel, visioId: int) -> TableModel:
@@ -124,6 +124,13 @@ class FiltersController():
                 filteredTable = filterObj.implementFilter(filteredTable, filterModel.filteredColumn, visioFilter['value'])
 
         return filteredTable
+
+    @classmethod
+    def theNoVisioFilter(cls, data: DataModel, signatureMatcher: int, visioId: int) -> TableModel:
+        visioIndex = DataController.getElementIndexById(data.visualizations, visioId)
+        visio = data.visualizations[visioIndex]
+        tableIndex = DataController.getElementIndexById(data.dataSources, visio.data)
+        return data.dataSources[tableIndex]
 
 
     @classmethod
@@ -182,8 +189,8 @@ class FiltersFactory():
             return NumericFilter(filterType)
 
 
-def getFilteredTable(data: DataModel, tableId: int) -> TableModel:
-    return FiltersController.getFilteredTable(data, tableId)
+def getFilteredTable(data: DataModel, signatureMatcher: int, tableId: int) -> TableModel:
+    return FiltersController.getFilteredTable(data, signatureMatcher, tableId)
 
 
 def getFilteredVisioTable(cls, data: DataModel, visioId: int) -> TableModel:

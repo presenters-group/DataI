@@ -19,8 +19,6 @@ import { Actions } from "@ngrx/effects";
   templateUrl: "./visualizer-item.component.html",
   styleUrls: ["./visualizer-item.component.scss"],
 })
-
-//TODO Complete the tooltips user renderer.
 export class VisualizerItemComponent implements AfterViewChecked {
   @ViewChild("chartElement") chartElement;
   chart;
@@ -44,7 +42,6 @@ export class VisualizerItemComponent implements AfterViewChecked {
   ) {}
 
   ngAfterViewChecked() {
-    // let el = document.getElementById("chartElement" + (this.visualizerId ? this.visualizerId : ''))
     if (this.change && this.chartElement) {
       this.chartElement.nativeElement.innerHTML = this.chart;
       setTimeout(() => {
@@ -55,11 +52,8 @@ export class VisualizerItemComponent implements AfterViewChecked {
           let elements = this.chartElement.nativeElement.getElementsByClassName(`${i}`);
           for(let element of elements){
           if (element) {
-            // console.log(element)
             element.addEventListener("mouseover", ($event) => {
-              // console.log($event)
               content = this.chartData[i];
-              // content = this.renderer.createText(this.chartData[i]);
               this.renderer.appendChild(document.body, parent);
 
               this.renderer.setStyle(

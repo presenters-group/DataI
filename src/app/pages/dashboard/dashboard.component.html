@@ -36,7 +36,7 @@
           'left.px': visualizer.measurements.x
         }"
         class="chart-container"
-        *ngFor="let visualizer of (dashboard | async).visualizers"
+        *ngFor="let visualizer of (dashboard | async).visualizers; let i = index"
       >
         <div class="tools">
           <button mat-button (click)="goToVisualizer(visualizer.visualizationId)">
@@ -53,7 +53,7 @@
               step="10"
               min="20"
               max="500"
-              (change)="onZoomChange($event,visualizer.visualizationId)"
+              (change)="onZoomChange($event,i)"
               [value]="visualizer.zoom"
             ></mat-slider>
           </div>
@@ -62,7 +62,7 @@
           class="inner visualizer"
           [svg]="visualizer.chart"
           [metaData]="visualizer.mettaData"
-          [zoom]="visualizer.zoom"
+          [zoom]="zooms[i]"
         ></app-visualizer-item>
       </div>
 

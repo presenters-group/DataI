@@ -140,7 +140,6 @@ class PointChart(Chart):
         for column in self.dataSourceTableWithoutXcolumn.columns:
           if column.columnType == enums.ColumnDataType.Measures.value:
             if (column != self.xColumn):
-                # print(column.columnType)
                 add = self.widthOfYLabels
                 for cell, i in zip(column.cells, range(0, len(self.xColumn.cells))):
                     if (i != 0):
@@ -154,8 +153,7 @@ class PointChart(Chart):
                           c.appendAnim(draw.Animate('r', '3s', from_or_values=0, to=abs(self.xUnit / 25),repeatCount='1'))
                         self.d.append(c)
                         self.Index += 1
-          print("cunt of col",len(self.dataSourceTableWithoutXcolumn.columns))
-          print("cunt of colors",len(colors))
+
           columnCounter += 1
 
     def drawXPointsWithXValueSteps(self):

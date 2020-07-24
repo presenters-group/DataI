@@ -33,7 +33,7 @@
               <mat-select-trigger>
                 {{ aggregationType }}
               </mat-select-trigger>
-              <mat-option
+              <mat-option *ngIf="!((dataSource | async).columns[aggregatedColumn].columnType == 'DateTime')"
                 [value]="'BasicSum'"
                 >Basic Sum</mat-option>
                 <mat-option *ngIf="(dataSource | async).columns[aggregatedColumn].columnType == 'DateTime'"
@@ -47,6 +47,9 @@
                 >Year Based Sum</mat-option>
 
 
+                <mat-option *ngIf="!((dataSource | async).columns[aggregatedColumn].columnType == 'DateTime')"
+                [value]="'BasicAvg'"
+                >Basic Average</mat-option>
                 <mat-option *ngIf="(dataSource | async).columns[aggregatedColumn].columnType == 'DateTime'"
                 [value]="'DayBasedAvg'"
                 >Day Based Average</mat-option>
@@ -56,9 +59,6 @@
                 <mat-option *ngIf="(dataSource | async).columns[aggregatedColumn].columnType == 'DateTime'"
                 [value]="'YearBasedAvg'"
                 >Year Based Average</mat-option>
-                <mat-option
-                [value]="'BasicAvg'"
-                >Basic Average</mat-option>
             </mat-select>
           </mat-form-field>
           <button (click)="onAggregateClick()" class="type" mat-button color="primary" *ngIf="aggregatedColumn && aggregationType">Aggregate</button>

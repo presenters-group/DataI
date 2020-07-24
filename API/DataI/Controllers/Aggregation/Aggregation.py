@@ -17,35 +17,44 @@ class BasicSumAggregation():
     def __init__(self):
         self.compareUtil = basicCompare
 
-    def implementAggregation(self, data: DataModel, table: TableModel, aggregationBaseColumnId: int):
+    def implementAggregation(self, data: DataModel, table: TableModel,
+                             aggregationBaseColumnId: int, filterAgent, doFilter: bool) -> List[ColumnModel]:
+        if doFilter:
+            filteredTable = filterAgent(data, 0, table.id)
+        else:
+            filteredTable = deepcopy(table)
+        cols = self.aggregateTable(filteredTable, aggregationBaseColumnId)
+        return cols
+
+    def aggregateTable(self, table: TableModel, aggregationBaseColumnId: int) -> List[ColumnModel]:
         aggregatedBufferColumns = list()
 
         aggregationColumnIndex = DataController.getElementIndexById(table.columns, aggregationBaseColumnId)
 
-        filteredTable = FiltersController.getFilteredTable(data, table.id)
-
-        filteredTable.columns[aggregationColumnIndex].valueCategories = \
+        table.columns[aggregationColumnIndex].valueCategories = \
             deepcopy(table.columns[aggregationColumnIndex].valueCategories)
 
         self.__initAggregatedBufferColumns(aggregatedBufferColumns, aggregationBaseColumnId,
                                            deepcopy(table.columns))
 
-        for categorizedValue, aggRowIndex in zip(filteredTable.columns[aggregationColumnIndex].valueCategories,
+        for categorizedValue, aggRowIndex in zip(table.columns[aggregationColumnIndex].valueCategories,
                                                  range(len(
-                                                     filteredTable.columns[aggregationColumnIndex].valueCategories))):
+                                                     table.columns[aggregationColumnIndex].valueCategories))):
 
-            for cell, rowIndex in zip(filteredTable.columns[aggregationColumnIndex].cells[1:],
-                                      range(1, len(filteredTable.columns[aggregationColumnIndex].cells))):
+
+            for cell, rowIndex in zip(table.columns[aggregationColumnIndex].cells[1:],
+                                      range(1, len(table.columns[aggregationColumnIndex].cells))):
                 if self.compareUtil(cell, categorizedValue):
                     targetAggRow = RowUtils.getRowFromTable(aggregatedBufferColumns, aggRowIndex + 1)
 
-                    targetRow = RowUtils.getRowFromTable(filteredTable.columns, rowIndex)
+                    targetRow = RowUtils.getRowFromTable(table.columns, rowIndex)
 
                     bufferRow = RowUtils.addTwoCellsLists(targetAggRow, targetRow)
+
                     RowUtils.updateRowInTable(aggregatedBufferColumns, aggRowIndex + 1, bufferRow)
 
         table.aggregator.aggregatedTable = aggregatedBufferColumns
-
+        return aggregatedBufferColumns
 
     @classmethod
     def __initAggregatedBufferColumns(cls, aggColumns: List[ColumnModel], aggColumnId: int, columns: List[ColumnModel]):
@@ -76,64 +85,96 @@ class BasicSumAggregation():
 
 class DayBasedSumAggregation():
     @classmethod
-    def implementAggregation(cls, data: DataModel, table: TableModel, aggregationBaseColumnId: int):
+    def implementAggregation(cls, data: DataModel, table: TableModel,
+                             aggregationBaseColumnId: int, filterAgent, doFilter: bool) -> List[ColumnModel]:
         aggregationColumnIndex = DataController.getElementIndexById(table.columns, aggregationBaseColumnId)
-        AggregationColumnUtils.updateDayBasedValueCats(table.columns[aggregationColumnIndex])
+
+        if doFilter:
+            filteredTable = filterAgent(data, 0, table.id)
+        else:
+            filteredTable = deepcopy(table)
+
+        AggregationColumnUtils.updateDayBasedValueCats(filteredTable.columns[aggregationColumnIndex])
 
         aggregator = BasicSumAggregation()
         aggregator.compareUtil = AggregationColumnUtils.sameDay
-        aggregator.implementAggregation(data, table, aggregationBaseColumnId)
+        return aggregator.aggregateTable(filteredTable, aggregationBaseColumnId)
 
 
 class MonthBasedSumAggregation():
     @classmethod
-    def implementAggregation(cls, data: DataModel, table: TableModel, aggregationBaseColumnId: int):
+    def implementAggregation(cls, data: DataModel, table: TableModel,
+                             aggregationBaseColumnId: int, filterAgent, doFilter: bool) -> List[ColumnModel]:
         aggregationColumnIndex = DataController.getElementIndexById(table.columns, aggregationBaseColumnId)
-        AggregationColumnUtils.updateMonthBasedValueCats(table.columns[aggregationColumnIndex])
+
+        if doFilter:
+            filteredTable = filterAgent(data, 0, table.id)
+        else:
+            filteredTable = deepcopy(table)
+
+        AggregationColumnUtils.updateMonthBasedValueCats(filteredTable.columns[aggregationColumnIndex])
 
         aggregator = BasicSumAggregation()
         aggregator.compareUtil = AggregationColumnUtils.sameMonth
-        aggregator.implementAggregation(data, table, aggregationBaseColumnId)
+        return aggregator.aggregateTable(filteredTable, aggregationBaseColumnId)
 
 
 class YearBasedSumAggregation():
     @classmethod
-    def implementAggregation(cls, data: DataModel, table: TableModel, aggregationBaseColumnId: int):
+    def implementAggregation(cls, data: DataModel, table: TableModel,
+                             aggregationBaseColumnId: int, filterAgent, doFilter: bool) -> List[ColumnModel]:
+
         aggregationColumnIndex = DataController.getElementIndexById(table.columns, aggregationBaseColumnId)
-        AggregationColumnUtils.updateYearBasedValueCats(table.columns[aggregationColumnIndex])
+
+        if doFilter:
+            filteredTable = filterAgent(data, 0, table.id)
+        else:
+            filteredTable = deepcopy(table)
+
+        AggregationColumnUtils.updateYearBasedValueCats(filteredTable.columns[aggregationColumnIndex])
 
         aggregator = BasicSumAggregation()
         aggregator.compareUtil = AggregationColumnUtils.sameYear
-        aggregator.implementAggregation(data, table, aggregationBaseColumnId)
+        return aggregator.aggregateTable(filteredTable, aggregationBaseColumnId)
+
+
 
 
 class BasicAvgAggregation():
     def __init__(self):
         self.compareUtil = basicCompare
 
-    def implementAggregation(self, data: DataModel, table: TableModel, aggregationBaseColumnId: int):
+    def implementAggregation(cls, data: DataModel, table: TableModel,
+                             aggregationBaseColumnId: int, filterAgent, doFilter: bool) -> List[ColumnModel]:
+        if doFilter:
+            filteredTable = filterAgent(data, 0, table.id)
+        else:
+            filteredTable = deepcopy(table)
+        cols = cls.aggregateTable(filteredTable, aggregationBaseColumnId)
+        return cols
+
+    def aggregateTable(self, table: TableModel, aggregationBaseColumnId: int) -> List[ColumnModel]:
         aggregatedBufferColumns = list()
 
         aggregationColumnIndex = DataController.getElementIndexById(table.columns, aggregationBaseColumnId)
 
-        filteredTable = FiltersController.getFilteredTable(data, table.id)
-
-        filteredTable.columns[aggregationColumnIndex].valueCategories = \
+        table.columns[aggregationColumnIndex].valueCategories = \
             deepcopy(table.columns[aggregationColumnIndex].valueCategories)
+
 
         self.__initAggregatedBufferColumns(aggregatedBufferColumns, aggregationBaseColumnId,
                                            deepcopy(table.columns))
 
-        for categorizedValue, aggRowIndex in zip(filteredTable.columns[aggregationColumnIndex].valueCategories,
+        for categorizedValue, aggRowIndex in zip(table.columns[aggregationColumnIndex].valueCategories,
                                                  range(len(
-                                                     filteredTable.columns[aggregationColumnIndex].valueCategories))):
+                                                     table.columns[aggregationColumnIndex].valueCategories))):
             counter = 0
-            for cell, rowIndex in zip(filteredTable.columns[aggregationColumnIndex].cells[1:],
-                                      range(1, len(filteredTable.columns[aggregationColumnIndex].cells))):
+            for cell, rowIndex in zip(table.columns[aggregationColumnIndex].cells[1:],
+                                      range(1, len(table.columns[aggregationColumnIndex].cells))):
                 if self.compareUtil(cell, categorizedValue):
                     targetAggRow = RowUtils.getRowFromTable(aggregatedBufferColumns, aggRowIndex + 1)
 
-                    targetRow = RowUtils.getRowFromTable(filteredTable.columns, rowIndex)
+                    targetRow = RowUtils.getRowFromTable(table.columns, rowIndex)
 
                     bufferRow = RowUtils.addTwoCellsLists(targetAggRow, targetRow)
                     RowUtils.updateRowInTable(aggregatedBufferColumns, aggRowIndex + 1, bufferRow)
@@ -144,6 +185,7 @@ class BasicAvgAggregation():
                                           RowUtils.getRowFromTable(aggregatedBufferColumns, aggRowIndex + 1), counter))
 
         table.aggregator.aggregatedTable = aggregatedBufferColumns
+        return aggregatedBufferColumns
 
 
     @classmethod
@@ -175,35 +217,56 @@ class BasicAvgAggregation():
 
 class DayBasedAvgAggregation():
     @classmethod
-    def implementAggregation(cls, data: DataModel, table: TableModel, aggregationBaseColumnId: int):
+    def implementAggregation(cls, data: DataModel, table: TableModel,
+                             aggregationBaseColumnId: int, filterAgent, doFilter: int) -> List[ColumnModel]:
         aggregationColumnIndex = DataController.getElementIndexById(table.columns, aggregationBaseColumnId)
-        AggregationColumnUtils.updateDayBasedValueCats(table.columns[aggregationColumnIndex])
+
+        if doFilter:
+            filteredTable = filterAgent(data, 0, table.id)
+        else:
+            filteredTable = deepcopy(table)
+
+        AggregationColumnUtils.updateDayBasedValueCats(filteredTable.columns[aggregationColumnIndex])
 
         aggregator = BasicAvgAggregation()
         aggregator.compareUtil = AggregationColumnUtils.sameDay
-        aggregator.implementAggregation(data, table, aggregationBaseColumnId)
+        return aggregator.aggregateTable(filteredTable, aggregationBaseColumnId)
 
 
 class MonthBasedAvgAggregation():
     @classmethod
-    def implementAggregation(cls, data: DataModel, table: TableModel, aggregationBaseColumnId: int):
+    def implementAggregation(cls, data: DataModel, table: TableModel,
+                             aggregationBaseColumnId: int, filterAgent, doFilter: bool) -> List[ColumnModel]:
         aggregationColumnIndex = DataController.getElementIndexById(table.columns, aggregationBaseColumnId)
-        AggregationColumnUtils.updateMonthBasedValueCats(table.columns[aggregationColumnIndex])
+
+        if doFilter:
+            filteredTable = filterAgent(data, 0, table.id)
+        else:
+            filteredTable = deepcopy(table)
+
+        AggregationColumnUtils.updateMonthBasedValueCats(filteredTable.columns[aggregationColumnIndex])
 
         aggregator = BasicAvgAggregation()
         aggregator.compareUtil = AggregationColumnUtils.sameMonth
-        aggregator.implementAggregation(data, table, aggregationBaseColumnId)
+        return aggregator.aggregateTable(filteredTable, aggregationBaseColumnId)
 
 
 class YearBasedAvgAggregation():
     @classmethod
-    def implementAggregation(cls, data: DataModel, table: TableModel, aggregationBaseColumnId: int):
+    def implementAggregation(cls, data: DataModel, table: TableModel,
+                             aggregationBaseColumnId: int, filterAgent, doFilter: bool) -> List[ColumnModel]:
         aggregationColumnIndex = DataController.getElementIndexById(table.columns, aggregationBaseColumnId)
-        AggregationColumnUtils.updateYearBasedValueCats(table.columns[aggregationColumnIndex])
+
+        if doFilter:
+            filteredTable = filterAgent(data, 0, table.id)
+        else:
+            filteredTable = deepcopy(table)
+
+        AggregationColumnUtils.updateYearBasedValueCats(filteredTable.columns[aggregationColumnIndex])
 
         aggregator = BasicAvgAggregation()
         aggregator.compareUtil = AggregationColumnUtils.sameYear
-        aggregator.implementAggregation(data, table, aggregationBaseColumnId)
+        return aggregator.aggregateTable(filteredTable, aggregationBaseColumnId)
 
 
 class AggregationColumnUtils():

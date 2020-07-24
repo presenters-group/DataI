@@ -6,7 +6,7 @@ import { selectDataSourcesEntities } from "src/store/data-sources/data-sources.s
 import { initialState } from "src/store/core";
 import { setCurrentTap, addToTapes } from "src/store/core/actions/core.actions";
 import { isArray, isNumber } from "util";
-import { first } from 'rxjs/operators';
+import { first } from "rxjs/operators";
 
 @Component({
   selector: "app-filter-item",
@@ -15,13 +15,10 @@ import { first } from 'rxjs/operators';
 })
 export class FilterItemComponent implements OnInit {
   filter: IFilter;
-  @Input('filter') set filterSetter(value){
-    console.log('blablabla')
-
-    this.checkValue();
-
+  @Input("filter") set filterSetter(value) {
     this.filter = value;
-  };
+    this.checkValue();
+  }
   @Input() visualizerName: string;
   @Input() enabled: boolean = false;
   @Input() value: any;
@@ -36,12 +33,19 @@ export class FilterItemComponent implements OnInit {
     this.checkValue();
   }
 
-  checkValue(){
-    this.dataSources.pipe(first()).subscribe((dataSources)=>{
-      let type = dataSources[this.filter.dataSource].columns[this.filter.filteredColumn].columnType;
-      if(type == 'Dimensions' && !Array.isArray(this.value)) {console.log('arrainaize'); this.value = []}
-      else if (type == 'Measures' && !(typeof this.value == 'number') ) this.value = this.filter.initValue;
-      else if (type == 'DateTime' ) this.value = this.value ?  new Date(this.value).toISOString().slice(0,10) : '1-1-2009';
+  checkValue() {
+    this.dataSources.pipe(first()).subscribe((dataSources) => {
+      let type =
+        dataSources[this.filter.dataSource].columns[this.filter.filteredColumn]
+          .columnType;
+      if (type == "Dimensions" && !Array.isArray(this.value)) {
+        this.value = [];
+      } else if (type == "Measures" && !(typeof this.value == "number"))
+        this.value = this.filter.initValue;
+      else if (type == "DateTime")
+        this.value = this.value
+          ? new Date(this.value).toISOString().slice(0, 10)
+          : "1-1-2009";
     });
   }
 
@@ -59,23 +63,20 @@ export class FilterItemComponent implements OnInit {
   }
 
   onChangeMeasure($event) {
-    console.log($event.target.value)
-    this.dataSources.pipe(first()).subscribe((dataSources)=>{
-      let type = dataSources[this.filter.dataSource].columns[this.filter.filteredColumn].columnType;
-      console.log(type)
-      if(type == 'DateTime'){
-        console.log('DateTime')
+    this.dataSources.pipe(first()).subscribe((dataSources) => {
+      let type =
+        dataSources[this.filter.dataSource].columns[this.filter.filteredColumn]
+          .columnType;
+      if (type == "DateTime") {
         this.onChangeData($event);
-      }
-      else{
-        console.log("Mesueres")
+      } else {
         this.value = Number.parseInt($event.target.value);
         this.onChangeValue();
       }
-    })
+    });
   }
 
-  onChangeData($event){
+  onChangeData($event) {
     this.value = $event.target.value;
     this.onChangeValue();
   }
@@ -104,8 +105,5 @@ export class FilterItemComponent implements OnInit {
     );
   }
 
-  consol(data){
-    console.log(data);
-    return data
-  }
+
 }

@@ -27,20 +27,11 @@ export class DashboardComponent implements AfterViewInit, OnDestroy {
   filters = this.store.select(selectFiltersEntities);
   dashboard = this.store.select(selectCurrentDashboard);
   destroyed$ = new Subject<boolean>();
+  zooms = [];
 
 
-  onZoomChange($event, visualizationId) {
-    this.dashboard.pipe(first()).subscribe((value) => {
-      this.store.dispatch(
-        changeVisualizerInDashboardZoom({
-          data: {
-            zoom: $event.value,
-            visualizerId: visualizationId,
-            dashboardId: value.id,
-          },
-        })
-      );
-    });
+  onZoomChange($event, index) {
+    this.zooms[index] = $event.value
   }
 
   constructor(private store: Store<AppState>,private update$:Actions) {
@@ -51,23 +42,22 @@ export class DashboardComponent implements AfterViewInit, OnDestroy {
       this.store.dispatch(
         fetchDashboardSVGs({ data: { dashboardId: value.id } })
       );
+      this.zooms = []
+      for(let visualizer of value.visualizers)
+        this.zooms.push(100);
     });
   }
 
   ngAfterViewInit(): void {
-    this.fetchSvgs();
+    setTimeout(()=>{
+      this.fetchSvgs();
+    },0)
 
     this.update$
     .pipe(
-      // delay(500),
       ofType(
-        // updateFilterInVisualizerSuccess,
-        // addFilterToVisualizerSuccess,
-        // removeFilterFromVisualizerSuccess,
-        // updateVisualizerSuccess,
         addToTapes,
         updateDashboardSuccess,
-        // updateCurrentTree
       ),
       takeUntil(this.destroyed$)
     )

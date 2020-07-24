@@ -89,10 +89,6 @@ export class DataSourceComponent implements AfterViewInit {
     });
   }
 
-  consol(data) {
-    return data;
-  }
-
   onFilterChangeValue($event) {
     this.dataSource.pipe(first()).subscribe((value) => {
       this.store.dispatch(

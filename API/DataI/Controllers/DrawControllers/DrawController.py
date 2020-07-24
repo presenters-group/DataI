@@ -1,15 +1,12 @@
-from copy import deepcopy
 from typing import Dict, List
-
 from numpy import double
-
+from DataI.Controllers.DataControllers import DataController
 from DataI.Controllers.DataControllers.DashboardsController import DashboardsController
 from DataI.Controllers.DataControllers.DataSourcesController import DataSourcesController
 from DataI.Controllers.DrawControllers.ChartsFactory import ChartsFactory
 from DataI.Models.DashboardModel import DashboardModel
 from DataI.Models.DataModel import DataModel
 from DataI.Models.TableModel import TableModel
-from DataI.Controllers.DataControllers import DataController
 from DataI.Models.VisualizationModel import VisualizationModel
 
 
@@ -53,7 +50,7 @@ class DrawController():
         # implement visualization filters.
         drawTable = tableFilter(data, dashboardId, visioId)
 
-        drawTable = DataSourcesController.sugreCoatAggregatedTable(drawTable)
+        drawTable = DataSourcesController.sugreCoatAggregatedChartTable(data, drawTable, tableFilter)
 
         xColumn = drawTable.columns[DataController.getElementIndexById(drawTable.columns, visualizer.xColumn)]
 
@@ -78,14 +75,14 @@ class DrawController():
         # implement visualization filters.
         drawTable = tableFilter(data, dashboardId, visioId)
 
-        drawTable = DataSourcesController.sugreCoatAggregatedTable(drawTable)
+        drawTable = DataSourcesController.sugreCoatAggregatedChartTable(data, drawTable, tableFilter)
 
         xColumn = drawTable.columns[DataController.getElementIndexById(drawTable.columns, visualizer.xColumn)]
 
         drawTable = cls.generateVisualizerTable(drawTable, visualizer)
 
-        drawer = ChartsFactory.generateCharts(visualizer.chart,
-                                              drawTable, width, height, xColumn, double(visualizer.quality), visualizer.animation)
+        drawer = ChartsFactory.generateCharts(visualizer.chart, drawTable,
+                                              width, height, xColumn, double(visualizer.quality), visualizer.animation)
 
         return drawer.saveAsPNG()
 
@@ -98,7 +95,7 @@ class DrawController():
         # implement visualization filters.
         drawTable = tableFilter(data, dashboardId, visioId)
 
-        drawTable = DataSourcesController.sugreCoatAggregatedTable(drawTable)
+        drawTable = DataSourcesController.sugreCoatAggregatedChartTable(data, drawTable, tableFilter)
 
         xColumn = drawTable.columns[DataController.getElementIndexById(drawTable.columns, visualizer.xColumn)]
 
