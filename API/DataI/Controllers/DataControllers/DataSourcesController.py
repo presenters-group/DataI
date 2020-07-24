@@ -57,7 +57,7 @@ class DataSourcesController():
         aggregator = Aggregation.getAggregator(type)
         Aggregation.clearAggregationTable(targetTable)
         aggColumns = aggregator.implementAggregation(data, targetTable, aggColumnId,
-                                                     FiltersController.getFilteredTable, targetTable.id)
+                                                     FiltersController.getFilteredTable, True)
         targetTable.aggregator.aggregatedTable = aggColumns
         returnTable = cls.sugreCoatAggregatedTable(deepcopy(targetTable))
         return returnTable
@@ -161,13 +161,13 @@ class DataSourcesController():
 
     @classmethod
     def sugreCoatAggregatedChartTable(cls, data: DataModel, drawTable: TableModel,
-                                      filterAgent, modelId: int) -> TableModel:
+                                      filterAgent) -> TableModel:
         table = deepcopy(drawTable)
 
         if table.aggregator.isActive:
             aggregator = Aggregation.getAggregator(table.aggregator.type)
             aggColumns = aggregator.implementAggregation(data, table, table.aggregator.aggregationColumn,
-                                                         filterAgent, modelId)
+                                                         filterAgent, False)
             table.columns.clear()
             table.columns.extend(aggColumns)
             for column, i in zip(drawTable.columns,
