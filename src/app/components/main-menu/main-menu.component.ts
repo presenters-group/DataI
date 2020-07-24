@@ -17,7 +17,9 @@ import { BASE_URL } from "src/utils/url.util";
 import { saveAs } from "file-saver";
 import { NotificationService } from 'src/store/notifications/notifications.service';
 import {openProject} from '../../../store/core/actions/core.actions'
+import { ContactUsComponent } from 'src/app/pages/contact-us/contact-us.component';
 import { AboutComponent } from 'src/app/pages/about/about.component';
+import { SupportComponent } from 'src/app/pages/support/support.component';
 @Component({
   selector: "app-main-menu",
   templateUrl: "./main-menu.component.html",
@@ -99,7 +101,13 @@ export class MainMenuComponent implements OnInit {
 
 
   onOpenContactUsClick(){
+    this.dialog.open(ContactUsComponent);
+  }
+  onOpenAboutClick(){
     this.dialog.open(AboutComponent);
+  }
+  onOpenGetSupportClick(){
+    this.dialog.open(SupportComponent);
   }
   ngOnInit(): void {}
 }
