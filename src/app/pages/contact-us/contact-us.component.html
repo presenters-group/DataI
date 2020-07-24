@@ -1,0 +1,25 @@
+<div class="container">
+
+  <h1>Contact Us</h1>
+  <div class="content"></div>
+
+  <div class="members">
+    <div *ngFor="let member of members" [style.border-color]="member.color" class="member-container">
+      <div
+        class="img"
+        [ngStyle]="{ 'background-image': 'url(' + member.img + ')', 'border-color' : member.color }"
+        alt=""
+      ></div>
+      <h2>{{ member.name }}</h2>
+      <div class="contents-container">
+        <div *ngFor="let content of member.content; let i = index" class="member-content">
+          <div class="number" [style.backgroundColor]="member.color">{{i + 1}}</div>
+          {{ content }}
+        </div>
+      </div>
+      <div class="email">
+        {{member.email}}
+      </div>
+    </div>
+  </div>
+</div>

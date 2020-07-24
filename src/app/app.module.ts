@@ -47,7 +47,9 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatSliderModule} from '@angular/material/slider';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { GetNameComponent } from './components/get-name/get-name.component';
+import { ContactUsComponent } from './pages/contact-us/contact-us.component';
 import { AboutComponent } from './pages/about/about.component';
+import { SupportComponent } from './pages/support/support.component';
 
 @NgModule({
   declarations: [
@@ -70,7 +72,9 @@ import { AboutComponent } from './pages/about/about.component';
     InsertFilterComponent,
     MainMenuComponent,
     GetNameComponent,
+    ContactUsComponent,
     AboutComponent,
+    SupportComponent,
 
   ],
   imports: [
