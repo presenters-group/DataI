@@ -99,6 +99,7 @@ class MultiplePieChart(Chart):
                             if self.animation:
                               t.appendAnim(draw.Animate('x', str((length / 150)-0.2) + 's', from_or_values=0, to=self.widthView - self.widthView/6,repeatCount='1'))
                               c.appendAnim(draw.Animate('cx', str(length / 150) + 's', from_or_values=0, to=self.widthView - self.widthView/4.5,repeatCount='1'))
+                              c.appendAnim(draw.Animate('r', '3.2s', from_or_values=length*3, to=abs(length), repeatCount='1'))
 
                             self.d.append(t)
                             self.d.append(c)

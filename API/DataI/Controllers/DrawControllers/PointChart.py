@@ -150,7 +150,9 @@ class PointChart(Chart):
                                                   stroke_width=0,Class=str(self.Index),
                                                   stroke=colors[columnCounter], id=(self.Index))
                         if self.animation:
-                          c.appendAnim(draw.Animate('r', '3s', from_or_values=0, to=abs(self.xUnit / 25),repeatCount='1'))
+                          c.appendAnim(draw.Animate('cx', '2s', from_or_values=0, to=abs(add),repeatCount='1'))
+                          c.appendAnim(
+                            draw.Animate('r', '3.2s', from_or_values=(self.xUnit / 25)*2, to=abs(self.xUnit / 25), repeatCount='1'))
                         self.d.append(c)
                         self.Index += 1
 
@@ -208,6 +210,7 @@ class PointChart(Chart):
                 if self.animation:
                   t.appendAnim(draw.Animate('x', str((self.Index / 20) ) + 's', from_or_values=0, to=add + (fontSize * 2),repeatCount='1'))
                   c.appendAnim(draw.Animate('cx', str((self.Index / 20) - 0.1) + 's', from_or_values=0, to=add + (fontSize * 2),repeatCount='1'))
+                  c.appendAnim(draw.Animate('r', '3.2s', from_or_values=fontSize, to=abs(fontSize / 2), repeatCount='1'))
                 self.d.append(t)
                 self.d.append(c)
                 add += self.widthView / (len(self.dataSourceTableWithoutXcolumn.columns) + 3)

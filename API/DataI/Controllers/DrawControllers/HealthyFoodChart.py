@@ -4,13 +4,13 @@ import drawSvg as draw
 from numpy import double
 
 from DataI import enums
-from DataI.Controllers.DrawControllers.InfChart import InfChart
+from DataI.Controllers.DrawControllers.ManInfChart import ManInfChart
 from DataI.Controllers.DrawControllers.chart import Chart
 from DataI.Models.ColumnModel import ColumnModel
 from DataI.Models.TableModel import TableModel
 
 
-class HealthyFoodChart(InfChart):
+class HealthyFoodChart(ManInfChart):
     def __init__(self, dataSource: TableModel, XColumn: ColumnModel, width: double, height: double, animation: bool, nameFile: str):
         super().__init__(dataSource, XColumn,width, height, animation, nameFile)
 

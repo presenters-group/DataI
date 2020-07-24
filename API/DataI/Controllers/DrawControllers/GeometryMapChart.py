@@ -6,7 +6,7 @@ from DataI.Models.ColumnModel import ColumnModel
 from DataI.Models.TableModel import TableModel
 
 
-class MapChartByLatitudeAndLongitude():
+class GeometryMapChart():
     def __init__(self, dataSource: TableModel, XColumn: ColumnModel, width: double, height: double, animation: bool, nameFile: str):
         self.animation = animation
         self.metaData = list()
@@ -96,7 +96,11 @@ class MapChartByLatitudeAndLongitude():
         text = self.xColumn.name + ":" + str(data.value)
         for column in self.dataSourceTableWithoutXcolumn.columns:
           text += '  '+'<br/>' +column.name + ":" + str(column.cells[i].value)
-        self.d.append(draw.Circle(self.convertX(x.value)+self.zeroX,self.convertY(y.value)+self.zeroY, 1.5, fill="gray", stroke_width=0, stroke='green',Class=self.Index,fill_opacity=1, transform="translate(-163.3,-120.8) "))
+        c = draw.Circle(self.convertX(x.value)+self.zeroX,self.convertY(y.value)+self.zeroY, 0.9 , fill="green", stroke_width=0, stroke='green',Class=self.Index,fill_opacity=1, transform="translate(-163.3,-120.8) ")
+        if self.animation:
+          c.appendAnim(draw.Animate('r', '3.2s', from_or_values=15, to=abs(1), repeatCount='1'))
+          c.appendAnim(draw.Animate('cx', '2s', from_or_values=0, to=abs(self.convertX(x.value)+self.zeroX), repeatCount='1'))
+        self.d.append(c)
         self.metaData.append(text)
         self.Index += 1
         i += 1

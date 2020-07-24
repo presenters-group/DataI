@@ -7,10 +7,10 @@ from DataI.Controllers.DrawControllers.CustomChart import CustomChart
 from DataI.Controllers.DrawControllers.FemaleAndMaleChart import FemaleAndMaleChart
 from DataI.Controllers.DrawControllers.FemaleInfChart import FemaleInfChart
 from DataI.Controllers.DrawControllers.HealthyFoodChart import HealthyFoodChart
-from DataI.Controllers.DrawControllers.InfChart import InfChart
+from DataI.Controllers.DrawControllers.ManInfChart import ManInfChart
 from DataI.Controllers.DrawControllers.LineChart import LineChart
 from DataI.Controllers.DrawControllers.MapChart import MapChart
-from DataI.Controllers.DrawControllers.MapChartByLatitudeAndLongitude import MapChartByLatitudeAndLongitude
+from DataI.Controllers.DrawControllers.GeometryMapChart import GeometryMapChart
 from DataI.Controllers.DrawControllers.MultiplePieChart import MultiplePieChart
 from DataI.Controllers.DrawControllers.PieChart import PieChart
 from DataI.Controllers.DrawControllers.PointChart import PointChart
@@ -60,9 +60,9 @@ dataSource.columns.pop(1)
 # chart = LineChart(dataSource, double(1000), double(1000), Xcolomn, 8, True, "line")
 # chart0 = MultiplePieChart(dataSource, Xcolomn, double(1000), double(1000), True, "pie")
 # chart1 = SmartPieChart(dataSource, Xcolomn, double(2000), double(1000), True, "smart")
-# chart2 = InfChart(dataSource, Xcolomn, double(1000), double(1000), True, "Inf")
+# chart2 = ManInfChart(dataSource, Xcolomn, double(1000), double(1000), True, "Inf")
 # chart2 = BarChart(dataSource, double(1000), double(1000), Xcolomn, 8, True, "BarChart")
-chart4 = MapChartByLatitudeAndLongitude(dataSource, Xcolomn, double(1000), double(1000), True, "mtest")
+chart4 = GeometryMapChart(dataSource, Xcolomn, double(1000), double(1000), True, "mtest")
 for cell in chart4.metaData:
   print("_____________")
   print(cell)

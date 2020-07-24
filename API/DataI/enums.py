@@ -41,12 +41,12 @@ class ChartTypes(enum.Enum):
     MultiplePieChart = 'MultiplePieChart'
     SmartPieChart = 'SmartPieChart'
     PyramidalChart = 'PyramidalChart'
-    InfChart = 'InfChart'
+    ManInfChart = 'ManInfChart'
     FemaleAndMaleChart = 'FemaleAndMaleChart'
     FemaleInfChart = 'FemaleInfChart'
     HealthyFoodChart = 'HealthyFoodChart'
     MapChart = 'MapChart'
-    MapChartByLatitudeAndLongitude = 'MapChartByLatitudeAndLongitude'
+    MapChartByLatitudeAndLongitude = 'GeometryMapChart'
 
 
 class AggregationType(enum.Enum):

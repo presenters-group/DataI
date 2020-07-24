@@ -1,12 +1,12 @@
 import drawSvg as draw
 
 from numpy import double
-from DataI.Controllers.DrawControllers.InfChart import InfChart
+from DataI.Controllers.DrawControllers.ManInfChart import ManInfChart
 from DataI.Models.ColumnModel import ColumnModel
 from DataI.Models.TableModel import TableModel
 
 
-class FemaleInfChart(InfChart):
+class FemaleInfChart(ManInfChart):
     def __init__(self, dataSource: TableModel, XColumn: ColumnModel, width: double, height: double, animation: bool, nameFile: str):
       super().__init__(dataSource, XColumn,width, height, animation, nameFile)
 
