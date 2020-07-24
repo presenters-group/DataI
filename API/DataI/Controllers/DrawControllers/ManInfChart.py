@@ -9,7 +9,7 @@ from DataI.Models.ColumnModel import ColumnModel
 from DataI.Models.TableModel import TableModel
 
 
-class InfChart(Chart):
+class ManInfChart(Chart):
     def __init__(self, dataSource: TableModel, XColumn: ColumnModel, width: double, height: double, animation: bool, nameFile: str):
         super().__init__(dataSource, width, height, XColumn,animation)
         self.widthView = 1000

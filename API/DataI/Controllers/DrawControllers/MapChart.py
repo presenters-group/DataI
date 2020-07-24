@@ -18,11 +18,9 @@ class MapChart():
         self.heightView = 1000 - 1000/3
         self.dataSourceTableWithoutXcolumn = dataSource
         self.xColumn = XColumn
-        print(XColumn.name)
         self.idOfKeyColumn = 0
         self.color = self.dataSourceTableWithoutXcolumn.columnsColors[0]
         self.keyColumn = self.findKeyColumn()
-        print("hereeeeeeeeeeeeeeeeeeeeee:",self.keyColumn.name)
         if self.keyColumn != self.xColumn:
           self.listOfLength = list()
           self.d = draw.Drawing(self.widthView , self.heightView)
@@ -76,7 +74,6 @@ class MapChart():
           self.dataSourceTableWithoutXcolumn.columns.pop(ID)
           self.idOfKeyColumn = ID
           self.color =  self.dataSourceTableWithoutXcolumn.columnsColors[ID]
-          print(ID , "some ::", column.name)
           return column
         ID += 1
       ID = 0

@@ -3,7 +3,7 @@ import drawSvg as draw
 import numpy as np
 
 from typing import List
-from numpy import double
+from numpy import double, os
 
 from DataI import enums
 from DataI.Models.ColumnModel import ColumnModel
