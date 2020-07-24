@@ -56,7 +56,7 @@ class DrawController():
         drawTable = tableFilter(data, dashboardId, visioId)
 
         drawTable = DataSourcesController.\
-            sugreCoatAggregatedChartTable(data, drawTable, VisualizationsController.getFilteredTable)
+            sugreCoatAggregatedChartTable(data, drawTable, VisualizationsController.getFilteredTable, visualizer.id)
 
 
         xColumn = drawTable.columns[DataController.getElementIndexById(drawTable.columns, visualizer.xColumn)]
@@ -83,7 +83,7 @@ class DrawController():
         drawTable = tableFilter(data, dashboardId, visioId)
 
         drawTable = DataSourcesController. \
-            sugreCoatAggregatedChartTable(data, drawTable, VisualizationsController.getFilteredTable)
+            sugreCoatAggregatedChartTable(data, drawTable, VisualizationsController.getFilteredTable, visualizer.id)
 
         xColumn = drawTable.columns[DataController.getElementIndexById(drawTable.columns, visualizer.xColumn)]
 
@@ -104,7 +104,7 @@ class DrawController():
         drawTable = tableFilter(data, dashboardId, visioId)
 
         drawTable = DataSourcesController. \
-            sugreCoatAggregatedChartTable(data, drawTable, VisualizationsController.getFilteredTable)
+            sugreCoatAggregatedChartTable(data, drawTable, VisualizationsController.getFilteredTable, visualizer.id)
 
         xColumn = drawTable.columns[DataController.getElementIndexById(drawTable.columns, visualizer.xColumn)]
 
