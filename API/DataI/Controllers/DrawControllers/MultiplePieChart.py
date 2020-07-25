@@ -89,7 +89,10 @@ class MultiplePieChart(Chart):
                         a = ("A %s %s 0 %s 0 %s %s" % (r, r, large_arc_flag, xendpoint, yendpoint))
                         L = ("L %s %s" % (xCenter, yCenter))
                         p = draw.Path(stroke_width=self.stroke, stroke="white", fill=colorList[i - 1], fill_opacity=1,
-                                      d=M + a + L)
+                                      d=M + a + L,Class=str(self.Index))
+                        self.metaData.append(str(self.xColumn.name+" : "+str(cell.value)+"->"+column.name+" : "+str(self.percentageOfValue(cell2.value,column))+"%"))
+                        self.Index += 1
+
                         p.Z()
                         self.d.append(p)
                         if (b == 0):

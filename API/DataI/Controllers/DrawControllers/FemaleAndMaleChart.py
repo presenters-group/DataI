@@ -86,10 +86,12 @@ class FemaleAndMaleChart(Chart):
                     height = self.getLengthForFemale(double(cell2.value))
                     oldstartPoint = height
                     text = str(cell.value) + ": " + str(self.percentageOfValueinFemale(double(cell2.value)))[0:4] + "%"
-                    self.d.append(
-                        draw.Rectangle(0, startX+800, self.widthView + 50, height, fill=self.colorList[i-1], fill_opacity=0.5,
+                    r =draw.Rectangle(0, startX+800, self.widthView + 50, height, fill=self.colorList[i-1], fill_opacity=0.5,
                                        stroke="white",
-                                       stroke_width=2,transform="translate(380,-100) scale(0.30 0.30)" ,Class=str(self.Index),id= self.Index))
+                                       stroke_width=2,transform="translate(380,-100) scale(0.30 0.30)" ,Class=str(self.Index),id= self.Index)
+                    if self.animation:
+                      r.appendAnim(draw.Animate('width', '2s', from_or_values=0, to=self.widthView + 50 ,repeatCount='1'))
+                    self.d.append(r)
                     self.metaData.append(text)
                     self.Index += 1
 
@@ -106,10 +108,12 @@ class FemaleAndMaleChart(Chart):
                     height = self.getLengthforMale(double(cell2.value))
                     oldstartPoint = height
                     text = str(cell.value) + ": " + str(self.percentageOfValueinMale(double(cell2.value)))[0:4] + "%"
-                    self.d.append(
-                        draw.Rectangle(0, startX+800, self.widthView + 50, height, fill=self.colorList[i-1], fill_opacity=0.5,
+                    r = draw.Rectangle(0, startX+800, self.widthView + 50, height, fill=self.colorList[i-1], fill_opacity=0.5,
                                        stroke="white",
-                                       stroke_width=2,transform="translate(0,-80) scale(0.30 0.33)" ,Class=str(self.Index),id= self.Index))
+                                       stroke_width=2,transform="translate(0,-80) scale(0.30 0.33)" ,Class=str(self.Index),id= self.Index)
+                    if self.animation:
+                      r.appendAnim(draw.Animate('width', '2s', from_or_values=0, to=self.widthView + 50 ,repeatCount='1'))
+                    self.d.append(r)
                     self.metaData.append(text)
                     self.Index += 1
 
